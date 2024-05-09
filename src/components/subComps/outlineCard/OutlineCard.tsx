@@ -26,10 +26,10 @@ function OutlineCard() {
                 <Stack spacing={2}>
                   <Card sx={{ height: 400, maxWidth: 345 }}>
                     <CardContent>
-                      <Typography textAlign="center" variant="h2">
+                      <Typography textAlign="center" variant="h2" sx={{ mt: 5 }}>
                         {service.name}
                       </Typography>
-                      <Typography textAlign="center" variant="body1">
+                      <Typography textAlign="center" variant="body1" sx={{ mt: 5 }}>
                         {service.description}
                       </Typography>
                     </CardContent>
