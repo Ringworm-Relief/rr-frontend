@@ -1,4 +1,5 @@
-import { Card, CardContent, CardActions, Typography, Stack } from "@mui/material";
+import { Card, CardContent, CardActions, Typography, Stack, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function WelcomeCard() {
   return (
@@ -16,7 +17,11 @@ function WelcomeCard() {
           <Typography variant="h2">What you're going through is hard.</Typography>
           <Typography variant="h4">I will make it harder</Typography>
         </CardContent>
-        <CardActions></CardActions>
+        <CardActions>
+          <Button variant="contained" color="warning">
+            <Link to='account/new'>Sign Up</Link>
+          </Button>
+        </CardActions>
       </Card>
     </div>
   );

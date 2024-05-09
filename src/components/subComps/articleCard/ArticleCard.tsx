@@ -29,12 +29,14 @@ function ArticleCard() {
                     height: 400,
                     maxWidth: 345,
                     boxShadow: "none",
+                    overflowY: "auto",
                     transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
                     "&:hover": {
                       boxShadow: "0 4px 20px 0 rgba(0,0,0,0.12)",
                       transform: "scale(1.01)",
                     },
                   }}
+                  onClick={() => window.open(article.source, "_blank")} //Change to route internally to article page
                 >
                   <CardContent>
                     <Typography textAlign="left" variant="h2">
