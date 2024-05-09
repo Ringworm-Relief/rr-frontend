@@ -1,8 +1,12 @@
 
+import WelcomeCard from "../../subComps/welcomeCard/WelcomeCard";
+import LandingCards from "../../subComps/landingArticles/LandingCards";
+
 function Landing() {
   return (
     <div>
-      <h1>Welcome to the landing page</h1>
+      <WelcomeCard/>
+      <LandingCards/>
     </div>
   );
 }
