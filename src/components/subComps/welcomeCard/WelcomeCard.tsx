@@ -21,6 +21,10 @@ function WelcomeCard() {
           <Button variant="contained" color="warning">
             <Link to='account/new'>Sign Up</Link>
           </Button>
+          <Button variant="contained" color="warning">
+            <Link to='account/signin'>Sign In</Link>
+            {/* Add sign in page */}
+          </Button>
         </CardActions>
       </Card>
     </div>
