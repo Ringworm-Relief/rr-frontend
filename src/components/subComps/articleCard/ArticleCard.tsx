@@ -40,14 +40,18 @@ function ArticleCard() {
                     <Typography textAlign="left" variant="h2">
                       {article.title}
                     </Typography>
-                    <Typography
-                      textAlign="left"
-                      variant="body1"
-                      color="text.secondary"
-                    >
-                      BFGBSDJGB gsdjgsdkgj gjssji gedfg fguhgsioghguiab fgbsdj
-                      gsnkgd gskngS dhdhdgjndfz bnhkjdhgdhd hzghfsdJKGJSC
-                    </Typography>
+                    {article.paragraphs.map((paragraph: string) => {
+                        return (
+                            <Typography
+                                textAlign="left"
+                                variant="body1"
+                                color="text.secondary"
+                                sx={{ mt: 5}}
+                            >
+                                {paragraph}
+                            </Typography>
+                        )
+                    })}
                   </CardContent>
                   <CardActions></CardActions>
                 </Card>
