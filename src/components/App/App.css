@@ -6,3 +6,13 @@
     height: 100%;
     overflow-y: scroll;
   }
+
+  .App_header {
+    background-color: #ffffff;
+    min-height: 18vh;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: end;
+    font-size: calc(10px + 1vmin);
+  }
