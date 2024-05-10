@@ -20,6 +20,8 @@ function App() {
   //   navigate(`/education/${article.title}/${article.tagline}`)
   // }
 
+  //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
+  //Must createAccount to access user right now since no data exists in the mock server
   useEffect(() => {
     fetchUser(1)
     .then((user: any) => {
