@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NewUser, Attributes } from "../../../utils/utils";
 import {
   Box,
   Stack,
@@ -21,12 +22,28 @@ function CreateAccount() {
       // Call the API to create the account
       // body = { firstName, lastName, email, password }
       // If successful, redirect to the login page
-      const newUser = {
-        firstName,
-        lastName,
-        email,
-        password,
+      // const newUser = {
+      //   "data": {
+      //     "type": "user",
+      //     "attributes": {
+      //       "first_name": firstName,
+      //       "last_name": lastName,
+      //       "email": email,
+      //       "password": password
+      //     }
+      //   }
+      // }
+      const newUser: NewUser = {
+        data: {
+        type: "user",
+        attributes: {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password
+        }
       }
+    }
       console.log(newUser)
     } else {
       // Show an error message

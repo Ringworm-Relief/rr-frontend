@@ -58,3 +58,22 @@ export const mockArticles: Article[] = [
         ]
     }
 ]
+
+export interface NewUser {
+    data: Data;
+}
+
+export interface Data {
+    type: string;
+    attributes: Attributes;
+}
+export interface Attributes {
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+}
+
+// export interface NewUser {
+//     attributes: Attributes;
+// }
