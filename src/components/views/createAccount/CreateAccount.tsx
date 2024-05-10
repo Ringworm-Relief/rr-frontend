@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { NewUser, Attributes } from "../../../utils/utils";
+import { NewUser } from "../../../utils/utils";
+import { postNewUser } from "../../../apiCalls";
 import {
   Box,
   Stack,
@@ -7,7 +8,7 @@ import {
   OutlinedInput,
   FormControl,
   Button,
-  Container
+  Container,
 } from "@mui/material";
 
 function CreateAccount() {
@@ -19,87 +20,77 @@ function CreateAccount() {
 
   const handleCreateAccount = () => {
     if (password === confirmPassword) {
-      // Call the API to create the account
-      // body = { firstName, lastName, email, password }
-      // If successful, redirect to the login page
-      // const newUser = {
-      //   "data": {
-      //     "type": "user",
-      //     "attributes": {
-      //       "first_name": firstName,
-      //       "last_name": lastName,
-      //       "email": email,
-      //       "password": password
-      //     }
-      //   }
-      // }
       const newUser: NewUser = {
         data: {
-        type: "user",
-        attributes: {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          password: password
-        }
-      }
-    }
-      console.log(newUser)
-    } else {
-      // Show an error message
-      // Passwords do not match
-      console.log('Submit failed. Passwords do not match.')
+          type: "user",
+          attributes: {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+          },
+        },
+      };
+      postNewUser(newUser)
+        .then((user: any) => {
+          console.log(user);
+         // If successful, redirect to the login page
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
     }
   };
-
   return (
     <Container maxWidth="xs">
-    <Box component="form"  onSubmit={handleCreateAccount}>
-      <FormControl>
-        <InputLabel htmlFor="firstName">First Name</InputLabel>
-        <OutlinedInput
-          type="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="lastName">Last Name</InputLabel>
-        <OutlinedInput
-          type="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </FormControl>
-      <Stack direction="column">
+      <Box component="form" onSubmit={handleCreateAccount}>
         <FormControl>
-          <InputLabel htmlFor="email">Email</InputLabel>
+          <InputLabel htmlFor="firstName">First Name</InputLabel>
           <OutlinedInput
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="password">Password</InputLabel>
+          <InputLabel htmlFor="lastName">Last Name</InputLabel>
           <OutlinedInput
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </FormControl>
-        <FormControl>
-          <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
-          <OutlinedInput
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </FormControl>
-        <Button variant="contained" onClick={handleCreateAccount}>Create Account</Button>
-        {/* Route to dashboard after account creation */}
-      </Stack>
-    </Box>
+        <Stack direction="column">
+          <FormControl>
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <OutlinedInput
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <OutlinedInput
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
+            <OutlinedInput
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </FormControl>
+          <Button variant="contained" onClick={handleCreateAccount}>
+            Create Account
+          </Button>
+          {/* Route to dashboard after account creation */}
+        </Stack>
+      </Box>
     </Container>
   );
 }
