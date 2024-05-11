@@ -8,7 +8,7 @@ import {
   Box,
   Stack,
 } from "@mui/material";
-import { Service, services } from "../../../utils/utils";
+import { Service, services } from "../../../utils/interfaces";
 
 function OutlineCard() {
   return (
