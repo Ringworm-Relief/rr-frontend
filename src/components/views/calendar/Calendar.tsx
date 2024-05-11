@@ -4,7 +4,7 @@ interface Props  {
 }
 
 function Calendar({ user }: Props) {
-  console.log(user.data.type)
+  // console.log(user.data.type)
   return (
     <div>
       <h1>Calendar</h1>
