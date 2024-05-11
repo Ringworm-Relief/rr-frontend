@@ -47,12 +47,11 @@ describe('Landing Page', () => {
     })
   })
 
-  //Failing to find drawer when clicking hamburger
   it('Should show a drawer on hamburger click', () => {
     // cy.get('.css-1160xiw-MuiPaper-root-MuiDrawer-paper').should('not.be.visible')
     cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
-    cy.get('MuiPaper-root').within(() => {
-      cy.get('MuiListItemButton-root')
+    cy.get('.MuiDrawer-paper').within(() => {
+      cy.get('.MuiListItemButton-root').should('have.length', 4)
     })
   })
 })
