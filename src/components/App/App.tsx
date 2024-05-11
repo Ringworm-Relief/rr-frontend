@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../signIn/SignIn";
-import { fetchUser } from "../../apiCalls";
+import { fetchUser } from "../../apiCalls/userApiCalls";
 
 
 function App() {
