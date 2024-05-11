@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NewUser } from "../../../utils/utils";
+import { NewUser } from "../../../utils/interfaces";
 import { postNewUser } from "../../../apiCalls/userApiCalls";
 import {
   Box,

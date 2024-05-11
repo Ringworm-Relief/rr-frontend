@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { Article, mockArticles } from "../../../utils/utils";
+import { Article, mockArticles } from "../../../utils/interfaces";
 
 function ArticleCard() {
 const navigate = useNavigate();
