@@ -32,7 +32,7 @@ function MainDashboard() {
           <Link to={`/user/1/addpet`}>
           <Item>
             <Typography textAlign="center" variant="h3">
-              Pets
+              Add Pet
             </Typography>
           </Item>
           </Link>
