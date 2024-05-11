@@ -69,7 +69,6 @@ function OutlineCard() {
                       }}
                     >
                       <Typography
-                      
                         textAlign="center"
                         variant="h2"
                         sx={{ mt: 5 }}
