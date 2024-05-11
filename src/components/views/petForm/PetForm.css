@@ -4,3 +4,16 @@
     width: 30%; 
     margin: 0 auto; 
 }
+
+#paw-svg {
+    height: 20px;
+}
+
+#fungi-svg {
+    height: 22px;
+}
+
+#pill-svg {
+    height: 23px;
+    transform: rotate(45deg);
+}

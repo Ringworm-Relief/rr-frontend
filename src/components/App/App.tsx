@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Landing from '../views/landing/Landing';
+import PetForm from '../views/petForm/PetForm';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/petform" element={<PetForm />} />
       </Routes>
     </div>
   );
