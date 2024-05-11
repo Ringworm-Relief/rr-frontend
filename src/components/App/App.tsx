@@ -6,18 +6,32 @@ import Calendar from "../views/calendar/Calendar";
 import Article from "../article/Article";
 import MainDashboard from "../views/mainDashboard/MainDashboard";
 import { Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../signIn/SignIn";
+import { fetchUser } from "../../apiCalls";
 
 function App() {
-  const [user, setUser] = useState({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
+  const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
 
   // const handleArticleClick = () => {
   //   navigate(`/education/${article.title}/${article.tagline}`)
   // }
+
+  //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
+  //Must createAccount to access user right now since no data exists in the mock server
+  useEffect(() => {
+    fetchUser(1)
+    .then((user: any) => {
+      setUser(user)
+      console.log(user)
+    })
+    .catch((error: any) => {
+      console.log(error)
+    })
+  }, [])
 
   return (
     <div className="App">
@@ -49,7 +63,7 @@ function App() {
         <Route path="account/signin" element={<SignIn />} />
         <Route path="/education" element={<Education />} />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/1/calendar" element={<Calendar />} />
+        <Route path="/user/1/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/1/dashboard" element={<MainDashboard />} />
       </Routes>
