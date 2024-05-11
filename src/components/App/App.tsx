@@ -72,7 +72,7 @@ function App() {
         <Route path="/user/1/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/1/dashboard" element={<MainDashboard />} />
-
+        <Route path="/user/1/" element={<Education />} />
       </Routes>
       <footer className="App_footer">
         <p>Licensing info Syncfusion</p>
