@@ -1,7 +1,4 @@
-/* * {
-    box-sizing: border-box;
-  } */
-  
+
   html, body {
     height: 100%;
     overflow-y: scroll;
@@ -11,8 +8,39 @@
     background-color: #ffffff;
     min-height: 18vh;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     /* align-items: center; */
     justify-content: end;
+    font-size: calc(10px + 1vmin);
+  }
+
+  .App_nav {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .App_nav_links {
+    /* display: flex;
+    flex-direction: row; */
+    margin-right: 20px;
+  }
+
+  .App_link {
+    color: black;
+    text-decoration: none;
+    &:hover {
+      color: #f16135;
+      text-decoration: underline;
+    }
+  }
+
+  .App_footer {
+    background-color: hsla(30, 100%, 64%, 0.089);
+    min-height: 18vh;
+    display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: space-around;
     font-size: calc(10px + 1vmin);
   }
