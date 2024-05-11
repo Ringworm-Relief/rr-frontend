@@ -1,3 +1,7 @@
+
+import React from 'react';
+import PetForm from '../views/petForm/PetForm';
+
 import "./App.css";
 import Landing from "../views/landing/Landing";
 import CreateAccount from "../views/createAccount/CreateAccount";
@@ -11,6 +15,7 @@ import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../signIn/SignIn";
 import { fetchUser } from "../../apiCalls";
+
 
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
@@ -59,6 +64,7 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/petform" element={<PetForm />} />
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn />} />
         <Route path="/education" element={<Education />} />
@@ -66,6 +72,7 @@ function App() {
         <Route path="/user/1/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/1/dashboard" element={<MainDashboard />} />
+
       </Routes>
       <footer className="App_footer">
         <p>Licensing info Syncfusion</p>
