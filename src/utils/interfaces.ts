@@ -64,7 +64,6 @@ export interface NewUser {
 }
 
 export interface Data {
-    id: string;
     type: string;
     attributes: Attributes;
 }
@@ -142,7 +141,6 @@ export const Pets: Pet[] = [
 export const user: NewUser[] = [
     {
         data: {
-            id: '1',
             type: 'users',
             attributes: {
                 first_name: 'John',
