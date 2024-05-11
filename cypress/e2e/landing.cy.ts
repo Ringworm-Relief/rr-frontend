@@ -34,7 +34,7 @@ describe('Landing Page', () => {
     })
   })
 
-  it('Should show services cards', () => {
+  it('Should show article cards', () => {
     cy.get('.article-card').within(() => {
       cy.get('.css-46bh2p-MuiCardContent-root').first().within(() => {
         cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Dogs')
