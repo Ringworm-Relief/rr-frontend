@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NewUser } from "../../../utils/utils";
-import { postNewUser } from "../../../apiCalls";
+import { postNewUser } from "../../../apiCalls/userApiCalls";
 import {
   Box,
   Stack,
@@ -34,7 +34,7 @@ function CreateAccount() {
       postNewUser(newUser)
         .then((user: any) => {
           console.log(user);
-         // If successful, redirect to the login page
+                // If successful, redirect to the login page
         })
         .catch((error: any) => {
           console.log(error);

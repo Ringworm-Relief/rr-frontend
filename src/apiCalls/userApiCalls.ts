@@ -1,4 +1,4 @@
-import { NewUser } from "./utils/utils";
+import { NewUser } from "../utils/utils";
 
 export const postNewUser = (newUser: NewUser) => {
  return fetch("https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/users", {
