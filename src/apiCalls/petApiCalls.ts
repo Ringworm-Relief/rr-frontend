@@ -19,9 +19,7 @@ function postPet(pet: Pet) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pet)
     })
-    .then(res => {
-      
-        res.json()})
+    .then(res => {res.json()})
 }
 
 export default postPet
