@@ -29,12 +29,13 @@ function MainDashboard() {
         <Grid xs={4}>
           {/* Map through pets after fetch is included
           instead of pets, each pet will be a card */}
-          <Link to={`/user/1/addpet`}></Link>
+          <Link to={`/user/1/addpet`}>
           <Item>
             <Typography textAlign="center" variant="h3">
               Pets
             </Typography>
           </Item>
+          </Link>
         </Grid>
         <Grid xs={4}>
           <Item>
