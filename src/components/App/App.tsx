@@ -64,7 +64,6 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/petform" element={<PetForm />} />
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn />} />
         <Route path="/education" element={<Education />} />
@@ -72,7 +71,7 @@ function App() {
         <Route path="/user/1/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/1/dashboard" element={<MainDashboard />} />
-        <Route path="/user/1/" element={<Education />} />
+        <Route path="/user/1/addpet" element={<PetForm />} />
       </Routes>
       <footer className="App_footer">
         <p>Licensing info Syncfusion</p>
