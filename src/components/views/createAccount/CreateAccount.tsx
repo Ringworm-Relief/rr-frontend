@@ -50,6 +50,7 @@ function CreateAccount() {
             type="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            required
           />
         </FormControl>
         <FormControl>
@@ -58,6 +59,7 @@ function CreateAccount() {
             type="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            required
           />
         </FormControl>
         <Stack direction="column">
@@ -67,6 +69,7 @@ function CreateAccount() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </FormControl>
           <FormControl>
@@ -75,6 +78,7 @@ function CreateAccount() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </FormControl>
           <FormControl>
@@ -83,6 +87,7 @@ function CreateAccount() {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </FormControl>
           <Button variant="contained" onClick={handleCreateAccount}>
