@@ -34,9 +34,11 @@ function MainDashboard() {
             <Grid xs={4} md={4} lg={4}>
               <Card
                 sx={{
-                  margin: 2,
+                  mb: 10,
+                  mx: 2,
                   borderRadius: 10,
-                  boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
+                  border: "1px solid #ced7e0",
+                  boxShadow: "none",
                   position: "relative",
                   maxWidth: 400,
                   maxHeight: 200,
@@ -52,19 +54,33 @@ function MainDashboard() {
                 <CardMedia
                   image={"https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*"}
                   sx={{
-                    width: "88%",
-                    marginLeft: "auto",
+                    width: "50%",
+                    marginLeft: .6,
                     marginRight: "auto",
-                    marginTop: -3,
+                    marginTop: .6,
                     height: 0,
-                    paddingBottom: "48%",
+                    paddingBottom: "34%",
                     borderRadius: 10,
                     textAlign: "center",
-                    opacity: 0.9,
-                    color: "white",
+                    // backgroundImage: "linear-gradient(147deg, #fe8a39 0%, #fd3838 95%)",
+                    // opacity: 0.9,
+                    color: "#9A352F",
+                    "&:after": {
+                      content: '" "',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backgroundImage:
+                        "linear-gradient(147deg, #fe8a39 0%, #fd3838 74%)",
+                      borderRadius: 10,
+                      // 16
+                      opacity: 0.1,
+                    },
                   }}
                 >
-                  <Typography textAlign="center" variant="h4" fontWeight="bold" sx={{ mt: "20%" }}>
+                  <Typography textAlign="center" variant="h4" fontWeight="bold" sx={{ mt: "20%", marginTop: 5, marginRight: -43 }}>
                     {pet.pet_name}
                   </Typography>
                 </CardMedia>
@@ -89,13 +105,22 @@ function MainDashboard() {
             </Item>
           </Link>
         </Grid>
-        <Grid xs={4} sm={4} md={4}>
+        {/* <Grid xs={4} sm={4} md={4}> */}
           {/* Map through pets after fetch is included
           instead of pets, each pet will be a card */}
-          <Link to={`/user/1/addpet`}>
+          {/* <Link to={`/user/1/addpet`}>
             <Item>
               <Typography textAlign="center" variant="h3">
                 Add Pet
+              </Typography>
+            </Item>
+          </Link>
+        </Grid> */}
+        <Grid xs={4} md={4}>
+          <Link to="/education">
+            <Item>
+              <Typography textAlign="center" variant="h5">
+                Saved Articles
               </Typography>
             </Item>
           </Link>
@@ -106,15 +131,6 @@ function MainDashboard() {
               Account Management
             </Typography>
           </Item>
-        </Grid>
-        <Grid xs md>
-          <Link to="/education">
-            <Item>
-              <Typography textAlign="center" variant="h5">
-                Saved Articles
-              </Typography>
-            </Item>
-          </Link>
         </Grid>
       </Grid>
     </Box>
