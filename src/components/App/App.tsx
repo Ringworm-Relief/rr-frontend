@@ -43,12 +43,12 @@ function App() {
       <header className="App_header">
         <nav className="App_nav">
           <div className="App_nav_links">
-            <Link className="App_link" to="/user/1/calendar">
+            <Link className="App_link" to={user.id ? `/user/${user.id}/calendar` : '/account/signin'}>
               Calendar
             </Link>
           </div>
           <div className="App_nav_links">
-            <Link className="App_link" to="/user/1/dashboard">
+            <Link className="App_link" to={user.id ? `/user/${user.id}/dashboard` : '/account/signin'}>
               Dashboard
             </Link>
           </div>
@@ -58,7 +58,7 @@ function App() {
             </Link>
           </div>
           <div className="App_nav_links">
-            <Drawer />
+            <Drawer user={user}/>
           </div>
         </nav>
       </header>

@@ -75,7 +75,8 @@ export interface Attributes {
     password: string;
 }
 
-export interface Pet {
+
+export type Pet = {
     user_id: number,
     pet_name: string,
     pet_type: string,
@@ -88,10 +89,67 @@ export interface Pet {
     medication_frequency: string,
     ringworm_type: string,
     ringworm_diagnosis_date: string
-  }
+}
+
+export const Pets: Pet[] = [
+    {
+        user_id: 1,
+        pet_name: 'Alfred',
+        pet_type:'Dog',
+        pet_breed: 'Golden Retriever',
+        pet_birthday: '05/05/2015',
+        pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
+    },
+    {
+        user_id: 1,
+        pet_name: 'Bella',
+        pet_type:'Cat',
+        pet_breed: 'Siamese',
+        pet_birthday: '05/05/2015',
+        pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
+    },
+    {
+        user_id: 1,
+        pet_name: 'Charlie',
+        pet_type:'Horse',
+        pet_breed: 'Thoroughbred',
+        pet_birthday: '05/05/2015',
+        pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
+    
+    }
+]
 
 
 
-// export interface NewUser {
-//     attributes: Attributes;
-// }
+export const user: NewUser[] = [
+    {
+        data: {
+            type: 'users',
+            attributes: {
+                first_name: 'John',
+                last_name: 'Doe',
+                email: 'johndoe@email.com',
+                password: 'password'
+            }
+        }
+    }
+]
+

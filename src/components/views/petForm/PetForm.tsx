@@ -130,7 +130,7 @@ function PetForm() {
           Pet intake form
         </Typography>
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
-          Basics <img id="paw-svg" src={paw} />
+          Basics <img id="paw-svg" src={paw} alt="dog paw" />
         </Typography>
 
         <FormControl variant="standard" sx={{ marginTop: "20px" }}>
@@ -223,7 +223,7 @@ function PetForm() {
 
         <div className="divider"></div>
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
-          Ringworm <img id="fungi-svg" src={bacteria} />
+          Ringworm <img id="fungi-svg" src={bacteria} alt="bacteria" />
         </Typography>
 
         <FormControl variant="standard" sx={{ marginTop: "20px" }}>

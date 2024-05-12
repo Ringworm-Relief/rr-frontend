@@ -21,9 +21,13 @@ export const postNewUser = (newUser: NewUser) => {
   });
 };
 
+
+//Will refactor to use email and password to fetch user in body
+
 // export const fetchUser = (email: string, password: string) => {
 //     return fetch(`https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/users?email=${email}&password=${password}`)
 // }
+
 
 export const fetchUser = (email: string, password: string) => {
   return fetch(
