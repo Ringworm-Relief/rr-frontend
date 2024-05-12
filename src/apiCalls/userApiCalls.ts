@@ -2,7 +2,7 @@ import { NewUser } from "../utils/interfaces";
 
 export const postNewUser = (newUser: NewUser) => {
   return fetch(
-    "https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/users",
+    "https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/users/signup",
     {
       method: "POST",
       headers: {
@@ -13,11 +13,7 @@ export const postNewUser = (newUser: NewUser) => {
       }),
     }
   ).then((response: any) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error("Failed to create account.");
-    }
+   return response.json();
   });
 };
 
@@ -38,20 +34,16 @@ export const fetchUser = (email: string, password: string) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data: {
-          type: "user",
-          attributes: {
-            email: email,
-            password: password,
+        "data": {
+          "type": "user",
+          "attributes": {
+            "email": email,
+            "password": password,
           },
         },
       }),
     }
   ).then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error("Failed to fetch user.");
-    }
+    return response.json();
   });
 };

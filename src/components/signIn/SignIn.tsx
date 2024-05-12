@@ -10,15 +10,25 @@ import {
 import { useState } from "react";
 import { fetchUser } from "../../apiCalls/userApiCalls";
 
-function SignIn() {
+interface Props {
+  setUser: React.Dispatch<any>
+}
+
+function SignIn({ setUser }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
       fetchUser(email, password)
         .then((user: any) => {
-          console.log(user.data);
-                // If successful, redirect to the login page
+          if(!user) {
+            console.log("User not found")
+            // If user not found, display error message
+          } else {
+            setUser(user);
+            console.log(user);
+            // If user found, set user state and redirect to dashboard
+          }
         })
         .catch((error: any) => {
           console.log(error);

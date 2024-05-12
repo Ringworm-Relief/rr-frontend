@@ -10,17 +10,16 @@ import {
   Button,
   Container,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  setUser: React.Dispatch<any>
-}
 
-function CreateAccount({ setUser }: Props) {
+function CreateAccount() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleCreateAccount = () => {
     if (password === confirmPassword) {
@@ -36,10 +35,14 @@ function CreateAccount({ setUser }: Props) {
         },
       };
       postNewUser(newUser)
-        .then((user: any) => {
-          console.log(user);
-          setUser(user);
-                // If successful, redirect to the login page
+        .then((resp: any) => {
+         if(!resp) {
+          console.log("Failed to create account");
+          // If account creation fails, display error message
+         } else {
+          navigate("/account/signin");
+           // If successful, redirect to the login page
+         }
         })
         .catch((error: any) => {
           console.log(error);
