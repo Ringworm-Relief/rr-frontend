@@ -75,6 +75,7 @@ export interface Attributes {
     password: string;
 }
 
+
 export type Pet = {
     user_id: number,
     pet_name: string,
@@ -151,3 +152,4 @@ export const user: NewUser[] = [
         }
     }
 ]
+
