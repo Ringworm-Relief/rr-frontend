@@ -1,7 +1,7 @@
 
 import WelcomeCard from "../../subComps/welcomeCard/WelcomeCard";
 import LandingCards from "../../subComps/landingArticles/LandingCards";
-import { Stack, Drawer,  } from "@mui/material";
+import { Stack } from "@mui/material";
 
 function Landing() {
   return (
