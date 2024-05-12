@@ -27,16 +27,15 @@ function App() {
 
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
-  // useEffect(() => {
-  //   fetchUser(1)
-  //   .then((user: any) => {
-  //     setUser(user)
-  //     console.log(user)
-  //   })
-  //   .catch((error: any) => {
-  //     console.log(error)
-  //   })
-  // }, [])
+  useEffect(() => {
+    const user = {
+      id: 1,
+      first_name: "John",
+      last_name: "Doe",
+    }
+   setUser(user)
+
+  }, [])
 
   return (
     <div className="App">
