@@ -64,14 +64,14 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/petform" element={<PetForm />} />
+        <Route path="/user/:user_id/petform" element={<PetForm />} />
         <Route path="account/new" element={<CreateAccount setUser={setUser}/>} />
         <Route path="account/signin" element={<SignIn />} />
         <Route path="/education" element={<Education />} />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/1/calendar" element={<Calendar user={user}/>} />
+        <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
-        <Route path="/user/1/dashboard" element={<MainDashboard />} />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />
 
       </Routes>
       <footer className="App_footer">
