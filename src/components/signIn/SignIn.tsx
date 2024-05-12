@@ -7,53 +7,26 @@ import {
   Button,
   Container,
 } from "@mui/material";
+import { useState } from "react";
+import { fetchUser } from "../../apiCalls/userApiCalls";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCreateAccount = () => {
-    if (password === confirmPassword) {
-      const newUser: NewUser = {
-        data: {
-          type: "user",
-          attributes: {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            password: password,
-          },
-        },
-      };
-      postNewUser(newUser)
+  const handleSignIn = () => {
+      fetchUser(email, password)
         .then((user: any) => {
-          console.log(user);
+          console.log(user.data);
                 // If successful, redirect to the login page
         })
         .catch((error: any) => {
           console.log(error);
         });
-    }
   };
   return (
     <Container maxWidth="xs">
-    <Box component="form" onSubmit={handleCreateAccount}>
-      <FormControl>
-        <InputLabel htmlFor="firstName">First Name</InputLabel>
-        <OutlinedInput
-          type="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="lastName">Last Name</InputLabel>
-        <OutlinedInput
-          type="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </FormControl>
+    <Box component="form" onSubmit={handleSignIn}>
       <Stack direction="column">
         <FormControl>
           <InputLabel htmlFor="email">Email</InputLabel>
@@ -71,18 +44,11 @@ function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <FormControl>
-          <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
-          <OutlinedInput
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </FormControl>
-        <Button variant="contained" onClick={handleCreateAccount}>
-          Create Account
+        <Button variant="contained" onClick={handleSignIn}>
+          Sign In
         </Button>
         {/* Route to dashboard after account creation */}
+        <Button> Create Account </Button>
       </Stack>
     </Box>
   </Container>

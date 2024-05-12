@@ -11,7 +11,11 @@ import {
   Container,
 } from "@mui/material";
 
-function CreateAccount() {
+interface Props {
+  setUser: React.Dispatch<any>
+}
+
+function CreateAccount({ setUser }: Props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,6 +38,7 @@ function CreateAccount() {
       postNewUser(newUser)
         .then((user: any) => {
           console.log(user);
+          setUser(user);
                 // If successful, redirect to the login page
         })
         .catch((error: any) => {
