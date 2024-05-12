@@ -67,12 +67,30 @@ export interface Data {
     type: string;
     attributes: Attributes;
 }
+
 export interface Attributes {
     first_name: string;
     last_name: string;
     email: string;
     password: string;
 }
+
+export interface Pet {
+    user_id: number,
+    pet_name: string,
+    pet_type: string,
+    pet_breed: string,
+    pet_birthday: string,
+    pet_symptoms: string[],
+    medication_type: string,
+    medication_name: string,
+    medication_dosage: string,
+    medication_frequency: string,
+    ringworm_type: string,
+    ringworm_diagnosis_date: string
+  }
+
+
 
 // export interface NewUser {
 //     attributes: Attributes;
