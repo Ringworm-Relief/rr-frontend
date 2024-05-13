@@ -153,3 +153,26 @@ export const user: NewUser[] = [
     }
 ]
 
+export interface EducationCategory {
+    category: string;
+    type: string;
+    description: string;
+}
+
+export const educationCategories: EducationCategory[] = [
+    {
+        category: 'Cleaning',
+        type: "cleaning",
+        description: 'Thorough and regularly cleaning is necessary for defeating ringworm. Browse cleaning articles here.'
+    },
+    {
+        category: 'Treatments',
+        type: "medical",
+        description: 'There are lots of treatments available for ringworm. Learn about the options out there for you and your furry friends.'
+    },
+    {
+        category: 'General Info',
+        type: "general",
+        description: 'Ringworm can be scary and overwhelming. Here we provide some general articles to breakdown the main need-to-knows.'
+    }
+];
