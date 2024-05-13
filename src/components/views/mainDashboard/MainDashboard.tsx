@@ -17,21 +17,34 @@ import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
 import CalendarMin from "./dashboardComponents/CalendarMin";
 // import NewPetCard from "./dashboardComponents/NewPetCard";
 
-function MainDashboard() {
+import { useNavigate } from "react-router-dom";
+
+interface Props {
+  user: any;
+}
+
+function MainDashboard({ user }: Props) {
+  const navigate = useNavigate();
   return (
-    <Box
-      padding={10}
-      sx={{
-        backgroundColor: "rgba(255, 146, 98, 0.03)",
-        border: "1px solid #ced7e0",
-      }}
-    >
-      <Grid container spacing={2} columns={2}>
-        <PetCards />
-        <CalendarMin />
-        <SavedArticlesCard />
-      </Grid>
-    </Box>
+    <>
+      {user.id ? (
+        <Box
+          padding={10}
+          sx={{
+            backgroundColor: "rgba(255, 146, 98, 0.03)",
+            border: "1px solid #ced7e0",
+          }}
+        >
+          <Grid container spacing={2} columns={2}>
+            <PetCards />
+            <CalendarMin />
+            <SavedArticlesCard />
+          </Grid>
+        </Box>
+      ) : (
+        navigate("/account/signin")
+      )}
+    </>
   );
 }
 

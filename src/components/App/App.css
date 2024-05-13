@@ -2,16 +2,20 @@
   html, body {
     height: 100%;
     overflow-y: scroll;
+    color: #292E30;
   }
 
   .App_header {
     background-color: #ffffff;
-    min-height: 18vh;
+    min-height: 12vh;
     display: flex;
+    width: 100%;
     /* flex-direction: row; */
     /* align-items: center; */
-    justify-content: end;
+    justify-content: space-between;
+    /* align-items: center; */
     font-size: calc(10px + 1vmin);
+    border-bottom: 2px solid #c5c5c54e;
   }
 
   .App_nav {
@@ -21,18 +25,26 @@
   }
 
   .App_nav_links {
-    /* display: flex;
-    flex-direction: row; */
-    margin-right: 20px;
+    padding: 10px;
   }
 
   .App_link {
-    color: black;
+    color: #3f3f3f;
     text-decoration: none;
     &:hover {
       color: #f16135;
       text-decoration: underline;
     }
+  }
+/* 
+  .App_link_cat {
+    height: auto;
+    margin-top: 30px;
+  } */
+
+  #cool-cat {
+    margin-top: 20px;
+    margin-left: 10px;
   }
 
   .App_footer {
@@ -43,4 +55,19 @@
     align-items: center;
     justify-content: space-around;
     font-size: calc(10px + 1vmin);
+  }
+
+  #sign_in_button {
+    color: #292E30;
+  }
+
+  .Welcome_button_text {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+  }
+
+  #char_emphasis {
+    color: #ef8e64;
+    font-size: larger;
   }
