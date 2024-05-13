@@ -1,7 +1,6 @@
 
 import React from 'react';
 import PetForm from '../views/petForm/PetForm';
-
 import "./App.css";
 import Landing from "../views/landing/Landing";
 import CreateAccount from "../views/createAccount/CreateAccount";
@@ -14,6 +13,7 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../signIn/SignIn";
+import EducationCategory from '../views/educationCategory/EducationCategory';
 import { fetchUser } from "../../apiCalls/userApiCalls";
 
 
@@ -67,6 +67,7 @@ function App() {
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn />} />
         <Route path="/education" element={<Education />} />
+        <Route path="/education/:category" element={<EducationCategory />} />
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/1/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
