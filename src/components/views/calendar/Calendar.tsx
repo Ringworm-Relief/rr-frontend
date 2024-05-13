@@ -8,12 +8,13 @@ interface Props {
 
 function Calendar({ user }: Props) {
   const navigate = useNavigate();
-  const localData: EventSettingsModel = {
-    dataSource: [{
-      EndTime: new Date(2024, 9, 6, 6, 30),
-      StartTime: new Date(2024, 9, 6, 4, 0),
-    }]
-  }
+  const data: object[] = [{
+    Id: 1,
+    Subject: 'Dinner',
+    StartTime: new Date(2024, 4, 13, 16, 0),
+    EndTime: new Date(2024, 4, 13, 18, 30),
+  }];
+  const eventSettings: EventSettingsModel = { dataSource: data }
 
   const remoteData = new DataManager({
       url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
@@ -33,7 +34,7 @@ function Calendar({ user }: Props) {
     <>
       {user.id ? (
         <>
-          <ScheduleComponent eventSettings={{ dataSource: remoteData}}>
+          <ScheduleComponent eventSettings={eventSettings}>
             <Inject services={[Day, Week, Month, Agenda]} />
           </ScheduleComponent>
         </>
