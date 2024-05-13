@@ -38,12 +38,12 @@ function CalendarMin({ user }: Props) {
           // paddingBottom: 15,
         }}
       >
-        <CardHeader title="Calendar Events" />
-        <CardContent>
-        <ScheduleComponent>
+        {/* <CardHeader title="Calendar Events" /> */}
+        {/* <CardContent> */}
+        <ScheduleComponent currentView="Agenda">
             <Inject services={[Day, Agenda]}/>
           </ScheduleComponent>
-        </CardContent>
+        {/* </CardContent> */}
       </Card>
       <NewPetCard user={user}/>
     </Stack>
