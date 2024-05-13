@@ -1,7 +1,11 @@
 import { Card, CardHeader, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
-function NewPetCard() {
+interface Props {
+  user: any;
+}
+
+function NewPetCard({ user }: Props) {
   const style = {
     mr: 1,
     mt: 2,
@@ -24,7 +28,7 @@ function NewPetCard() {
   };
   return (
     <Stack direction="row">
-      <Link to="user/1/addpet">
+      <Link to={`/user/${user.id}/addpet`}>
         <Card sx={style}>
           <CardHeader title="Add Pet" />
         </Card>

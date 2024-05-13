@@ -12,7 +12,11 @@ import { useState } from "react";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function MuiDrawer() {
+interface Props {
+  user: any;
+}
+
+function MuiDrawer({ user }: Props) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
 
@@ -26,10 +30,10 @@ function MuiDrawer() {
         navigate("/account/signin");
         break;
       case "Dashboard":
-        navigate("/user/1/dashboard");
+        navigate(user.id ? `/user/${user.id}/dashboard` : "/account/signin");
         break;
       case "Calendar":
-        navigate("/user/1/calendar");
+        navigate(user.id ? `/user/${user.id}/calendar` : "/account/signin");
         break;
       case "Saved Articles":
         navigate("/education");

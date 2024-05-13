@@ -10,7 +10,11 @@ import {
 import { Link } from "react-router-dom";
 import NewPetCard from "./AddManageCards";
 
-function CalendarMin() {
+interface Props {
+  user: any;
+}
+
+function CalendarMin({ user }: Props) {
   return (
     <Stack>
       <Card
@@ -43,7 +47,7 @@ function CalendarMin() {
           </List>
         </CardContent>
       </Card>
-      <NewPetCard />
+      <NewPetCard user={user}/>
     </Stack>
   );
 }
