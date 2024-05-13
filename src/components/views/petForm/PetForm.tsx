@@ -13,7 +13,6 @@ import {
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import React, { useState } from "react";
-import "./PetForm.css";
 import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
@@ -222,6 +221,7 @@ function PetForm() {
         </FormControl>
 
         <div className="divider"></div>
+        
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Ringworm <img id="fungi-svg" src={bacteria} alt="bacteria" />
         </Typography>
@@ -290,6 +290,7 @@ function PetForm() {
         </FormControl>
 
         <div className="divider"></div>
+      
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Medication
           <img id="pill-svg" src={pill} />

@@ -1,7 +1,6 @@
 
 import React from 'react';
 import PetForm from '../views/petForm/PetForm';
-
 import "./App.css";
 import Landing from "../views/landing/Landing";
 import CreateAccount from "../views/createAccount/CreateAccount";
@@ -15,7 +14,8 @@ import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../views/signIn/SignIn";
 import CoolCat from "../../assets/RR-4.svg";
-// import { fetchUser } from "../../apiCalls/userApiCalls";
+import EducationCategory from '../views/educationCategory/EducationCategory';
+import { fetchUser } from "../../apiCalls/userApiCalls";
 
 
 function App() {
@@ -73,9 +73,9 @@ function App() {
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
         <Route path="/education" element={<Education />} />
+        <Route path="/education/:category" element={<EducationCategory />} />
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
-        {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />
 
       </Routes>
