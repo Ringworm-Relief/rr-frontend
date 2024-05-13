@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import styled from "@mui/system/styled";
 import { Link } from "react-router-dom";
-// import { Pets } from "../../../utils/interfaces";
-import Pupper from "../../../assets/pupper.jpg";
 import PetCards from "./dashboardComponents/PetCards";
 import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
 import CalendarMin from "./dashboardComponents/CalendarMin";

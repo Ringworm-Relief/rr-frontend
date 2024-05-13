@@ -13,9 +13,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
-import SignIn from "../signIn/SignIn";
+import SignIn from "../views/signIn/SignIn";
 import CoolCat from "../../assets/RR-4.svg";
-import { fetchUser } from "../../apiCalls/userApiCalls";
+// import { fetchUser } from "../../apiCalls/userApiCalls";
 
 
 function App() {

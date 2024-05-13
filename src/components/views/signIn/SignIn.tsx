@@ -8,7 +8,7 @@ import {
   Container,
 } from "@mui/material";
 import { useState } from "react";
-import { fetchUser } from "../../apiCalls/userApiCalls";
+import { fetchUser } from "../../../apiCalls/userApiCalls";
 
 interface Props {
   setUser: React.Dispatch<any>
