@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Inject, ScheduleComponent, Day, Week, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 interface Props {
   user: any;
 }
@@ -10,8 +11,9 @@ function Calendar({ user }: Props) {
     <>
       {user.id ? (
         <>
-          <h1>Calendar</h1>
-          <h2>{user.id}</h2>
+          <ScheduleComponent>
+            <Inject services={[Day, Week, Month, Agenda]}/>
+          </ScheduleComponent>
         </>
       ) : (
         navigate("/account/signin")

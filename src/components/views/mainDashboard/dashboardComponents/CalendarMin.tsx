@@ -8,6 +8,7 @@ import {
   Stack,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Inject, ScheduleComponent, Day, Agenda } from "@syncfusion/ej2-react-schedule";
 import NewPetCard from "./AddManageCards";
 
 interface Props {
@@ -39,12 +40,9 @@ function CalendarMin({ user }: Props) {
       >
         <CardHeader title="Calendar Events" />
         <CardContent>
-          <List>
-            <ListItem>ione</ListItem>
-            <ListItem>ione</ListItem>
-            <ListItem>ione</ListItem>
-            <ListItem>ione</ListItem>
-          </List>
+        <ScheduleComponent>
+            <Inject services={[Day, Agenda]}/>
+          </ScheduleComponent>
         </CardContent>
       </Card>
       <NewPetCard user={user}/>
