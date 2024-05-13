@@ -123,7 +123,7 @@ export const Pets: Pet[] = [
     {
         user_id: 1,
         pet_name: 'Charlie',
-        pet_type:'Horse',
+        pet_type:'Dog',
         pet_breed: 'Thoroughbred',
         pet_birthday: '05/05/2015',
         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],

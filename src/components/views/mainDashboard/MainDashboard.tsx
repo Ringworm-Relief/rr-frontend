@@ -31,13 +31,18 @@ function MainDashboard({ user }: Props) {
         <Box
           padding={10}
           sx={{
-            backgroundColor: "rgba(255, 146, 98, 0.03)",
-            border: "1px solid #ced7e0",
+            backgroundImage:
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "&:after": {
+
+              opacity: 0.5,
+            }
+          // 16
           }}
         >
-          <Grid container spacing={2} columns={2}>
+          <Grid container spacing={2} columns={2} zIndex={20}>
             <PetCards />
-            <CalendarMin />
+            <CalendarMin user={user}/>
             <SavedArticlesCard />
           </Grid>
         </Box>

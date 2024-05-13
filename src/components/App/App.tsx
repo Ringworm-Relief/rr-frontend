@@ -28,15 +28,15 @@ function App() {
 
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
-  // useEffect(() => {
-  //   const user = {
-  //     id: 1,
-  //     first_name: "John",
-  //     last_name: "Doe",
-  //   }
-  //  setUser(user)
+  useEffect(() => {
+    const user = {
+      id: 1,
+      first_name: "John",
+      last_name: "Doe",
+    }
+   setUser(user)
 
-  // }, [])
+  }, [])
 
   return (
     <div className="App">
@@ -69,7 +69,7 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/user/:user_id/petform" element={<PetForm />} />
+        <Route path="/user/:user_id/addpet" element={<PetForm />} />
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
         <Route path="/education" element={<Education />} />

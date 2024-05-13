@@ -7,7 +7,7 @@
 
   .App_header {
     background-color: #ffffff;
-    min-height: 12vh;
+    max-height: 10vh;
     display: flex;
     width: 100%;
     /* flex-direction: row; */
@@ -43,7 +43,7 @@
   } */
 
   #cool-cat {
-    margin-top: 20px;
+    margin-top: 2px;
     margin-left: 10px;
   }
 
@@ -70,4 +70,5 @@
   #char_emphasis {
     color: #ef8e64;
     font-size: larger;
+    /* background-color: #fea2a25a; */
   }
