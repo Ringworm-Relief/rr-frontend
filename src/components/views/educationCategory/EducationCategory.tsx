@@ -79,12 +79,9 @@ function EducationCategory() {
               spacing={5}
               columns={4}
             >
-                {articleCards}
+            {articleCards}
             </Grid>
            </Box>
-{/* 
-        <div>{articleCards}</div> */}
-        
         </div>
     )
 
