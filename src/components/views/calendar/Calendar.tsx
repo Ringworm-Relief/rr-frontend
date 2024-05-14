@@ -14,9 +14,10 @@ function Calendar({ user }: Props) {
   const scheduleObj = useRef<ScheduleComponent>(null);
   const buttonObj = useRef<ButtonComponent>(null);
 
-  // console.log(scheduleObj.current?.eventSettings)
+  console.log(scheduleObj.current?.eventsData) //undefined
+  // console.log(scheduleObj.current?.activeCellsData)
   // console.log(scheduleObj.current?.eventsProcessed)
-  // console.log(scheduleObj)
+  console.log(scheduleObj)
   const [events, setEvents] = useState<any[]>([]);
   // localforage.setItem('events', events)
 
@@ -27,16 +28,17 @@ function Calendar({ user }: Props) {
   //   }
   // })
   useEffect(() => {
-    // scheduleObj.current?.addEvent(scheduleObj.current?.eventSettings.dataSource as any[] || []);
-    setEvents(scheduleObj.current?.eventSettings.dataSource as any[] || [])
-    localforage.setItem('events', events)
-    console.log('events inside block', events)
-    
+    scheduleObj.current?.addEvent(scheduleObj.current?.eventSettings as any[] || []);
+    setEvents(scheduleObj.current?.eventsData as any[] || [])
+    // localforage.setItem('events', events)
+    // console.log('events inside block', events)
+    console.log(scheduleObj.current?.eventsData) //NOT undefined
   }, [scheduleObj])
   console.log('events', events)
   // console.log(scheduleObj.current?.eventsProcessed)
   
   const eventSettings: EventSettingsModel = { dataSource: events }
+  console.log(eventSettings) //showing 2 events successfully
 
   // const remoteData = new DataManager({
   //     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
