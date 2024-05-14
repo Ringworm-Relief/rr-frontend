@@ -1,16 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticlesCategory } from "../../../apiCalls/articlesApiCalls";
-import { EducationArticle } from "../../../utils/interfaces";
+import { EducationArticle, RouteParams } from "../../../utils/interfaces";
 import { Typography, Box, Grid, Container } from "@mui/material";
 import EducationArtCard from "../../subComps/educationArtCard/EducationArtCard";
+import { EducationCategoryProps } from "../../../utils/interfaces";
 
 
-interface RouteParams {
-    [key: string]: string | undefined;
-  }
 
-function EducationCategory() {
+
+const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, savedArticles }) => {
     let { category } = useParams<RouteParams>()
     const navigate = useNavigate();
     const [articles, setArticles] = useState<EducationArticle[]>([])
@@ -18,11 +17,9 @@ function EducationCategory() {
     const filterCategories = () => {
         getArticlesCategory()
         .then(data => {
-            console.log("data", data)
             let categoryData = data.data.filter((item: EducationArticle) => {
                 return item.type === category
             })
-            console.log("category data:",categoryData)
             setArticles(categoryData)
         })
 
@@ -44,8 +41,11 @@ function EducationCategory() {
         title={article.attributes.title}
         tagline={article.attributes.tagline}
         handleClick={handleClick}
+        handleSaves={handleSaves}
+        savedArticles={savedArticles}
         id={article.id}
         key={article.id}
+        isSaved={savedArticles.includes(article.id)}
         />
         )
     })

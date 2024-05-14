@@ -24,6 +24,14 @@ function App() {
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
   const [savedArticles, setSavedArticles] = useState<string[]>([])
 
+  const handleSaves = (id: string) => {
+    if (savedArticles.includes(id)) {
+      let articles = savedArticles.filter(articleId => id !== articleId)
+      setSavedArticles(articles)
+    } else {
+      setSavedArticles([...savedArticles, id])
+    }
+  }
 
   // const handleArticleClick = () => {
   //   navigate(`/education/${article.title}/${article.tagline}`)
@@ -76,8 +84,8 @@ function App() {
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
         <Route path="/education" element={<Education />} />
-        <Route path="/savedarticles" element={<SavedArticles />} />
-        <Route path="/education/:category" element={<EducationCategory />} />
+        <Route path="/savedarticles" element={<SavedArticles handleSaves={handleSaves} savedArticles={savedArticles}/>} />
+        <Route path="/education/:category" element={<EducationCategory handleSaves={handleSaves} savedArticles={savedArticles}/>} />
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}

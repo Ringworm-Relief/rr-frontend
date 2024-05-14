@@ -192,9 +192,26 @@ export interface EducationArtCardProps {
     title: string;
     tagline: string;
     id: string;
+    savedArticles: string[];
+    isSaved: boolean;
+    handleSaves: (id: string) => void; 
     handleClick: (id: string) => void; 
+}
+
+export interface EducationCategoryProps {
+    savedArticles: string[];
+    handleSaves: (id: string) => void; 
+}
+
+export interface SavedArticlesProps {
+    savedArticles: string[];
+    handleSaves: (id: string) => void; 
 }
 
 export interface ArticleParams {
     [key: string]: string | undefined;
 }
+
+export interface RouteParams {
+    [key: string]: string | undefined;
+  }

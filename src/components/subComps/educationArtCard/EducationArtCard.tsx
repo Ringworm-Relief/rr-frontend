@@ -1,5 +1,3 @@
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -8,12 +6,14 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { EducationArtCardProps } from '../../../utils/interfaces';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 
-const EducationArtCard: React.FC<EducationArtCardProps> = ({ title, tagline, id, handleClick }) => {
+const EducationArtCard: React.FC<EducationArtCardProps> = ({ title, tagline, id, handleClick, handleSaves, savedArticles, isSaved }) => {
 
+    console.log("SAVED IDS", savedArticles)
     return (
         <Grid item >
         <Card
@@ -41,13 +41,13 @@ const EducationArtCard: React.FC<EducationArtCardProps> = ({ title, tagline, id,
           </Typography>
         </CardContent>
         <CardActions >
-          <IconButton  sx={{ mr: 'auto' }}>
-            <FavoriteBorderIcon />
+          <IconButton onClick={() => handleSaves(id)} sx={{ mr: 'auto' }}>
+            {isSaved ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
           </IconButton>
-          <Button variant="outlined" >
+          {/* <Button variant="outlined" >
             Save
-          </Button>
-          <Button color="primary" onClick={() => handleClick(id)}>
+          </Button> */}
+          <Button  color="primary" onClick={() => handleClick(id)}>
             Read more
           </Button>
         </CardActions>
