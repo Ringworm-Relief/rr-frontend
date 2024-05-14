@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticlesCategory } from "../../../apiCalls/articlesApiCalls";
 import { EducationArticle } from "../../../utils/interfaces";
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Box, Grid, Container } from "@mui/material";
 import EducationArtCard from "../../subComps/educationArtCard/EducationArtCard";
 
 
@@ -69,20 +69,25 @@ function EducationCategory() {
    
 
     return (
-        <div>
-            <Typography variant="h2">{getTitle(category)}</Typography>
+        <Container sx={{display: 'flex',
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        mb: "30px" 
+        }}>
+            <Typography sx={{my: "20px"}} variant="h2">{getTitle(category)}</Typography>
             <Box>
             <Grid
               container
               justifyContent="center"
               alignItems="center"
               spacing={5}
-              columns={4}
+              columns={3}
             >
             {articleCards}
             </Grid>
            </Box>
-        </div>
+        </Container>
     )
 
 }

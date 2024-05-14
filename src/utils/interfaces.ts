@@ -194,3 +194,7 @@ export interface EducationArtCardProps {
     id: string;
     handleClick: (id: string) => void; 
 }
+
+export interface ArticleParams {
+    [key: string]: string | undefined;
+}
