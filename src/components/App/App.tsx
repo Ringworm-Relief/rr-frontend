@@ -17,7 +17,7 @@ import SavedArticles from "../views/savedArticles/SavedArticles"
 import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
 // import { fetchUser } from "../../apiCalls/userApiCalls";
-
+//hi
 
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
