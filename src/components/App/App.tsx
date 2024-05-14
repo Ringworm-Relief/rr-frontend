@@ -25,13 +25,25 @@ function App() {
   const [savedArticles, setSavedArticles] = useState<string[]>([])
 
   const handleSaves = (id: string) => {
-    if (savedArticles.includes(id)) {
-      let articles = savedArticles.filter(articleId => id !== articleId)
-      setSavedArticles(articles)
-    } else {
-      setSavedArticles([...savedArticles, id])
+    setSavedArticles(prevSavedArticles => {
+      if (prevSavedArticles.includes(id)) {
+        return prevSavedArticles.filter(articleId => id !== articleId);
+      } else {
+        return [...prevSavedArticles, id];
+      }
+    });
+  };
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("SAVED_ARTICLES")
+    if (data) {
+      setSavedArticles(JSON.parse(data));
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem("SAVED_ARTICLES", JSON.stringify(savedArticles));
+  }, [savedArticles]);
 
   // const handleArticleClick = () => {
   //   navigate(`/education/${article.title}/${article.tagline}`)
