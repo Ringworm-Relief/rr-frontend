@@ -22,7 +22,18 @@ import CoolCat from "../../assets/RR-4.svg";
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
-  const [savedArticles, setSavedArticles] = useState<string[]>([])
+  const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
+  const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
+
+  useEffect(() => {
+    const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]');
+    setSavedArticles(savedArts);
+  }, []); 
+
+  useEffect(() => {
+    localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
+  }, [savedArticles]); 
+
 
   const handleSaves = (id: string) => {
     setSavedArticles(prevSavedArticles => {
@@ -33,17 +44,6 @@ function App() {
       }
     });
   };
-
-  useEffect(() => {
-    const data = window.localStorage.getItem("SAVED_ARTICLES")
-    if (data) {
-      setSavedArticles(JSON.parse(data));
-    }
-  }, [])
-
-  useEffect(() => {
-    window.localStorage.setItem("SAVED_ARTICLES", JSON.stringify(savedArticles));
-  }, [savedArticles]);
 
   // const handleArticleClick = () => {
   //   navigate(`/education/${article.title}/${article.tagline}`)
