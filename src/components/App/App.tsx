@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../views/signIn/SignIn";
+import SavedArticles from "../views/savedArticles/SavedArticles"
 import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
 // import { fetchUser } from "../../apiCalls/userApiCalls";
@@ -21,6 +22,8 @@ import CoolCat from "../../assets/RR-4.svg";
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
+  const [savedArticles, setSavedArticles] = useState<string[]>([])
+
 
   // const handleArticleClick = () => {
   //   navigate(`/education/${article.title}/${article.tagline}`)
@@ -73,6 +76,7 @@ function App() {
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
         <Route path="/education" element={<Education />} />
+        <Route path="/savedarticles" element={<SavedArticles />} />
         <Route path="/education/:category" element={<EducationCategory />} />
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />

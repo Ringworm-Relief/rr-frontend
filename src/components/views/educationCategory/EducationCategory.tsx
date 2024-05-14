@@ -63,11 +63,6 @@ function EducationCategory() {
         }
     }
 
-  
-
-   
-   
-
     return (
         <Container sx={{display: 'flex',
         flexDirection: 'column', 
