@@ -25,7 +25,7 @@ function EducationPageCard() {
             >
               {educationCategories.map((educationCategory: EducationCategory) => {
                 return (
-                  <Grid item>
+                  <Grid item key={educationCategory.type}>
                     <Stack spacing={2}>
                         <Link className="App_link" to={`/education/${educationCategory.type}`}>
                       <Card
@@ -44,6 +44,7 @@ function EducationPageCard() {
                           alignItems: "center",
                           paddingBottom: 15,
                         }}
+                        
                       >
                         <CardMedia
                           sx={{

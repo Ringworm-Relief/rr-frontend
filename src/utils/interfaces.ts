@@ -176,3 +176,21 @@ export const user: NewUser[] = [
     }
 ]
 
+export interface ArticleAttributes {
+    title: string,
+    tagline: string,
+    summary: string[]
+}
+
+export interface EducationArticle {
+    id: string,
+    type: string,
+    attributes: ArticleAttributes
+}
+
+export interface EducationArtCardProps {
+    title: string;
+    tagline: string;
+    id: string;
+    handleClick: (id: string) => void; 
+}

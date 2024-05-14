@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../views/signIn/SignIn";
-import EducationCategory from '../views/educationCategory/EducationCategory';
+import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
 // import { fetchUser } from "../../apiCalls/userApiCalls";
 
