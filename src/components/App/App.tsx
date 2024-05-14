@@ -21,10 +21,7 @@ import { fetchUser } from "../../apiCalls/userApiCalls";
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
-  const [events, setEvents] = useState<any[]>([]);
-  // const handleArticleClick = () => {
-  //   navigate(`/education/${article.title}/${article.tagline}`)
-  // }
+  // const [events, setEvents] = useState<any[]>([]);
 
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
@@ -75,7 +72,7 @@ function App() {
         <Route path="/education" element={<Education />} />
         <Route path="/education/:category" element={<EducationCategory />} />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/:user_id/calendar" element={<Calendar user={user} events={events} setEvents={setEvents}/>} />
+        <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
         <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />
 
       </Routes>
