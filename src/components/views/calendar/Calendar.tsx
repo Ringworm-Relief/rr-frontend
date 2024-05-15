@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { Inject, ScheduleComponent, Day, Week, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
-import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
-import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
-import { Start } from "@mui/icons-material";
+// import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
+// import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+// import { Start } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
-import localforage from "localforage";
+// import localforage from "localforage";
 interface Props {
   user: any;
 }
@@ -12,14 +12,14 @@ interface Props {
 function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const buttonObj = useRef<ButtonComponent>(null);
+  const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
+  const [events, setEvents] = useState<any[]>(storedEvents);
+  console.log(scheduleObj)
+  // const buttonObj = useRef<ButtonComponent>(null);
 
   // console.log(scheduleObj.current?.eventsData) //undefined
   // console.log(scheduleObj.current?.activeCellsData)
   // console.log(scheduleObj.current?.eventsProcessed)
-  // console.log(scheduleObj)
-  const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
-  const [events, setEvents] = useState<any[]>(storedEvents);
 
   useEffect(() => {
   //   localforage.getItem('events').then((value) => {
@@ -35,7 +35,7 @@ function Calendar({ user }: Props) {
   }, [])
 
   useEffect(() => {
-    scheduleObj.current?.addEvent(scheduleObj.current?.eventSettings as any[] || []);
+    scheduleObj.current?.addEvent({event: scheduleObj.current?.eventSettings as any[] || []});
     setEvents(scheduleObj.current?.eventsData as any[] || [])
     // localforage.setItem('events', events).then((value) => {
     //   console.log(value)
