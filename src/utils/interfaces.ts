@@ -18,6 +18,30 @@ export const services: Service[] = [
     }
 ];
 
+export interface EducationCategory {
+    category: string;
+    type: string;
+    description: string;
+}
+
+export const educationCategories: EducationCategory[] = [
+    {
+        category: 'Cleaning',
+        type: "cleaning",
+        description: 'Thorough and regularly cleaning is necessary for defeating ringworm. Browse cleaning articles here.'
+    },
+    {
+        category: 'Treatments',
+        type: "medical",
+        description: 'There are lots of treatments available for ringworm. Learn about the options out there for you and your furry friends.'
+    },
+    {
+        category: 'General Info',
+        type: "general",
+        description: 'Ringworm can be scary and overwhelming. Here we provide some general articles to breakdown the main need-to-knows.'
+    }
+];
+
 export interface Article {
     id: number;
     title: string;
@@ -123,7 +147,7 @@ export const Pets: Pet[] = [
     {
         user_id: 1,
         pet_name: 'Charlie',
-        pet_type:'Horse',
+        pet_type:'Dog',
         pet_breed: 'Thoroughbred',
         pet_birthday: '05/05/2015',
         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
@@ -136,7 +160,6 @@ export const Pets: Pet[] = [
     
     }
 ]
-
 
 
 export const user: NewUser[] = [
@@ -153,3 +176,42 @@ export const user: NewUser[] = [
     }
 ]
 
+export interface ArticleAttributes {
+    title: string,
+    tagline: string,
+    summary: string[]
+}
+
+export interface EducationArticle {
+    id: string,
+    type: string,
+    attributes: ArticleAttributes
+}
+
+export interface EducationArtCardProps {
+    title: string;
+    tagline: string;
+    id: string;
+    savedArticles: string[];
+    isSaved: boolean;
+    handleSaves: (id: string) => void; 
+    handleClick: (id: string) => void; 
+}
+
+export interface EducationCategoryProps {
+    savedArticles: string[];
+    handleSaves: (id: string) => void; 
+}
+
+export interface SavedArticlesProps {
+    savedArticles: string[];
+    handleSaves: (id: string) => void; 
+}
+
+export interface ArticleParams {
+    [key: string]: string | undefined;
+}
+
+export interface RouteParams {
+    [key: string]: string | undefined;
+  }

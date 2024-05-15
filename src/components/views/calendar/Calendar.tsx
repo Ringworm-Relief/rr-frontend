@@ -1,15 +1,22 @@
-
-interface Props  {
+import { useNavigate } from "react-router-dom";
+interface Props {
   user: any;
 }
 
 function Calendar({ user }: Props) {
-  // console.log(user.data.type)
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <h1>Calendar</h1>
-      <h2>{user.data.id}</h2>
-    </div>
+    <>
+      {user.id ? (
+        <>
+          <h1>Calendar</h1>
+          <h2>{user.id}</h2>
+        </>
+      ) : (
+        navigate("/account/signin")
+      )}
+    </>
   );
 }
 
