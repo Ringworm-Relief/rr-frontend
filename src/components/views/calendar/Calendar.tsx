@@ -18,9 +18,10 @@ function Calendar({ user }: Props) {
   // console.log(scheduleObj.current?.activeCellsData)
   // console.log(scheduleObj.current?.eventsProcessed)
   // console.log(scheduleObj)
-  const [events, setEvents] = useState<any[]>([]);
+  const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
+  const [events, setEvents] = useState<any[]>(storedEvents);
 
-  // useEffect(() => {
+  useEffect(() => {
   //   localforage.getItem('events').then((value) => {
   //     if (value) {
   //       console.log(value)
@@ -31,7 +32,7 @@ function Calendar({ user }: Props) {
   //   }).catch(function(err) {
   //     console.log(err);
   // });
-  // }, [])
+  }, [])
 
   useEffect(() => {
     scheduleObj.current?.addEvent(scheduleObj.current?.eventSettings as any[] || []);
@@ -39,7 +40,7 @@ function Calendar({ user }: Props) {
     // localforage.setItem('events', events).then((value) => {
     //   console.log(value)
     // })
-    // console.log('events inside block', events)
+
     console.log(scheduleObj.current?.eventsData) //NOT undefined
   }, [scheduleObj])
   console.log('events', events)
