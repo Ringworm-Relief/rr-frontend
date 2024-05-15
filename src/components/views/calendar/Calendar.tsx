@@ -40,7 +40,10 @@ function Calendar({ user }: Props) {
     // localforage.setItem('events', events).then((value) => {
     //   console.log(value)
     // })
-
+    localStorage.setItem('events', JSON.stringify(events));
+    const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
+    setEvents(storedEvents);
+    console.log(storedEvents)
     console.log(scheduleObj.current?.eventsData) //NOT undefined
   }, [scheduleObj])
   console.log('events', events)
