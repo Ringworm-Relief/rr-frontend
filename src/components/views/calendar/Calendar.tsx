@@ -14,23 +14,31 @@ function Calendar({ user }: Props) {
   const scheduleObj = useRef<ScheduleComponent>(null);
   const buttonObj = useRef<ButtonComponent>(null);
 
-  console.log(scheduleObj.current?.eventsData) //undefined
+  // console.log(scheduleObj.current?.eventsData) //undefined
   // console.log(scheduleObj.current?.activeCellsData)
   // console.log(scheduleObj.current?.eventsProcessed)
-  console.log(scheduleObj)
+  // console.log(scheduleObj)
   const [events, setEvents] = useState<any[]>([]);
-  // localforage.setItem('events', events)
 
-  // localforage.getItem('events').then((value) => {
-  //   if (value) {
-  //     console.log(value)
-  //     // setEvents(value);
-  //   }
-  // })
+  // useEffect(() => {
+  //   localforage.getItem('events').then((value) => {
+  //     if (value) {
+  //       console.log(value)
+  //       setEvents(value as any[]);
+  //     } else {
+  //       console.log('no events')
+  //     }
+  //   }).catch(function(err) {
+  //     console.log(err);
+  // });
+  // }, [])
+
   useEffect(() => {
     scheduleObj.current?.addEvent(scheduleObj.current?.eventSettings as any[] || []);
     setEvents(scheduleObj.current?.eventsData as any[] || [])
-    // localforage.setItem('events', events)
+    // localforage.setItem('events', events).then((value) => {
+    //   console.log(value)
+    // })
     // console.log('events inside block', events)
     console.log(scheduleObj.current?.eventsData) //NOT undefined
   }, [scheduleObj])
