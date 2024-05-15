@@ -12,8 +12,8 @@ interface Props {
 function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
-  const [events, setEvents] = useState<any[]>(storedEvents);
+  // const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
+  const [events, setEvents] = useState<any[]>([]);
   console.log(scheduleObj)
   // const buttonObj = useRef<ButtonComponent>(null);
 
@@ -35,22 +35,22 @@ function Calendar({ user }: Props) {
   }, [])
 
   useEffect(() => {
-    scheduleObj.current?.addEvent({event: scheduleObj.current?.eventSettings as any[] || []});
+    // scheduleObj.current?.addEvent({event: scheduleObj.current?.eventSettings.dataSource as any[] || []});
     setEvents(scheduleObj.current?.eventsData as any[] || [])
     // localforage.setItem('events', events).then((value) => {
     //   console.log(value)
     // })
-    localStorage.setItem('events', JSON.stringify(events));
-    const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
-    setEvents(storedEvents);
-    console.log(storedEvents)
-    console.log(scheduleObj.current?.eventsData) //NOT undefined
+    // localStorage.setItem('events', JSON.stringify(events) || '[]');
+    // const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
+    // setEvents(storedEvents);
+    // console.log(storedEvents)
+    console.log(scheduleObj.current?.eventsProcessed) //NOT undefined
   }, [scheduleObj])
   console.log('events', events)
   // console.log(scheduleObj.current?.eventsProcessed)
   
-  const eventSettings: EventSettingsModel = { dataSource: events }
-  console.log(eventSettings) //showing 2 events successfully
+  const eventSettings: EventSettingsModel = {dataSource: events}
+  // console.log(eventSettings) //showing 2 events successfully
 
   // const remoteData = new DataManager({
   //     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
