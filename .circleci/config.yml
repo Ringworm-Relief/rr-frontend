@@ -1,19 +1,19 @@
 version: 2.1
-orbs:
-  node: circleci/node@5
+
 jobs:
-  test-node:
-    # Install node dependencies and run tests
-    executor: node/default
+  build:
+    docker:
+      - image: circleci/node:latest
+    environment:
+      CI: true
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
-          name: Run tests excluding App.test.tsx
-          command: |
-            # Run tests excluding App.test.tsx
-            find . -type f -name "*.test.tsx" -not -path "./node_modules/*" -not -path "./App.test.tsx" -exec jest {} +
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm test
   build-node:
     # Build node project
     executor: node/default
