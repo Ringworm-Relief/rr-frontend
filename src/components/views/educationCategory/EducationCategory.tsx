@@ -18,7 +18,7 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, save
         getArticlesCategory()
         .then(data => {
             let categoryData = data.data.filter((item: EducationArticle) => {
-                return item.type === category
+                return item.category === category
             })
             setArticles(categoryData)
         })

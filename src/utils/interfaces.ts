@@ -184,7 +184,7 @@ export interface ArticleAttributes {
 
 export interface EducationArticle {
     id: string,
-    type: string,
+    category: string,
     attributes: ArticleAttributes
 }
 
