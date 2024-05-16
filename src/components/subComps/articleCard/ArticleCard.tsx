@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 import { Article, mockArticles } from "../../../utils/interfaces";
 
+import React from 'react';
+
 function ArticleCard() {
 const navigate = useNavigate();
 //Will need to refactor to set targetArticle so that it's props can be passed to Article.tsx

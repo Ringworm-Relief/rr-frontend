@@ -7,6 +7,9 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import React from 'react';
+
+// Your component code here
 
 function WelcomeCard() {
   return (

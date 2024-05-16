@@ -7,7 +7,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { mockArticles } from "../../../../utils/interfaces";
-
+import React from 'react';
 function SavedArticlesCard() {
   return (
     <Card

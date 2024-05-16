@@ -8,6 +8,7 @@ import {
   CardMedia,
   Stack,
 } from "@mui/material";
+import React from 'react';
 import styled from "@mui/system/styled";
 import { Link } from "react-router-dom";
 // import { Pets } from "../../../utils/interfaces";

@@ -9,6 +9,7 @@ import {
   Stack,
 } from "@mui/material";
 import { Service, services } from "../../../utils/interfaces";
+import React from 'react';
 
 function OutlineCard() {
   return (

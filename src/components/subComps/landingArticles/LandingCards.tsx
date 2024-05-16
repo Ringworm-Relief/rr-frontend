@@ -1,7 +1,7 @@
 import { Stack, Box } from "@mui/material";
 import ArticleCard from "../articleCard/ArticleCard";
 import OutlineCard from "../outlineCard/OutlineCard";
-
+import React from 'react';
 function LandingCards() {
   return (
     <Box sx={{ paddingBottom: 40 }}>

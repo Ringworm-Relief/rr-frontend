@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { Pets } from "../../../../utils/interfaces";
-
+import React from 'react';
 function PetCards() {
   return (
     <Grid container spacing={2} columns={3}>

@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import NewPetCard from "./AddManageCards";
+import React from 'react';
 
 function CalendarMin() {
   return (
