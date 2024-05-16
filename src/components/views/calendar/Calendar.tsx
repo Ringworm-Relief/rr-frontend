@@ -23,44 +23,20 @@ function Calendar({ user }: Props) {
   // console.log(scheduleObj.current?.eventsProcessed)
 
   useEffect(() => {
-  const newNewEvent: any = {
-    dataSource: [{
-      Subject: 'Testing',
-      EndTime: new Date("2024-05-17T18:00:00.000Z"),
-      StartTime: new Date("2024-05-17T14:00:00.000Z"),
-      IsAllDay: false,
-      Description: 'Testing'
-    }]
-  }
-  setEvents(newNewEvent)
-  }, [])
+    const newNewEvent: any = {
+      dataSource: [{
+        Subject: 'Testing',
+        EndTime: new Date("2024-05-17T18:00:00.000Z"),
+        StartTime: new Date("2024-05-17T14:00:00.000Z"),
+        IsAllDay: false,
+        Description: 'Testing'
+      }]
+    }
+    setEvents([...events, newNewEvent])
+    }, [])
+    
+    // const eventSettings: EventSettingsModel = {dataSource: events}
 
-  // const newEvent: EventSettingsModel = {
-  //   dataSource: [{
-  //     Subject: 'Testing',
-  //     EndTime: new Date(2024, 4, 17, 10, 0),
-  //     StartTime: new Date(2024, 4, 17, 8, 0),
-  //     IsAllDay: false,
-  //     Description: 'Testing'
-  //   }, 
-  //   {
-  //     Subject: 'Testing',
-  //     EndTime: new Date(2024, 4, 18, 10, 0),
-  //     StartTime: new Date(2024, 4, 18, 8, 0),
-  //     IsAllDay: false,
-  //     Description: 'Testing'
-  //   }]
-  // }
-
-  // const newNewEvent: any = {
-  //   dataSource: [{
-  //     Subject: 'Testing',
-  //     EndTime: new Date("2024-05-17T18:00:00.000Z"),
-  //     StartTime: new Date("2024-05-17T14:00:00.000Z"),
-  //     IsAllDay: false,
-  //     Description: 'Testing'
-  //   }]
-  // }
 
   console.log(scheduleObj.current?.eventsData[0].StartTime)
   useEffect(() => {
@@ -94,7 +70,7 @@ function Calendar({ user }: Props) {
   }, [scheduleObj])
   console.log('events', events)
   console.log(scheduleObj)
-  // const eventSettings: EventSettingsModel = {dataSource: newEvent}
+
 
   return (
     <>
@@ -135,3 +111,30 @@ export default Calendar;
   //   //   endTime: { name: 'EndTime' }
   //   // }
   // })
+
+    // const newEvent: EventSettingsModel = {
+  //   dataSource: [{
+  //     Subject: 'Testing',
+  //     EndTime: new Date(2024, 4, 17, 10, 0),
+  //     StartTime: new Date(2024, 4, 17, 8, 0),
+  //     IsAllDay: false,
+  //     Description: 'Testing'
+  //   }, 
+  //   {
+  //     Subject: 'Testing',
+  //     EndTime: new Date(2024, 4, 18, 10, 0),
+  //     StartTime: new Date(2024, 4, 18, 8, 0),
+  //     IsAllDay: false,
+  //     Description: 'Testing'
+  //   }]
+  // }
+
+  // const newNewEvent: any = {
+  //   dataSource: [{
+  //     Subject: 'Testing',
+  //     EndTime: new Date("2024-05-17T18:00:00.000Z"),
+  //     StartTime: new Date("2024-05-17T14:00:00.000Z"),
+  //     IsAllDay: false,
+  //     Description: 'Testing'
+  //   }]
+  // }
