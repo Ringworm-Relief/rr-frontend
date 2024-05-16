@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.7.0 
+  cypress: cypress-io/cypress@3.3.1
 
 jobs:
   build:
@@ -13,12 +14,10 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libnss3
+          command: npm install
       - run:
-          name: Run tests
-          command: npm run cypress:run
+          name: Build application
+          command: npm run build
   build-node:
     # Build node project
     executor: node/default
@@ -38,21 +37,6 @@ jobs:
       - store_artifacts:
           path: ~/artifacts
           destination: node-build
-  test-cypress:
-    docker:
-      - image: cypress/base:10
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - cache-{{ checksum "package.json" }}
-      - run: npm ci
-      - save_cache:
-          paths:
-            - node_modules
-          key: cache-{{ checksum "package.json" }}
-      - run: npm run cypress:run
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -62,6 +46,14 @@ jobs:
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
+  test-cypress:
+    docker:
+      - image: cypress/base:10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - cypress/install
+      - cypress/run
 workflows: 
   version: 2
   build-and-test:
