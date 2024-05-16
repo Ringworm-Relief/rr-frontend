@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Run tests excluding App.test.tsx
           command: |
-            # Run tests excluding app.test.tsx
+            # Run tests excluding App.test.tsx
             find . -type f -name "*.test.tsx" -not -path "./node_modules/*" -not -path "./app.test.tsx" -exec jest {} +
   build-node:
     # Build node project
