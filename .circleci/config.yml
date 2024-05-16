@@ -13,7 +13,9 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm install
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y libnss3
       - run:
           name: Run tests
           command: npm run cypress:run
