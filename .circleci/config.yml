@@ -58,4 +58,3 @@ workflows:
       - cypress/run:
           requires:
             - build
-          start-command: npm run start
