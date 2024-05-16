@@ -16,7 +16,7 @@ jobs:
           command: npm install
       - run:
           name: Run tests
-          command: npm test
+          command: npm run cypress:run
   build-node:
     # Build node project
     executor: node/default
