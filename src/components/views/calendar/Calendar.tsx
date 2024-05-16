@@ -23,16 +23,16 @@ function Calendar({ user }: Props) {
   // console.log(scheduleObj.current?.eventsProcessed)
 
   useEffect(() => {
-  //   localforage.getItem('events').then((value) => {
-  //     if (value) {
-  //       console.log(value)
-  //       setEvents(value as any[]);
-  //     } else {
-  //       console.log('no events')
-  //     }
-  //   }).catch(function(err) {
-  //     console.log(err);
-  // });
+  const newNewEvent: any = {
+    dataSource: [{
+      Subject: 'Testing',
+      EndTime: new Date("2024-05-17T18:00:00.000Z"),
+      StartTime: new Date("2024-05-17T14:00:00.000Z"),
+      IsAllDay: false,
+      Description: 'Testing'
+    }]
+  }
+  setEvents(newNewEvent)
   }, [])
 
   // const newEvent: EventSettingsModel = {
@@ -52,7 +52,7 @@ function Calendar({ user }: Props) {
   //   }]
   // }
 
-  // const newNewEvent: EventSettingsModel = {
+  // const newNewEvent: any = {
   //   dataSource: [{
   //     Subject: 'Testing',
   //     EndTime: new Date("2024-05-17T18:00:00.000Z"),
@@ -62,15 +62,15 @@ function Calendar({ user }: Props) {
   //   }]
   // }
 
+  console.log(scheduleObj.current?.eventsData[0].StartTime)
   useEffect(() => {
     // scheduleObj.current?.addEvent({event: scheduleObj.current?.eventSettings.dataSource as any[] || []});
     // setEvents(scheduleObj.current?.eventsData as any[] || [])
-    console.log(scheduleObj.current?.eventsData[1].StartTime)
-    const subject = scheduleObj.current?.eventsData[1].Subject
-    const endTime = scheduleObj.current?.eventsData[1].EndTime
-    const startTime = scheduleObj.current?.eventsData[1].StartTime
-    const isAllDay = scheduleObj.current?.eventsData[1].IsAllDay  
-    const description = scheduleObj.current?.eventsData[1].Description
+    const subject = scheduleObj.current?.eventsData[0].Subject
+    const endTime = scheduleObj.current?.eventsData[0].EndTime
+    const startTime = scheduleObj.current?.eventsData[0].StartTime
+    const isAllDay = scheduleObj.current?.eventsData[0].IsAllDay  
+    const description = scheduleObj.current?.eventsData[0].Description
     // let newEvent: EventSettingsModel = {
     //   dataSource: [{
     //     Subject: subject,
@@ -94,29 +94,7 @@ function Calendar({ user }: Props) {
   }, [scheduleObj])
   console.log('events', events)
   console.log(scheduleObj)
-
-
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getFullYear())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMonth())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getDate())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getHours())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMinutes())
   // const eventSettings: EventSettingsModel = {dataSource: newEvent}
-  // console.log(eventSettings) //showing 2 events successfully
-
-  // const remoteData = new DataManager({
-  //     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
-  //     adaptor: new WebApiAdaptor(),
-  //     crossDomain: true,
-  //   // fields: {
-  //   //   id: 'Id',
-  //   //   subject: { name: 'Subject' },
-  //   //   location: { name: 'Location' },
-  //   //   description: { name: 'Description' },
-  //   //   startTime: { name: 'StartTime' },
-  //   //   endTime: { name: 'EndTime' }
-  //   // }
-  // })
 
   return (
     <>
@@ -134,3 +112,26 @@ function Calendar({ user }: Props) {
 }
 
 export default Calendar;
+
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getFullYear())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMonth())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getDate())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getHours())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMinutes())
+  // console.log(eventSettings) //showing 2 events successfully
+
+
+  //<><><>><><><>><<><><><>><> OG version <><><><><><><><><>
+    // const remoteData = new DataManager({
+  //     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
+  //     adaptor: new WebApiAdaptor(),
+  //     crossDomain: true,
+  //   // fields: {
+  //   //   id: 'Id',
+  //   //   subject: { name: 'Subject' },
+  //   //   location: { name: 'Location' },
+  //   //   description: { name: 'Description' },
+  //   //   startTime: { name: 'StartTime' },
+  //   //   endTime: { name: 'EndTime' }
+  //   // }
+  // })
