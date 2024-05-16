@@ -1,10 +1,23 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.2.0
+  node: circleci/node@4.7.0 
   cypress: cypress-io/cypress@3
 
 jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    environment:
+      CI: true
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Build application
+          command: npm run build
   build-node:
     # Build node project
     executor: node/default
@@ -38,6 +51,11 @@ workflows:
   version: 2
   build-and-test:
     jobs:
+      - build
       - build-node:
+          requires:
+            - build
       - cypress/run:
+          requires:
+            - build
           start-command: npm run start
