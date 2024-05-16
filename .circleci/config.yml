@@ -42,13 +42,13 @@ jobs:
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
-workflows:
-  build-and-test:
-    jobs:
-      - test-node
-      - build-node:
-          requires:
-            - test-node
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - test-node
+#       - build-node:
+#           requires:
+#             - test-node
     # - deploy:
     #     requires:
     #       - build-node
