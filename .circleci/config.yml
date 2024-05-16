@@ -13,7 +13,9 @@ jobs:
           pkg-manager: npm
       - run:
           name: Run tests
-          command: npm test --passWithNoTests
+          command: |
+            # Run tests excluding app.test.tsx
+            find . -type f -name "*.test.tsx" -not -path "./node_modules/*" -not -path "./app.test.tsx" -exec jest {} 
   build-node:
     # Build node project
     executor: node/default

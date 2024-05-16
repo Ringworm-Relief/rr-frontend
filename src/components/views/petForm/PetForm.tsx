@@ -17,7 +17,7 @@ import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import postPet from "../../../apiCalls/petApiCalls";
-import { Pet } from "../../../utils/interfaces";
+import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
 
 const style = {
   position: "absolute" as "absolute",
@@ -71,23 +71,28 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
 function PetForm() {
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
   const [petObject, setPetObject] = useState<Pet>({
     user_id: 1,
-    pet_name: "",
+    name: "",
     pet_type: "",
-    pet_breed: "",
-    pet_birthday: "",
-    pet_symptoms: [],
-    medication_type: "",
-    medication_name: "",
-    medication_dosage: "",
-    medication_frequency: "",
-    ringworm_type: "",
-    ringworm_diagnosis_date: "",
+    breed: "",
+    birthday: "",
+    symptoms: []
   });
+  const [medObject, setMedObject] = useState<Medication>({
+    pet_id: 1,
+    name: "",
+    medication_type: "",
+    dosage: "",
+    frequency: "",
+  })
+  const [ringwormObject, setRingwormObject] = useState<Ringworm>({
+    pet_id: 1,
+    ringworm_type: "",
+    diagnosis_date: "",
+  })
 
   const handleClose = () => {
     setHasSubmitted(false);
@@ -95,22 +100,26 @@ function PetForm() {
 
   const handleSubmit = () => {
     postPet(petObject).then((data) => setHasSubmitted(true));
-
-    console.log("petObject", petObject);
     setPetObject({
       user_id: 1,
-      pet_name: "",
+      name: "",
       pet_type: "",
-      pet_breed: "",
-      pet_birthday: "",
-      pet_symptoms: [],
-      medication_type: "",
-      medication_name: "",
-      medication_dosage: "",
-      medication_frequency: "",
-      ringworm_type: "",
-      ringworm_diagnosis_date: "",
+      breed: "",
+      birthday: "",
+      symptoms: []
     });
+    setMedObject({
+      pet_id: 1,
+      name: "",
+      medication_type: "",
+      dosage: "",
+      frequency: "",
+    })
+    setRingwormObject({
+      pet_id: 1,
+      ringworm_type: "",
+      diagnosis_date: "",
+    })
   };
 
   return (
@@ -141,9 +150,9 @@ function PetForm() {
             Pet Name
           </InputLabel>
           <BootstrapInput
-            value={petObject.pet_name}
+            value={petObject.name}
             onChange={(e) =>
-              setPetObject({ ...petObject, pet_name: e.target.value })
+              setPetObject({ ...petObject, name: e.target.value })
             }
             id="name-field"
             inputProps={{ placeholder: "Enter pet name" }}
@@ -188,9 +197,9 @@ function PetForm() {
             It's okay to approximate!
           </FormHelperText>
           <BootstrapInput
-            value={petObject.pet_birthday}
+            value={petObject.birthday}
             onChange={(e) =>
-              setPetObject({ ...petObject, pet_birthday: e.target.value })
+              setPetObject({ ...petObject, birthday: e.target.value })
             }
             id="birthday-field"
             type="date"
@@ -211,9 +220,9 @@ function PetForm() {
             Type "N/A" if unsure
           </FormHelperText>
           <BootstrapInput
-            value={petObject.pet_breed}
+            value={petObject.breed}
             onChange={(e) =>
-              setPetObject({ ...petObject, pet_breed: e.target.value })
+              setPetObject({ ...petObject, breed: e.target.value })
             }
             id="breed-field"
             inputProps={{ placeholder: "Enter breed" }}
@@ -235,11 +244,11 @@ function PetForm() {
             Diagnosis Date
           </InputLabel>
           <BootstrapInput
-            value={petObject.ringworm_diagnosis_date}
+            value={ringwormObject.diagnosis_date}
             onChange={(e) =>
-              setPetObject({
-                ...petObject,
-                ringworm_diagnosis_date: e.target.value,
+              setRingwormObject({
+                ...ringwormObject,
+                diagnosis_date: e.target.value,
               })
             }
             id="diagnosis-date-field"
@@ -257,9 +266,9 @@ function PetForm() {
           </InputLabel>
           <BootstrapInput
             id="strain-field"
-            value={petObject.ringworm_type}
+            value={ringwormObject.ringworm_type}
             onChange={(e) =>
-              setPetObject({ ...petObject, ringworm_type: e.target.value })
+              setRingwormObject({ ...ringwormObject, ringworm_type: e.target.value })
             }
             inputProps={{ placeholder: "Enter strain" }}
           />
@@ -279,10 +288,10 @@ function PetForm() {
             Separate symptoms with commas
           </FormHelperText>
           <BootstrapInput
-            value={petObject.pet_symptoms.join(",")}
+            value={petObject.symptoms.join(",")}
             onChange={(e) => {
               const array = e.target.value.split(",");
-              setPetObject({ ...petObject, pet_symptoms: array });
+              setPetObject({ ...petObject, symptoms: array });
             }}
             id="symptoms-field"
             inputProps={{ placeholder: "Enter symptoms" }}
@@ -305,9 +314,9 @@ function PetForm() {
             Medication
           </InputLabel>
           <BootstrapInput
-            value={petObject.medication_name}
+            value={medObject.name}
             onChange={(e) =>
-              setPetObject({ ...petObject, medication_name: e.target.value })
+              setMedObject({ ...medObject, name: e.target.value })
             }
             inputProps={{ placeholder: "Enter medication name" }}
             id="medication-field"
@@ -325,9 +334,9 @@ function PetForm() {
 
           <Select
             defaultValue=""
-            value={petObject.medication_type}
+            value={medObject.medication_type}
             onChange={(e) =>
-              setPetObject({ ...petObject, medication_type: e.target.value })
+              setMedObject({ ...medObject, medication_type: e.target.value })
             }
             id="medication-type-field"
             label="Select medication type"
@@ -351,9 +360,9 @@ function PetForm() {
             Dosage
           </InputLabel>
           <BootstrapInput
-            value={petObject.medication_dosage}
+            value={medObject.dosage}
             onChange={(e) =>
-              setPetObject({ ...petObject, medication_dosage: e.target.value })
+              setMedObject({ ...medObject, dosage: e.target.value })
             }
             inputProps={{ placeholder: "Enter dosage" }}
             id="dosage-field"
@@ -375,11 +384,11 @@ function PetForm() {
             label="Select medication type"
             input={<BootstrapInput />}
             sx={{ width: "100%" }}
-            value={petObject.medication_frequency}
+            value={medObject.frequency}
             onChange={(e) =>
-              setPetObject({
-                ...petObject,
-                medication_frequency: e.target.value,
+              setMedObject({
+                ...medObject,
+                frequency: e.target.value,
               })
             }
           >

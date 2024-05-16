@@ -99,68 +99,74 @@ export interface Attributes {
     password: string;
 }
 
-
 export type Pet = {
     user_id: number,
-    pet_name: string,
+    name: string,
     pet_type: string,
-    pet_breed: string,
-    pet_birthday: string,
-    pet_symptoms: string[],
+    breed: string,
+    birthday: string,
+    symptoms: string[]
+}
+      
+export type Medication = {
+    pet_id: number,
+    name: string,
     medication_type: string,
-    medication_name: string,
-    medication_dosage: string,
-    medication_frequency: string,
-    ringworm_type: string,
-    ringworm_diagnosis_date: string
+    dosage: string,
+    frequency: string,
 }
 
-export const Pets: Pet[] = [
-    {
-        user_id: 1,
-        pet_name: 'Alfred',
-        pet_type:'Dog',
-        pet_breed: 'Golden Retriever',
-        pet_birthday: '05/05/2015',
-        pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication_type: 'Oral',
-        medication_name: 'Griseofulvin',
-        medication_dosage: '250mg',
-        medication_frequency: 'Daily',
-        ringworm_type: 'M. Canis',
-        ringworm_diagnosis_date: '05/05/2021'
-    },
-    {
-        user_id: 1,
-        pet_name: 'Bella',
-        pet_type:'Cat',
-        pet_breed: 'Siamese',
-        pet_birthday: '05/05/2015',
-        pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication_type: 'Oral',
-        medication_name: 'Griseofulvin',
-        medication_dosage: '250mg',
-        medication_frequency: 'Daily',
-        ringworm_type: 'M. Canis',
-        ringworm_diagnosis_date: '05/05/2021'
-    },
-    {
-        user_id: 1,
-        pet_name: 'Charlie',
-        pet_type:'Dog',
-        pet_breed: 'Thoroughbred',
-        pet_birthday: '05/05/2015',
-        pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication_type: 'Oral',
-        medication_name: 'Griseofulvin',
-        medication_dosage: '250mg',
-        medication_frequency: 'Daily',
-        ringworm_type: 'M. Canis',
-        ringworm_diagnosis_date: '05/05/2021'
-    
-    }
-]
+export type Ringworm = {
+    pet_id: number,
+    ringworm_type: string,
+    diagnosis_date: string,
+}
 
+// export const Pets: Pet[] = [
+//     {
+//         user_id: 1,
+//         pet_name: 'Alfred',
+//         pet_type:'Dog',
+//         pet_breed: 'Golden Retriever',
+//         pet_birthday: '05/05/2015',
+//         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+//         medication_type: 'Oral',
+//         medication_name: 'Griseofulvin',
+//         medication_dosage: '250mg',
+//         medication_frequency: 'Daily',
+//         ringworm_type: 'M. Canis',
+//         ringworm_diagnosis_date: '05/05/2021'
+//     },
+//     {
+//         user_id: 1,
+//         pet_name: 'Bella',
+//         pet_type:'Cat',
+//         pet_breed: 'Siamese',
+//         pet_birthday: '05/05/2015',
+//         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+//         medication_type: 'Oral',
+//         medication_name: 'Griseofulvin',
+//         medication_dosage: '250mg',
+//         medication_frequency: 'Daily',
+//         ringworm_type: 'M. Canis',
+//         ringworm_diagnosis_date: '05/05/2021'
+//     },
+//     {
+//         user_id: 1,
+//         pet_name: 'Charlie',
+//         pet_type:'Dog',
+//         pet_breed: 'Thoroughbred',
+//         pet_birthday: '05/05/2015',
+//         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+//         medication_type: 'Oral',
+//         medication_name: 'Griseofulvin',
+//         medication_dosage: '250mg',
+//         medication_frequency: 'Daily',
+//         ringworm_type: 'M. Canis',
+//         ringworm_diagnosis_date: '05/05/2021'
+    
+//     }
+// ]
 
 export const user: NewUser[] = [
     {
