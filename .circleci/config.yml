@@ -38,11 +38,8 @@ workflows:
   version: 2
   build-and-test:
     jobs:
-      - build
       - build-node:
           requires:
-            - build
       - cypress/run:
           requires:
-            - build
           start-command: npm run start
