@@ -12,7 +12,7 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: Run tests
+          name: Run tests excluding App.test.tsx
           command: |
             # Run tests excluding app.test.tsx
             find . -type f -name "*.test.tsx" -not -path "./node_modules/*" -not -path "./app.test.tsx" -exec jest {} 

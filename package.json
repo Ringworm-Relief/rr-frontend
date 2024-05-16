@@ -15,10 +15,8 @@
     "@syncfusion/ej2-react-inputs": "^25.2.3",
     "@syncfusion/ej2-react-layouts": "^25.2.3",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/fullcalendar": "^3.8.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.97",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
@@ -57,6 +55,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.0.0",
+    "@testing-library/react": "^15.0.7",
+    "@types/jest": "^29.5.12",
     "cypress": "^13.9.0"
   }
 }
