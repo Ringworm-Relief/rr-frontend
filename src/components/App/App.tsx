@@ -48,7 +48,8 @@ function App() {
     });
   };
 
-  const setLoggedInUser = () => {
+  const setLoggedInUser = (user: any) => {
+    sessionStorage.setItem('currentUser', JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem('currentUser') || 'false'))
     console.log(user)
     navigate(`/user/${user.data.id}/dashboard`)
