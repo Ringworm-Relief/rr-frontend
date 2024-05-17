@@ -11,6 +11,8 @@ import {
   Container,
 } from "@mui/material";
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 function CreateAccount() {
   const [firstName, setFirstName] = useState("");
@@ -18,6 +20,7 @@ function CreateAccount() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleCreateAccount = () => {
     if (password === confirmPassword) {
@@ -33,9 +36,14 @@ function CreateAccount() {
         },
       };
       postNewUser(newUser)
-        .then((user: any) => {
-          console.log(user);
-                // If successful, redirect to the login page
+        .then((resp: any) => {
+         if(!resp) {
+          console.log("Failed to create account");
+          // If account creation fails, display error message
+         } else {
+          navigate("/account/signin");
+           // If successful, redirect to the login page
+         }
         })
         .catch((error: any) => {
           console.log(error);
@@ -51,6 +59,7 @@ function CreateAccount() {
             type="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            required
           />
         </FormControl>
         <FormControl>
@@ -59,6 +68,7 @@ function CreateAccount() {
             type="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            required
           />
         </FormControl>
         <Stack direction="column">
@@ -68,6 +78,7 @@ function CreateAccount() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </FormControl>
           <FormControl>
@@ -76,6 +87,7 @@ function CreateAccount() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </FormControl>
           <FormControl>
@@ -84,6 +96,7 @@ function CreateAccount() {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </FormControl>
           <Button variant="contained" onClick={handleCreateAccount}>
