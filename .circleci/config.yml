@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm ci
+          command: npm install
       - run:
           name: Build application
           command: npm run build
@@ -34,6 +34,8 @@ jobs:
           pkg-manager: npm
       - run:
           command: npm run build
+      - run: 
+          command: npm install
       - run:
           name: Create the ~/artifacts directory if it doesn't exist
           command: mkdir -p ~/artifacts
