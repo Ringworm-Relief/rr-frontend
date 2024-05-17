@@ -8,7 +8,7 @@ import Education from "../views/education/Education";
 import Calendar from "../views/calendar/Calendar";
 import Article from "../article/Article";
 import MainDashboard from "../views/mainDashboard/MainDashboard";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
@@ -17,6 +17,7 @@ import SavedArticles from "../views/savedArticles/SavedArticles"
 import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
 import { User } from '../../utils/interfaces';
+import { useNavigate } from 'react-router-dom';
 // import { fetchUser } from "../../apiCalls/userApiCalls";
 //hi
 
@@ -26,6 +27,7 @@ function App() {
   const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
   const [allUsers, setAllUsers] = useState<User[]>([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]');
@@ -53,15 +55,15 @@ function App() {
 
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
-  useEffect(() => {
-  //   const user = {
-  //     id: 1,
-  //     first_name: "John",
-  //     last_name: "Doe",
-  //   }
-  //  setUser(user)
+  // useEffect(() => {
+  //  sessionStorage.getItem('currentUser') && setUser(JSON.parse(localStorage.getItem('currentUser') || '{}'))
+  // }, [user])
 
-  }, [])
+  const setLoggedInUser = () => {
+    setUser(JSON.parse(sessionStorage.getItem('currentUser') || '{}'))
+    console.log(user)
+    navigate(`/user/${user.data.id}/dashboard`)
+  }
 
   return (
     <div className="App">
@@ -73,12 +75,12 @@ function App() {
           </div>
         <nav className="App_nav">
           <div className="App_nav_links">
-            <Link className="App_link" to={user.id ? `/user/${user.id}/calendar` : '/account/signin'}>
+            <Link className="App_link" to={user.data.id ? `/user/${user.data.id}/calendar` : '/account/signin'}>
               Calendar
             </Link>
           </div>
           <div className="App_nav_links">
-            <Link className="App_link" to={user.id ? `/user/${user.id}/dashboard` : '/account/signin'}>
+            <Link className="App_link" to={user.data.id ? `/user/${user.data.id}/dashboard` : '/account/signin'}>
               Dashboard
             </Link>
           </div>
@@ -96,7 +98,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/user/:user_id/addpet" element={<PetForm />} />
         <Route path="account/new" element={<CreateAccount setAllUsers={setAllUsers} allUsers={allUsers}/>} />
-        <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
+        <Route path="account/signin" element={<SignIn setUser={setUser} setLoggedInUser={setLoggedInUser}/>} />
         <Route path="/education" element={<Education />} />
         <Route path="/savedarticles" element={<SavedArticles handleSaves={handleSaves} savedArticles={savedArticles}/>} />
         <Route path="/education/:category" element={<EducationCategory handleSaves={handleSaves} savedArticles={savedArticles}/>} />

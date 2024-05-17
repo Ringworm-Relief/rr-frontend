@@ -11,10 +11,11 @@ import { useState } from "react";
 import { fetchUser } from "../../../apiCalls/userApiCalls";
 
 interface Props {
-  setUser: React.Dispatch<any>
+  setUser: React.Dispatch<any>,
+  setLoggedInUser: () => void
 }
 
-function SignIn({ setUser }: Props) {
+function SignIn({ setUser, setLoggedInUser }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,8 +27,10 @@ function SignIn({ setUser }: Props) {
             console.log("User not found")
             // If user not found, display error message
           } else {
-            setUser(user);
-            console.log(user);
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            // setUser(user);
+            setLoggedInUser();
+            console.log(user.data.id);
             // If user found, set user state and redirect to dashboard
           }
         })
