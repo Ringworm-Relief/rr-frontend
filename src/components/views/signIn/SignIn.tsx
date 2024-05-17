@@ -8,6 +8,7 @@ import {
   Container,
 } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { fetchUser } from "../../../apiCalls/userApiCalls";
 
 interface Props {
@@ -62,7 +63,9 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
           Sign In
         </Button>
         {/* Route to dashboard after account creation */}
-        <Button> Create Account </Button>
+        <Button> 
+          <Link to='/account/signin'>Create Account</Link> 
+          </Button>
       </Stack>
     </Box>
   </Container>

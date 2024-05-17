@@ -45,7 +45,6 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
           console.log("Failed to create account");
           // If account creation fails, display error message
          } else {
-          // navigate("/account/signin");
            // If successful, redirect to the login page
            const token = localStorage.getItem('token')
            const user: User = {
@@ -53,9 +52,10 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
              token: token ? token : "",
              email: data.data.attributes.email,
              // password: password,
-           }
-           setAllUsers([...allUsers, user])
-           console.log(user)
+            }
+            setAllUsers([...allUsers, user])
+            console.log(user)
+            navigate("/account/signin");
          }
         }) 
         .catch((error: any) => {
