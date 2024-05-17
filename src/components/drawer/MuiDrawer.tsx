@@ -12,7 +12,6 @@ import { useState } from "react";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React from 'react';
-function MuiDrawer() {
 
 interface Props {
   user: any;
@@ -87,5 +86,4 @@ function MuiDrawer({ user }: Props) {
     </div>
   );
 }
-
 export default MuiDrawer;
