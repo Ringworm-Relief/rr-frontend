@@ -18,6 +18,13 @@ jobs:
       - run:
           name: Build application
           command: npm run build
+      - run: 
+          name: Print Node.js version
+          command: node --version
+      - run: 
+          name: Print npm version
+          command: npm --version
+        
   build-node:
     # Build node project
     executor: node/default
