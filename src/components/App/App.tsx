@@ -22,7 +22,8 @@ import { useNavigate } from 'react-router-dom';
 //hi
 
 function App() {
-  const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
+  const activeUser =  JSON.parse(sessionStorage.getItem('currentUser') || '{}')
+  const [user, setUser] = useState<any>(activeUser); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
   const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
@@ -32,6 +33,9 @@ function App() {
   useEffect(() => {
     const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]');
     setSavedArticles(savedArts);
+    user ? navigate(`/user/${user.data.id}/dashboard`) : navigate('/')
+    // console.log(user)
+    // 
   }, []); 
 
   useEffect(() => {
@@ -106,7 +110,7 @@ function App() {
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />
-
+        <Route path='*' element={<Landing />}/>
       </Routes>
       <footer className="App_footer">
         <p>Licensing info Syncfusion</p>
