@@ -16,6 +16,7 @@ import SignIn from "../views/signIn/SignIn";
 import SavedArticles from "../views/savedArticles/SavedArticles"
 import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
+import { User } from '../../utils/interfaces';
 // import { fetchUser } from "../../apiCalls/userApiCalls";
 //hi
 
@@ -24,6 +25,7 @@ function App() {
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
   const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
+  const [allUsers, setAllUsers] = useState<User[]>([])
 
   useEffect(() => {
     const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]');
@@ -52,12 +54,12 @@ function App() {
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
   useEffect(() => {
-    const user = {
-      id: 1,
-      first_name: "John",
-      last_name: "Doe",
-    }
-   setUser(user)
+  //   const user = {
+  //     id: 1,
+  //     first_name: "John",
+  //     last_name: "Doe",
+  //   }
+  //  setUser(user)
 
   }, [])
 
@@ -93,7 +95,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/user/:user_id/addpet" element={<PetForm />} />
-        <Route path="account/new" element={<CreateAccount />} />
+        <Route path="account/new" element={<CreateAccount setAllUsers={setAllUsers} allUsers={allUsers}/>} />
         <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
         <Route path="/education" element={<Education />} />
         <Route path="/savedarticles" element={<SavedArticles handleSaves={handleSaves} savedArticles={savedArticles}/>} />

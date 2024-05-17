@@ -19,7 +19,8 @@ function SignIn({ setUser }: Props) {
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
-      fetchUser(email, password)
+    const token = localStorage.getItem('token');
+      fetchUser(email, password, token ? token : "")
         .then((user: any) => {
           if(!user) {
             console.log("User not found")

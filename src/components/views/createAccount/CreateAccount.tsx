@@ -11,9 +11,14 @@ import {
   Container,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { User } from "../../../utils/interfaces";
 
+interface Props {
+  allUsers: User[],
+  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>
+}
 
-function CreateAccount() {
+function CreateAccount({ setAllUsers, allUsers }: Props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,15 +40,24 @@ function CreateAccount() {
         },
       };
       postNewUser(newUser)
-        .then((resp: any) => {
-         if(!resp) {
+        .then((data) => {
+         if(!data) {
           console.log("Failed to create account");
           // If account creation fails, display error message
          } else {
-          navigate("/account/signin");
+          // navigate("/account/signin");
            // If successful, redirect to the login page
+           const token = localStorage.getItem('token')
+           const user: User = {
+             id: data.data.id,
+             token: token ? token : "",
+             email: data.data.attributes.email,
+             // password: password,
+           }
+           setAllUsers([...allUsers, user])
+           console.log(user)
          }
-        })
+        }) 
         .catch((error: any) => {
           console.log(error);
         });
