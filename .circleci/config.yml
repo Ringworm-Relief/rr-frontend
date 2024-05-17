@@ -24,28 +24,6 @@ jobs:
       - run: 
           name: Print npm version
           command: npm --version
-        
-  build-node:
-    # Build node project
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run: 
-          command: npm install
-      - run:
-          command: npm run build
-      - run:
-          name: Create the ~/artifacts directory if it doesn't exist
-          command: mkdir -p ~/artifacts
-      # Copy output to artifacts dir
-      - run:
-          name: Copy artifacts
-          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
-      - store_artifacts:
-          path: ~/artifacts
-          destination: node-build
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -61,9 +39,6 @@ workflows:
   build-and-test:
     jobs:
       - build
-      - build-node:
-          requires:
-            - build
       - cypress/run:
           requires:
             - build
