@@ -163,11 +163,15 @@ function App() {
         />
         <Route path="*" element={<Landing />} />
       </Routes>
-      <footer className="App_footer">
-        <p>Licensing info Syncfusion</p>
-        <p>Contact us</p>
-        <p>About</p>
-      </footer>
+      <div id="footer_wrapper">
+        <div id="footer_container">
+          <footer className="App_footer">
+            <p>Licensing info Syncfusion</p>
+            <p>Contact us</p>
+            <p>About</p>
+          </footer>
+        </div>
+      </div>
     </div>
   );
 }
