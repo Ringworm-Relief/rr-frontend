@@ -239,3 +239,10 @@ export interface RouteParams {
     [key: string]: string | undefined;
   }
 
+export interface User {
+    id: string;
+    token: string;
+    email: string;
+    // password: string;
+}
+
