@@ -16,7 +16,7 @@ import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
 import { User } from "../../utils/interfaces";
 import { Button } from "@mui/material";
-// import { fetchUser } from "../../apiCalls/userApiCalls";
+import { destroyToken } from "../../apiCalls/userApiCalls";
 // localStorage.clear()
 function App() {
   const activeUser = JSON.parse(
@@ -64,6 +64,7 @@ function App() {
 
   const handleSignOut = () => {
     sessionStorage.removeItem("currentUser");
+    destroyToken();
     setUser(false);
     navigate("/");
   };

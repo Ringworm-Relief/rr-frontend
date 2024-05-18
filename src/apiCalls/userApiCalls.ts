@@ -46,3 +46,19 @@ export const fetchUser = (email: string, password: string) => {
     return response.json();
   });
 };
+
+export const destroyToken = () => {
+  return fetch(
+    "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/logout",
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem('token') ?? ''
+      },
+    }
+  ).then((response) => {
+    localStorage.removeItem('token')
+    return response.json();
+  });
+}
