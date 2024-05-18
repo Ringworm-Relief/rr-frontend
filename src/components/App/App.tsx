@@ -16,6 +16,8 @@ import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
 import { User } from "../../utils/interfaces";
 import { Button } from "@mui/material";
+import { deleteUserSession } from "../../apiCalls/userApiCalls";
+
 // import { fetchUser } from "../../apiCalls/userApiCalls";
 // localStorage.clear()
 function App() {
@@ -63,6 +65,17 @@ function App() {
   };
 
   const handleSignOut = () => {
+
+    const localUsers = JSON.parse(localStorage.getItem("localUsers") || "[]");
+    const targetUser = localUsers.find((user: User) => {
+      return user
+    });
+    targetUser &&
+    deleteUserSession(targetUser.token)
+    .catch((error: any) => {
+      console.log(error);
+    });
+
     sessionStorage.removeItem("currentUser");
     setUser(false);
     navigate("/");
