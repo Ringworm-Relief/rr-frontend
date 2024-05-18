@@ -9,11 +9,17 @@ import {
   FormControl,
   Button,
   Container,
+  Typography
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { User } from "../../../utils/interfaces";
 
+interface Props {
+  allUsers: User[];
+  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>;
+}
 
-function CreateAccount() {
+function CreateAccount({ setAllUsers, allUsers }: Props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,15 +40,25 @@ function CreateAccount() {
           },
         },
       };
+
       postNewUser(newUser)
-        .then((resp: any) => {
-         if(!resp) {
-          console.log("Failed to create account");
-          // If account creation fails, display error message
-         } else {
-          navigate("/account/signin");
-           // If successful, redirect to the login page
-         }
+        .then((data) => {
+          if (!data) {
+            console.log("Failed to create account");
+          } else {
+            // const token = localStorage.getItem("token");
+            // const user: User = {
+            //   id: data.data.id,
+            //   token: token ? token : "",
+            //   email: data.data.attributes.email,
+            // };
+            // let localStorageArr = JSON.parse(
+            //   localStorage.getItem("localUsers") || "[]"
+            // );
+            // localStorageArr.push(user);
+            // localStorage.setItem(`localUsers`, JSON.stringify(localStorageArr));
+            navigate("/account/signin");
+          }
         })
         .catch((error: any) => {
           console.log(error);
@@ -52,7 +68,7 @@ function CreateAccount() {
   return (
     <Container maxWidth="xs">
       <Box component="form" onSubmit={handleCreateAccount}>
-        <FormControl>
+        <FormControl sx={{mt: 5}}>
           <InputLabel htmlFor="firstName">First Name</InputLabel>
           <OutlinedInput
             type="firstName"
@@ -61,7 +77,7 @@ function CreateAccount() {
             required
           />
         </FormControl>
-        <FormControl>
+        <FormControl sx={{mt: 5}}>
           <InputLabel htmlFor="lastName">Last Name</InputLabel>
           <OutlinedInput
             type="lastName"
@@ -71,7 +87,7 @@ function CreateAccount() {
           />
         </FormControl>
         <Stack direction="column">
-          <FormControl>
+          <FormControl sx={{mt: 5}}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
               type="email"
@@ -80,7 +96,7 @@ function CreateAccount() {
               required
             />
           </FormControl>
-          <FormControl>
+          <FormControl sx={{mt: 5}}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               type="password"
@@ -89,7 +105,7 @@ function CreateAccount() {
               required
             />
           </FormControl>
-          <FormControl>
+          <FormControl sx={{mt: 5}}>
             <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
             <OutlinedInput
               type="password"
@@ -98,10 +114,17 @@ function CreateAccount() {
               required
             />
           </FormControl>
-          <Button variant="contained" onClick={handleCreateAccount}>
+          <Button variant="contained" onClick={handleCreateAccount} sx={{mt: 2}}>
             Create Account
           </Button>
-          {/* Route to dashboard after account creation */}
+          <Typography variant="body2">
+          Already have an account?
+            </Typography>
+          <Button variant="outlined">
+            <Link to="/account/signin">
+              Click Here To Sign In
+          </Link>
+          </Button>
         </Stack>
       </Box>
     </Container>

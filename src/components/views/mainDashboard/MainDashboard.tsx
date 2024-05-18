@@ -26,7 +26,7 @@ function MainDashboard({ user, savedArticles }: Props) {
   const navigate = useNavigate();
   return (
     <>
-      {user.id ? (
+      {user.data.id ? (
         <Box
           padding={10}
           sx={{

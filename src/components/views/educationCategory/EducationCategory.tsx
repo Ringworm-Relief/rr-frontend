@@ -84,7 +84,6 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, save
            </Box>
         </Container>
     )
-
 }
 
 export default EducationCategory

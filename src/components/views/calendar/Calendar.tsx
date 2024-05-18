@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import {
-  Box,
-  TextField,
-  Button,
-  Modal,
-} from "@mui/material";
-
+import { Inject, ScheduleComponent, Day, Week, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
+import { DatePicker, ChangeEventArgs } from '@syncfusion/ej2-calendars';
+// import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
+// import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+// import { Start } from "@mui/icons-material";
+import { useEffect, useRef, useState } from "react";
+import { Event } from "../../../utils/interfaces";
+// import localforage from "localforage";
 interface Props {
   user: any;
 }
@@ -41,63 +38,128 @@ const style = {
 
 function Calendar({ user }: Props) {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState<NewEvent>({ title: "", start: "" });
-  const calendarEvents: NewEvent[] = JSON.parse(localStorage.getItem("CAL_EVENTS") || '[]');
-  const [calEvents, setCalEvents] = useState(calendarEvents);
+  const scheduleObj = useRef<ScheduleComponent>(null);
+//   // const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
+//   const [events, setEvents] = useState<any[]>([]);
+//   // console.log(scheduleObj)
+// //undefined
+//   // console.log(scheduleObj.current?.eventsData) //undefined
+//   // console.log(scheduleObj.current?.activeCellsData)
+//   // console.log(scheduleObj.current?.eventsProcessed)
 
-  const handleDateClick = (arg: any) => {
-    setOpen(true);
-    setNewEvent({ ...newEvent, start: arg.dateStr });
-    console.log("date", arg.dateStr);
-  };
+//   useEffect(() => {
+  //     setEvents([...events, newNewEvent])
+  //     }, [])
+  
+      const newNewEvent: any = {
+        dataSource: [{
+          Subject: 'Testing',
+          EndTime: new Date("2024-05-17T18:00:00.000Z"),
+          StartTime: new Date("2024-05-17T14:00:00.000Z"),
+          IsAllDay: false,
+          Description: 'Testing'
+        }]
+      }
+//     // const eventSettings: EventSettingsModel = {dataSource: events}
 
-  const handleSubmit = () => {
-    setOpen(false);
-    setCalEvents([...calEvents, newEvent]);
-    setNewEvent({start: "", title: ""})
-  };
 
-  useEffect(() => {
-    const calendarEvents: NewEvent[] = JSON.parse(localStorage.getItem("CAL_EVENTS") || '[]');
-    setCalEvents(calendarEvents);
-  }, []); 
+//   console.log(scheduleObj.current?.eventsData[0].StartTime)
+//   useEffect(() => {
+//     // scheduleObj.current?.addEvent({event: scheduleObj.current?.eventSettings.dataSource as any[] || []});
+//     // setEvents(scheduleObj.current?.eventsData as any[] || [])
+//     const subject = scheduleObj.current?.eventsData[0].Subject
+//     const endTime = scheduleObj.current?.eventsData[0].EndTime
+//     const startTime = scheduleObj.current?.eventsData[0].StartTime
+//     const isAllDay = scheduleObj.current?.eventsData[0].IsAllDay  
+//     const description = scheduleObj.current?.eventsData[0].Description
+//     // let newEvent: EventSettingsModel = {
+//     //   dataSource: [{
+//     //     Subject: subject,
+//     //     EndTime: new Date(`${endTime}`),
+//     //     StartTime: new Date(`${startTime}`),
+//     //     IsAllDay: isAllDay,
+//     //     Description: description
+//     //   }]
+//     // }
+//     let newEvent: any = {
+//       dataSource: [{
+//         Subject: subject,
+//         EndTime: new Date(`${endTime}`),
+//         StartTime: new Date(`${startTime}`),
+//         IsAllDay: isAllDay,
+//         Description: description
+//       }]
+//     }
+//     setEvents(newEvent)
+//     // console.log(scheduleObj.current?.eventsProcessed) //NOT undefined
+//   }, [scheduleObj])
+//   console.log('events', events)
+//   console.log(scheduleObj)
 
-  useEffect(() => {
-    localStorage.setItem("CAL_EVENTS", JSON.stringify(calEvents));
-  }, [calEvents]); 
 
   return (
     <>
-      <h1>Calendar</h1>
-      <Modal
-        open={open}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">Text in a modal</h2>
-          <p id="parent-modal-description">
-            {newEvent.start}
-          </p>
-          <TextField value={newEvent.title} onChange={e => setNewEvent({ ...newEvent, title: e.target.value })} id="outlined-basic" label="Outlined" variant="outlined" />
-          <Button onClick={handleSubmit}>Add event</Button>
-        </Box>
-      </Modal>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        headerToolbar={{
-          start: "today prev,next",
-          center: "title",
-          end: "dayGridMonth, timeGridWeek, timeGridDay"
-        }}
-        events={calEvents}
-        dateClick={handleDateClick}
-      />
-      {!user.id && navigate("/account/signin")}
+      {user.id ? (
+        <>
+          <ScheduleComponent eventSettings={newNewEvent} ref={scheduleObj}>
+            <Inject services={[Day, Week, Month, Agenda]} />
+          </ScheduleComponent>
+        </>
+      ) : (
+        navigate("/account/signin")
+      )}
     </>
   );
 }
 
 export default Calendar;
+
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getFullYear())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMonth())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getDate())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getHours())
+  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMinutes())
+  // console.log(eventSettings) //showing 2 events successfully
+
+
+  //<><><>><><><>><<><><><>><> OG version <><><><><><><><><>
+    // const remoteData = new DataManager({
+  //     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
+  //     adaptor: new WebApiAdaptor(),
+  //     crossDomain: true,
+  //   // fields: {
+  //   //   id: 'Id',
+  //   //   subject: { name: 'Subject' },
+  //   //   location: { name: 'Location' },
+  //   //   description: { name: 'Description' },
+  //   //   startTime: { name: 'StartTime' },
+  //   //   endTime: { name: 'EndTime' }
+  //   // }
+  // })
+
+    // const newEvent: EventSettingsModel = {
+  //   dataSource: [{
+  //     Subject: 'Testing',
+  //     EndTime: new Date(2024, 4, 17, 10, 0),
+  //     StartTime: new Date(2024, 4, 17, 8, 0),
+  //     IsAllDay: false,
+  //     Description: 'Testing'
+  //   }, 
+  //   {
+  //     Subject: 'Testing',
+  //     EndTime: new Date(2024, 4, 18, 10, 0),
+  //     StartTime: new Date(2024, 4, 18, 8, 0),
+  //     IsAllDay: false,
+  //     Description: 'Testing'
+  //   }]
+  // }
+
+  // const newNewEvent: any = {
+  //   dataSource: [{
+  //     Subject: 'Testing',
+  //     EndTime: new Date("2024-05-17T18:00:00.000Z"),
+  //     StartTime: new Date("2024-05-17T14:00:00.000Z"),
+  //     IsAllDay: false,
+  //     Description: 'Testing'
+  //   }]
+  // }
