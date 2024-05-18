@@ -16,12 +16,14 @@ import SignIn from "../views/signIn/SignIn";
 import SavedArticles from "../views/savedArticles/SavedArticles"
 import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
-// import { fetchUser } from "../../apiCalls/userApiCalls";
-//hi
+import EducationCategory from '../views/educationCategory/EducationCategory';
+import { fetchUser } from "../../apiCalls/userApiCalls";
 
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
+
+
   const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
 
@@ -48,6 +50,7 @@ function App() {
   // const handleArticleClick = () => {
   //   navigate(`/education/${article.title}/${article.tagline}`)
   // }
+
 
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
@@ -100,7 +103,6 @@ function App() {
         <Route path="/education/:category" element={<EducationCategory handleSaves={handleSaves} savedArticles={savedArticles}/>} />
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
-        {/* user/1/calendar -> user/:num/calendar */}
         <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />
 
       </Routes>

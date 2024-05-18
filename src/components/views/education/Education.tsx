@@ -1,4 +1,5 @@
 import EducationPageCard from "../../subComps/educationPageCard/EducationPageCard";
+
 import { Box } from "@mui/material";
 
 function Education() {
