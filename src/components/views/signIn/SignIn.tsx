@@ -6,11 +6,17 @@ import {
   FormControl,
   Button,
   Container,
+  Typography,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUser } from "../../../apiCalls/userApiCalls";
 import { User } from "../../../utils/interfaces";
+import React from "react";
 
 interface Props {
   setUser: React.Dispatch<any>,
@@ -21,30 +27,28 @@ interface Props {
 function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const setAuthError = (error: string) => {
+    setError(error);
+    console.log(error);
+  }
 
   const handleSignIn = () => {
-    // const token = localStorage.getItem('token');
-    // const localUsers = JSON.parse(localStorage.getItem("localUsers") || "[]");
-    // const targetUser = localUsers.find((user: User) => {
-    //   return user.email === email;
-    // });
-    // console.log(targetUser)
-    // console.log(password)
-    // targetUser &&
-      fetchUser(email, password)
+      fetchUser(email, password, setError)
         .then((user: any) => {
-          if(!user) {
-            console.log("User not found")
-            // If user not found, display error message
+          if(!user || error) {
+            setAuthError("Email or Password is incorrect. Please try again.");
           } else {
-            // sessionStorage.setItem('currentUser', JSON.stringify(user));
-            // setUser(user);
-            console.log(user)
             setLoggedInUser(user);
-            console.log(user.data.id);
-            // navigate(`/user/${user.data.id}/dashboard`);
-            // If user found, set user state and redirect to dashboard
+            // Navigation and user state handled in App.tsx by setLoggedInUser
           }
         })
         .catch((error: any) => {
@@ -56,26 +60,42 @@ function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
     <Container maxWidth="xs">
     <Box component="form" onSubmit={handleSignIn}>
       <Stack direction="column">
-        <FormControl>
+      {error && <Typography sx={{ color: "red", mt: 10 }}>{error}</Typography>}
+        <FormControl sx={{mt: 2}}>
           <InputLabel htmlFor="email">Email</InputLabel>
           <OutlinedInput
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+            label="Email"
+            required
           />
         </FormControl>
-        <FormControl>
+        <FormControl sx={{mt: 5}}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
           />
         </FormControl>
-        <Button variant="contained" onClick={handleSignIn}>
+        <Button variant="contained" sx={{mt: 5}} onClick={handleSignIn}>
           Sign In
         </Button>
-        {/* Route to dashboard after account creation */}
         <Button> 
           <Link to='/account/new'>Create Account</Link> 
         </Button>

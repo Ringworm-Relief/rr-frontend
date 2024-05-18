@@ -70,6 +70,8 @@ function App() {
     navigate("/");
   };
 
+  // handleSignOut()
+
   return (
     <div className="App">
       <header className="App_header">
@@ -155,10 +157,7 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route
-          path="/user/:user_id/dashboard"
-          element={<MainDashboard savedArticles={savedArticles} user={user} />}
-        />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard savedArticles={savedArticles} user={user}/>} />
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}
