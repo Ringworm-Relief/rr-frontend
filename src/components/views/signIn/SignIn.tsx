@@ -18,18 +18,20 @@ interface Props {
   allUsers: User[]
 }
 
-function SignIn({ setUser, setLoggedInUser,allUsers }: Props) {
+function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSignIn = () => {
-    const token = localStorage.getItem('token');
-    const user = allUsers.find(user => user.email === email)
-    console.log(user)
-    const allUsersEmails = allUsers.map(user => user.email)
-    console.log(allUsersEmails) //undefined
-      fetchUser(email, password, token ? token : "")
+    // const token = localStorage.getItem('token');
+    const localUsers = JSON.parse(localStorage.getItem("localUsers") || "[]");
+    const targetUser = localUsers.find((user: User) => {
+      return user.email === email;
+    });
+    console.log(targetUser)
+    targetUser &&
+      fetchUser(targetUser.email, password, targetUser.token)
         .then((user: any) => {
           if(!user) {
             console.log("User not found")
@@ -47,6 +49,7 @@ function SignIn({ setUser, setLoggedInUser,allUsers }: Props) {
           console.log(error);
         });
   };
+
   return (
     <Container maxWidth="xs">
     <Box component="form" onSubmit={handleSignIn}>

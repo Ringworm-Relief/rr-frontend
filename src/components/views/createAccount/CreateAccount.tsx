@@ -14,8 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { User } from "../../../utils/interfaces";
 
 interface Props {
-  allUsers: User[],
-  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>
+  allUsers: User[];
+  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 function CreateAccount({ setAllUsers, allUsers }: Props) {
@@ -41,31 +41,31 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
       };
       postNewUser(newUser)
         .then((data) => {
-         if(!data) {
-          console.log("Failed to create account");
-          // If account creation fails, display error message
-         } else {
-           // If successful, redirect to the login page
-          //  let shellArr = []
-           const token = localStorage.getItem('token')
-           const user: User = {
-             id: data.data.id,
-             token: token ? token : "",
-             email: data.data.attributes.email,
-             // password: password,
-            }
+          if (!data) {
+            console.log("Failed to create account");
+            // If account creation fails, display error message
+          } else {
+            // If successful, redirect to the login page
+            //  let shellArr = []
+            const token = localStorage.getItem("token");
+            const user: User = {
+              id: data.data.id,
+              token: token ? token : "",
+              email: data.data.attributes.email,
+              // password: password,
+            };
             // setAllUsers([...allUsers, user])
-            let localStorageArr = JSON.parse(localStorage.getItem('localUsers') || '[]')
-          
-              localStorageArr.push(user)
-         
-            console.log(localStorageArr) 
-            console.log(localStorageArr.length) 
-            localStorage.setItem(`localUsers`, JSON.stringify(localStorageArr))
-            console.log(user)
+            let localStorageArr = JSON.parse(
+              localStorage.getItem("localUsers") || "[]"
+            );
+            localStorageArr.push(user);
+            localStorage.setItem(`localUsers`, JSON.stringify(localStorageArr));
             navigate("/account/signin");
-         }
-        }) 
+            //   console.log(localStorageArr)
+            //   console.log(localStorageArr.length)
+            // console.log(user)
+          }
+        })
         .catch((error: any) => {
           console.log(error);
         });
