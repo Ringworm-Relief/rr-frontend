@@ -10,19 +10,25 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUser } from "../../../apiCalls/userApiCalls";
+import { User } from "../../../utils/interfaces";
 
 interface Props {
   setUser: React.Dispatch<any>,
-  setLoggedInUser: (user: any) => void
+  setLoggedInUser: (user: any) => void,
+  allUsers: User[]
 }
 
-function SignIn({ setUser, setLoggedInUser }: Props) {
+function SignIn({ setUser, setLoggedInUser,allUsers }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSignIn = () => {
     const token = localStorage.getItem('token');
+    const user = allUsers.find(user => user.email === email)
+    console.log(user)
+    const allUsersEmails = allUsers.map(user => user.email)
+    console.log(allUsersEmails) //undefined
       fetchUser(email, password, token ? token : "")
         .then((user: any) => {
           if(!user) {

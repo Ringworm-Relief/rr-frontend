@@ -18,13 +18,16 @@ import CoolCat from "../../assets/RR-4.svg";
 import { User } from '../../utils/interfaces';
 import { Button } from "@mui/material";
 // import { fetchUser } from "../../apiCalls/userApiCalls";
-
+// localStorage.clear()
 function App() {
   const activeUser =  JSON.parse(sessionStorage.getItem('currentUser') || 'false')
   const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
-  const [user, setUser] = useState<any>(activeUser); //Holds the user object to be passed to the dashboard && used for conditional rendering
+  const localUsers = JSON.parse(localStorage.getItem('localUsers') || '[]')
+
+  const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
-  const [allUsers, setAllUsers] = useState<User[]>([])
+  const [allUsers, setAllUsers] = useState<User[]>(localUsers) //Holds all users on local machine
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,7 +100,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/user/:user_id/addpet" element={<PetForm />} />
         <Route path="account/new" element={<CreateAccount setAllUsers={setAllUsers} allUsers={allUsers}/>} />
-        <Route path="account/signin" element={<SignIn setUser={setUser} setLoggedInUser={setLoggedInUser}/>} />
+        <Route path="account/signin" element={<SignIn setUser={setUser} setLoggedInUser={setLoggedInUser} allUsers={allUsers}/>} />
         <Route path="/education" element={<Education />} />
         <Route path="/savedarticles" element={<SavedArticles handleSaves={handleSaves} savedArticles={savedArticles}/>} />
         <Route path="/education/:category" element={<EducationCategory handleSaves={handleSaves} savedArticles={savedArticles}/>} />
