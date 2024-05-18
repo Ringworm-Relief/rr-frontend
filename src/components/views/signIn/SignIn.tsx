@@ -44,7 +44,7 @@ function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
   };
 
   const handleSignIn = () => {
-    fetchUser(email, password, setError)
+    fetchUser(email, password)
       .then((user: any) => {
         if (!user || error) {
           setAuthError("Email or Password is incorrect. Please try again.");
@@ -77,8 +77,9 @@ function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
           <FormControl sx={{ mt: 5 }}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
+              id="password"
               type={showPassword ? "text" : "password"}
+              value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
