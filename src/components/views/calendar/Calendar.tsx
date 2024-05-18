@@ -1,82 +1,120 @@
 import { useNavigate } from "react-router-dom";
-import { Inject, ScheduleComponent, Day, Week, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
+import * as ReactDOM from 'react-dom';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { DatePicker, ChangeEventArgs } from '@syncfusion/ej2-calendars';
 // import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
-// import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 // import { Start } from "@mui/icons-material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 import { Event } from "../../../utils/interfaces";
-// import localforage from "localforage";
+import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject, Resize, DragAndDrop, ActionEventArgs, NavigatingEventArgs, View, EventSettingsModel } from '@syncfusion/ej2-react-schedule';
+import { extend } from '@syncfusion/ej2-base';
+
 interface Props {
   user: any;
 }
 
+// const useDataDatesObserver = (setDates: Dispatch<SetStateAction<string>>) => {
+
+//   useEffect(() => {
+//     const targetNode = document.querySelectorAll('.e-appointment');
+//     console.log("Testing")
+//     console.log(targetNode)
+//     if (!targetNode) return;
+
+//     const observer = new MutationObserver((mutations) => {
+//       mutations.forEach((mutation) => {
+//         if (mutation.type === 'attributes' && mutation.attributeName === 'data-dates') {
+//           const newDates = mutation.target.getAttribute('data-dates');
+//           // Assume setDates is a state setting function that you've passed or defined elsewhere
+//           setDates(newDates);
+//         }
+//       }
+//     });
+
+//     const config = { attributes: true };
+//     targetNodes.forEach(node => {
+//       observer.observe(node, config);
+//     });
+
+//     // Cleanup observer on component unmount
+//     return () => observer.disconnect();
+//     }, [setDates]);
+// };
+  // useDataDatesObserver(setDates);
+
+
 function Calendar({ user }: Props) {
+  const [dates, setDates] = useState('');
   const navigate = useNavigate();
   const scheduleObj = useRef<ScheduleComponent>(null);
-//   // const storedEvents: any[] = JSON.parse(localStorage.getItem('events') || '[]');
-//   const [events, setEvents] = useState<any[]>([]);
-//   // console.log(scheduleObj)
-// //undefined
-//   // console.log(scheduleObj.current?.eventsData) //undefined
-//   // console.log(scheduleObj.current?.activeCellsData)
-//   // console.log(scheduleObj.current?.eventsProcessed)
+  const buttonObj = useRef<ButtonComponent>(null);
 
-//   useEffect(() => {
-  //     setEvents([...events, newNewEvent])
-  //     }, [])
-  
-      const newNewEvent: any = {
-        dataSource: [{
-          Subject: 'Testing',
-          EndTime: new Date("2024-05-17T18:00:00.000Z"),
-          StartTime: new Date("2024-05-17T14:00:00.000Z"),
-          IsAllDay: false,
-          Description: 'Testing'
-        }]
+  let connection: HubConnection;
+  const data: Record<string, any>[] = [];
+  let isHubConnected: boolean = false;
+  const [eventSettings, setEventSettings] = useState<EventSettingsModel>({ dataSource: data });
+  const [currentView, setCurrentView] = useState<View>("Week");
+
+  useEffect(() => {
+    const url: string = 'https://ej2.syncfusion.com/aspnetcore/scheduleHub/';
+    connection = new HubConnectionBuilder().withUrl(url, { withCredentials: false }).withAutomaticReconnect().build();
+    
+    connection.on('ReceiveData', (action: string, data: View | Record<string, any>[]) => {
+      if (action === 'view') {
+        setCurrentView(data as View);
       }
-//     // const eventSettings: EventSettingsModel = {dataSource: events}
+      if (action === 'eventCreated' || action === 'eventChanged' || action === 'eventRemoved') {
+        setEventSettings({ dataSource: data as Record<string, any>[] });
+      }
+    });
 
+    connection.start().then(() => {
+      isHubConnected = true;
+    }).catch((err: unknown) => {
+      console.log(err);
+    });
 
-//   console.log(scheduleObj.current?.eventsData[0].StartTime)
-//   useEffect(() => {
-//     // scheduleObj.current?.addEvent({event: scheduleObj.current?.eventSettings.dataSource as any[] || []});
-//     // setEvents(scheduleObj.current?.eventsData as any[] || [])
-//     const subject = scheduleObj.current?.eventsData[0].Subject
-//     const endTime = scheduleObj.current?.eventsData[0].EndTime
-//     const startTime = scheduleObj.current?.eventsData[0].StartTime
-//     const isAllDay = scheduleObj.current?.eventsData[0].IsAllDay  
-//     const description = scheduleObj.current?.eventsData[0].Description
-//     // let newEvent: EventSettingsModel = {
-//     //   dataSource: [{
-//     //     Subject: subject,
-//     //     EndTime: new Date(`${endTime}`),
-//     //     StartTime: new Date(`${startTime}`),
-//     //     IsAllDay: isAllDay,
-//     //     Description: description
-//     //   }]
-//     // }
-//     let newEvent: any = {
-//       dataSource: [{
-//         Subject: subject,
-//         EndTime: new Date(`${endTime}`),
-//         StartTime: new Date(`${startTime}`),
-//         IsAllDay: isAllDay,
-//         Description: description
-//       }]
-//     }
-//     setEvents(newEvent)
-//     // console.log(scheduleObj.current?.eventsProcessed) //NOT undefined
-//   }, [scheduleObj])
-//   console.log('events', events)
-//   console.log(scheduleObj)
+    return () => {
+      if (connection) {
+        connection.stop().then(() => {
+          isHubConnected = false;
+        }).catch((err: unknown) => {
+          console.log(err);
+        });
+      }
+    };
+  }, []);
 
+  const onActionComplete = (args: ActionEventArgs): void => {
+    if (isHubConnected && (args.requestType === 'eventCreated' || args.requestType === 'eventChanged' || args.requestType === 'eventRemoved')) {
+      connection.invoke('SendData', args.requestType, eventSettings.dataSource);
+    }
+  };
+
+  const onCreated = () => {
+    // SignalR connection is already handled in useEffect
+  };
+
+  const onNavigating = (args: NavigatingEventArgs): void => {
+    if (args.action === 'view' && isHubConnected) {
+      connection.invoke('SendData', args.action, args.currentView);
+    }
+  };
 
   return (
     <>
       {user.id ? (
         <>
-          <ScheduleComponent eventSettings={newNewEvent} ref={scheduleObj}>
+          <ScheduleComponent 
+          eventSettings={eventSettings} 
+          ref={scheduleObj}
+          actionComplete={onActionComplete} 
+          navigating={onNavigating} 
+          created={onCreated} 
+          currentView={currentView} 
+          >
+
             <Inject services={[Day, Week, Month, Agenda]} />
           </ScheduleComponent>
         </>
@@ -86,55 +124,4 @@ function Calendar({ user }: Props) {
     </>
   );
 }
-
 export default Calendar;
-
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getFullYear())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMonth())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getDate())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getHours())
-  // console.log(scheduleObj.current?.eventsData[0].StartTime.getMinutes())
-  // console.log(eventSettings) //showing 2 events successfully
-
-
-  //<><><>><><><>><<><><><>><> OG version <><><><><><><><><>
-    // const remoteData = new DataManager({
-  //     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData',
-  //     adaptor: new WebApiAdaptor(),
-  //     crossDomain: true,
-  //   // fields: {
-  //   //   id: 'Id',
-  //   //   subject: { name: 'Subject' },
-  //   //   location: { name: 'Location' },
-  //   //   description: { name: 'Description' },
-  //   //   startTime: { name: 'StartTime' },
-  //   //   endTime: { name: 'EndTime' }
-  //   // }
-  // })
-
-    // const newEvent: EventSettingsModel = {
-  //   dataSource: [{
-  //     Subject: 'Testing',
-  //     EndTime: new Date(2024, 4, 17, 10, 0),
-  //     StartTime: new Date(2024, 4, 17, 8, 0),
-  //     IsAllDay: false,
-  //     Description: 'Testing'
-  //   }, 
-  //   {
-  //     Subject: 'Testing',
-  //     EndTime: new Date(2024, 4, 18, 10, 0),
-  //     StartTime: new Date(2024, 4, 18, 8, 0),
-  //     IsAllDay: false,
-  //     Description: 'Testing'
-  //   }]
-  // }
-
-  // const newNewEvent: any = {
-  //   dataSource: [{
-  //     Subject: 'Testing',
-  //     EndTime: new Date("2024-05-17T18:00:00.000Z"),
-  //     StartTime: new Date("2024-05-17T14:00:00.000Z"),
-  //     IsAllDay: false,
-  //     Description: 'Testing'
-  //   }]
-  // }
