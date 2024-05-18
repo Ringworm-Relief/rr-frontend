@@ -56,14 +56,12 @@ function App() {
     });
   };
 
-
   const setLoggedInUser = (user: any) => {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     console.log(user);
     navigate(`/user/${user.data.id}/dashboard`);
   };
-
 
   const handleSignOut = () => {
     sessionStorage.removeItem("currentUser");
@@ -157,7 +155,10 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/:user_id/dashboard" element={<MainDashboard savedArticles={savedArticles} user={user}/>} />
+        <Route
+          path="/user/:user_id/dashboard"
+          element={<MainDashboard savedArticles={savedArticles} user={user} />}
+        />
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}

@@ -1,35 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Inject, ScheduleComponent, Day, Week, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
-import { DatePicker, ChangeEventArgs } from '@syncfusion/ej2-calendars';
+// import { DatePicker, ChangeEventArgs } from '@syncfusion/ej2-calendars';
 // import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 // import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 // import { Start } from "@mui/icons-material";
-import { useEffect, useRef, useState } from "react";
-import { Event } from "../../../utils/interfaces";
+// import { Event } from "../../../utils/interfaces";
 // import localforage from "localforage";
 interface Props {
   user: any;
 }
-
-interface NewEvent {
-  title: string;
-  start: string;
-}
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
 
 // const events = [
 //   { title: 'Event 1', start: '2024-05-01' },
@@ -99,7 +79,7 @@ function Calendar({ user }: Props) {
 
   return (
     <>
-      {user.id ? (
+      {user.data.id ? (
         <>
           <ScheduleComponent eventSettings={newNewEvent} ref={scheduleObj}>
             <Inject services={[Day, Week, Month, Agenda]} />
