@@ -13,15 +13,44 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Drawer from "../drawer/MuiDrawer";
 import SignIn from "../views/signIn/SignIn";
+import SavedArticles from "../views/savedArticles/SavedArticles"
+import EducationCategory from "../views/educationCategory/EducationCategory";
 import CoolCat from "../../assets/RR-4.svg";
 import EducationCategory from '../views/educationCategory/EducationCategory';
 import { fetchUser } from "../../apiCalls/userApiCalls";
 
-
 function App() {
   const [user, setUser] = useState<any>({}); //Holds the user object to be passed to the dashboard && used for conditional rendering
   const [targetArticle, setTargetArticle] = useState({}); //Holds the target article to be passed to the article component
-  // const [events, setEvents] = useState<any[]>([]);
+
+
+  const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]')
+  const [savedArticles, setSavedArticles] = useState<string[]>(savedArts)
+
+  useEffect(() => {
+    const savedArts: string[] = JSON.parse(localStorage.getItem("SAVED_ARTS") || '[]');
+    setSavedArticles(savedArts);
+  }, []); 
+
+  useEffect(() => {
+    localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
+  }, [savedArticles]); 
+
+
+  const handleSaves = (id: string) => {
+    setSavedArticles(prevSavedArticles => {
+      if (prevSavedArticles.includes(id)) {
+        return prevSavedArticles.filter(articleId => id !== articleId);
+      } else {
+        return [...prevSavedArticles, id];
+      }
+    });
+  };
+
+  // const handleArticleClick = () => {
+  //   navigate(`/education/${article.title}/${article.tagline}`)
+  // }
+
 
   //Change useEffect when login page is created -> instead of fetching user, fetch user by email and password
   //Must createAccount to access user right now since no data exists in the mock server
@@ -70,7 +99,8 @@ function App() {
         <Route path="account/new" element={<CreateAccount />} />
         <Route path="account/signin" element={<SignIn setUser={setUser}/>} />
         <Route path="/education" element={<Education />} />
-        <Route path="/education/:category" element={<EducationCategory />} />
+        <Route path="/savedarticles" element={<SavedArticles handleSaves={handleSaves} savedArticles={savedArticles}/>} />
+        <Route path="/education/:category" element={<EducationCategory handleSaves={handleSaves} savedArticles={savedArticles}/>} />
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
         <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />

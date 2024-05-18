@@ -24,6 +24,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "readdirp": "^3.6.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -52,7 +53,7 @@
     ]
   },
   "devDependencies": {
-    "babel": "@babel/plugin-proposal-private-property-in-object",
+    "@babel/plugin-proposal-private-property-in-object": "^7.0.0",
     "cypress": "^13.9.0"
   }
 }

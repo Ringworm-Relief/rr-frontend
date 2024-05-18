@@ -178,6 +178,7 @@ export const user: NewUser[] = [
 
 
 
+
 export interface Event {
     Id: number;
     Subject: string;
@@ -197,3 +198,44 @@ export interface Event {
 //         "IsAllDay": false
 //     }
 // ]
+
+export interface ArticleAttributes {
+    title: string,
+    tagline: string,
+    summary: string[]
+}
+
+export interface EducationArticle {
+    id: string,
+    category: string,
+    attributes: ArticleAttributes
+}
+
+export interface EducationArtCardProps {
+    title: string;
+    tagline: string;
+    id: string;
+    savedArticles: string[];
+    isSaved: boolean;
+    handleSaves: (id: string) => void; 
+    handleClick: (id: string) => void; 
+}
+
+export interface EducationCategoryProps {
+    savedArticles: string[];
+    handleSaves: (id: string) => void; 
+}
+
+export interface SavedArticlesProps {
+    savedArticles: string[];
+    handleSaves: (id: string) => void; 
+}
+
+export interface ArticleParams {
+    [key: string]: string | undefined;
+}
+
+export interface RouteParams {
+    [key: string]: string | undefined;
+  }
+
