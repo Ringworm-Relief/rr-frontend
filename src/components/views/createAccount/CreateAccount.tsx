@@ -9,8 +9,9 @@ import {
   FormControl,
   Button,
   Container,
+  Typography
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User } from "../../../utils/interfaces";
 
 interface Props {
@@ -39,31 +40,24 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
           },
         },
       };
+
       postNewUser(newUser)
         .then((data) => {
           if (!data) {
             console.log("Failed to create account");
-            // If account creation fails, display error message
           } else {
-            // If successful, redirect to the login page
-            //  let shellArr = []
             const token = localStorage.getItem("token");
             const user: User = {
               id: data.data.id,
               token: token ? token : "",
               email: data.data.attributes.email,
-              // password: password,
             };
-            // setAllUsers([...allUsers, user])
             let localStorageArr = JSON.parse(
               localStorage.getItem("localUsers") || "[]"
             );
             localStorageArr.push(user);
             localStorage.setItem(`localUsers`, JSON.stringify(localStorageArr));
             navigate("/account/signin");
-            //   console.log(localStorageArr)
-            //   console.log(localStorageArr.length)
-            // console.log(user)
           }
         })
         .catch((error: any) => {
@@ -74,7 +68,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
   return (
     <Container maxWidth="xs">
       <Box component="form" onSubmit={handleCreateAccount}>
-        <FormControl>
+        <FormControl sx={{mt: 5}}>
           <InputLabel htmlFor="firstName">First Name</InputLabel>
           <OutlinedInput
             type="firstName"
@@ -83,7 +77,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
             required
           />
         </FormControl>
-        <FormControl>
+        <FormControl sx={{mt: 5}}>
           <InputLabel htmlFor="lastName">Last Name</InputLabel>
           <OutlinedInput
             type="lastName"
@@ -93,7 +87,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
           />
         </FormControl>
         <Stack direction="column">
-          <FormControl>
+          <FormControl sx={{mt: 5}}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
               type="email"
@@ -102,7 +96,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
               required
             />
           </FormControl>
-          <FormControl>
+          <FormControl sx={{mt: 5}}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               type="password"
@@ -111,7 +105,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
               required
             />
           </FormControl>
-          <FormControl>
+          <FormControl sx={{mt: 5}}>
             <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
             <OutlinedInput
               type="password"
@@ -120,10 +114,17 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
               required
             />
           </FormControl>
-          <Button variant="contained" onClick={handleCreateAccount}>
+          <Button variant="contained" onClick={handleCreateAccount} sx={{mt: 2}}>
             Create Account
           </Button>
-          {/* Route to dashboard after account creation */}
+          <Typography variant="body2">
+          Already have an account?
+            </Typography>
+          <Button variant="outlined">
+            <Link to="/account/signin">
+              Click Here To Sign In
+          </Link>
+          </Button>
         </Stack>
       </Box>
     </Container>
