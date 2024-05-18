@@ -19,20 +19,19 @@ export const postNewUser = (newUser: NewUser) => {
       body: JSON.stringify(newUser),
     }
   ).then((response) => {
-    console.log(response.headers.get('Authorization'))
-    localStorage.setItem('token', response.headers.get('Authorization') ?? '')
+    // console.log(response.headers.get('Authorization'))
+    // localStorage.setItem('token', response.headers.get('Authorization') ?? '')
     return response.json();
   });
 };
 
-export const fetchUser = (email: string, password: string, token: string) => {
+export const fetchUser = (email: string, password: string) => {
   return fetch(
     "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/login",
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${token}`,
       },
       body: JSON.stringify({
           "user": {
@@ -42,6 +41,8 @@ export const fetchUser = (email: string, password: string, token: string) => {
       }),
     }
   ).then((response) => {
+    console.log(response.headers.get('Authorization'))
+    localStorage.setItem('token', response.headers.get('Authorization') ?? '')
     return response.json();
   });
 };

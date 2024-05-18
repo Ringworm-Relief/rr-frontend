@@ -25,13 +25,14 @@ function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
 
   const handleSignIn = () => {
     // const token = localStorage.getItem('token');
-    const localUsers = JSON.parse(localStorage.getItem("localUsers") || "[]");
-    const targetUser = localUsers.find((user: User) => {
-      return user.email === email;
-    });
-    console.log(targetUser)
-    targetUser &&
-      fetchUser(targetUser.email, password, targetUser.token)
+    // const localUsers = JSON.parse(localStorage.getItem("localUsers") || "[]");
+    // const targetUser = localUsers.find((user: User) => {
+    //   return user.email === email;
+    // });
+    // console.log(targetUser)
+    // console.log(password)
+    // targetUser &&
+      fetchUser(email, password)
         .then((user: any) => {
           if(!user) {
             console.log("User not found")
@@ -39,6 +40,7 @@ function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
           } else {
             // sessionStorage.setItem('currentUser', JSON.stringify(user));
             // setUser(user);
+            console.log(user)
             setLoggedInUser(user);
             console.log(user.data.id);
             // navigate(`/user/${user.data.id}/dashboard`);

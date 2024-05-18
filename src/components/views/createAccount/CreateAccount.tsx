@@ -46,17 +46,17 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
           if (!data) {
             console.log("Failed to create account");
           } else {
-            const token = localStorage.getItem("token");
-            const user: User = {
-              id: data.data.id,
-              token: token ? token : "",
-              email: data.data.attributes.email,
-            };
-            let localStorageArr = JSON.parse(
-              localStorage.getItem("localUsers") || "[]"
-            );
-            localStorageArr.push(user);
-            localStorage.setItem(`localUsers`, JSON.stringify(localStorageArr));
+            // const token = localStorage.getItem("token");
+            // const user: User = {
+            //   id: data.data.id,
+            //   token: token ? token : "",
+            //   email: data.data.attributes.email,
+            // };
+            // let localStorageArr = JSON.parse(
+            //   localStorage.getItem("localUsers") || "[]"
+            // );
+            // localStorageArr.push(user);
+            // localStorage.setItem(`localUsers`, JSON.stringify(localStorageArr));
             navigate("/account/signin");
           }
         })
