@@ -101,7 +101,7 @@ function App() {
         <Route path="/education/:category/:article" element={<Article />} />
         <Route path="/user/:user_id/calendar" element={<Calendar user={user}/>} />
         {/* user/1/calendar -> user/:num/calendar */}
-        <Route path="/user/:user_id/dashboard" element={<MainDashboard user={user}/>} />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard savedArticles={savedArticles} user={user}/>} />
 
       </Routes>
       <footer className="App_footer">

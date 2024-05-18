@@ -16,7 +16,8 @@ import React, { useState } from "react";
 import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
-import postPet from "../../../apiCalls/petApiCalls";
+import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
+import { postPet, postMedication, postRingworm } from "../../../apiCalls/petApiCalls";
 import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
 
 const style = {
@@ -51,7 +52,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       "background-color",
       "box-shadow",
     ]),
-
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",
@@ -72,55 +72,91 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 function PetForm() {
+  const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
+  const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
+  const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const [medications, setMedications] = useState<Medication[]>([
+    {
+      pet_id: 1,
+      name: "",
+      medication_type: "",
+      dosage: "",
+      frequency: "",
+    },
+  ]);
+
   const [petObject, setPetObject] = useState<Pet>({
     user_id: 1,
     name: "",
     pet_type: "",
     breed: "",
     birthday: "",
-    symptoms: []
+    symptoms: [],
   });
-  const [medObject, setMedObject] = useState<Medication>({
-    pet_id: 1,
-    name: "",
-    medication_type: "",
-    dosage: "",
-    frequency: "",
-  })
+
   const [ringwormObject, setRingwormObject] = useState<Ringworm>({
     pet_id: 1,
     ringworm_type: "",
     diagnosis_date: "",
-  })
+  });
 
   const handleClose = () => {
     setHasSubmitted(false);
   };
 
-  const handleSubmit = () => {
-    postPet(petObject).then((data) => setHasSubmitted(true));
-    setPetObject({
-      user_id: 1,
-      name: "",
-      pet_type: "",
-      breed: "",
-      birthday: "",
-      symptoms: []
-    });
-    setMedObject({
-      pet_id: 1,
-      name: "",
-      medication_type: "",
-      dosage: "",
-      frequency: "",
-    })
-    setRingwormObject({
-      pet_id: 1,
-      ringworm_type: "",
-      diagnosis_date: "",
-    })
+  const handleSubmit = async () => {
+    const petResponse = await postPet(petObject);
+    const ringResponse = await postRingworm(ringwormObject);
+    const medResponses = await Promise.all(medications.map(med => postMedication(med)));
+
+    if (petResponse && ringResponse && medResponses.every(res => res)) {
+      setPetSubmitted(true);
+      setRingSubmitted(true);
+      setMedSubmitted(true);
+      setHasSubmitted(true);
+
+      // Reset form
+      setPetObject({
+        user_id: 1,
+        name: "",
+        pet_type: "",
+        breed: "",
+        birthday: "",
+        symptoms: [],
+      });
+      setRingwormObject({
+        pet_id: 1,
+        ringworm_type: "",
+        diagnosis_date: "",
+      });
+      setMedications([
+        {
+          pet_id: 1,
+          name: "",
+          medication_type: "",
+          dosage: "",
+          frequency: "",
+        },
+      ]);
+    }
   };
+
+  const handleMedChange = (index: number, field: keyof Medication, value: string) => {
+    const updatedMedications = medications.map((med, i) => 
+      i === index ? { ...med, [field]: value } : med
+    );
+    setMedications(updatedMedications);
+  };
+
+  const medCards = medications.map((med, index) => (
+    <MedicationsCard
+      key={index}
+      medObject={med}
+      setMedObject={(field, value) => handleMedChange(index, field, value)}
+      number={index + 1}
+    />
+  ));
 
   return (
     <Container>
@@ -169,7 +205,6 @@ function PetForm() {
           </InputLabel>
           <Select
             value={petObject.pet_type}
-            defaultValue="Select Pet"
             onChange={(e) =>
               setPetObject({ ...petObject, pet_type: e.target.value })
             }
@@ -177,7 +212,9 @@ function PetForm() {
             input={<BootstrapInput />}
             sx={{ width: "100%" }}
           >
-            <MenuItem value="" disabled></MenuItem>
+            <MenuItem value="" disabled>
+              Select Pet
+            </MenuItem>
             <MenuItem value="dog">Dog</MenuItem>
             <MenuItem value="cat">Cat</MenuItem>
           </Select>
@@ -302,106 +339,27 @@ function PetForm() {
       
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Medication
-          <img id="pill-svg" src={pill} />
+          <img id="pill-svg" src={pill} alt="pill" />
         </Typography>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
-          <InputLabel
-            shrink
-            htmlFor="medication-field"
-            sx={{ marginLeft: "20px", fontSize: "20px" }}
-          >
-            Medication
-          </InputLabel>
-          <BootstrapInput
-            value={medObject.name}
-            onChange={(e) =>
-              setMedObject({ ...medObject, name: e.target.value })
+        <div>{medCards}</div>
+
+        <Button
+          variant="outlined"
+          sx={{ marginTop: "20px" }}
+          onClick={() => setMedications([
+            ...medications,
+            {
+              pet_id: 1,
+              name: "",
+              medication_type: "",
+              dosage: "",
+              frequency: "",
             }
-            inputProps={{ placeholder: "Enter medication name" }}
-            id="medication-field"
-          />
-        </FormControl>
-
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
-          <InputLabel
-            shrink
-            htmlFor="medication-type-field"
-            sx={{ marginLeft: "20px", fontSize: "20px" }}
-          >
-            Medication type
-          </InputLabel>
-
-          <Select
-            defaultValue=""
-            value={medObject.medication_type}
-            onChange={(e) =>
-              setMedObject({ ...medObject, medication_type: e.target.value })
-            }
-            id="medication-type-field"
-            label="Select medication type"
-            input={<BootstrapInput />}
-            sx={{ width: "100%" }}
-          >
-            <MenuItem value="" disabled>
-              Select medication type
-            </MenuItem>
-            <MenuItem value="oral">Oral</MenuItem>
-            <MenuItem value="topical">Topical</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
-          <InputLabel
-            shrink
-            htmlFor="dosage-field"
-            sx={{ marginLeft: "20px", fontSize: "20px" }}
-          >
-            Dosage
-          </InputLabel>
-          <BootstrapInput
-            value={medObject.dosage}
-            onChange={(e) =>
-              setMedObject({ ...medObject, dosage: e.target.value })
-            }
-            inputProps={{ placeholder: "Enter dosage" }}
-            id="dosage-field"
-          />
-        </FormControl>
-
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
-          <InputLabel
-            shrink
-            htmlFor="frequency-field"
-            sx={{ marginLeft: "20px", fontSize: "20px" }}
-          >
-            Frequency
-          </InputLabel>
-
-          <Select
-            defaultValue=""
-            id="frequency-field"
-            label="Select medication type"
-            input={<BootstrapInput />}
-            sx={{ width: "100%" }}
-            value={medObject.frequency}
-            onChange={(e) =>
-              setMedObject({
-                ...medObject,
-                frequency: e.target.value,
-              })
-            }
-          >
-            <MenuItem value="" disabled>
-              Select medication type
-            </MenuItem>
-            <MenuItem value="oral">Weekly</MenuItem>
-            <MenuItem value="topical">Bi-weekly</MenuItem>
-            <MenuItem value="oral">Daily</MenuItem>
-            <MenuItem value="topical">Every 12 hours</MenuItem>
-            <MenuItem value="oral">Every 8 hours</MenuItem>
-          </Select>
-        </FormControl>
+          ])}
+        >
+          Add medication
+        </Button>
 
         <Button
           variant="outlined"
@@ -432,3 +390,4 @@ function PetForm() {
 }
 
 export default PetForm;
+

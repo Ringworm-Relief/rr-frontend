@@ -32,7 +32,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "if [ \"$CI\" = \"true\" ]; then react-scripts test --passWithNoTests; else react-scripts test; fi",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

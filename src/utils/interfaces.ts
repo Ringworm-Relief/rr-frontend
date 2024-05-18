@@ -125,11 +125,11 @@ export type Ringworm = {
 // export const Pets: Pet[] = [
 //     {
 //         user_id: 1,
-//         pet_name: 'Alfred',
+//         name: 'Alfred',
 //         pet_type:'Dog',
-//         pet_breed: 'Golden Retriever',
-//         pet_birthday: '05/05/2015',
-//         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+//         breed: 'Golden Retriever',
+//         birthday: '05/05/2015',
+//         symptoms: ['Itching', 'Hair loss', 'Redness'],
 //         medication_type: 'Oral',
 //         medication_name: 'Griseofulvin',
 //         medication_dosage: '250mg',
@@ -139,11 +139,11 @@ export type Ringworm = {
 //     },
 //     {
 //         user_id: 1,
-//         pet_name: 'Bella',
+//         name: 'Bella',
 //         pet_type:'Cat',
-//         pet_breed: 'Siamese',
-//         pet_birthday: '05/05/2015',
-//         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+//         breed: 'Siamese',
+//         birthday: '05/05/2015',
+//         symptoms: ['Itching', 'Hair loss', 'Redness'],
 //         medication_type: 'Oral',
 //         medication_name: 'Griseofulvin',
 //         medication_dosage: '250mg',
@@ -153,11 +153,11 @@ export type Ringworm = {
 //     },
 //     {
 //         user_id: 1,
-//         pet_name: 'Charlie',
+//         name: 'Charlie',
 //         pet_type:'Dog',
-//         pet_breed: 'Thoroughbred',
-//         pet_birthday: '05/05/2015',
-//         pet_symptoms: ['Itching', 'Hair loss', 'Redness'],
+//         breed: 'Thoroughbred',
+//         birthday: '05/05/2015',
+//         symptoms: ['Itching', 'Hair loss', 'Redness'],
 //         medication_type: 'Oral',
 //         medication_name: 'Griseofulvin',
 //         medication_dosage: '250mg',
@@ -167,6 +167,8 @@ export type Ringworm = {
     
 //     }
 // ]
+
+
 
 export const user: NewUser[] = [
     {

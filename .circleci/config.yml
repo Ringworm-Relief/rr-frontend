@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@4.7.0 
+
 jobs:
   build:
     docker:
@@ -33,6 +36,21 @@ jobs:
       - store_artifacts:
           path: ~/artifacts
           destination: node-build
+  test-cypress:
+    docker:
+      - image: cypress/base:10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "package.json" }}
+      - run: npm ci
+      - save_cache:
+          paths:
+            - node_modules
+          key: cache-{{ checksum "package.json" }}
+      - run: npm run cypress:run
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -42,6 +60,19 @@ jobs:
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
+workflows: 
+  version: 2
+  build-and-test:
+    jobs:
+      - build
+      - build-node:
+          requires:
+            - build
+      - test-cypress:
+          requires:
+            - build
+  
+
 # workflows:
 #   build-and-test:
 #     jobs:
