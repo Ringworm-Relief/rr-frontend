@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Inject, ScheduleComponent, Day, Week, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
 import { DatePicker, ChangeEventArgs } from '@syncfusion/ej2-calendars';
@@ -10,6 +11,30 @@ import { Event } from "../../../utils/interfaces";
 interface Props {
   user: any;
 }
+
+interface NewEvent {
+  title: string;
+  start: string;
+}
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
+// const events = [
+//   { title: 'Event 1', start: '2024-05-01' },
+//   { title: 'Event 2', start: '2024-05-05' }
+// ];
 
 function Calendar({ user }: Props) {
   const navigate = useNavigate();

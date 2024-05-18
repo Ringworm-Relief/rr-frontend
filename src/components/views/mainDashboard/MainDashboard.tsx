@@ -19,9 +19,10 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   user: any;
+  savedArticles: string[]
 }
 
-function MainDashboard({ user }: Props) {
+function MainDashboard({ user, savedArticles }: Props) {
   const navigate = useNavigate();
   return (
     <>
@@ -41,7 +42,7 @@ function MainDashboard({ user }: Props) {
           <Grid container spacing={2} columns={2} zIndex={20}>
             <PetCards />
             <CalendarMin user={user}/>
-            <SavedArticlesCard />
+            <SavedArticlesCard savedArticles={savedArticles} />
           </Grid>
         </Box>
       ) : (

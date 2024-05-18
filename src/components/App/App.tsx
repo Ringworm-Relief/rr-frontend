@@ -157,16 +157,12 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard savedArticles={savedArticles} user={user}/>} />
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}
         />
-        <Route
-          path="/user/:user_id/dashboard"
-          element={<MainDashboard user={user} />}
-        />
         <Route path="*" element={<Landing />} />
-
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">
