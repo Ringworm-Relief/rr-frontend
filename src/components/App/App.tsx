@@ -14,6 +14,7 @@ import MainDashboard from "../views/mainDashboard/MainDashboard";
 import Article from "../article/Article";
 import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
+
 import { User } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
@@ -55,12 +56,14 @@ function App() {
     });
   };
 
+
   const setLoggedInUser = (user: any) => {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     console.log(user);
     navigate(`/user/${user.data.id}/dashboard`);
   };
+
 
   const handleSignOut = () => {
     sessionStorage.removeItem("currentUser");
@@ -163,6 +166,7 @@ function App() {
           element={<MainDashboard user={user} />}
         />
         <Route path="*" element={<Landing />} />
+
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">
