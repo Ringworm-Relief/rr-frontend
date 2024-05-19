@@ -12,6 +12,7 @@ import {
   Typography,
   InputAdornment,
   IconButton,
+  FormHelperText,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -31,6 +32,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -69,6 +71,9 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
           console.log(error);
         });
     }
+    else {
+      setPasswordError(true);
+    }
   };
   return (
     <Container maxWidth="xs">
@@ -105,9 +110,10 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
               required
             />
           </FormControl>
-          <FormControl sx={{ mt: 5 }}>
+          <FormControl  error={passwordError} sx={{ mt: 5 }}>
           <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
+            
               id="password"
               type={showPassword ? "text" : "password"}
               value={password}
@@ -129,10 +135,12 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
               }
               label="Password"
             />
+            <FormHelperText>{passwordError ? 'Passwords do not match' : 'Must be at least 6 characters long'}</FormHelperText>
           </FormControl>
-          <FormControl sx={{ mt: 5 }}>
+          <FormControl error={passwordError} sx={{ mt: 5 }}>
             <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
             <OutlinedInput
+              
               id="confirm-password"
               type={showPassword ? "text" : "password"}
               value={confirmPassword}
@@ -154,6 +162,7 @@ function CreateAccount({ setAllUsers, allUsers }: Props) {
               }
               label="Confirm Password"
             />
+            {passwordError && <FormHelperText>Passwords do not match</FormHelperText>}
           </FormControl>
           <Button
             variant="contained"
