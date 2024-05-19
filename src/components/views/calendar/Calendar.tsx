@@ -128,14 +128,17 @@ function Calendar({ user }: Props) {
 
 
           const apiFormattedEvent = transformToApiFormat(newEvent, user_id);
+          dataManager.insert(apiFormattedEvent)
 
-          try {
-            const apiResponse = async () => {
-              dataManager.insert(apiFormattedEvent)
-            }
-          } catch {
+
+          // Try and grab from BE to display all events
+          // try {
+          //   const apiResponse = async () => {
+          //     dataManager.insert(apiFormattedEvent)
+          //   }
+          // } catch {
             
-          }
+          // }
 
 
 
