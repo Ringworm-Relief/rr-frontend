@@ -19,11 +19,13 @@ export const postNewUser = (newUser: NewUser) => {
       body: JSON.stringify(newUser),
     }
   ).then((response) => {
+    // console.log(response.headers.get('Authorization'))
+    // localStorage.setItem('token', response.headers.get('Authorization') ?? '')
     return response.json();
   });
 };
 
-export const fetchUser = (email: string, password: string) => {
+export const fetchUser = (email: string, password: string, setError: React.Dispatch<React.SetStateAction<string>>) => {
   return fetch(
     "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/login",
     {
@@ -39,9 +41,15 @@ export const fetchUser = (email: string, password: string) => {
       }),
     }
   ).then((response) => {
+    if(response.status === 401) {
+      // console.log('Invalid credentials')
+      setError('Invalid credentials')
+    } else {
       console.log(response.headers.get('Authorization'))
       localStorage.setItem('token', response.headers.get('Authorization') ?? '')
       return response.json();
+
+    }
   });
 };
 

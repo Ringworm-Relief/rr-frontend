@@ -44,9 +44,9 @@ function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
   };
 
   const handleSignIn = () => {
-    fetchUser(email, password)
+    fetchUser(email, password, setError)
       .then((user: any) => {
-        if (!user || error) {
+        if (!user) {
           setAuthError("Email or Password is incorrect. Please try again.");
         } else {
           setLoggedInUser(user);
