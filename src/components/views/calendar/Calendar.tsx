@@ -1,104 +1,120 @@
 import { useNavigate } from "react-router-dom";
-import * as ReactDOM from 'react-dom';
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { DatePicker, ChangeEventArgs } from '@syncfusion/ej2-calendars';
-// import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
-// import { Start } from "@mui/icons-material";
+
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
-import { Event } from "../../../utils/interfaces";
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
-import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject, Resize, DragAndDrop, ActionEventArgs, NavigatingEventArgs, View, EventSettingsModel } from '@syncfusion/ej2-react-schedule';
-import { extend } from '@syncfusion/ej2-base';
+import { EventSettingsModel, ScheduleComponent, Day, Week, Agenda, Month, Inject, ViewsDirective, ViewDirective, PopupCloseEventArgs } from '@syncfusion/ej2-react-schedule';
+import { DataManager, WebApiAdaptor, Query } from '@syncfusion/ej2-data';
+import {
+  
+} from '@syncfusion/ej2-react-schedule';
 
 interface Props {
   user: any;
 }
 
-// const useDataDatesObserver = (setDates: Dispatch<SetStateAction<string>>) => {
+interface ScheduleEvent {
+  Id: number;
+  Subject: string;
+  Description: string;
+  StartTime: Date;
+  EndTime: Date;
+}
 
-//   useEffect(() => {
-//     const targetNode = document.querySelectorAll('.e-appointment');
-//     console.log("Testing")
-//     console.log(targetNode)
-//     if (!targetNode) return;
+interface ApiEvent {
+  id: string;
+  type: string;
+  attributes: {
+    user_id: string;
+    title: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+  };
+}
 
-//     const observer = new MutationObserver((mutations) => {
-//       mutations.forEach((mutation) => {
-//         if (mutation.type === 'attributes' && mutation.attributeName === 'data-dates') {
-//           const newDates = mutation.target.getAttribute('data-dates');
-//           // Assume setDates is a state setting function that you've passed or defined elsewhere
-//           setDates(newDates);
-//         }
-//       }
-//     });
+const transformToScheduleData = (event: ApiEvent): ScheduleEvent => {
+  return {
+    Id: Number(event.id),
+    Subject: event.attributes.title,
+    Description: event.attributes.description,
+    StartTime: new Date(event.attributes.start_time),
+    EndTime: new Date(event.attributes.end_time),
+  };
+};
 
-//     const config = { attributes: true };
-//     targetNodes.forEach(node => {
-//       observer.observe(node, config);
-//     });
-
-//     // Cleanup observer on component unmount
-//     return () => observer.disconnect();
-//     }, [setDates]);
-// };
-  // useDataDatesObserver(setDates);
-
-
-function Calendar({ user }: Props) {
-  const [dates, setDates] = useState('');
-  const navigate = useNavigate();
-  const scheduleObj = useRef<ScheduleComponent>(null);
-  const buttonObj = useRef<ButtonComponent>(null);
-
-  let connection: HubConnection;
-  const data: Record<string, any>[] = [];
-  let isHubConnected: boolean = false;
-  const [eventSettings, setEventSettings] = useState<EventSettingsModel>({ dataSource: data });
-  const [currentView, setCurrentView] = useState<View>("Week");
-
-  useEffect(() => {
-    const url: string = 'https://ej2.syncfusion.com/aspnetcore/scheduleHub/';
-    connection = new HubConnectionBuilder().withUrl(url, { withCredentials: false }).withAutomaticReconnect().build();
-    
-    connection.on('ReceiveData', (action: string, data: View | Record<string, any>[]) => {
-      if (action === 'view') {
-        setCurrentView(data as View);
+const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
+  return {
+    data: {
+      type: "calendar_event",
+      attributes: {
+        user_id: userId,
+        title: event.Subject,
+        description: event.Description,
+        start_time: event.StartTime.toISOString(), // Ensure the date is in ISO format
+        end_time: event.EndTime.toISOString() // Ensure the date is in ISO format
       }
-      if (action === 'eventCreated' || action === 'eventChanged' || action === 'eventRemoved') {
-        setEventSettings({ dataSource: data as Record<string, any>[] });
-      }
-    });
-
-    connection.start().then(() => {
-      isHubConnected = true;
-    }).catch((err: unknown) => {
-      console.log(err);
-    });
-
-    return () => {
-      if (connection) {
-        connection.stop().then(() => {
-          isHubConnected = false;
-        }).catch((err: unknown) => {
-          console.log(err);
-        });
-      }
-    };
-  }, []);
-
-  const onActionComplete = (args: ActionEventArgs): void => {
-    if (isHubConnected && (args.requestType === 'eventCreated' || args.requestType === 'eventChanged' || args.requestType === 'eventRemoved')) {
-      connection.invoke('SendData', args.requestType, eventSettings.dataSource);
     }
   };
+};
 
-  const onCreated = () => {
-    // SignalR connection is already handled in useEffect
+function Calendar({ user }: Props) {
+  const navigate = useNavigate();
+  const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
+  const scheduleObj = useRef<ScheduleComponent>(null);
+  const eventSettings: EventSettingsModel = {
+    dataSource: scheduleData,
+    fields: {
+      subject: { name: 'Subject', default: 'Add Name' },
+      location: { name: 'Location', default: 'USA' },
+      description: { name: 'Description' },
+      startTime: { name: 'StartTime' },
+      endTime: { name: 'EndTime' },
+    }
   };
+  
+  const current_token = localStorage.getItem('token');
+  const user_id = user.id
 
-  const onNavigating = (args: NavigatingEventArgs): void => {
-    if (args.action === 'view' && isHubConnected) {
-      connection.invoke('SendData', args.action, args.currentView);
+  if (!current_token) {
+  throw new Error("Token is null");
+  }
+
+  const dataManager=new DataManager({
+    url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user_id}/calendar_events`,
+    adaptor: new WebApiAdaptor,
+    crossDomain:true,
+    headers: [{
+      Authorization: `${current_token}`
+      }]
+    });
+
+  const save = 'e-save-icon e-icons';
+
+  // For future API call to delete CalendarEvent
+  const delete_event = 'e-btn-icon e-icons e-delete-icon';
+
+  const closePopup = (args: PopupCloseEventArgs) => {
+    console.log("close Popup Here")
+    if (args.event && args.event.target) {
+      const target = args.event.target as HTMLElement;
+      const classNameSave = target.className;
+      console.log(classNameSave)
+        if (classNameSave === save) {
+          const newEvent: ScheduleEvent = {
+            Id: scheduleData.length + 1,
+            Subject: (args.data as any).Subject,
+            Description: (args.data as any).Description,
+            StartTime: new Date((args.data as any).StartTime),
+            EndTime: new Date((args.data as any).EndTime),
+          };
+          console.log(args.data)
+          
+          setScheduleData([...scheduleData, newEvent]);
+
+          const apiFormattedEvent = transformToApiFormat(newEvent, user.id);
+
+          dataManager.insert(apiFormattedEvent)
+      }
     }
   };
 
@@ -107,14 +123,10 @@ function Calendar({ user }: Props) {
       {user.id ? (
         <>
           <ScheduleComponent 
-          eventSettings={eventSettings} 
+          eventSettings={{dataSource: scheduleData}} 
           ref={scheduleObj}
-          actionComplete={onActionComplete} 
-          navigating={onNavigating} 
-          created={onCreated} 
-          currentView={currentView} 
+          popupClose={closePopup}
           >
-
             <Inject services={[Day, Week, Month, Agenda]} />
           </ScheduleComponent>
         </>
