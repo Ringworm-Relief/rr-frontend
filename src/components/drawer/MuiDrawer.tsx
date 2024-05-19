@@ -36,7 +36,7 @@ function MuiDrawer({ user }: Props) {
         navigate(user.id ? `/user/${user.id}/calendar` : "/account/signin");
         break;
       case "Saved Articles":
-        navigate("/education");
+        navigate("/savedarticles");
         //Change to /user/1/savedArticles
         break;
       case "Add Pet":

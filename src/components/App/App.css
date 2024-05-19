@@ -5,6 +5,10 @@
     color: #292E30;
   }
 
+  /* .App {
+    height: 100%;
+  } */
+
   .App_header {
     background-color: #ffffff;
     max-height: 10vh;
@@ -47,14 +51,27 @@
     margin-left: 10px;
   }
 
+  #footer_wrapper {
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  #footer_container{
+    padding-bottom: 18vh;    /* Footer height */
+  }
+
   .App_footer {
     background-color: hsla(30, 100%, 64%, 0.089);
-    min-height: 18vh;
+    /* min-height: 18vh; */
     display: flex;
     /* flex-direction: row; */
     align-items: center;
     justify-content: space-around;
     font-size: calc(10px + 1vmin);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 18vh;  
   }
 
   #sign_in_button {

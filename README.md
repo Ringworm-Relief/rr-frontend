@@ -1,46 +1,59 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# <p align="center">[Ringworm Relief](https://rr-as.vercel.app/) ~`insert hours to complete`</p>
+<p align='center' >👆<b>Click the heading to visit the deploy link</b>👆</p>
 
-## Available Scripts
+<p align="center">A multi-user application providing a hub for pet ringworm support and education. Ringworm treatment in multi-pet households is more often than not, a sentence to be strung out, overworked, and hypervigilant until treatment is over AND no re-infection occurs. But what does treatment even look like? Did you know most animals at shelters who contract ringworm are usually euthanized because of how aggressive and contagious the fungus is? Education sourced from those who foster ringworm animals to prevent these euthanizations is the best knowledge there is. However, I know from experience, that this information is nested in random forums online, or comments in a one-off Facebook post. RR is aimed at providing a hub of education and information tried and tested by those who have experienced it and successfully rid their household of the fungus.</p>
 
-In the project directory, you can run:
+### <p align="center">Contributors</p>
+<div align="center">[Asher Spurr](https://github.com/AsherSpurr), [Pareesa D]()</div>
 
-### `npm start`
+## Preview:
+<div align="center">
+  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Insert video
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+</div>
+<p align="center">Technologies Used</p>
+<div align="center">
+<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="TypeScript" title="TypeScript"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/187955005-f4ca6f1a-e727-497b-b81b-93fb9726268e.png" alt="Jest" title="Jest"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png" alt="HTML" title="HTML"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183898674-75a4a1b1-f960-4ea9-abcb-637170a00a75.png" alt="CSS" title="CSS"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/68279555/200387386-276c709f-380b-46cc-81fd-f292985927a8.png" alt="Cypress" title="Cypress"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/189716630-fe6c084c-6c66-43af-aa49-64c8aea4a5c2.png" alt="Material UI" title="Material UI"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" alt="Git" title="Git"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108374-8da61ba1-99ec-41d7-80b8-fb2f7c0a4948.png" alt="GitHub" title="GitHub"/></code>
+	<code><img width="50" src="https://github-production-user-asset-6210df.s3.amazonaws.com/136815194/253220886-02494c7c-de6a-43a6-9293-6369696842ed.png" alt="Canva" title="Canva"/></code>
+</div>
 
-### `npm run build`
+## Installation Instructions:
+- Visit the deployed [link](https://rr-as.vercel.app/)
+- OR run the following on the command line to clone the repo and run the app locally:
+    ```
+    git clone xxxxxxx
+    cd spilled
+    npm install
+    npm start
+    ```
+### Environment variables
+After cloning and installing packages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Run Tests
+- Ensure you're running the app locally (see Installation Instructions above)
+- Run the following on the command line to open Cypress: `npm run cypress` or `npx cypress open`
+- Click `E2E Testing`, then `Start E2E Testing` in the desired browser
+- Select `a test suite` to run all tests related to that suite
+## Future Features/Improvements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Context:
+<!-- wins, challenges, time spent, goals, approaches etc -->
+### Wins
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Challenges
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

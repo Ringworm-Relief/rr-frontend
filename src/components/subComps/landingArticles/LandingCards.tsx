@@ -4,7 +4,7 @@ import OutlineCard from "../outlineCard/OutlineCard";
 
 function LandingCards() {
   return (
-    <Box sx={{ paddingBottom: 40 }}>
+    <Box>
       <Stack spacing={25}>
         <OutlineCard />
         <ArticleCard />

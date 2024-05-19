@@ -6,9 +6,37 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { mockArticles } from "../../../../utils/interfaces";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { mockArticles, EducationArticle } from "../../../../utils/interfaces";
+import { getArticlesCategory } from "../../../../apiCalls/articlesApiCalls";
 
-function SavedArticlesCard() {
+interface Props {
+  savedArticles: string[];
+}
+
+function SavedArticlesCard({ savedArticles }: Props) {
+  const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
+
+  const getSavedArts = () => {
+    getArticlesCategory().then((data) => {
+      const saved = data.data.filter((art: EducationArticle) =>
+        savedArticles.includes(art.id)
+      );
+      setSavedArts(saved);
+    });
+  };
+
+  useEffect(() => {
+    getSavedArts();
+  }, []);
+
+  const savedArtsLinks = savedArts.map((art) => {
+    return (
+      <Link to={`/education/category/${art.id}`}>{art.attributes.title}</Link>
+    );
+  });
+
   return (
     <Card
       sx={{
@@ -32,11 +60,11 @@ function SavedArticlesCard() {
       <CardHeader title="Saved Articles" />
       <CardContent>
         <List>
-          {mockArticles.map((article) => (
-            <ListItem key={article.title}>
-              <ListItemText primary={article.tagline} />
-            </ListItem>
-          ))}
+          {savedArts.length ? (
+            savedArtsLinks
+          ) : (
+            <p>You have no articles saved.</p>
+          )}
         </List>
       </CardContent>
     </Card>

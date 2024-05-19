@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
@@ -120,7 +121,7 @@ function Calendar({ user }: Props) {
 
   return (
     <>
-      {user.id ? (
+      {user.data.id ? (
         <>
           <ScheduleComponent 
           eventSettings={{dataSource: scheduleData}} 
