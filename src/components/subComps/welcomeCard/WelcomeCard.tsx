@@ -12,19 +12,20 @@ import CoolestCat from "../../../assets/RR-3.svg";
 
 function WelcomeCard() {
   return (
-    <div className="welcome-card">
+    <div className="WelcomeCard_wrapper">
       <Card
         sx={{
           mt: 8,
           boxShadow: "none",
           maxWidth: 1200,
           height: 600,
-          p: "30px",
+          px: "100px",
+          py: "50px",
           // background: "rgba(255, 146, 98, 0.8)",
         }}
       >
         <Stack direction="row">
-          <CardContent sx={{ pt: 6, pb: 8 }}>
+          <CardContent sx={{ pt: 6, pb: 8, pr: 10 }}>
             <Typography variant="h2" sx={{ fontWeight: 800 }}>
               Ringworm, Relief,
             </Typography>
