@@ -6,17 +6,20 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { mockArticles, EducationArticle } from "../../../../utils/interfaces";
 import { getArticlesCategory } from "../../../../apiCalls/articlesApiCalls";
+import EducationArtCard from "../../../subComps/educationArtCard/EducationArtCard";
 
 interface Props {
   savedArticles: string[];
+  handleSaves: (id: string) => void; 
 }
 
-function SavedArticlesCard({ savedArticles }: Props) {
+function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
   const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
+  const navigate = useNavigate()
 
   const getSavedArts = () => {
     getArticlesCategory().then((data) => {
@@ -27,6 +30,10 @@ function SavedArticlesCard({ savedArticles }: Props) {
     });
   };
 
+  const handleClick = (id: string | void) => {
+    navigate(`/education/category/${id}`); 
+};
+
   useEffect(() => {
     getSavedArts();
   }, []);
@@ -36,6 +43,39 @@ function SavedArticlesCard({ savedArticles }: Props) {
       <Link to={`/education/category/${art.id}`}>{art.attributes.title}</Link>
     );
   });
+
+  // const savedArticleCards = savedArts.map((article: EducationArticle) => {
+  //       return (
+  //           <EducationArtCard 
+  //               title={article.attributes.title}
+  //               tagline={article.attributes.tagline}
+  //               handleClick={handleClick}
+  //               handleSaves={handleSaves}
+  //               savedArticles={savedArticles}
+  //               id={article.id}
+  //               key={article.id}
+  //               isSaved={true}
+  //           />
+  //       )
+  //   })
+
+    const savedArticleCards = savedArts.map((article: EducationArticle) => {
+      if (savedArticles.includes(article.id)) {
+          return (
+              <EducationArtCard 
+                  title={article.attributes.title}
+                  tagline={article.attributes.tagline}
+                  handleClick={handleClick}
+                  handleSaves={handleSaves}
+                  savedArticles={savedArticles}
+                  id={article.id}
+                  key={article.id}
+                  isSaved={true}
+              />
+          )
+      }
+  })
+
 
   return (
     <Card
@@ -61,7 +101,7 @@ function SavedArticlesCard({ savedArticles }: Props) {
       <CardContent>
         <List>
           {savedArts.length ? (
-            savedArtsLinks
+            savedArticleCards
           ) : (
             <p>You have no articles saved.</p>
           )}
