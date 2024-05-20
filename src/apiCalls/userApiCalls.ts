@@ -46,7 +46,7 @@ export const fetchUser = (email: string, password: string, setError: React.Dispa
       setError('Invalid credentials')
     } else {
       console.log(response.headers.get('Authorization'))
-      localStorage.setItem('token', response.headers.get('Authorization') ?? '')
+      sessionStorage.setItem('token', response.headers.get('Authorization') ?? '')
       return response.json();
 
     }
@@ -60,7 +60,7 @@ export const destroyToken = () => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": localStorage.getItem('token') ?? ''
+        "Authorization": sessionStorage.getItem('token') ?? ''
       },
     }
   ).then((response) => {

@@ -133,7 +133,7 @@ function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const currentToken = localStorage.getItem("token");
+  const currentToken = sessionStorage.getItem("token");
   const windowLocation = window.location.pathname;
   console.log(windowLocation);
 
