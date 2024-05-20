@@ -11,6 +11,8 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import { fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
+import { Card, Stack } from "@mui/material";
+import NewPetCard from "../mainDashboard/dashboardComponents/AddManageCards";
 interface Props {
   user: any;
 }
@@ -132,6 +134,8 @@ function Calendar({ user }: Props) {
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
   const currentToken = localStorage.getItem("token");
+  const windowLocation = window.location.pathname;
+  console.log(windowLocation);
 
   if (!currentToken) {
     throw new Error("Token is null");
@@ -195,13 +199,47 @@ function Calendar({ user }: Props) {
     <>
       {user.data.id ? (
         <>
-          <ScheduleComponent
-            eventSettings={{ dataSource: scheduleData }}
-            ref={scheduleObj}
-            popupClose={closePopup}
-          >
-            <Inject services={[Day, Week, Month, Agenda]} />
-          </ScheduleComponent>
+          {windowLocation.includes("calendar") ? (
+            <ScheduleComponent
+              eventSettings={{ dataSource: scheduleData }}
+              ref={scheduleObj}
+              popupClose={closePopup}
+            >
+              <Inject services={[Day, Week, Month, Agenda]} />
+            </ScheduleComponent>
+          ) : (
+            <Stack>
+              <Card
+                sx={{
+                  mr: 1,
+                  mt: 2,
+                  borderRadius: 3,
+                  boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
+                  position: "relative",
+                  padding: 3,
+                  width: 600,
+                  height: 300,
+                  marginLeft: 0,
+                  overflow: "scroll",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  color: "#9A352F",
+                  // paddingBottom: 15,
+                }}
+              >
+                <ScheduleComponent
+                  currentView="Agenda"
+                  eventSettings={{ dataSource: scheduleData }}
+                  ref={scheduleObj}
+                  popupClose={closePopup}
+                >
+                  <Inject services={[Day, Agenda]} />
+                </ScheduleComponent>
+              </Card>
+              <NewPetCard user={user} />
+            </Stack>
+          )}
         </>
       ) : (
         navigate("/account/signin")
