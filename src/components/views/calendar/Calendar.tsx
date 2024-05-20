@@ -200,9 +200,6 @@ function Calendar({ user }: Props) {
   };
 
   const dragStopEvent = (args: DragEventArgs) => {
-    console.log(args)
-    // console.log(args.target);
-    // console.log(args.data);
     const newEvent: ScheduleEvent = {
       Id: scheduleData.length + 1,
       Subject: args.data.Subject,
@@ -212,7 +209,6 @@ function Calendar({ user }: Props) {
     };
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
-    // dataManager.remove(dataManager.dataSource as any);
   }
 
   return (
@@ -227,7 +223,7 @@ function Calendar({ user }: Props) {
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
-              dragStart={(args) => dataManager.remove("Data", args)}
+              // dragStart={(args) => dataManager.remove("Data", args)}
             >
               <ViewsDirective>
                 <ViewDirective option="Day"/>
