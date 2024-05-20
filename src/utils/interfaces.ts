@@ -183,30 +183,6 @@ export const user: NewUser[] = [
         }
     }
 ]
-
-
-
-
-export interface Event {
-    Id: number;
-    Subject: string;
-    StartTime: Date;
-    EndTime: Date;
-    IsAllDay: boolean;
-    Description?: string;
-    Location?: string;
-} 
-
-// export const events: Event[] = [
-//     {
-//         Subject: "test",
-//         Id: 1,
-//         StartTime: "2024-05-17T08:00:00.000Z",
-//         EndTime: "2024-05-17T08:30:00.000Z",
-//         "IsAllDay": false
-//     }
-// ]
-
 export interface ArticleAttributes {
     title: string,
     tagline: string,
