@@ -8,6 +8,10 @@ import {
   Month,
   Inject,
   PopupCloseEventArgs,
+  ViewsDirective,
+  ViewDirective,
+  DragEventArgs,
+  DragAndDrop
 } from "@syncfusion/ej2-react-schedule";
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import { fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
@@ -195,6 +199,20 @@ function Calendar({ user }: Props) {
     }
   };
 
+  const dragEvent = (args: DragEventArgs) => {
+    console.log("dragEvent");
+    console.log(args);
+    const newEvent: ScheduleEvent = {
+      Id: scheduleData.length + 1,
+      Subject: args.data.Subject,
+      Description: args.data.Description,
+      StartTime: new Date(args.data.StartTime),
+      EndTime: new Date(args.data.EndTime),
+    };
+    const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
+    dataManager.insert(apiFormattedEvent);
+  }
+
   return (
     <>
       {user.data.id ? (
@@ -204,8 +222,17 @@ function Calendar({ user }: Props) {
               eventSettings={{ dataSource: scheduleData }}
               ref={scheduleObj}
               popupClose={closePopup}
+              allowSwiping={true}
+              allowDragAndDrop={true}
+              dragStop={dragEvent}
             >
-              <Inject services={[Day, Week, Month, Agenda]} />
+              <ViewsDirective>
+                <ViewDirective option="Day"/>
+                <ViewDirective option="Week"/>
+                <ViewDirective option="Month"/>
+                <ViewDirective option="Agenda"/>
+              </ViewsDirective>
+              <Inject services={[Day, Week, Month, Agenda, DragAndDrop]} />
             </ScheduleComponent>
           ) : (
             <Stack>
@@ -233,7 +260,12 @@ function Calendar({ user }: Props) {
                   eventSettings={{ dataSource: scheduleData }}
                   ref={scheduleObj}
                   popupClose={closePopup}
+                  allowSwiping={true}
                 >
+                  <ViewsDirective>
+                    <ViewDirective option="Day" />
+                    <ViewDirective option="Agenda" />
+                  </ViewsDirective>
                   <Inject services={[Day, Agenda]} />
                 </ScheduleComponent>
               </Card>
