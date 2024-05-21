@@ -42,10 +42,8 @@ export const fetchUser = (email: string, password: string, setError: React.Dispa
     }
   ).then((response) => {
     if(response.status === 401) {
-      // console.log('Invalid credentials')
       setError('Invalid credentials')
     } else {
-      console.log(response.headers.get('Authorization'))
       sessionStorage.setItem('token', response.headers.get('Authorization') ?? '')
       return response.json();
 
@@ -64,7 +62,7 @@ export const destroyToken = () => {
       },
     }
   ).then((response) => {
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     return response.json();
   });
 }
