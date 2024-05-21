@@ -223,6 +223,7 @@ function Calendar({ user }: Props) {
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
+              enableAllDayScroll={true}
               // dragStart={(args) => dataManager.remove("Data", args)}
             >
               <ViewsDirective>
@@ -260,6 +261,9 @@ function Calendar({ user }: Props) {
                   ref={scheduleObj}
                   popupClose={closePopup}
                   allowSwiping={true}
+                  enableAllDayScroll={true}
+                  width="100%"
+                  height="100%"
                 >
                   <ViewsDirective>
                     <ViewDirective option="Day" />
