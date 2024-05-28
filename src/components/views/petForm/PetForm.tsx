@@ -125,11 +125,13 @@ function PetForm() {
         birthday: "",
         symptoms: [],
       });
+
       setRingwormObject({
         pet_id: 1,
         ringworm_type: "",
         diagnosis_date: "",
       });
+      
       setMedications([
         {
           pet_id: 1,
