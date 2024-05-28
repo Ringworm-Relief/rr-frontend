@@ -18,6 +18,8 @@ import CoolCat from "../../assets/RR-4.svg";
 import { User } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
+import ManageAccount from "../views/manageAccount/ManageAccount";
+import { fetchPets } from "../../apiCalls/petApiCalls";
 // localStorage.clear()
 function App() {
   const activeUser = JSON.parse(
@@ -31,6 +33,7 @@ function App() {
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
   const [allUsers, setAllUsers] = useState<User[]>(localUsers); //Holds all users on local machine
+  const [pets, setPets] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
@@ -59,7 +62,8 @@ function App() {
   const setLoggedInUser = (user: any) => {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
-    console.log(user);
+    // console.log(user);
+    getUserPets();
     navigate(`/user/${user.data.id}/dashboard`);
   };
 
@@ -69,6 +73,15 @@ function App() {
     setUser(false);
     navigate("/");
   };
+
+  const getUserPets = () => {
+    fetchPets(user.data.id).then((data) => { //Will need to update with user token
+     if(data){
+       setPets(data);
+       console.log(data)
+     }
+    })
+  }
 
   // handleSignOut()
 
@@ -124,7 +137,7 @@ function App() {
         <Route
           path="account/new"
           element={
-            <CreateAccount setAllUsers={setAllUsers} allUsers={allUsers} />
+            <CreateAccount />
           }
         />
         <Route
@@ -162,6 +175,7 @@ function App() {
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}
         />
+        <Route path="/user/:user_id/manageaccount" element={<ManageAccount pets={pets} setPets={setPets}/>}></Route>
         <Route path="*" element={<Landing />} />
       </Routes>
       <div id="footer_wrapper">
