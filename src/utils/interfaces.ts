@@ -125,7 +125,7 @@ export type Ringworm = {
 export const Pets = [
     {
         user_id: 1,
-        Id: 1,
+        Id: 452568,
         name: 'Alfred',
         pet_type:'Dog',
         breed: 'Golden Retriever',
@@ -140,7 +140,7 @@ export const Pets = [
     },
     {
         user_id: 1,
-        Id: 2,
+        Id: 4586,
         name: 'Bella',
         pet_type:'Cat',
         breed: 'Siamese',
@@ -155,7 +155,7 @@ export const Pets = [
     },
     {
         user_id: 1,
-        Id: 3,
+        Id: 1285,
         name: 'Charlie',
         pet_type:'Dog',
         breed: 'Thoroughbred',

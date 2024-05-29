@@ -195,19 +195,23 @@ function Calendar({ user }: Props) {
 
   const closePopup = (args: PopupCloseEventArgs) => {
     console.log("close Popup Here");
-    console.log(args.data);
+   
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
       if (target.className === save_icon || target.className === save_button) {
         const newEvent: ScheduleEvent = {
-          PetId: (args.data as any).PetId,
+          PetId: (args.data as any).ResourceId,
           Id: scheduleData.length + 1,
           Subject: (args.data as any).Subject,
           Description: (args.data as any).Description,
           StartTime: new Date((args.data as any).StartTime),
           EndTime: new Date((args.data as any).EndTime),
-          ResourceId: scheduleData.length + 1,
+          ResourceId: (args.data as any).ResourceId,
         };
+        // let petID = (args.data as any).ResourceId;
+        // let resourceId = (args.data as any).ResourceId;
+        // console.log(resourceId);
+        // console.log(petID) //ResourceId is showing unique pet id --- pet id is undefined
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       }
@@ -216,7 +220,7 @@ function Calendar({ user }: Props) {
 
   const dragStopEvent = (args: DragEventArgs) => {
     const newEvent: ScheduleEvent = {
-      PetId: args.data.PetId,
+      PetId: args.data.ResourceId,
       Id: scheduleData.length + 1,
       Subject: args.data.Subject,
       Description: args.data.Description,
