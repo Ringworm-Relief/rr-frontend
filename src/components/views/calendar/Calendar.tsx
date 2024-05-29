@@ -53,9 +53,12 @@ interface ApiEvent {
 const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
   // valid startDate and startTime to send in the body request
-
-const endTime = event.EndTime.toString()
-const startTime = event.StartTime.toString()
+console.log(event.EndTime)
+//"2024-05-30T07:00:00.000Z"
+const date = new Date(event.EndTime)
+console.log(date)
+// const endTime = event.EndTime.toString()
+// const startTime = event.StartTime.toString()
 
   return {
     data: {
@@ -63,8 +66,8 @@ const startTime = event.StartTime.toString()
       attributes: {
         user_id: userId,
         description: event.Description,
-        start_time: startTime,
-        end_time: endTime,
+        start_time: event.StartTime,
+        end_time: event.EndTime,
         subject: event.Subject,
         pet_id: event.PetId,
         resource_id: event.ResourceId
