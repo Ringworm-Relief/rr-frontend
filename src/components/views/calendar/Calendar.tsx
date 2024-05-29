@@ -42,7 +42,7 @@ interface ApiEvent {
   attributes: {
     pet_id: string;
     user_id: string;
-    title: string;
+    subject: string;
     description: string;
     start_time: string;
     end_time: string;
@@ -60,7 +60,7 @@ const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
       attributes: {
         pet_id: event.PetId,
         user_id: userId,
-        title: event.Subject,
+        subject: event.Subject,
         description: event.Description,
         start_time: event.StartTime,
         end_time: event.EndTime,
@@ -78,7 +78,7 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   return {
     PetId: parseInt(apiEvent.attributes.pet_id),
     Id: parseInt(apiEvent.id), // Parse the string id to number
-    Subject: apiEvent.attributes.title,
+    Subject: apiEvent.attributes.subject,
     Description: apiEvent.attributes.description,
     StartTime: new Date(apiEvent.attributes.start_time),
     EndTime: new Date(apiEvent.attributes.end_time),
