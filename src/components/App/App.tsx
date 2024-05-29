@@ -133,7 +133,7 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
-        {user && <Route path="/user/:user_id/addpet" element={<PetForm userId={user.data.id}/>} />}
+        {user && <Route path="/user/:user_id/addpet" element={<PetForm user={user}/>} />}
         <Route
           path="account/new"
           element={
@@ -177,7 +177,7 @@ function App() {
         <Route path="/user/:user_id/:pet_name" element={<PetDashboard />}/>
         <Route
           path="/user/:user_id/manageaccount"
-          element={<ManageAccount pets={pets} setPets={setPets} userId={user.data.id}/>}
+          element={<ManageAccount pets={pets} setPets={setPets} user={user}/>}
         ></Route>
         <Route path="*" element={<Landing />} />
       </Routes>

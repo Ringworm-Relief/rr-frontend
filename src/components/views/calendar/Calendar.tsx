@@ -53,17 +53,23 @@ interface ApiEvent {
 const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
   // valid startDate and startTime to send in the body request
+console.log(event.EndTime)
+//"2024-05-30T07:00:00.000Z"
+const date = new Date(event.EndTime)
+console.log(date)
+// const endTime = event.EndTime.toString()
+// const startTime = event.StartTime.toString()
 
   return {
     data: {
       type: "calendar_event",
       attributes: {
-        pet_id: event.PetId,
         user_id: userId,
-        subject: event.Subject,
         description: event.Description,
-        start_time: event.StartTime,
-        end_time: event.EndTime,
+        start_time: event.StartTime.toString(),
+        end_time: event.EndTime.toString(),
+        subject: event.Subject,
+        pet_id: event.PetId,
         resource_id: event.ResourceId
       },
     },
@@ -73,7 +79,8 @@ const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
 const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   // The API response comes back with start_date and start_time that needs to be combined to make a ScheduleEvent,
   // this is the function that puts those two together to made a valid Date
-
+// const properStartTime = apiEvent.attributes.start_time.split('T')[0]
+// const properEndTime = apiEvent.attributes.end_time.split('T')[0]
   // Create and return a ScheduleEvent object
   return {
     PetId: parseInt(apiEvent.attributes.pet_id),
@@ -106,6 +113,7 @@ export default function Calendar({ user }: Props) {
         const newEvents = response.data.map((event: ApiEvent) => {
           return transformToScheduleEvent(event);
         });
+        console.log(newEvents)
         // Every time code is edited, this is run again duplicating on the page, maybe there is a method to catch this error.
         // Changed from spread operator to fix this issue
         setScheduleData(newEvents);
@@ -150,10 +158,10 @@ export default function Calendar({ user }: Props) {
           ResourceId: (args.data as any).ResourceId, // Match resource ID to pet ID
         };
         console.log(args.data as any)
-        // let petID = (args.data as any).ResourceId;
-        // let resourceId = (args.data as any).ResourceId;
-        // console.log(resourceId);
-        // console.log(petID) 
+        let petID = (args.data as any).ResourceId;
+        let resourceId = (args.data as any).ResourceId;
+        console.log(resourceId);
+        console.log(petID) 
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       }
@@ -170,19 +178,19 @@ export default function Calendar({ user }: Props) {
       EndTime: new Date(args.data.EndTime),
       ResourceId: args.data.ResourceId,
     };
-    // const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
-    dataManager.insert(newEvent);
+    const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
+    dataManager.insert(apiFormattedEvent);
   }
 
 
 const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
 
 const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
-  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[3] }); // change value to pet ID
+  let index = Pets.indexOf(pet);
+  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
   return acc;
 }, [])
 
-// random math func to select color
   return (
     <>
       {user.data.id ? (
@@ -199,7 +207,7 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
-                <ResourceDirective field="PetId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
+                <ResourceDirective field="ResourceId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
               </ResourcesDirective>
               <ViewsDirective>
                 <ViewDirective option="Day"/>

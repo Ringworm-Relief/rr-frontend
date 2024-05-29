@@ -73,10 +73,10 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 interface Props {
-  userId: number
+  user: any
 }
 
-function PetForm({ userId }: Props) {
+function PetForm({ user }: Props) {
   const navigate = useNavigate()
   const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
   const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
@@ -94,7 +94,7 @@ function PetForm({ userId }: Props) {
   ]);
 
   const [petObject, setPetObject] = useState<Pet>({
-    user_id: userId,
+    user_id: user.data.id,
     name: "",
     pet_type: "",
     breed: "",
@@ -134,7 +134,7 @@ function PetForm({ userId }: Props) {
       setHasSubmitted(true);
 
       setPetObject({
-        user_id: userId,
+        user_id: user.data.id,
         name: "",
         pet_type: "",
         breed: "",
@@ -416,7 +416,7 @@ function PetForm({ userId }: Props) {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={() => navigate(`/user/${userId}/dashboard`)}
+          onClick={() => navigate(`/user/${user.data.id}/dashboard`)}
         >
           View Dashboard
         </Button>
