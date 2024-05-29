@@ -19,8 +19,6 @@ export const postNewUser = (newUser: NewUser) => {
       body: JSON.stringify(newUser),
     }
   ).then((response) => {
-    // console.log(response.headers.get('Authorization'))
-    // localStorage.setItem('token', response.headers.get('Authorization') ?? '')
     return response.json();
   });
 };
@@ -42,10 +40,8 @@ export const fetchUser = (email: string, password: string, setError: React.Dispa
     }
   ).then((response) => {
     if(response.status === 401) {
-      // console.log('Invalid credentials')
       setError('Invalid credentials')
     } else {
-      console.log(response.headers.get('Authorization'))
       sessionStorage.setItem('token', response.headers.get('Authorization') ?? '')
       return response.json();
     }
@@ -59,11 +55,11 @@ export const destroyToken = () => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": localStorage.getItem('token') ?? ''
+        "Authorization": sessionStorage.getItem('token') ?? ''
       },
     }
   ).then((response) => {
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     return response.json();
   });
 }

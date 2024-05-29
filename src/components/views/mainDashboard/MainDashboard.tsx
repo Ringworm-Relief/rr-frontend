@@ -12,10 +12,11 @@ import styled from "@mui/system/styled";
 import { Link } from "react-router-dom";
 import PetCards from "./dashboardComponents/PetCards";
 import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
-import CalendarMin from "./dashboardComponents/CalendarMin";
+// import CalendarMin from "./dashboardComponents/CalendarMin";
 // import NewPetCard from "./dashboardComponents/NewPetCard";
 
 import { useNavigate } from "react-router-dom";
+import Calendar from "../calendar/Calendar";
 
 interface Props {
   user: any;
@@ -42,7 +43,7 @@ function MainDashboard({ user, savedArticles, handleSaves }: Props) {
         >
           <Grid container spacing={2} columns={2} zIndex={20}>
             <PetCards />
-            <CalendarMin user={user}/>
+              <Calendar user={user}/>
             <SavedArticlesCard savedArticles={savedArticles} handleSaves={handleSaves}/>
           </Grid>
         </Box>

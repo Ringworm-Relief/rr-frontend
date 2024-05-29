@@ -31,11 +31,11 @@ Insert video
 </div>
 
 ## Installation Instructions:
-- Visit the deployed [link](https://rr-as.vercel.app/)
+- 
 - OR run the following on the command line to clone the repo and run the app locally:
     ```
-    git clone xxxxxxx
-    cd spilled
+    git clone git@github.com:Ringworm-Relief/rr-frontend.git
+    cd rr-frontend
     npm install
     npm start
     ```
