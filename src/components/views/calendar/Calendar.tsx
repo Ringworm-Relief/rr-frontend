@@ -186,6 +186,7 @@ function Calendar({ user }: Props) {
 
   const closePopup = (args: PopupCloseEventArgs) => {
     console.log("close Popup Here");
+    console.log(args.event);
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
       if (target.className === save_icon || target.className === save_button) {
@@ -215,33 +216,33 @@ function Calendar({ user }: Props) {
   }
 
 
-  const onPopupOpen = (args: any) => {
-    if (args.type === 'Editor') {
-      if (!args.element.querySelector('.custom-field-row')) {
-          let row = createElement('div', { className: 'custom-field-row' });
-          let formElement = args.element.querySelector('.e-schedule-form');
-          formElement.firstChild.insertBefore(row, formElement.firstChild.firstChild);
-          let container = createElement('div', { className: 'custom-field-container' });
-          let inputEle = createElement('input', {
-              className: 'e-field', attrs: { name: 'PetId' }
-          });
-          container.appendChild(inputEle);
-          row.appendChild(container);
-          let data = Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
-              acc.push({ text: pet.name, value: pet.name }); // change value to pet ID
-              return acc;
-          }, [])
-          let drowDownList = new DropDownList({
-              dataSource: data,
-              fields: { text: 'text', value: 'value' },
-              value: args.data.PetId,
-              floatLabelType: 'Always', placeholder: 'Choose Pet'
-          });
-          drowDownList.appendTo(inputEle);
-          inputEle.setAttribute('name', 'PetId');
-      }
-  }
-  }
+  // const onPopupOpen = (args: any) => {
+  //   if (args.type === 'Editor') {
+  //     if (!args.element.querySelector('.custom-field-row')) {
+  //         let row = createElement('div', { className: 'custom-field-row' });
+  //         let formElement = args.element.querySelector('.e-schedule-form');
+  //         formElement.firstChild.insertBefore(row, formElement.firstChild.firstChild);
+  //         let container = createElement('div', { className: 'custom-field-container' });
+  //         let inputEle = createElement('input', {
+  //             className: 'e-field', attrs: { name: 'PetId' }
+  //         });
+  //         container.appendChild(inputEle);
+  //         row.appendChild(container);
+  //         let data = Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
+  //             acc.push({ text: pet.name, value: pet.name }); // change value to pet ID
+  //             return acc;
+  //         }, [])
+  //         let drowDownList = new DropDownList({
+  //             dataSource: data,
+  //             fields: { text: 'text', value: 'value' },
+  //             value: args.data.PetId,
+  //             floatLabelType: 'Always', placeholder: 'Choose Pet'
+  //         });
+  //         drowDownList.appendTo(inputEle);
+  //         inputEle.setAttribute('name', 'PetId');
+  //     }
+  // }
+  // }
 
 
   return (
@@ -252,7 +253,7 @@ function Calendar({ user }: Props) {
             <ScheduleComponent
               eventSettings={{ dataSource: scheduleData }}
               ref={scheduleObj}
-              popupOpen={onPopupOpen}
+              // popupOpen={onPopupOpen}
               popupClose={closePopup}
               allowSwiping={true}
               allowDragAndDrop={true}
