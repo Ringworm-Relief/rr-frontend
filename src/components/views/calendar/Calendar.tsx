@@ -200,18 +200,18 @@ function Calendar({ user }: Props) {
       const target = args.event.target as HTMLElement;
       if (target.className === save_icon || target.className === save_button) {
         const newEvent: ScheduleEvent = {
-          PetId: (args.data as any).ResourceId,
+          PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
           Id: scheduleData.length + 1,
           Subject: (args.data as any).Subject,
           Description: (args.data as any).Description,
           StartTime: new Date((args.data as any).StartTime),
           EndTime: new Date((args.data as any).EndTime),
-          ResourceId: (args.data as any).ResourceId,
+          ResourceId: (args.data as any).ResourceId, // Match resource ID to pet ID
         };
         // let petID = (args.data as any).ResourceId;
         // let resourceId = (args.data as any).ResourceId;
         // console.log(resourceId);
-        // console.log(petID) //ResourceId is showing unique pet id --- pet id is undefined
+        // console.log(petID) 
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       }
@@ -281,10 +281,10 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
-              // dragStart={(args) => dataManager.remove("Data", args)}
+              group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
-                <ResourceDirective field="ResourceId" title="Resource Field" name="Resources" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
+                <ResourceDirective field="PetId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
               </ResourcesDirective>
               <ViewsDirective>
                 <ViewDirective option="Day"/>
