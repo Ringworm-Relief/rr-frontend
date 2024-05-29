@@ -1,0 +1,12 @@
+{
+    "data": {
+        "id": "189",
+        "type": "user",
+        "attributes": {
+            "first_name": "test25",
+            "last_name": "test25",
+            "email": "test25@test.com",
+            "password": "password"
+        }
+    }
+}
