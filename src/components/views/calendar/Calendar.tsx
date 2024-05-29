@@ -11,7 +11,9 @@ import {
   ViewsDirective,
   ViewDirective,
   DragEventArgs,
-  DragAndDrop
+  DragAndDrop,
+  ResourcesDirective,
+  ResourceDirective
 } from "@syncfusion/ej2-react-schedule";
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
@@ -25,12 +27,13 @@ interface Props {
 }
 
 interface ScheduleEvent {
-  PetId: string;
+  PetId: number;
   Id: number;
   Subject: string;
   Description: string;
   StartTime: Date;
   EndTime: Date;
+  ResourceId: number
 }
 
 interface ApiEvent {
@@ -45,6 +48,7 @@ interface ApiEvent {
     end_time: string;
     start_date: string;
     end_date: string;
+    resource_id: string;
   };
 }
 
@@ -89,6 +93,7 @@ const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
         end_date: endDate, // Ensure the date is in ISO format
         start_time: startTime, // Ensure the date is in ISO format
         end_time: endTime, // Ensure the date is in ISO format
+        resource_id: event.ResourceId
       },
     },
   };
@@ -130,12 +135,13 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
 
   // Create and return a ScheduleEvent object
   return {
-    PetId: apiEvent.attributes.pet_id,
+    PetId: parseInt(apiEvent.attributes.pet_id),
     Id: parseInt(apiEvent.id), // Parse the string id to number
     Subject: apiEvent.attributes.title,
     Description: apiEvent.attributes.description,
     StartTime: new Date(startDate),
     EndTime: new Date(endDate),
+    ResourceId: parseInt(apiEvent.attributes.resource_id)
   };
 };
 
@@ -200,6 +206,7 @@ function Calendar({ user }: Props) {
           Description: (args.data as any).Description,
           StartTime: new Date((args.data as any).StartTime),
           EndTime: new Date((args.data as any).EndTime),
+          ResourceId: scheduleData.length + 1,
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
@@ -215,6 +222,7 @@ function Calendar({ user }: Props) {
       Description: args.data.Description,
       StartTime: new Date(args.data.StartTime),
       EndTime: new Date(args.data.EndTime),
+      ResourceId: args.data.ResourceId,
     };
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
@@ -233,7 +241,7 @@ function Calendar({ user }: Props) {
           container.appendChild(inputEle);
           row.appendChild(container);
           let data = Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
-              acc.push({ text: pet.name, value: pet.name }); // change value to pet ID
+              acc.push({ text: pet.name, value: pet.Id }); // change value to pet ID
               return acc;
           }, [])
           let drowDownList = new DropDownList({
@@ -247,6 +255,14 @@ function Calendar({ user }: Props) {
       }
   }
   }
+
+  const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
+
+const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
+  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[3] }); // change value to pet ID
+  return acc;
+}, [])
+
 
   return (
     <>
@@ -263,6 +279,9 @@ function Calendar({ user }: Props) {
               dragStop={dragStopEvent}
               // dragStart={(args) => dataManager.remove("Data", args)}
             >
+              <ResourcesDirective>
+                <ResourceDirective field="ResourceId" title="Resource Field" name="Resources" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
+              </ResourcesDirective>
               <ViewsDirective>
                 <ViewDirective option="Day"/>
                 <ViewDirective option="Week"/>
