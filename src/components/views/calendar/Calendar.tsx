@@ -15,8 +15,6 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
-import { createElement } from '@syncfusion/ej2-base';
-import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import { fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
 import { Card, Stack } from "@mui/material";
@@ -258,7 +256,7 @@ function Calendar({ user }: Props) {
             <ScheduleComponent
               eventSettings={{ dataSource: scheduleData }}
               ref={scheduleObj}
-              onPopupOpen={onPopupOpen}
+              popupOpen={onPopupOpen}
               popupClose={closePopup}
               allowSwiping={true}
               allowDragAndDrop={true}
