@@ -46,8 +46,6 @@ interface ScheduleEvent {
 //     description: string;
 //     start_time: string;
 //     end_time: string;
-//     start_date: string;
-//     end_date: string;
 //     resource_id: string;
 //   };
 // }
@@ -56,31 +54,6 @@ interface ScheduleEvent {
 //   // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
 //   // valid startDate and startTime to send in the body request
 
-//   const startDate = event.StartTime.toLocaleDateString("en-GB", {
-//     year: "numeric",
-//     month: "2-digit",
-//     day: "2-digit",
-//   });
-
-//   const endDate = event.EndTime.toLocaleDateString("en-GB", {
-//     year: "numeric",
-//     month: "2-digit",
-//     day: "2-digit",
-//   });
-
-//   // This portion makes it so that only time is send in "HH:MM" format
-
-//   const format_options: Intl.DateTimeFormatOptions = {
-//     hour: "2-digit",
-//     minute: "2-digit",
-//   };
-
-//   const startTime = new Intl.DateTimeFormat("en-US", format_options).format(
-//     event.StartTime
-//   );
-//   const endTime = new Intl.DateTimeFormat("en-US", format_options).format(
-//     event.EndTime
-//   );
 
 //   return {
 //     data: {
@@ -233,33 +206,6 @@ function Calendar({ user }: Props) {
     dataManager.insert(newEvent);
   }
 
-  // const onPopupOpen = (args: any) => {
-  //   if (args.type === 'Editor') {
-  //     if (!args.element.querySelector('.custom-field-row')) {
-  //         let row = createElement('div', { className: 'custom-field-row' });
-  //         let formElement = args.element.querySelector('.e-schedule-form');
-  //         formElement.firstChild.insertBefore(row, formElement.firstChild.firstChild);
-  //         let container = createElement('div', { className: 'custom-field-container' });
-  //         let inputEle = createElement('input', {
-  //             className: 'e-field', attrs: { name: 'PetId' }
-  //         });
-  //         container.appendChild(inputEle);
-  //         row.appendChild(container);
-  //         let data = Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
-  //             acc.push({ text: pet.name, value: pet.Id }); // change value to pet ID
-  //             return acc;
-  //         }, [])
-  //         let drowDownList = new DropDownList({
-  //             dataSource: data,
-  //             fields: { text: 'text', value: 'value' },
-  //             value: args.data.PetId,
-  //             floatLabelType: 'Always', placeholder: 'Choose Pet'
-  //         });
-  //         drowDownList.appendTo(inputEle);
-  //         inputEle.setAttribute('name', 'PetId');
-  //     }
-  // }
-  // }
 
 const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
 
