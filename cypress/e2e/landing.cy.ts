@@ -10,13 +10,14 @@ describe('Landing Page', () => {
   it('should display the landing page', () => {
     cy.get('header').should('be.visible')
     .get('nav').should('be.visible')
-    .get('nav > div').should('have.length', 4)
+    .get('nav > div').should('have.length', 3)
 
     .get('.MuiPaper-root').first().should('be.visible')
     .get('.MuiPaper-root').first().within(() => {
       cy.get('h2').should('be.visible')
-      .get('h2').should('have.text', 'Ringworm is an underestimated diagnosis')
-      .get('button').first().should('have.text', 'Sign Up')
+      .get('h2').should('have.text', 'Ringworm, Relief,Repeat?')
+      // .get('p').should('have.text', 'Nope! Just Ringworm then Relief. Use our education, tracking, and  orginization to track all your furry friends treatment.  No more wondering when the last time you treated your pet was,  or cluttering your personal calendar with reminders.')
+      .get('button').first().should('have.text', 'Get Started Here')
       .get('button').last().should('have.text', 'Sign In')
     })
   })
@@ -26,7 +27,10 @@ describe('Landing Page', () => {
       cy.get('.css-13i4rnv-MuiGrid-root').first().within(() => {
         cy.get( '.MuiCardMedia-root').should('have.text', 'Education')
       })
-      //Need to test second card
+      
+      cy.get('.css-13i4rnv-MuiGrid-root').eq(1).within(() => {
+        cy.get( '.MuiCardMedia-root').should('have.text', 'Treatment tracking')
+      })
   
       cy.get('.css-13i4rnv-MuiGrid-root').last().within(() => {
         cy.get( '.MuiCardMedia-root').should('have.text', 'Support')
@@ -39,7 +43,10 @@ describe('Landing Page', () => {
       cy.get('.css-46bh2p-MuiCardContent-root').first().within(() => {
         cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Dogs')
       })
-      //Need to test second card
+      
+      cy.get('.css-46bh2p-MuiCardContent-root').eq(1).within(() => {
+        cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Cats')
+      })
   
       cy.get('.css-46bh2p-MuiCardContent-root').last().within(() => {
         cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Horses')
@@ -48,10 +55,15 @@ describe('Landing Page', () => {
   })
 
   it('Should show a drawer on hamburger click', () => {
-    // cy.get('.css-1160xiw-MuiPaper-root-MuiDrawer-paper').should('not.be.visible')
+    // cy.get('.css-1160xiw-MuiPaper-root-MuiDrawer-paper').should('be.hidden')
     cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
     cy.get('.MuiDrawer-paper').within(() => {
-      cy.get('.MuiListItemButton-root').should('have.length', 4)
+      cy.get('.MuiListItemButton-root').should('have.length', 5)
+      cy.get('.MuiListItemButton-root').eq(0).should('have.text', 'Sign In')
+      cy.get('.MuiListItemButton-root').eq(1).should('have.text', 'Dashboard')
+      cy.get('.MuiListItemButton-root').eq(2).should('have.text', 'Calendar')
+      cy.get('.MuiListItemButton-root').eq(3).should('have.text', 'Saved Articles')
+      cy.get('.MuiListItemButton-root').eq(4).should('have.text', 'Add Pet')
     })
   })
 })
