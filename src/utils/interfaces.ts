@@ -130,18 +130,12 @@ export const Pets = [
         breed: 'Golden Retriever',
         birthday: '05/05/2015',
         symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication: {
-            pet_id: 1,
-            medication_type: 'Oral',
-            name: 'Griseofulvin',
-            dosage: '250mg',
-            frequency: 'Daily',
-        },
-        ringworm: {
-            pet_id: 1,
-            ringworm_type: 'M. Canis',
-            diagnosis_date: '05/05/2021'
-        }
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
     },
     {
         user_id: 1,
@@ -150,18 +144,12 @@ export const Pets = [
         breed: 'Siamese',
         birthday: '05/05/2015',
         symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication: {
-            pet_id: 1,
-            medication_type: 'Oral',
-            name: 'Griseofulvin',
-            dosage: '250mg',
-            frequency: 'Daily',
-        },
-        ringworm: {
-            pet_id: 1,
-            ringworm_type: 'M. Canis',
-            diagnosis_date: '05/05/2021'
-        }
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
     },
     {
         user_id: 1,
@@ -170,18 +158,12 @@ export const Pets = [
         breed: 'Thoroughbred',
         birthday: '05/05/2015',
         symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication: {
-            pet_id: 1,
-            medication_type: 'Oral',
-            name: 'Griseofulvin',
-            dosage: '250mg',
-            frequency: 'Daily',
-        },
-        ringworm: {
-            pet_id: 1,
-            ringworm_type: 'M. Canis',
-            diagnosis_date: '05/05/2021'
-        }
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
     
     }
 ]
