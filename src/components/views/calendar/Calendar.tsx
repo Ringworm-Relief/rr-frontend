@@ -36,114 +36,114 @@ interface ScheduleEvent {
   ResourceId: number
 }
 
-interface ApiEvent {
-  id: string;
-  type: string;
-  attributes: {
-    pet_id: string;
-    user_id: string;
-    title: string;
-    description: string;
-    start_time: string;
-    end_time: string;
-    start_date: string;
-    end_date: string;
-    resource_id: string;
-  };
-}
+// interface ApiEvent {
+//   id: string;
+//   type: string;
+//   attributes: {
+//     pet_id: string;
+//     user_id: string;
+//     title: string;
+//     description: string;
+//     start_time: string;
+//     end_time: string;
+//     start_date: string;
+//     end_date: string;
+//     resource_id: string;
+//   };
+// }
 
-const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
-  // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
-  // valid startDate and startTime to send in the body request
+// const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
+//   // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
+//   // valid startDate and startTime to send in the body request
 
-  const startDate = event.StartTime.toLocaleDateString("en-GB", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+//   const startDate = event.StartTime.toLocaleDateString("en-GB", {
+//     year: "numeric",
+//     month: "2-digit",
+//     day: "2-digit",
+//   });
 
-  const endDate = event.EndTime.toLocaleDateString("en-GB", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+//   const endDate = event.EndTime.toLocaleDateString("en-GB", {
+//     year: "numeric",
+//     month: "2-digit",
+//     day: "2-digit",
+//   });
 
-  // This portion makes it so that only time is send in "HH:MM" format
+//   // This portion makes it so that only time is send in "HH:MM" format
 
-  const format_options: Intl.DateTimeFormatOptions = {
-    hour: "2-digit",
-    minute: "2-digit",
-  };
+//   const format_options: Intl.DateTimeFormatOptions = {
+//     hour: "2-digit",
+//     minute: "2-digit",
+//   };
 
-  const startTime = new Intl.DateTimeFormat("en-US", format_options).format(
-    event.StartTime
-  );
-  const endTime = new Intl.DateTimeFormat("en-US", format_options).format(
-    event.EndTime
-  );
+//   const startTime = new Intl.DateTimeFormat("en-US", format_options).format(
+//     event.StartTime
+//   );
+//   const endTime = new Intl.DateTimeFormat("en-US", format_options).format(
+//     event.EndTime
+//   );
 
-  return {
-    data: {
-      type: "calendar_event",
-      attributes: {
-        user_id: userId,
-        title: event.Subject,
-        description: event.Description,
-        start_date: startDate, // Ensure the date is in ISO format
-        end_date: endDate, // Ensure the date is in ISO format
-        start_time: startTime, // Ensure the date is in ISO format
-        end_time: endTime, // Ensure the date is in ISO format
-        resource_id: event.ResourceId
-      },
-    },
-  };
-};
+//   return {
+//     data: {
+//       type: "calendar_event",
+//       attributes: {
+//         user_id: userId,
+//         title: event.Subject,
+//         description: event.Description,
+//         start_date: startDate, // Ensure the date is in ISO format
+//         end_date: endDate, // Ensure the date is in ISO format
+//         start_time: startTime, // Ensure the date is in ISO format
+//         end_time: endTime, // Ensure the date is in ISO format
+//         resource_id: event.ResourceId
+//       },
+//     },
+//   };
+// };
 
-const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
-  // The API response comes back with start_date and start_time that needs to be combined to make a ScheduleEvent,
-  // this is the function that puts those two together to made a valid Date
-  function parseDateStringWithTime(dateString: string, timeString: string) {
-    const [day, month, year] = dateString.split("/").map(Number); // Split the date string into parts and convert to numbers
-    const timeMatch = timeString.match(/\d+/g); // Match hours and minutes from the time string
+// const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
+//   // The API response comes back with start_date and start_time that needs to be combined to make a ScheduleEvent,
+//   // this is the function that puts those two together to made a valid Date
+//   function parseDateStringWithTime(dateString: string, timeString: string) {
+//     const [day, month, year] = dateString.split("/").map(Number); // Split the date string into parts and convert to numbers
+//     const timeMatch = timeString.match(/\d+/g); // Match hours and minutes from the time string
 
-    if (!timeMatch) {
-      throw new Error("Invalid time format");
-    }
+//     if (!timeMatch) {
+//       throw new Error("Invalid time format");
+//     }
 
-    const [hours, minutes] = timeMatch.map(Number); // Extract hours and minutes from the time match
+//     const [hours, minutes] = timeMatch.map(Number); // Extract hours and minutes from the time match
 
-    const isPM = timeString.includes("PM"); // Check if the time is PM
+//     const isPM = timeString.includes("PM"); // Check if the time is PM
 
-    // Adjust hours if PM (assuming 12-hour format)
-    let adjustedHours = hours;
-    if (isPM && adjustedHours !== 12) {
-      adjustedHours += 12;
-    }
+//     // Adjust hours if PM (assuming 12-hour format)
+//     let adjustedHours = hours;
+//     if (isPM && adjustedHours !== 12) {
+//       adjustedHours += 12;
+//     }
 
-    // Create a new Date object with the parsed components
-    return new Date(year, month - 1, day, adjustedHours, minutes);
-  }
+//     // Create a new Date object with the parsed components
+//     return new Date(year, month - 1, day, adjustedHours, minutes);
+//   }
 
-  const startDate = parseDateStringWithTime(
-    apiEvent.attributes.start_date,
-    apiEvent.attributes.start_time
-  );
-  const endDate = parseDateStringWithTime(
-    apiEvent.attributes.end_date,
-    apiEvent.attributes.end_time
-  );
+//   const startDate = parseDateStringWithTime(
+//     apiEvent.attributes.start_date,
+//     apiEvent.attributes.start_time
+//   );
+//   const endDate = parseDateStringWithTime(
+//     apiEvent.attributes.end_date,
+//     apiEvent.attributes.end_time
+//   );
 
-  // Create and return a ScheduleEvent object
-  return {
-    PetId: parseInt(apiEvent.attributes.pet_id),
-    Id: parseInt(apiEvent.id), // Parse the string id to number
-    Subject: apiEvent.attributes.title,
-    Description: apiEvent.attributes.description,
-    StartTime: new Date(startDate),
-    EndTime: new Date(endDate),
-    ResourceId: parseInt(apiEvent.attributes.resource_id)
-  };
-};
+//   // Create and return a ScheduleEvent object
+//   return {
+//     PetId: parseInt(apiEvent.attributes.pet_id),
+//     Id: parseInt(apiEvent.id), // Parse the string id to number
+//     Subject: apiEvent.attributes.title,
+//     Description: apiEvent.attributes.description,
+//     StartTime: new Date(startDate),
+//     EndTime: new Date(endDate),
+//     ResourceId: parseInt(apiEvent.attributes.resource_id)
+//   };
+// };
 
 function Calendar({ user }: Props) {
   const navigate = useNavigate();
@@ -162,12 +162,12 @@ function Calendar({ user }: Props) {
       try {
         const response = await fetchCalendarEvents(user.data.id, currentToken);
         // Transform API response to ScheduleEvent
-        const newEvents = response.data.map((event: ApiEvent) => {
-          return transformToScheduleEvent(event);
-        });
+        // const newEvents = response.data.map((event: ApiEvent) => {
+        //   return transformToScheduleEvent(event);
+        // });
         // Every time code is edited, this is run again duplicating on the page, maybe there is a method to catch this error.
         // Changed from spread operator to fix this issue
-        setScheduleData(newEvents);
+        setScheduleData(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -208,12 +208,13 @@ function Calendar({ user }: Props) {
           EndTime: new Date((args.data as any).EndTime),
           ResourceId: (args.data as any).ResourceId, // Match resource ID to pet ID
         };
+        console.log(args.data as any)
         // let petID = (args.data as any).ResourceId;
         // let resourceId = (args.data as any).ResourceId;
         // console.log(resourceId);
         // console.log(petID) 
-        const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
-        dataManager.insert(apiFormattedEvent);
+        // const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
+        dataManager.insert(newEvent);
       }
     }
   };
@@ -228,8 +229,8 @@ function Calendar({ user }: Props) {
       EndTime: new Date(args.data.EndTime),
       ResourceId: args.data.ResourceId,
     };
-    const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
-    dataManager.insert(apiFormattedEvent);
+    // const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
+    dataManager.insert(newEvent);
   }
 
   // const onPopupOpen = (args: any) => {
@@ -267,7 +268,7 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
   return acc;
 }, [])
 
-
+// random math func to select color
   return (
     <>
       {user.data.id ? (
@@ -281,7 +282,7 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
-              group={{resources: ['Pets']}}
+              // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
                 <ResourceDirective field="PetId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>

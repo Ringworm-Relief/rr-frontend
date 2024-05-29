@@ -20,6 +20,7 @@ import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
 import { fetchPets } from "../../apiCalls/petApiCalls";
+import PetDashboard from "../views/petDashboard/PetDashboard";
 // localStorage.clear()
 function App() {
   const activeUser = JSON.parse(
@@ -75,13 +76,14 @@ function App() {
   };
 
   const getUserPets = () => {
-    fetchPets(user.data.id).then((data) => { //Will need to update with user token
-     if(data){
-       setPets(data);
-       console.log(data)
-     }
-    })
-  }
+    fetchPets(user.data.id).then((data) => {
+      //Will need to update with user token
+      if (data) {
+        setPets(data);
+        console.log(data);
+      }
+    });
+  };
 
   // handleSignOut()
 
@@ -134,12 +136,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/user/:user_id/addpet" element={<PetForm />} />
-        <Route
-          path="account/new"
-          element={
-            <CreateAccount />
-          }
-        />
+        <Route path="account/new" element={<CreateAccount />} />
         <Route
           path="account/signin"
           element={
@@ -170,12 +167,19 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/:user_id/dashboard" element={<MainDashboard savedArticles={savedArticles} user={user}/>} />
+        <Route
+          path="/user/:user_id/dashboard"
+          element={<MainDashboard savedArticles={savedArticles} user={user} />}
+        />
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}
         />
-        <Route path="/user/:user_id/manageaccount" element={<ManageAccount pets={pets} setPets={setPets}/>}></Route>
+        <Route path="/user/:user_id/:pet_name" element={<PetDashboard />}/>
+        <Route
+          path="/user/:user_id/manageaccount"
+          element={<ManageAccount pets={pets} setPets={setPets} />}
+        ></Route>
         <Route path="*" element={<Landing />} />
       </Routes>
       <div id="footer_wrapper">
