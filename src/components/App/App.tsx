@@ -120,7 +120,7 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/user/:user_id/addpet" element={<PetForm />} />
+        {user && <Route path="/user/:user_id/addpet" element={<PetForm id={user.data.id}/>} />}
         <Route
           path="account/new"
           element={

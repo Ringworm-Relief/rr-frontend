@@ -5,6 +5,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Grid,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -14,12 +15,12 @@ import EducationArtCard from "../../../subComps/educationArtCard/EducationArtCar
 
 interface Props {
   savedArticles: string[];
-  handleSaves: (id: string) => void; 
+  handleSaves: (id: string) => void;
 }
 
 function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
   const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getSavedArts = () => {
     getArticlesCategory().then((data) => {
@@ -31,8 +32,8 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
   };
 
   const handleClick = (id: string | void) => {
-    navigate(`/education/category/${id}`); 
-};
+    navigate(`/education/category/${id}`);
+  };
 
   useEffect(() => {
     getSavedArts();
@@ -44,38 +45,22 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
     );
   });
 
-  // const savedArticleCards = savedArts.map((article: EducationArticle) => {
-  //       return (
-  //           <EducationArtCard 
-  //               title={article.attributes.title}
-  //               tagline={article.attributes.tagline}
-  //               handleClick={handleClick}
-  //               handleSaves={handleSaves}
-  //               savedArticles={savedArticles}
-  //               id={article.id}
-  //               key={article.id}
-  //               isSaved={true}
-  //           />
-  //       )
-  //   })
-
-    const savedArticleCards = savedArts.map((article: EducationArticle) => {
-      if (savedArticles.includes(article.id)) {
-          return (
-              <EducationArtCard 
-                  title={article.attributes.title}
-                  tagline={article.attributes.tagline}
-                  handleClick={handleClick}
-                  handleSaves={handleSaves}
-                  savedArticles={savedArticles}
-                  id={article.id}
-                  key={article.id}
-                  isSaved={true}
-              />
-          )
-      }
-  })
-
+  const savedArticleCards = savedArts.map((article: EducationArticle) => {
+    if (savedArticles.includes(article.id)) {
+      return (
+        <EducationArtCard
+          title={article.attributes.title}
+          tagline={article.attributes.tagline}
+          handleClick={handleClick}
+          handleSaves={handleSaves}
+          savedArticles={savedArticles}
+          id={article.id}
+          key={article.id}
+          isSaved={true}
+        />
+      );
+    }
+  });
 
   return (
     <Card
@@ -99,13 +84,19 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
     >
       <CardHeader title="Saved Articles" />
       <CardContent>
-        <List>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={5}
+        >
           {savedArts.length ? (
             savedArticleCards
           ) : (
             <p>You have no articles saved.</p>
           )}
-        </List>
+        </Grid>
       </CardContent>
     </Card>
   );

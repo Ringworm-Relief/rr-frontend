@@ -109,7 +109,7 @@ export type Pet = {
 }
       
 export type Medication = {
-    pet_id: number,
+    pet_id: string,
     name: string,
     medication_type: string,
     dosage: string,
@@ -117,7 +117,7 @@ export type Medication = {
 }
 
 export type Ringworm = {
-    pet_id: number,
+    pet_id: string,
     ringworm_type: string,
     diagnosis_date: string,
 }
