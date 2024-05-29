@@ -186,11 +186,11 @@ export default function Calendar({ user }: Props) {
 const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
 
 const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
-  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[3] }); // change value to pet ID
+  let index = Pets.indexOf(pet);
+  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
   return acc;
 }, [])
 
-// random math func to select color
   return (
     <>
       {user.data.id ? (
