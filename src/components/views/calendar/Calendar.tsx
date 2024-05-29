@@ -18,7 +18,7 @@ import {
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
-import { fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
+import { destroyCalendarEvent, fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
 import { Card, Stack } from "@mui/material";
 import { Pets } from "../../../utils/interfaces";
 import NewPetCard from "../mainDashboard/dashboardComponents/AddManageCards";
@@ -51,14 +51,6 @@ interface ApiEvent {
 }
 
 const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
-  // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
-  // valid startDate and startTime to send in the body request
-console.log(event.EndTime)
-//"2024-05-30T07:00:00.000Z"
-const date = new Date(event.EndTime)
-console.log(date)
-// const endTime = event.EndTime.toString()
-// const startTime = event.StartTime.toString()
 
   return {
     data: {
@@ -77,14 +69,10 @@ console.log(date)
 };
 
 const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
-  // The API response comes back with start_date and start_time that needs to be combined to make a ScheduleEvent,
-  // this is the function that puts those two together to made a valid Date
-// const properStartTime = apiEvent.attributes.start_time.split('T')[0]
-// const properEndTime = apiEvent.attributes.end_time.split('T')[0]
   // Create and return a ScheduleEvent object
   return {
     PetId: parseInt(apiEvent.attributes.pet_id),
-    Id: parseInt(apiEvent.id), // Parse the string id to number
+    Id: parseInt(apiEvent.id),
     Subject: apiEvent.attributes.subject,
     Description: apiEvent.attributes.description,
     StartTime: new Date(apiEvent.attributes.start_time),
@@ -93,9 +81,13 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   };
 };
 
+
+
+
 export default function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
+  const [eventId, setEventId] = useState<number>();
   const scheduleObj = useRef<ScheduleComponent>(null);
   const currentToken = sessionStorage.getItem("token");
   const windowLocation = window.location.pathname;
@@ -113,9 +105,6 @@ export default function Calendar({ user }: Props) {
         const newEvents = response.data.map((event: ApiEvent) => {
           return transformToScheduleEvent(event);
         });
-        console.log(newEvents)
-        // Every time code is edited, this is run again duplicating on the page, maybe there is a method to catch this error.
-        // Changed from spread operator to fix this issue
         setScheduleData(newEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -157,11 +146,13 @@ export default function Calendar({ user }: Props) {
           EndTime: new Date((args.data as any).EndTime),
           ResourceId: (args.data as any).ResourceId, // Match resource ID to pet ID
         };
-        console.log(args.data as any)
-        let petID = (args.data as any).ResourceId;
-        let resourceId = (args.data as any).ResourceId;
-        console.log(resourceId);
-        console.log(petID) 
+        // console.log(args.data as any)
+        // let petID = (args.data as any).ResourceId;
+        // let resourceId = (args.data as any).ResourceId;
+        // console.log(resourceId);
+        // console.log(petID) 
+        // setEventId(scheduleData.length + 1);
+        console.log(newEvent)
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       }
@@ -182,6 +173,9 @@ export default function Calendar({ user }: Props) {
     dataManager.insert(apiFormattedEvent);
   }
 
+  const dragStartEvent = (args: DragEventArgs) => {
+    destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
+  }
 
 const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
 
@@ -204,6 +198,7 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
+              dragStart={dragStartEvent}
               // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>

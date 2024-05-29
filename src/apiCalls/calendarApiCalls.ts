@@ -23,7 +23,5 @@ export const destroyCalendarEvent = (user_id: string, event_id: string, token: s
         "Authorization": `${token}` 
       },
     }
-  ).then((response) => {
-      return response.json();
-  });
+  )
 }
