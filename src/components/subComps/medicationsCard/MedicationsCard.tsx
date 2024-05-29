@@ -61,8 +61,6 @@ import { Medication } from "../../../utils/interfaces";
   function MedicationsCard({ medObject, setMedObject, number }: Props) {
     return (
       <Box
-        component="form"
-        noValidate
         sx={{
           display: "flex",
           flexDirection: "column",

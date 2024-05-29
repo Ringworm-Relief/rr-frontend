@@ -19,6 +19,7 @@ import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
 import { postPet, postMedication, postRingworm } from "../../../apiCalls/petApiCalls";
 import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
+import { Navigate, useNavigate } from "react-router-dom"
 
 const style = {
   position: "absolute" as "absolute",
@@ -71,14 +72,20 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function PetForm() {
+interface Props {
+  id: number
+}
+
+function PetForm({ id }: Props) {
+  const navigate = useNavigate()
   const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
   const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
   const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const [petID, setPetID] = useState<string>("");
   const [medications, setMedications] = useState<Medication[]>([
     {
-      pet_id: 1,
+      pet_id: petID,
       name: "",
       medication_type: "",
       dosage: "",
@@ -87,7 +94,7 @@ function PetForm() {
   ]);
 
   const [petObject, setPetObject] = useState<Pet>({
-    user_id: 1,
+    user_id: id,
     name: "",
     pet_type: "",
     breed: "",
@@ -96,7 +103,7 @@ function PetForm() {
   });
 
   const [ringwormObject, setRingwormObject] = useState<Ringworm>({
-    pet_id: 1,
+    pet_id: petID,
     ringworm_type: "",
     diagnosis_date: "",
   });
@@ -105,20 +112,29 @@ function PetForm() {
     setHasSubmitted(false);
   };
 
-  const handleSubmit = async () => {
-    const petResponse = await postPet(petObject);
-    const ringResponse = await postRingworm(ringwormObject);
-    const medResponses = await Promise.all(medications.map(med => postMedication(med)));
+  const addAnotherPet = () => {
+    setHasSubmitted(false)
+    setPetID("")
+  }
 
-    if (petResponse && ringResponse && medResponses.every(res => res)) {
+  const handleSubmit = () => {
+    console.log("pet Object", petObject)
+    console.log("ring Object", ringwormObject)
+    console.log("med Objects", medications)
+    postPet(petObject).then(data => {
+      console.log(data.data)
+      setPetID(data.data.id)
       setPetSubmitted(true);
-      setRingSubmitted(true);
-      setMedSubmitted(true);
+      console.log(petID)
+      postRingworm(ringwormObject).then(data => setRingSubmitted(true));
+      Promise.all(medications.map(med => postMedication(med))).then(data => setMedSubmitted(true));
+    });
+
+    if (petSubmitted && ringSubmitted && medSubmitted) {
       setHasSubmitted(true);
 
-      // Reset form
       setPetObject({
-        user_id: 1,
+        user_id: id,
         name: "",
         pet_type: "",
         breed: "",
@@ -127,14 +143,14 @@ function PetForm() {
       });
 
       setRingwormObject({
-        pet_id: 1,
+        pet_id: "",
         ringworm_type: "",
         diagnosis_date: "",
       });
       
       setMedications([
         {
-          pet_id: 1,
+          pet_id: "",
           name: "",
           medication_type: "",
           dosage: "",
@@ -143,6 +159,12 @@ function PetForm() {
       ]);
     }
   };
+
+  // "pet_id": 1,
+  // "medication_type": "oral",
+  // "name": "anti-inflammatory",
+  // "dosage": "4 g",
+  // "frequency":
 
   const handleMedChange = (index: number, field: keyof Medication, value: string) => {
     const updatedMedications = medications.map((med, i) => 
@@ -352,7 +374,7 @@ function PetForm() {
           onClick={() => setMedications([
             ...medications,
             {
-              pet_id: 1,
+              pet_id: petID,
               name: "",
               medication_type: "",
               dosage: "",
@@ -366,7 +388,7 @@ function PetForm() {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={() => handleSubmit()}
+          onClick={handleSubmit}
         >
           Submit Form
         </Button>
@@ -384,6 +406,20 @@ function PetForm() {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               The form has been submitted.
             </Typography>
+            <Button
+          variant="outlined"
+          sx={{ marginTop: "20px" }}
+          onClick={addAnotherPet}
+        >
+          Add another pet
+        </Button>
+        <Button
+          variant="outlined"
+          sx={{ marginTop: "20px" }}
+          onClick={() => navigate(`/user/${id}/dashboard`)}
+        >
+          Submit Form
+        </Button>
           </Box>
         </Modal>
       </Box>

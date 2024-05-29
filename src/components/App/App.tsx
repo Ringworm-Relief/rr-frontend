@@ -135,8 +135,13 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/user/:user_id/addpet" element={<PetForm />} />
-        <Route path="account/new" element={<CreateAccount />} />
+        {user && <Route path="/user/:user_id/addpet" element={<PetForm id={user.data.id}/>} />}
+        <Route
+          path="account/new"
+          element={
+            <CreateAccount setAllUsers={setAllUsers} allUsers={allUsers} />
+          }
+        />
         <Route
           path="account/signin"
           element={
@@ -167,10 +172,7 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route
-          path="/user/:user_id/dashboard"
-          element={<MainDashboard savedArticles={savedArticles} user={user} />}
-        />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user}/>} />
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}

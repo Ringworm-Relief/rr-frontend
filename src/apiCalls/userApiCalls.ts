@@ -44,7 +44,6 @@ export const fetchUser = (email: string, password: string, setError: React.Dispa
     } else {
       sessionStorage.setItem('token', response.headers.get('Authorization') ?? '')
       return response.json();
-
     }
   });
 };

@@ -286,4 +286,3 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
     </>
   );
 }
-export default Calendar;
