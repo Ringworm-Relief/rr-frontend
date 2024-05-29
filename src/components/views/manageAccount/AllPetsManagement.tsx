@@ -17,82 +17,29 @@ import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
-import { postPet, postMedication, postRingworm } from "../../../apiCalls/petApiCalls";
+//   import { postPet, postMedication, postRingworm, patchPet, patchRingworm, patchMedication } from "../../../apiCalls/petApiCalls";
 import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
-import { Navigate, useNavigate } from "react-router-dom"
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 8,
-};
-
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(3),
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 25,
-    position: "relative",
-    backgroundColor: theme.palette.mode === "light" ? "#F3F6F9" : "#1A2027",
-    border: "1px solid",
-    borderColor: theme.palette.mode === "light" ? "#E0E3E7" : "#2D3843",
-    fontSize: 16,
-    color: "black",
-    width: "300px",
-    padding: "10px 12px",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow",
-    ]),
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}));
 
 interface Props {
-  userId: number
+  pets: any[];
+  setPets: React.Dispatch<any>;
+  userId: number;
 }
 
-function PetForm({ userId }: Props) {
-  const navigate = useNavigate()
-  const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
-  const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
-  const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
+export default function AllPetsManagement({ pets, setPets, userId }: Props) {
+  // const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
+  // const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
+  // const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
-  const [petID, setPetID] = useState<string>("");
   const [medications, setMedications] = useState<Medication[]>([
     {
-      pet_id: petID,
+      pet_id: '',
       name: "",
       medication_type: "",
       dosage: "",
       frequency: "",
     },
   ]);
-
   const [petObject, setPetObject] = useState<Pet>({
     user_id: userId,
     name: "",
@@ -103,7 +50,7 @@ function PetForm({ userId }: Props) {
   });
 
   const [ringwormObject, setRingwormObject] = useState<Ringworm>({
-    pet_id: petID,
+    pet_id: '',
     ringworm_type: "",
     diagnosis_date: "",
   });
@@ -112,66 +59,104 @@ function PetForm({ userId }: Props) {
     setHasSubmitted(false);
   };
 
-  const addAnotherPet = () => {
-    setHasSubmitted(false)
-    setPetID("")
-  }
+  // const handleSubmit = async () => {
+  //   const petResponse = await patchPet(petObject);
+  //   const ringResponse = await patchRingworm(ringwormObject);
+  //   const medResponses = await Promise.all(medications.map(med => patchMedication(med)));
 
-  const handleSubmit = () => {
-    console.log("pet Object", petObject)
-    console.log("ring Object", ringwormObject)
-    console.log("med Objects", medications)
-    postPet(petObject).then(data => {
-      console.log(data.data)
-      setPetID(data.data.id)
-      setPetSubmitted(true);
-      console.log(petID)
-      postRingworm(ringwormObject).then(data => setRingSubmitted(true));
-      Promise.all(medications.map(med => postMedication(med))).then(data => setMedSubmitted(true));
-    });
+  //   if (petResponse && ringResponse && medResponses.every(res => res)) {
+  //     setPetSubmitted(true);
+  //     setRingSubmitted(true);
+  //     setMedSubmitted(true);
+  //     setHasSubmitted(true);
 
-    if (petSubmitted && ringSubmitted && medSubmitted) {
-      setHasSubmitted(true);
+  //     // Reset form
+  //     setPetObject({
+  //       user_id: 1,
+  //       name: "",
+  //       pet_type: "",
+  //       breed: "",
+  //       birthday: "",
+  //       symptoms: [],
+  //     });
+  //     setRingwormObject({
+  //       pet_id: 1,
+  //       ringworm_type: "",
+  //       diagnosis_date: "",
+  //     });
+  //     setMedications([
+  //       {
+  //         pet_id: 1,
+  //         name: "",
+  //         medication_type: "",
+  //         dosage: "",
+  //         frequency: "",
+  //       },
+  //     ]);
+  //   }
+  // };
 
-      setPetObject({
-        user_id: userId,
-        name: "",
-        pet_type: "",
-        breed: "",
-        birthday: "",
-        symptoms: [],
-      });
-
-      setRingwormObject({
-        pet_id: "",
-        ringworm_type: "",
-        diagnosis_date: "",
-      });
-      
-      setMedications([
-        {
-          pet_id: "",
-          name: "",
-          medication_type: "",
-          dosage: "",
-          frequency: "",
-        },
-      ]);
-    }
-  };
-
-  // "pet_id": 1,
-  // "medication_type": "oral",
-  // "name": "anti-inflammatory",
-  // "dosage": "4 g",
-  // "frequency":
-
-  const handleMedChange = (index: number, field: keyof Medication, value: string) => {
-    const updatedMedications = medications.map((med, i) => 
+  const handleMedChange = (
+    index: number,
+    field: keyof Medication,
+    value: string
+  ) => {
+    const updatedMedications = medications.map((med, i) =>
       i === index ? { ...med, [field]: value } : med
     );
     setMedications(updatedMedications);
   };
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 8,
+  };
+
+  const BootstrapInput = styled(InputBase)(({ theme }) => ({
+    "label + &": {
+      marginTop: theme.spacing(3),
+    },
+    "& .MuiInputBase-input": {
+      borderRadius: 25,
+      position: "relative",
+      backgroundColor: theme.palette.mode === "light" ? "#F3F6F9" : "#1A2027",
+      border: "1px solid",
+      borderColor: theme.palette.mode === "light" ? "#E0E3E7" : "#2D3843",
+      fontSize: 16,
+      color: "black",
+      width: "300px",
+      padding: "10px 12px",
+      transition: theme.transitions.create([
+        "border-color",
+        "background-color",
+        "box-shadow",
+      ]),
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+      "&:focus": {
+        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  }));
 
   const medCards = medications.map((med, index) => (
     <MedicationsCard
@@ -181,7 +166,6 @@ function PetForm({ userId }: Props) {
       number={index + 1}
     />
   ));
-
   return (
     <Container>
       <Box
@@ -291,7 +275,7 @@ function PetForm({ userId }: Props) {
         </FormControl>
 
         <div className="divider"></div>
-        
+
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Ringworm <img id="fungi-svg" src={bacteria} alt="bacteria" />
         </Typography>
@@ -329,7 +313,10 @@ function PetForm({ userId }: Props) {
             id="strain-field"
             value={ringwormObject.ringworm_type}
             onChange={(e) =>
-              setRingwormObject({ ...ringwormObject, ringworm_type: e.target.value })
+              setRingwormObject({
+                ...ringwormObject,
+                ringworm_type: e.target.value,
+              })
             }
             inputProps={{ placeholder: "Enter strain" }}
           />
@@ -360,7 +347,7 @@ function PetForm({ userId }: Props) {
         </FormControl>
 
         <div className="divider"></div>
-      
+
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Medication
           <img id="pill-svg" src={pill} alt="pill" />
@@ -371,16 +358,18 @@ function PetForm({ userId }: Props) {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={() => setMedications([
-            ...medications,
-            {
-              pet_id: petID,
-              name: "",
-              medication_type: "",
-              dosage: "",
-              frequency: "",
-            }
-          ])}
+          onClick={() =>
+            setMedications([
+              ...medications,
+              {
+                pet_id: '',
+                name: "",
+                medication_type: "",
+                dosage: "",
+                frequency: "",
+              },
+            ])
+          }
         >
           Add medication
         </Button>
@@ -388,7 +377,7 @@ function PetForm({ userId }: Props) {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={handleSubmit}
+          // onClick={() => handleSubmit()}
         >
           Submit Form
         </Button>
@@ -406,26 +395,9 @@ function PetForm({ userId }: Props) {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               The form has been submitted.
             </Typography>
-            <Button
-          variant="outlined"
-          sx={{ marginTop: "20px" }}
-          onClick={addAnotherPet}
-        >
-          Add another pet
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{ marginTop: "20px" }}
-          onClick={() => navigate(`/user/${userId}/dashboard`)}
-        >
-          View Dashboard
-        </Button>
           </Box>
         </Modal>
       </Box>
     </Container>
   );
 }
-
-export default PetForm;
-

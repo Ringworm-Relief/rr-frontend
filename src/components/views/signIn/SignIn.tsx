@@ -21,10 +21,9 @@ import React from "react";
 interface Props {
   setUser: React.Dispatch<any>;
   setLoggedInUser: (user: any) => void;
-  allUsers: User[];
 }
 
-function SignIn({ setUser, setLoggedInUser, allUsers }: Props) {
+function SignIn({ setUser, setLoggedInUser }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

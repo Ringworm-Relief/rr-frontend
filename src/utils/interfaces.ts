@@ -105,11 +105,11 @@ export type Pet = {
     pet_type: string,
     breed: string,
     birthday: string,
-    symptoms: string[]
+    symptoms: string[],
 }
       
 export type Medication = {
-    pet_id: number,
+    pet_id: string,
     name: string,
     medication_type: string,
     dosage: string,
@@ -117,56 +117,59 @@ export type Medication = {
 }
 
 export type Ringworm = {
-    pet_id: number,
+    pet_id: string,
     ringworm_type: string,
     diagnosis_date: string,
 }
 
-// export const Pets: Pet[] = [
-//     {
-//         user_id: 1,
-//         name: 'Alfred',
-//         pet_type:'Dog',
-//         breed: 'Golden Retriever',
-//         birthday: '05/05/2015',
-//         symptoms: ['Itching', 'Hair loss', 'Redness'],
-//         medication_type: 'Oral',
-//         medication_name: 'Griseofulvin',
-//         medication_dosage: '250mg',
-//         medication_frequency: 'Daily',
-//         ringworm_type: 'M. Canis',
-//         ringworm_diagnosis_date: '05/05/2021'
-//     },
-//     {
-//         user_id: 1,
-//         name: 'Bella',
-//         pet_type:'Cat',
-//         breed: 'Siamese',
-//         birthday: '05/05/2015',
-//         symptoms: ['Itching', 'Hair loss', 'Redness'],
-//         medication_type: 'Oral',
-//         medication_name: 'Griseofulvin',
-//         medication_dosage: '250mg',
-//         medication_frequency: 'Daily',
-//         ringworm_type: 'M. Canis',
-//         ringworm_diagnosis_date: '05/05/2021'
-//     },
-//     {
-//         user_id: 1,
-//         name: 'Charlie',
-//         pet_type:'Dog',
-//         breed: 'Thoroughbred',
-//         birthday: '05/05/2015',
-//         symptoms: ['Itching', 'Hair loss', 'Redness'],
-//         medication_type: 'Oral',
-//         medication_name: 'Griseofulvin',
-//         medication_dosage: '250mg',
-//         medication_frequency: 'Daily',
-//         ringworm_type: 'M. Canis',
-//         ringworm_diagnosis_date: '05/05/2021'
+export const Pets = [
+    {
+        user_id: 1,
+        Id: 452568,
+        name: 'Alfred',
+        pet_type:'Dog',
+        breed: 'Golden Retriever',
+        birthday: '05/05/2015',
+        symptoms: ['Itching', 'Hair loss', 'Redness'],
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
+    },
+    {
+        user_id: 1,
+        Id: 4586,
+        name: 'Bella',
+        pet_type:'Cat',
+        breed: 'Siamese',
+        birthday: '05/05/2015',
+        symptoms: ['Itching', 'Hair loss', 'Redness'],
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
+    },
+    {
+        user_id: 1,
+        Id: 1285,
+        name: 'Charlie',
+        pet_type:'Dog',
+        breed: 'Thoroughbred',
+        birthday: '05/05/2015',
+        symptoms: ['Itching', 'Hair loss', 'Redness'],
+        medication_type: 'Oral',
+        medication_name: 'Griseofulvin',
+        medication_dosage: '250mg',
+        medication_frequency: 'Daily',
+        ringworm_type: 'M. Canis',
+        ringworm_diagnosis_date: '05/05/2021'
     
-//     }
-// ]
+    }
+]
 
 
 

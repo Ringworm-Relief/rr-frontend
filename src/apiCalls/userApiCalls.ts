@@ -19,8 +19,6 @@ export const postNewUser = (newUser: NewUser) => {
       body: JSON.stringify(newUser),
     }
   ).then((response) => {
-    // console.log(response.headers.get('Authorization'))
-    // localStorage.setItem('token', response.headers.get('Authorization') ?? '')
     return response.json();
   });
 };
@@ -46,7 +44,6 @@ export const fetchUser = (email: string, password: string, setError: React.Dispa
     } else {
       sessionStorage.setItem('token', response.headers.get('Authorization') ?? '')
       return response.json();
-
     }
   });
 };

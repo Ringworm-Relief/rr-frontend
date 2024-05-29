@@ -19,12 +19,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../../../utils/interfaces";
 
-interface Props {
-  allUsers: User[];
-  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>;
-}
 
-function CreateAccount({ setAllUsers, allUsers }: Props) {
+function CreateAccount() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
