@@ -54,16 +54,19 @@ const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   // Because BE calendar_event breaks down into start_date and start_time, take the ScheduleEvent and break down into
   // valid startDate and startTime to send in the body request
 
+const endTime = event.EndTime.toString()
+const startTime = event.StartTime.toString()
+
   return {
     data: {
       type: "calendar_event",
       attributes: {
-        pet_id: event.PetId,
         user_id: userId,
-        subject: event.Subject,
         description: event.Description,
-        start_time: event.StartTime,
-        end_time: event.EndTime,
+        start_time: startTime,
+        end_time: endTime,
+        subject: event.Subject,
+        pet_id: event.PetId,
         resource_id: event.ResourceId
       },
     },
@@ -73,7 +76,8 @@ const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
 const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   // The API response comes back with start_date and start_time that needs to be combined to make a ScheduleEvent,
   // this is the function that puts those two together to made a valid Date
-
+// const properStartTime = apiEvent.attributes.start_time.split('T')[0]
+// const properEndTime = apiEvent.attributes.end_time.split('T')[0]
   // Create and return a ScheduleEvent object
   return {
     PetId: parseInt(apiEvent.attributes.pet_id),
@@ -170,8 +174,8 @@ export default function Calendar({ user }: Props) {
       EndTime: new Date(args.data.EndTime),
       ResourceId: args.data.ResourceId,
     };
-    // const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
-    dataManager.insert(newEvent);
+    const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
+    dataManager.insert(apiFormattedEvent);
   }
 
 

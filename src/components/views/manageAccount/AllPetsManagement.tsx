@@ -23,10 +23,10 @@ import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
 interface Props {
   pets: any[];
   setPets: React.Dispatch<any>;
-  userId: number;
+  user: any;
 }
 
-export default function AllPetsManagement({ pets, setPets, userId }: Props) {
+export default function AllPetsManagement({ pets, setPets, user }: Props) {
   // const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
   // const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
   // const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
@@ -41,7 +41,7 @@ export default function AllPetsManagement({ pets, setPets, userId }: Props) {
     },
   ]);
   const [petObject, setPetObject] = useState<Pet>({
-    user_id: userId,
+    user_id: user.data.id,
     name: "",
     pet_type: "",
     breed: "",

@@ -5,13 +5,13 @@ import AllPetsManagement from "./AllPetsManagement";
 interface Props {
     setPets: React.Dispatch<any>;
     pets: any[];
-    userId: number;
+    user: any;
 }
 
-export default function ManageAccount({pets, setPets, userId}: Props) {
+export default function ManageAccount({pets, setPets, user}: Props) {
     return (
         <>
-            <AllPetsManagement pets={pets} setPets={setPets} userId={userId} />
+            <AllPetsManagement pets={pets} setPets={setPets} user={user} />
             <CreateAccount />
         </>
     )
