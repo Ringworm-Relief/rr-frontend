@@ -25,6 +25,7 @@ interface Props {
 }
 
 interface ScheduleEvent {
+  PetId: string;
   Id: number;
   Subject: string;
   Description: string;
@@ -36,6 +37,7 @@ interface ApiEvent {
   id: string;
   type: string;
   attributes: {
+    pet_id: string;
     user_id: string;
     title: string;
     description: string;
@@ -128,6 +130,7 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
 
   // Create and return a ScheduleEvent object
   return {
+    PetId: apiEvent.attributes.pet_id,
     Id: parseInt(apiEvent.id), // Parse the string id to number
     Subject: apiEvent.attributes.title,
     Description: apiEvent.attributes.description,
@@ -186,10 +189,12 @@ function Calendar({ user }: Props) {
 
   const closePopup = (args: PopupCloseEventArgs) => {
     console.log("close Popup Here");
+    console.log(args.data);
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
       if (target.className === save_icon || target.className === save_button) {
         const newEvent: ScheduleEvent = {
+          PetId: (args.data as any).PetId,
           Id: scheduleData.length + 1,
           Subject: (args.data as any).Subject,
           Description: (args.data as any).Description,
@@ -204,6 +209,7 @@ function Calendar({ user }: Props) {
 
   const dragStopEvent = (args: DragEventArgs) => {
     const newEvent: ScheduleEvent = {
+      PetId: args.data.PetId,
       Id: scheduleData.length + 1,
       Subject: args.data.Subject,
       Description: args.data.Description,
