@@ -17,64 +17,18 @@ import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
-import { postPet, postMedication, postRingworm } from "../../../apiCalls/petApiCalls";
+//   import { postPet, postMedication, postRingworm, patchPet, patchRingworm, patchMedication } from "../../../apiCalls/petApiCalls";
 import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 8,
-};
+interface Props {
+  pets: any[];
+  setPets: React.Dispatch<any>;
+}
 
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(3),
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 25,
-    position: "relative",
-    backgroundColor: theme.palette.mode === "light" ? "#F3F6F9" : "#1A2027",
-    border: "1px solid",
-    borderColor: theme.palette.mode === "light" ? "#E0E3E7" : "#2D3843",
-    fontSize: 16,
-    color: "black",
-    width: "300px",
-    padding: "10px 12px",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow",
-    ]),
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}));
-
-function PetForm() {
-  const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
-  const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
-  const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
+export default function AllPetsManagement({ pets, setPets }: Props) {
+  // const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
+  // const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
+  // const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
   const [medications, setMedications] = useState<Medication[]>([
     {
@@ -85,7 +39,6 @@ function PetForm() {
       frequency: "",
     },
   ]);
-
   const [petObject, setPetObject] = useState<Pet>({
     user_id: 1,
     name: "",
@@ -105,51 +58,104 @@ function PetForm() {
     setHasSubmitted(false);
   };
 
-  const handleSubmit = async () => {
-    const petResponse = await postPet(petObject);
-    const ringResponse = await postRingworm(ringwormObject);
-    const medResponses = await Promise.all(medications.map(med => postMedication(med)));
+  // const handleSubmit = async () => {
+  //   const petResponse = await patchPet(petObject);
+  //   const ringResponse = await patchRingworm(ringwormObject);
+  //   const medResponses = await Promise.all(medications.map(med => patchMedication(med)));
 
-    if (petResponse && ringResponse && medResponses.every(res => res)) {
-      setPetSubmitted(true);
-      setRingSubmitted(true);
-      setMedSubmitted(true);
-      setHasSubmitted(true);
+  //   if (petResponse && ringResponse && medResponses.every(res => res)) {
+  //     setPetSubmitted(true);
+  //     setRingSubmitted(true);
+  //     setMedSubmitted(true);
+  //     setHasSubmitted(true);
 
-      // Reset form
-      setPetObject({
-        user_id: 1,
-        name: "",
-        pet_type: "",
-        breed: "",
-        birthday: "",
-        symptoms: [],
-      });
+  //     // Reset form
+  //     setPetObject({
+  //       user_id: 1,
+  //       name: "",
+  //       pet_type: "",
+  //       breed: "",
+  //       birthday: "",
+  //       symptoms: [],
+  //     });
+  //     setRingwormObject({
+  //       pet_id: 1,
+  //       ringworm_type: "",
+  //       diagnosis_date: "",
+  //     });
+  //     setMedications([
+  //       {
+  //         pet_id: 1,
+  //         name: "",
+  //         medication_type: "",
+  //         dosage: "",
+  //         frequency: "",
+  //       },
+  //     ]);
+  //   }
+  // };
 
-      setRingwormObject({
-        pet_id: 1,
-        ringworm_type: "",
-        diagnosis_date: "",
-      });
-      
-      setMedications([
-        {
-          pet_id: 1,
-          name: "",
-          medication_type: "",
-          dosage: "",
-          frequency: "",
-        },
-      ]);
-    }
-  };
-
-  const handleMedChange = (index: number, field: keyof Medication, value: string) => {
-    const updatedMedications = medications.map((med, i) => 
+  const handleMedChange = (
+    index: number,
+    field: keyof Medication,
+    value: string
+  ) => {
+    const updatedMedications = medications.map((med, i) =>
       i === index ? { ...med, [field]: value } : med
     );
     setMedications(updatedMedications);
   };
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 8,
+  };
+
+  const BootstrapInput = styled(InputBase)(({ theme }) => ({
+    "label + &": {
+      marginTop: theme.spacing(3),
+    },
+    "& .MuiInputBase-input": {
+      borderRadius: 25,
+      position: "relative",
+      backgroundColor: theme.palette.mode === "light" ? "#F3F6F9" : "#1A2027",
+      border: "1px solid",
+      borderColor: theme.palette.mode === "light" ? "#E0E3E7" : "#2D3843",
+      fontSize: 16,
+      color: "black",
+      width: "300px",
+      padding: "10px 12px",
+      transition: theme.transitions.create([
+        "border-color",
+        "background-color",
+        "box-shadow",
+      ]),
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+      "&:focus": {
+        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  }));
 
   const medCards = medications.map((med, index) => (
     <MedicationsCard
@@ -159,7 +165,6 @@ function PetForm() {
       number={index + 1}
     />
   ));
-
   return (
     <Container>
       <Box
@@ -269,7 +274,7 @@ function PetForm() {
         </FormControl>
 
         <div className="divider"></div>
-        
+
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Ringworm <img id="fungi-svg" src={bacteria} alt="bacteria" />
         </Typography>
@@ -307,7 +312,10 @@ function PetForm() {
             id="strain-field"
             value={ringwormObject.ringworm_type}
             onChange={(e) =>
-              setRingwormObject({ ...ringwormObject, ringworm_type: e.target.value })
+              setRingwormObject({
+                ...ringwormObject,
+                ringworm_type: e.target.value,
+              })
             }
             inputProps={{ placeholder: "Enter strain" }}
           />
@@ -338,7 +346,7 @@ function PetForm() {
         </FormControl>
 
         <div className="divider"></div>
-      
+
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Medication
           <img id="pill-svg" src={pill} alt="pill" />
@@ -349,16 +357,18 @@ function PetForm() {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={() => setMedications([
-            ...medications,
-            {
-              pet_id: 1,
-              name: "",
-              medication_type: "",
-              dosage: "",
-              frequency: "",
-            }
-          ])}
+          onClick={() =>
+            setMedications([
+              ...medications,
+              {
+                pet_id: 1,
+                name: "",
+                medication_type: "",
+                dosage: "",
+                frequency: "",
+              },
+            ])
+          }
         >
           Add medication
         </Button>
@@ -366,7 +376,7 @@ function PetForm() {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={() => handleSubmit()}
+          // onClick={() => handleSubmit()}
         >
           Submit Form
         </Button>
@@ -390,6 +400,3 @@ function PetForm() {
     </Container>
   );
 }
-
-export default PetForm;
-
