@@ -66,8 +66,8 @@ console.log(date)
       attributes: {
         user_id: userId,
         description: event.Description,
-        start_time: event.StartTime,
-        end_time: event.EndTime,
+        start_time: event.StartTime.toString(),
+        end_time: event.EndTime.toString(),
         subject: event.Subject,
         pet_id: event.PetId,
         resource_id: event.ResourceId
@@ -113,6 +113,7 @@ export default function Calendar({ user }: Props) {
         const newEvents = response.data.map((event: ApiEvent) => {
           return transformToScheduleEvent(event);
         });
+        console.log(newEvents)
         // Every time code is edited, this is run again duplicating on the page, maybe there is a method to catch this error.
         // Changed from spread operator to fix this issue
         setScheduleData(newEvents);
@@ -157,10 +158,10 @@ export default function Calendar({ user }: Props) {
           ResourceId: (args.data as any).ResourceId, // Match resource ID to pet ID
         };
         console.log(args.data as any)
-        // let petID = (args.data as any).ResourceId;
-        // let resourceId = (args.data as any).ResourceId;
-        // console.log(resourceId);
-        // console.log(petID) 
+        let petID = (args.data as any).ResourceId;
+        let resourceId = (args.data as any).ResourceId;
+        console.log(resourceId);
+        console.log(petID) 
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       }
@@ -206,7 +207,7 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
-                <ResourceDirective field="PetId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
+                <ResourceDirective field="ResourceId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
               </ResourcesDirective>
               <ViewsDirective>
                 <ViewDirective option="Day"/>
