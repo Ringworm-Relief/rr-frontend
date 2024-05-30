@@ -14,12 +14,15 @@ import {
   DragAndDrop,
   ResourcesDirective,
   ResourceDirective,
-  PopupOpenEventArgs
+  PopupOpenEventArgs,
 } from "@syncfusion/ej2-react-schedule";
-import { createElement } from '@syncfusion/ej2-base';
-import { DropDownList } from '@syncfusion/ej2-dropdowns';
+// import { createElement } from "@syncfusion/ej2-base";
+// import { DropDownList } from "@syncfusion/ej2-dropdowns";
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
-import { destroyCalendarEvent, fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
+import {
+  destroyCalendarEvent,
+  fetchCalendarEvents,
+} from "../../../apiCalls/calendarApiCalls";
 import { Card, Stack } from "@mui/material";
 import { Pets } from "../../../utils/interfaces";
 import NewPetCard from "../mainDashboard/dashboardComponents/AddManageCards";
@@ -34,7 +37,7 @@ interface ScheduleEvent {
   Description: string;
   StartTime: Date;
   EndTime: Date;
-  ResourceId: number
+  ResourceId: number;
 }
 
 interface ApiEvent {
@@ -51,8 +54,26 @@ interface ApiEvent {
   };
 }
 
-const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
+const colors: string[] = [
+  "#cb6bb2",
+  "#56ca85",
+  "#df5286",
+  "#f7b84b",
+  "#198675",
+  "#b7d7e8",
+  "#e0a7a7",
+  "#8e8cd8",
+  "#f57f17",
+];
 
+const resourceDataSource = Pets.reduce((acc: any[], pet) => {
+  //Change to fetch data from API
+  let index = Pets.indexOf(pet);
+  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
+  return acc;
+}, []);
+
+const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   return {
     data: {
       type: "calendar_event",
@@ -63,7 +84,7 @@ const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
         end_time: event.EndTime.toString(),
         subject: event.Subject,
         pet_id: event.PetId,
-        resource_id: event.ResourceId
+        resource_id: event.ResourceId,
       },
     },
   };
@@ -78,21 +99,16 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
     Description: apiEvent.attributes.description,
     StartTime: new Date(apiEvent.attributes.start_time),
     EndTime: new Date(apiEvent.attributes.end_time),
-    ResourceId: parseInt(apiEvent.attributes.resource_id)
+    ResourceId: parseInt(apiEvent.attributes.resource_id),
   };
 };
-
-
-
 
 export default function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
-  const [eventId, setEventId] = useState<number>();
   const scheduleObj = useRef<ScheduleComponent>(null);
   const currentToken = sessionStorage.getItem("token");
   const windowLocation = window.location.pathname;
-  console.log(windowLocation);
 
   if (!currentToken) {
     throw new Error("Token is null");
@@ -125,16 +141,11 @@ export default function Calendar({ user }: Props) {
     ],
   });
 
-  const save_icon = "e-save-icon e-icons";
-  const save_button =
-    "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
-
-  // For future API call to delete CalendarEvent in closePopup
-  const delete_event = "e-btn-icon e-icons e-delete-icon";
-
   const closePopup = (args: PopupCloseEventArgs) => {
-    console.log("close Popup Here");
-   
+    const save_icon = "e-save-icon e-icons";
+    const save_button =
+      "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
+
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
       if (target.className === save_icon || target.className === save_button) {
@@ -165,25 +176,22 @@ export default function Calendar({ user }: Props) {
     };
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
-  }
+  };
 
-  const destroyEvent = (args: PopupOpenEventArgs | DragEventArgs | any): void => {
-    if(args.type === "DeleteAlert") {
-      destroyCalendarEvent(user.data.id, args.data?.Id.toString(), currentToken);
-    } else if(args.navigation) {
+  const destroyEvent = (
+    args: PopupOpenEventArgs | DragEventArgs | any
+  ): void => {
+    if (args.type === "DeleteAlert") {
+      destroyCalendarEvent(
+        user.data.id,
+        args.data?.Id.toString(),
+        currentToken
+      );
+    } else if (args.navigation) {
       destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
-      console.log(args.navigation)
+      console.log(args.navigation);
     }
-  }
-
-
-const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
-
-const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch data from API
-  let index = Pets.indexOf(pet);
-  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
-  return acc;
-}, [])
+  };
 
   return (
     <>
@@ -193,7 +201,6 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
             <ScheduleComponent
               eventSettings={{ dataSource: scheduleData }}
               ref={scheduleObj}
-              // popupOpen={onPopupOpen}
               popupClose={closePopup}
               allowSwiping={true}
               allowDragAndDrop={true}
@@ -203,13 +210,21 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
-                <ResourceDirective field="ResourceId" title="Pet" name="Pets" textField="Name" idField="Id" colorField="Color" dataSource={resourceDataSource}></ResourceDirective>
+                <ResourceDirective
+                  field="ResourceId"
+                  title="Pet"
+                  name="Pets"
+                  textField="Name"
+                  idField="Id"
+                  colorField="Color"
+                  dataSource={resourceDataSource}
+                ></ResourceDirective>
               </ResourcesDirective>
               <ViewsDirective>
-                <ViewDirective option="Day"/>
-                <ViewDirective option="Week"/>
-                <ViewDirective option="Month"/>
-                <ViewDirective option="Agenda"/>
+                <ViewDirective option="Day" />
+                <ViewDirective option="Week" />
+                <ViewDirective option="Month" />
+                <ViewDirective option="Agenda" />
               </ViewsDirective>
               <Inject services={[Day, Week, Month, Agenda, DragAndDrop]} />
             </ScheduleComponent>
@@ -241,9 +256,24 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
                   popupClose={closePopup}
                   allowSwiping={true}
                   enableAllDayScroll={true}
+                  allowDragAndDrop={true}
+                  dragStop={dragStopEvent}
+                  dragStart={destroyEvent}
+                  popupOpen={destroyEvent}
                   width="100%"
                   height="100%"
                 >
+                  <ResourcesDirective>
+                    <ResourceDirective
+                      field="ResourceId"
+                      title="Pet"
+                      name="Pets"
+                      textField="Name"
+                      idField="Id"
+                      colorField="Color"
+                      dataSource={resourceDataSource}
+                    ></ResourceDirective>
+                  </ResourcesDirective>
                   <ViewsDirective>
                     <ViewDirective option="Day" />
                     <ViewDirective option="Agenda" />
