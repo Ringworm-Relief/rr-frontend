@@ -4,7 +4,8 @@ describe('Landing Page', () => {
       statusCode: 200,
       fixture: 'user'
     }).as('GetUser')
-    .visit('http://localhost:3000/')
+
+    .visit('http://localhost:3000')
   })
 
   it('should display the landing page', () => {

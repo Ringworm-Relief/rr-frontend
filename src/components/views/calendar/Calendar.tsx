@@ -15,8 +15,8 @@ import {
   ResourcesDirective,
   ResourceDirective
 } from "@syncfusion/ej2-react-schedule";
-import { createElement } from '@syncfusion/ej2-base';
-import { DropDownList } from '@syncfusion/ej2-dropdowns';
+// import { createElement } from '@syncfusion/ej2-base';
+// import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import { fetchCalendarEvents } from "../../../apiCalls/calendarApiCalls";
 import { Card, Stack } from "@mui/material";
@@ -97,13 +97,13 @@ export default function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const currentToken = JSON.parse(sessionStorage.getItem("token") || "null");
+  const currentToken = sessionStorage.getItem("token");
   const windowLocation = window.location.pathname;
   console.log(windowLocation);
 
-  // if (!currentToken) {
-  //   throw new Error("Token is nu");
-  // }
+  if (!currentToken) {
+    throw new Error("Token is nu");
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -139,8 +139,6 @@ export default function Calendar({ user }: Props) {
   const save_button =
     "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
 
-  // For future API call to delete CalendarEvent in closePopup
-  const delete_event = "e-btn-icon e-icons e-delete-icon";
 
   const closePopup = (args: PopupCloseEventArgs) => {
     console.log("close Popup Here");
