@@ -5,8 +5,7 @@
         "attributes": {
             "first_name": "test25",
             "last_name": "test25",
-            "email": "test25@test.com",
-            "password": "password"
+            "email": "test25@test.com"
         }
     }
 }
