@@ -62,7 +62,7 @@ function App() {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     // console.log(user);
-    getUserPets();
+    getUserPets(user.data.id);
     navigate(`/user/${user.data.id}/dashboard`);
   };
 
@@ -73,8 +73,8 @@ function App() {
     navigate("/");
   };
 
-  const getUserPets = () => {
-    fetchPets(user.data.id).then((data) => {
+  const getUserPets = (id: string) => {
+    fetchPets(id).then((data) => {
       //Will need to update with user token
       if (data) {
         setPets(data);
@@ -110,6 +110,7 @@ function App() {
           </div>
           <div className="App_nav_links">
             <Link
+              id="sign-in-link"
               className="App_link"
               to={user ? `/user/${user.data.id}/dashboard` : "/account/signin"}
             >
@@ -127,7 +128,7 @@ function App() {
             Sign Out
           </Button>
         </div>
-        <div className="App_nav_links">
+        <div className="App_nav_links" id="drawer">
           <Drawer user={user} />
         </div>
       </header>

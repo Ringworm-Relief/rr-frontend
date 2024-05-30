@@ -99,7 +99,7 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
             />
           </FormControl>
           {error && <Typography sx={{ color: "red" }}>{error}</Typography>}
-          <Button variant="contained" sx={{ mt: 5 }} onClick={handleSignIn}>
+          <Button id="handle-signin-btn" variant="contained" sx={{ mt: 5 }} onClick={handleSignIn}>
             Sign In
           </Button>
           <Button>
