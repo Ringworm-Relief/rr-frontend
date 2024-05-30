@@ -178,20 +178,38 @@ export default function Calendar({ user }: Props) {
     dataManager.insert(apiFormattedEvent);
   };
 
-  const destroyEvent = (
-    args: PopupOpenEventArgs | DragEventArgs | any
-  ): void => {
+  const destroyDragEvent = (args: DragEventArgs): void => {
+      destroyCalendarEvent(
+        user.data.id,
+        args.data.Id.toString(),
+        currentToken
+      );
+  }
+
+  const destroyEvent = (args: PopupOpenEventArgs): void => {
     if (args.type === "DeleteAlert") {
       destroyCalendarEvent(
         user.data.id,
         args.data?.Id.toString(),
         currentToken
       );
-    } else if (args.navigation) {
-      destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
-      console.log(args.navigation);
     }
-  };
+  }
+
+  // const destroyEvent = (
+  //   args: PopupOpenEventArgs | DragEventArgs | any
+  // ): void => {
+  //   if (args.type === "DeleteAlert") {
+  //     destroyCalendarEvent(
+  //       user.data.id,
+  //       args.data?.Id.toString(),
+  //       currentToken
+  //     );
+  //   } else if (args.navigation) {
+  //     destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
+  //     console.log(args.navigation);
+  //   }
+  // };
 
   return (
     <>
@@ -205,7 +223,7 @@ export default function Calendar({ user }: Props) {
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
-              dragStart={destroyEvent}
+              dragStart={destroyDragEvent}
               popupOpen={destroyEvent}
               // group={{resources: ['Pets']}}
             >
@@ -258,7 +276,7 @@ export default function Calendar({ user }: Props) {
                   enableAllDayScroll={true}
                   allowDragAndDrop={true}
                   dragStop={dragStopEvent}
-                  dragStart={destroyEvent}
+                  dragStart={destroyDragEvent}
                   popupOpen={destroyEvent}
                   width="100%"
                   height="100%"
