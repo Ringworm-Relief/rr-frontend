@@ -68,59 +68,74 @@ describe("Landing Page", () => {
     cy.url().should("include", "/");
   });
 
-      it('Should navigate to Education from Nav', () => {
-          cy.get('a').eq(3).click()
-          cy.url().should('include', '/education')
+  it("Should navigate to Education from Nav", () => {
+    cy.get("a").eq(3).click();
+    cy.url().should("include", "/education");
 
-          cy.get('.App_link_cat').click()
-          cy.url().should('include', '/')
-      })
+    cy.get(".App_link_cat").click();
+    cy.url().should("include", "/");
+  });
 
-      it('Should navigate to Sign In from Drawer', () => {
-          cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
-          cy.get('.MuiDrawer-paper').within(() => {
-            cy.get('.MuiListItemButton-root').eq(0).click()
-          })
-          cy.url().should('include', '/signin')
+  it("Should navigate to Article from Education", () => {
+    //Add tests after landing articles have been updated
+    cy.get("a").eq(3).click();
+    cy.url().should("include", "/education");
 
-          // cy.get("#handle-signin-btn").click();
+    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(0).click();
+    cy.url().should("include", "/education/cleaning");
 
-          // // Wait for the login request to complete
-          // cy.wait("@LoginUser");
-      })
+    cy.get("a").eq(3).click();
+    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(1).click();
+    cy.url().should("include", "/education/medical");
 
-      it('Should navigate to Dashboard from Drawer', () => {
-        cy.get('.App_link_cat').click()
-        cy.url().should('include', '/')
+    cy.get("a").eq(3).click();
+    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(2).click();
+    cy.url().should("include", "/education/general");
+  });
 
-          cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
-          cy.get('.MuiDrawer-paper').within(() => {
-            cy.get('.MuiListItemButton-root').eq(1).click()
-          })
-          cy.url().should('include', '/user/1/dashboard')
-      })
+  it("Should navigate to Sign In from Drawer", () => {
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(0).click();
+    });
+    cy.url().should("include", "/signin");
+  });
 
-  //     it('Should navigate to Calendar In from Drawer', () => {
-  //         cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
-  //         cy.get('.MuiDrawer-paper').within(() => {
-  //           cy.get('.MuiListItemButton-root').eq(1).click()
-  //         })
-  //         cy.url().should('include', '/user/1/calendar')
-  //     })
+  it("Should navigate to Dashboard from Drawer", () => {
+    cy.get(".App_link_cat").click();
+    cy.url().should("include", "/");
 
-  //     it('Should navigate to Saved Articles from Drawer', () => {
-  //         //Add tests after saved articles is created
-  //     })
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(1).click();
+    });
+    cy.url().should("include", "/user/1/dashboard");
+  });
 
-  //     it('Should navigate to Article', () => {
-  //         //Add tests after landing articles have been updated
-  //     })
+  it("Should navigate to Calendar In from Drawer", () => {
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(2).click();
+    });
+    cy.url().should("include", "/user/1/calendar");
+  });
 
-  //     it('Should navigate to Article ', () => {
-  //           //Add tests after landing articles have been updated
-  //     })
+  it("Should navigate to Saved Articles from Drawer", () => {
+    //Add tests after saved articles is created
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(3).click();
+    });
+    cy.url().should("include", "/savedarticles"); //Change to /user/1/savedArticles
+  });
 
-  //     it('Should navigate to Article', () => {
-  //           //Add tests after landing articles have been updated
-  //     })
+  // it("Should navigate to Article", () => {
+  //   //Add tests after landing articles have been updated
+  // });
+
+
+  // it("Should navigate to Article", () => {
+  //   //Add tests after landing articles have been updated
+
+  // });
 });
