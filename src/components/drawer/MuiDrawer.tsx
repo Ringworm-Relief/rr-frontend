@@ -30,10 +30,10 @@ function MuiDrawer({ user }: Props) {
         navigate("/account/signin");
         break;
       case "Dashboard":
-        navigate(user.data.id ? `/user/${user.id}/dashboard` : "/account/signin");
+        navigate(user.data.id ? `/user/${user.data.id}/dashboard` : "/account/signin");
         break;
       case "Calendar":
-        navigate(user.data.id ? `/user/${user.id}/calendar` : "/account/signin");
+        navigate(user.data.id ? `/user/${user.data.id}/calendar` : "/account/signin");
         break;
       case "Saved Articles":
         navigate("/savedarticles");

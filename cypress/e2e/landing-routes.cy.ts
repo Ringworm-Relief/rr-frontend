@@ -76,21 +76,19 @@ describe("Landing Page", () => {
           cy.url().should('include', '/')
       })
 
-      // it('Should navigate to Sign In from Drawer', () => {
-      //     cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
-      //     cy.get('.MuiDrawer-paper').within(() => {
-      //       cy.get('.MuiListItemButton-root').eq(0).click()
-      //     })
-      //     cy.url().should('include', '/signin')
+      it('Should navigate to Sign In from Drawer', () => {
+          cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
+          cy.get('.MuiDrawer-paper').within(() => {
+            cy.get('.MuiListItemButton-root').eq(0).click()
+          })
+          cy.url().should('include', '/signin')
 
-      //     // cy.get("#handle-signin-btn").click();
+          // cy.get("#handle-signin-btn").click();
 
-      //     // // Wait for the login request to complete
-      //     // cy.wait("@LoginUser");
-      // })
+          // // Wait for the login request to complete
+          // cy.wait("@LoginUser");
+      })
 
-
-      // Logging a user out?? Before each not working with drawer navigation
       it('Should navigate to Dashboard from Drawer', () => {
         cy.get('.App_link_cat').click()
         cy.url().should('include', '/')
