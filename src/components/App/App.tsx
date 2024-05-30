@@ -64,6 +64,9 @@ function App() {
     // console.log(user);
     getUserPets(user.data.id);
     navigate(`/user/${user.data.id}/dashboard`);
+    setTimeout(() => {
+      handleSignOut();
+    }, 3600000);
   };
 
   const handleSignOut = () => {
