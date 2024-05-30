@@ -1,24 +1,34 @@
-import { useEffect, useState } from "react";
+import { Box, Grid } from "@mui/material";
+import Calendar from "../calendar/Calendar";
+
 
 interface Props {
     pet: any;
+    user: any;
+    pets: any[];
 }
 
-export default function PetDashboard({pet}: Props) {
-    // const [targetPet, setTargetPet] = useState<any>(null)
-
-    // useEffect(() => {
-    //     const petName = window.location.pathname.split("/").pop()
-    //     console.log(petName)
-    //     const target = pets.find(pet => pet.name === petName)
-    //     console.log(target)
-    //     setTargetPet(target)
-    //     console.log(targetPet)
-    // }, [])
+export default function PetDashboard({pet, user, pets}: Props) {
 
     return (
         <div className="pet-dashboard">
             <h1>{pet.name}</h1>
+            <Box
+          padding={10}
+          sx={{
+            backgroundImage:
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "&:after": {
+
+              opacity: 0.5,
+            }
+          // 16
+          }}
+        >
+          <Grid container spacing={2} columns={2} zIndex={20}>
+              <Calendar user={user} pet={pet} pets={pets}/>
+          </Grid>
+        </Box>
         </div>
     )
 }

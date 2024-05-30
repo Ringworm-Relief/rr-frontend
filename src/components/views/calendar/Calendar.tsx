@@ -28,6 +28,8 @@ import { Pets } from "../../../utils/interfaces";
 import NewPetCard from "../mainDashboard/dashboardComponents/AddManageCards";
 interface Props {
   user: any;
+  pet: any;
+  pets: any[];
 }
 
 interface ScheduleEvent {
@@ -54,24 +56,6 @@ interface ApiEvent {
   };
 }
 
-const colors: string[] = [
-  "#cb6bb2",
-  "#56ca85",
-  "#df5286",
-  "#f7b84b",
-  "#198675",
-  "#b7d7e8",
-  "#e0a7a7",
-  "#8e8cd8",
-  "#f57f17",
-];
-
-const resourceDataSource = Pets.reduce((acc: any[], pet) => {
-  //Change to fetch data from API
-  let index = Pets.indexOf(pet);
-  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
-  return acc;
-}, []);
 
 const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   return {
@@ -103,9 +87,11 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   };
 };
 
-export default function Calendar({ user }: Props) {
+export default function Calendar({ user, pet, pets }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
+  const [singleResourceData, setSingleResourceData] = useState<any>(); 
+  const [resourceData, setResourceData] = useState<any[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
   const currentToken = sessionStorage.getItem("token");
   const windowLocation = window.location.pathname;
@@ -113,6 +99,8 @@ export default function Calendar({ user }: Props) {
   if (!currentToken) {
     throw new Error("Token is null");
   }
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,9 +115,48 @@ export default function Calendar({ user }: Props) {
         console.error("Error fetching events:", error);
       }
     };
+    const colors: string[] = [
+      "#cb6bb2",
+      "#56ca85",
+      "#df5286",
+      "#f7b84b",
+      "#198675",
+      "#b7d7e8",
+      "#e0a7a7",
+      "#8e8cd8",
+      "#f57f17",
+    ];
 
+  if(pet) {
+    const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
+    setResourceData(singleResourceData);
+  }
     fetchData();
+  }, [pets]);
+
+  const colors: string[] = [
+    "#cb6bb2",
+    "#56ca85",
+    "#df5286",
+    "#f7b84b",
+    "#198675",
+    "#b7d7e8",
+    "#e0a7a7",
+    "#8e8cd8",
+    "#f57f17",
+  ];
+
+  const resourceDataSource = Pets.reduce((acc: any[], pet) => {
+    //Change to fetch data from API
+    let index = Pets.indexOf(pet);
+    acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
+    return acc;
   }, []);
+
+  // if(pet) {
+  //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
+  // }
+  
 
   const dataManager = new DataManager({
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
@@ -230,7 +257,7 @@ export default function Calendar({ user }: Props) {
               <ResourcesDirective>
                 <ResourceDirective
                   field="ResourceId"
-                  title="Pet"
+                  title="Pets"
                   name="Pets"
                   textField="Name"
                   idField="Id"
@@ -278,18 +305,19 @@ export default function Calendar({ user }: Props) {
                   dragStop={dragStopEvent}
                   dragStart={destroyDragEvent}
                   popupOpen={destroyEvent}
+                  group={pet ? {resources: ['Pet']} : {resources: ['Pets']}}
                   width="100%"
                   height="100%"
                 >
                   <ResourcesDirective>
                     <ResourceDirective
                       field="ResourceId"
-                      title="Pet"
-                      name="Pets"
+                      title={pet ? "Pet" : "Pets"}
+                      name={pet ? "Pet" : "Pets"}
                       textField="Name"
                       idField="Id"
                       colorField="Color"
-                      dataSource={resourceDataSource}
+                      dataSource={pet ? resourceData : resourceDataSource}
                     ></ResourceDirective>
                   </ResourcesDirective>
                   <ViewsDirective>

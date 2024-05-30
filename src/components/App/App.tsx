@@ -30,10 +30,11 @@ function App() {
   const savedArts: string[] = JSON.parse(
     localStorage.getItem("SAVED_ARTS") || "[]"
   );
+  const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]")
 
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
-  const [pets, setPets] = useState<any[]>([]);
+  const [pets, setPets] = useState<any[]>(PetsStorage);
   const [targetPet, setTargetPet] = useState<any>(null)
 
   const navigate = useNavigate();
@@ -83,17 +84,15 @@ function App() {
     //     console.log(data);
     //   }
     // });
-    setPets(Pets) //Set pets to the Pets array //hardcoded for now
+    localStorage.setItem("PETS", JSON.stringify(Pets)) //Set pets to the Pets array //hardcoded for now
+    const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]")
+    console.log(PetsStorage)
+    setPets(PetsStorage) //Set pets to the Pets array //hardcoded for now
   };
 
   const setTargetPetFunc = (pet: any): void => {
-    // const pathName = window.location.pathname.split("/").pop()
-    // // console.log(petName)
-    // const target = pets.find(pet => pet.name === pathName)
-    // console.log(target)
     setTargetPet(pet)
     navigate(`/user/${user.data.id}/${pet.name}`)
-    // console.log(targetPet)
   }
   // handleSignOut()
 
@@ -181,12 +180,12 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user} pets={pets} setTargetPetFunc={setTargetPetFunc}/>} />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user} pets={pets} setTargetPetFunc={setTargetPetFunc} pet={targetPet}/>} />
         <Route
           path="/user/:user_id/calendar"
-          element={<Calendar user={user} />}
+          element={<Calendar user={user} pet={targetPet} pets={pets}/>}
         />
-        <Route path="/user/:user_id/:pet_name" element={<PetDashboard pet={targetPet}/>}/>
+        <Route path="/user/:user_id/:pet_name" element={<PetDashboard pet={targetPet} user={user} pets={pets}/>}/>
         <Route
           path="/user/:user_id/manageaccount"
           element={<ManageAccount pets={pets} setPets={setPets} user={user}/>}
