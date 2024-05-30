@@ -13,7 +13,8 @@ import {
   DragEventArgs,
   DragAndDrop,
   ResourcesDirective,
-  ResourceDirective
+  ResourceDirective,
+  PopupOpenEventArgs
 } from "@syncfusion/ej2-react-schedule";
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
@@ -146,13 +147,6 @@ export default function Calendar({ user }: Props) {
           EndTime: new Date((args.data as any).EndTime),
           ResourceId: (args.data as any).ResourceId, // Match resource ID to pet ID
         };
-        // console.log(args.data as any)
-        // let petID = (args.data as any).ResourceId;
-        // let resourceId = (args.data as any).ResourceId;
-        // console.log(resourceId);
-        // console.log(petID) 
-        // setEventId(scheduleData.length + 1);
-        console.log(newEvent)
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       }
@@ -173,9 +167,15 @@ export default function Calendar({ user }: Props) {
     dataManager.insert(apiFormattedEvent);
   }
 
-  const dragStartEvent = (args: DragEventArgs) => {
-    destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
+  const destroyEvent = (args: PopupOpenEventArgs | DragEventArgs | any): void => {
+    if(args.type === "DeleteAlert") {
+      destroyCalendarEvent(user.data.id, args.data?.Id.toString(), currentToken);
+    } else if(args.navigation) {
+      destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
+      console.log(args.navigation)
+    }
   }
+
 
 const colors = ['#cb6bb2', '#56ca85', '#df5286', '#f7b84b', '#198675', '#b7d7e8', '#e0a7a7', '#8e8cd8', '#f57f17']
 
@@ -198,7 +198,8 @@ const resourceDataSource =  Pets.reduce((acc: any[], pet) => { //Change to fetch
               allowSwiping={true}
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
-              dragStart={dragStartEvent}
+              dragStart={destroyEvent}
+              popupOpen={destroyEvent}
               // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
