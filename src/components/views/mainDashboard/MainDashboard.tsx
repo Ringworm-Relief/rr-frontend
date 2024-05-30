@@ -22,9 +22,11 @@ interface Props {
   user: any;
   savedArticles: string[]
   handleSaves: (id: string) => void; 
+  pets: any[];
+  setTargetPetFunc: (pet: any) => void
 }
 
-function MainDashboard({ user, savedArticles, handleSaves }: Props) {
+function MainDashboard({ user, savedArticles, handleSaves, pets, setTargetPetFunc }: Props) {
   const navigate = useNavigate();
   return (
     <>
@@ -42,7 +44,7 @@ function MainDashboard({ user, savedArticles, handleSaves }: Props) {
           }}
         >
           <Grid container spacing={2} columns={2} zIndex={20}>
-            <PetCards />
+            <PetCards user={user} pets={pets} setTargetPetFunc={setTargetPetFunc}/>
               <Calendar user={user}/>
             <SavedArticlesCard savedArticles={savedArticles} handleSaves={handleSaves}/>
           </Grid>

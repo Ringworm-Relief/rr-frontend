@@ -1,15 +1,21 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import { Pets } from "../../../../utils/interfaces";
+import { Card, CardActions, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+// import { Pets } from "../../../../utils/interfaces";
 import Pupper from "../../../../assets/Pupper-profile.svg";
 import Kitty from "../../../../assets/Kitty-profile.svg";
 import { Link } from "react-router-dom";
 
-function PetCards() {
+interface Props {
+  user: any;
+  pets: any[];
+  setTargetPetFunc: (pet: any) => void
+}
+
+function PetCards({pets, user, setTargetPetFunc}: Props) {
   return (
-    // <Link>
     <Grid container spacing={2} columns={3}>
-      {Pets.map((pet) => {
+      {pets.map((pet) => {
         return (
+        <CardActions onClick={() => setTargetPetFunc(pet)}>
           <Grid item>
             <Card
               sx={{
@@ -27,6 +33,10 @@ function PetCards() {
                 flexDirection: "column",
                 alignItems: "center",
                 //   paddingBottom: 15,
+                "&:hover": {
+                  boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
+                  cursor: "pointer",
+                }
               }}
             >
               <CardMedia
@@ -74,10 +84,10 @@ function PetCards() {
               </CardContent> */}
             </Card>
           </Grid>
+          </CardActions>
         );
       })}
     </Grid>
-    // </Link>
   );
 }
 

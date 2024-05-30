@@ -13,7 +13,6 @@ import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 const EducationArtCard: React.FC<EducationArtCardProps> = ({ title, tagline, id, handleClick, handleSaves, savedArticles, isSaved }) => {
 
-    console.log("SAVED IDS", savedArticles)
     return (
         <Grid item >
         <Card

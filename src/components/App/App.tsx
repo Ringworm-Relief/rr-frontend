@@ -16,6 +16,7 @@ import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
 
 import { User } from "../../utils/interfaces";
+import { Pets } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
@@ -33,6 +34,7 @@ function App() {
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
   const [pets, setPets] = useState<any[]>([]);
+  const [targetPet, setTargetPet] = useState<any>(null)
 
   const navigate = useNavigate();
 
@@ -74,15 +76,25 @@ function App() {
   };
 
   const getUserPets = () => {
-    fetchPets(user.data.id).then((data) => {
-      //Will need to update with user token
-      if (data) {
-        setPets(data);
-        console.log(data);
-      }
-    });
+    // fetchPets(user.data.id).then((data) => {
+    //   //Will need to update with user token
+    //   if (data) {
+    //     setPets(data);
+    //     console.log(data);
+    //   }
+    // });
+    setPets(Pets) //Set pets to the Pets array //hardcoded for now
   };
 
+  const setTargetPetFunc = (pet: any): void => {
+    // const pathName = window.location.pathname.split("/").pop()
+    // // console.log(petName)
+    // const target = pets.find(pet => pet.name === pathName)
+    // console.log(target)
+    setTargetPet(pet)
+    navigate(`/user/${user.data.id}/${pet.name}`)
+    // console.log(targetPet)
+  }
   // handleSignOut()
 
   return (
@@ -169,12 +181,12 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user}/>} />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user} pets={pets} setTargetPetFunc={setTargetPetFunc}/>} />
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} />}
         />
-        <Route path="/user/:user_id/:pet_name" element={<PetDashboard />}/>
+        <Route path="/user/:user_id/:pet_name" element={<PetDashboard pet={targetPet}/>}/>
         <Route
           path="/user/:user_id/manageaccount"
           element={<ManageAccount pets={pets} setPets={setPets} user={user}/>}
