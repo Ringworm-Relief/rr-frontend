@@ -233,3 +233,7 @@ export interface User {
     // password: string;
 }
 
+export function formatDate(bday: string) {
+    let array = bday.split("/")
+    return `${array[2]}-${array[0]}-${array[1]}`
+}

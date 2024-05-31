@@ -103,8 +103,8 @@ import { Medication } from "../../../utils/interfaces";
             <MenuItem value="" disabled>
               Select medication type
             </MenuItem>
-            <MenuItem value="oral">Oral</MenuItem>
-            <MenuItem value="topical">Topical</MenuItem>
+            <MenuItem value="Oral">Oral</MenuItem>
+            <MenuItem value="Topical">Topical</MenuItem>
           </Select>
         </FormControl>
   
@@ -143,11 +143,11 @@ import { Medication } from "../../../utils/interfaces";
             <MenuItem value="" disabled>
               Select medication frequency
             </MenuItem>
-            <MenuItem value="weekly">Weekly</MenuItem>
-            <MenuItem value="bi-weekly">Bi-weekly</MenuItem>
-            <MenuItem value="daily">Daily</MenuItem>
-            <MenuItem value="every-12-hours">Every 12 hours</MenuItem>
-            <MenuItem value="every-8-hours">Every 8 hours</MenuItem>
+            <MenuItem value="Weekly">Weekly</MenuItem>
+            <MenuItem value="Bi-weekly">Bi-weekly</MenuItem>
+            <MenuItem value="Daily">Daily</MenuItem>
+            <MenuItem value="Every-12-hours">Every 12 hours</MenuItem>
+            <MenuItem value="Every-8-hours">Every 8 hours</MenuItem>
           </Select>
         </FormControl>
       </Box>

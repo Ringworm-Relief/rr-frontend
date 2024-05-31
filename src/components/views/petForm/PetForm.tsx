@@ -18,7 +18,7 @@ import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
 import { postPet } from "../../../apiCalls/petApiCalls";
-import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
+import { Pet, Medication, Ringworm, formatDate } from "../../../utils/interfaces";
 import { Navigate, useNavigate } from "react-router-dom"
 
 const style = {
@@ -224,8 +224,8 @@ function PetForm({ user }: Props) {
             <MenuItem value="" disabled>
               Select Pet
             </MenuItem>
-            <MenuItem value="dog">Dog</MenuItem>
-            <MenuItem value="cat">Cat</MenuItem>
+            <MenuItem value="Dog">Dog</MenuItem>
+            <MenuItem value="Cat">Cat</MenuItem>
           </Select>
         </FormControl>
 
@@ -245,7 +245,7 @@ function PetForm({ user }: Props) {
           <BootstrapInput
             value={petObject.birthday}
             onChange={(e) =>
-              setPetObject({ ...petObject, birthday: e.target.value })
+              setPetObject({ ...petObject, birthday: formatDate(e.target.value) })
             }
             id="birthday-field"
             type="date"
@@ -294,7 +294,7 @@ function PetForm({ user }: Props) {
             onChange={(e) =>
               setRingwormObject({
                 ...ringwormObject,
-                diagnosis_date: e.target.value,
+                diagnosis_date: formatDate(e.target.value),
               })
             }
             id="diagnosis-date-field"

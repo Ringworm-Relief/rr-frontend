@@ -223,8 +223,8 @@ export default function AllPetsManagement({ pets, setPets, user }: Props) {
             <MenuItem value="" disabled>
               Select Pet
             </MenuItem>
-            <MenuItem value="dog">Dog</MenuItem>
-            <MenuItem value="cat">Cat</MenuItem>
+            <MenuItem value="Dog">Dog</MenuItem>
+            <MenuItem value="Cat">Cat</MenuItem>
           </Select>
         </FormControl>
 
