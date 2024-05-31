@@ -87,12 +87,12 @@ function App() {
     //     console.log(data);
     //   }
     // });
-    localStorage.setItem("PETS", JSON.stringify(Pets)) //Set pets to the Pets array //hardcoded for now
+    localStorage.removeItem("PETS")
+    localStorage.setItem("PETS", JSON.stringify(Pets.data.pets)) //Set pets to the Pets array //hardcoded for now
     const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]")
     console.log(PetsStorage)
     setPets(PetsStorage) //Set pets to the Pets array //hardcoded for now
   };
-  // localStorage.removeItem("PETS")
 
   const setTargetPetFunc = (pet: any): void => {
     setTargetPet(pet)

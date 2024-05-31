@@ -45,45 +45,28 @@ export const SinglePetChange = ({ user, pet }: Props) => {
       frequency: "",
     },
   ]);
-  const [petObject, setPetObject] = useState<Pet>({
+  const [petObject, setPetObject] = useState<any>({
     user_id: user.data.id,
     name: "",
     pet_type: "",
     breed: "",
     birthday: "",
-    symptoms: [],
+    medications: [ { medication_type: "", name: "", dosage: "", frequency: "" } ],
+    ringworm: { ringworm_type: "", diagnosis_date: "", symptoms: []},
   });
 
-  const [ringwormObject, setRingwormObject] = useState<Ringworm>({
-    pet_id: "",
-    ringworm_type: "",
-    diagnosis_date: "",
-  });
 
   useEffect(() => {
     // setHasSubmitted(true);                // Uncomment to see alert
     setPetObject({
       user_id: user.data.id,
       name: pet.name,
-      pet_type: pet.pet_type,
+      pet_type: pet.type,
       breed: pet.breed,
       birthday: pet.birthday,
-      symptoms: pet.symptoms,
+      medications: pet.medications,
+      ringworm: pet.ringworm,
     });
-    setRingwormObject({
-      pet_id: pet.Id,
-      ringworm_type: pet.ringworm_type,
-      diagnosis_date: pet.ringworm_diagnosis_date,
-    });
-    setMedications([
-      {
-        pet_id: pet.Id,
-        name: pet.medication_name,
-        medication_type: pet.medication_type,
-        dosage: pet.medication_dosage,
-        frequency: pet.medication_frequency,
-      },
-    ]);
   }, []);
 
   // const handleSubmit = async () => {
@@ -251,7 +234,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 </InputLabel>
                 <Select
                   value={petObject.pet_type}
-                  defaultValue={pet.pet_type === "Cat" ? "Cat" : "Dog"} //Can't properly use value here
+                //   defaultValue={pet.type === "Cat" ? "Cat" : "Dog"} //Can't properly use value here
                   onChange={(e) =>
                     setPetObject({ ...petObject, pet_type: e.target.value })
                   }
@@ -336,10 +319,10 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   Diagnosis Date
                 </InputLabel>
                 <BootstrapInput
-                  value={ringwormObject.diagnosis_date}
+                  value={petObject.ringworm.diagnosis_date}
                   onChange={(e) =>
-                    setRingwormObject({
-                      ...ringwormObject,
+                    setPetObject({
+                      ...petObject.ringworm.diagnosis_date,
                       diagnosis_date: e.target.value,
                     })
                   }
@@ -358,10 +341,10 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 </InputLabel>
                 <BootstrapInput
                   // id="strain-field"
-                  value={ringwormObject.ringworm_type}
+                  value={petObject.ringworm.ringworm_type}
                   onChange={(e) =>
-                    setRingwormObject({
-                      ...ringwormObject,
+                    setPetObject({
+                      ...petObject.ringworm.ringworm_type,
                       ringworm_type: e.target.value,
                     })
                   }
@@ -387,10 +370,10 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   Separate symptoms with commas
                 </FormHelperText>
                 <BootstrapInput
-                  value={petObject.symptoms.join(",")}
+                  value={petObject.ringworm.symptoms.join(",")}
                   onChange={(e) => {
                     const array = e.target.value.split(",");
-                    setPetObject({ ...petObject, symptoms: array });
+                    setPetObject({ ...petObject.ringworm.symptoms, symptoms: array });
                   }}
                   // id="symptoms-field"
                   inputProps={{ placeholder: "Enter symptoms" }}
@@ -410,9 +393,8 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 sx={{ marginTop: "20px" }}
                 onClick={() =>
                   setMedications([
-                    ...medications,
+                    ...petObject.medications,
                     {
-                      pet_id: "",
                       name: "",
                       medication_type: "",
                       dosage: "",

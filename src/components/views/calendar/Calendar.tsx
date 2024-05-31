@@ -114,24 +114,24 @@ export default function Calendar({ user, pet, pets }: Props) {
         console.error("Error fetching events:", error);
       }
     };
-    const colors: string[] = [
-      "#cb6bb2",
-      "#56ca85",
-      "#df5286",
-      "#f7b84b",
-      "#198675",
-      "#b7d7e8",
-      "#e0a7a7",
-      "#8e8cd8",
-      "#f57f17",
-    ];
+  //   const colors: string[] = [
+  //     "#cb6bb2",
+  //     "#56ca85",
+  //     "#df5286",
+  //     "#f7b84b",
+  //     "#198675",
+  //     "#b7d7e8",
+  //     "#e0a7a7",
+  //     "#8e8cd8",
+  //     "#f57f17",
+  //   ];
 
-  if(pet) {
-    const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
-    setResourceData(singleResourceData);
-  }
+  // if(pet) {
+  //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
+  //   setResourceData(singleResourceData);
+  // }
     fetchData();
-  }, [pets]);
+  }, []);
 
   const colors: string[] = [
     "#cb6bb2",
@@ -145,10 +145,9 @@ export default function Calendar({ user, pet, pets }: Props) {
     "#f57f17",
   ];
 
-  const resourceDataSource = Pets.reduce((acc: any[], pet) => {
-    //Change to fetch data from API
-    let index = Pets.indexOf(pet);
-    acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
+  const resourceDataSource = pets.reduce((acc: any[], pet) => {
+    let index = pets.indexOf(pet);
+    acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
     return acc;
   }, []);
 
@@ -222,21 +221,6 @@ export default function Calendar({ user, pet, pets }: Props) {
     }
   }
 
-  // const destroyEvent = (
-  //   args: PopupOpenEventArgs | DragEventArgs | any
-  // ): void => {
-  //   if (args.type === "DeleteAlert") {
-  //     destroyCalendarEvent(
-  //       user.data.id,
-  //       args.data?.Id.toString(),
-  //       currentToken
-  //     );
-  //   } else if (args.navigation) {
-  //     destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
-  //     console.log(args.navigation);
-  //   }
-  // };
-
   return (
     <>
       {user.data.id ? (
@@ -251,7 +235,6 @@ export default function Calendar({ user, pet, pets }: Props) {
               dragStop={dragStopEvent}
               dragStart={destroyDragEvent}
               popupOpen={destroyEvent}
-              // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
                 <ResourceDirective
@@ -290,7 +273,6 @@ export default function Calendar({ user, pet, pets }: Props) {
                   flexDirection: "column",
                   alignItems: "center",
                   color: "#9A352F",
-                  // paddingBottom: 15,
                 }}
               >
                 <ScheduleComponent
@@ -304,19 +286,19 @@ export default function Calendar({ user, pet, pets }: Props) {
                   dragStop={dragStopEvent}
                   dragStart={destroyDragEvent}
                   popupOpen={destroyEvent}
-                  group={pet ? {resources: ['Pet']} : {resources: ['Pets']}}
+                  group={{resources: ['Pets']}}
                   width="100%"
                   height="100%"
                 >
                   <ResourcesDirective>
                     <ResourceDirective
                       field="ResourceId"
-                      title={pet ? "Pet" : "Pets"}
-                      name={pet ? "Pet" : "Pets"}
+                      title="Pets"
+                      name="Pets"
                       textField="Name"
                       idField="Id"
                       colorField="Color"
-                      dataSource={pet ? resourceData : resourceDataSource}
+                      dataSource={resourceDataSource}
                     ></ResourceDirective>
                   </ResourcesDirective>
                   <ViewsDirective>
