@@ -186,7 +186,7 @@ export const Pets =
                         "frequency": "Daily"
                         },
                     "ringworm":{
-                        "type": "Trichophyton mentagrophytes",
+                        "ringworm_type": "Trichophyton mentagrophytes",
                         "diagnosis_date": "2015-05-05",
                         "symptoms": [
                             "itchy skin",
