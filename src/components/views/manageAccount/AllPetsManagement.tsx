@@ -10,6 +10,7 @@ import {
   FormHelperText,
   Modal,
   Grid,
+  Stack,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -34,10 +35,10 @@ export default function AllPetsManagement({ pets, setPets, user }: Props) {
   });
 
   return (
-    <Container>
-      <Grid container spacing={2} columns={3}>
+    <Stack sx={{justifyContent: "center", mt: 20}}>
+      <Grid container spacing={2} columns={3} sx={{justifyContent: "center"}}>
         {petCard}
       </Grid>
-    </Container>
+    </Stack>
   );
 }
