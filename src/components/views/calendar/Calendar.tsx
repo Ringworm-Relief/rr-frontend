@@ -98,7 +98,7 @@ export default function Calendar({ user, pet, pets }: Props) {
   const windowLocation = window.location.pathname;
 
   if (!currentToken) {
-    throw new Error("Token is nu");
+    throw new Error("Token is null.");
   }
 
   useEffect(() => {
