@@ -65,8 +65,11 @@ function App() {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     // console.log(user);
-    getUserPets();
+    getUserPets(user.data.id);
     navigate(`/user/${user.data.id}/dashboard`);
+    setTimeout(() => {
+      handleSignOut();
+    }, 3600000);
   };
 
   const handleSignOut = () => {
@@ -121,6 +124,7 @@ function App() {
           </div>
           <div className="App_nav_links">
             <Link
+              id="sign-in-link"
               className="App_link"
               to={user ? `/user/${user.data.id}/dashboard` : "/account/signin"}
             >
@@ -138,7 +142,7 @@ function App() {
             Sign Out
           </Button>
         </div>
-        <div className="App_nav_links">
+        <div className="App_nav_links" id="drawer">
           <Drawer user={user} />
         </div>
       </header>

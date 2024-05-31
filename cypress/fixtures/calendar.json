@@ -1,0 +1,15 @@
+{
+"data": {
+    "id": "1",
+    "type": "calendar",
+    "attributes": {
+      "pet_id": "4586",
+      "user_id": "1",
+      "subject": "idk",
+     "description": "string;",
+      "start_time": "2024-05-31T07:00:00.000Z;",
+      "end_time": "2024-05-31T07:00:00.000Z;",
+      "resource_id": "4586"
+    }
+  }
+}
