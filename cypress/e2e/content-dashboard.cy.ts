@@ -50,6 +50,7 @@ describe('template spec', () => {
   });
 
   it("Should include three pet cards", () => {
+    //Pet cards should be visible
     cy.get(".css-ecl1eb-MuiPaper-root-MuiCard-root").should("have.length", 3);
 
     cy.get(".css-ecl1eb-MuiPaper-root-MuiCard-root").eq(0).within(() => {
@@ -68,19 +69,47 @@ describe('template spec', () => {
     })
   });
 
-  it.skip("Should show the calendar with a default list view", () => {
+  it("Should show the calendar with a default agenda view", () => {
     cy.get(".e-schedule").should("be.visible")
+
+    //Ensure agenda view is the default view
+    cy.get(".e-agenda").should("have.class", "e-active-view")
   });
 
-  it.skip("Should show saved articles", () => {
+  it("Should show saved articles", () => {
+    //Navigate to Education
+    cy.get("a").eq(3).click();
 
+    //Click Cleaning category
+    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(0).click();
+    cy.url().should("include", "/education/cleaning");
+
+    //Article card within cleaning category -> click save icon
+    cy.get(".css-174d5eo-MuiPaper-root-MuiCard-root").should("be.visible")
+    cy.get(".css-1t5hwt4-MuiButtonBase-root-MuiIconButton-root").click();
+
+    //Navigate back to Dashboard
+    cy.get("a").eq(2).click();
+
+    //Check if saved article is displayed
+    cy.get(".css-lfvik5-MuiPaper-root-MuiCard-root").within(() => {
+      cy.get("h6").should("have.text", "Cleaning 101")
+      cy.get(".css-1t5hwt4-MuiButtonBase-root-MuiIconButton-root").should("be.visible")
+    })
   });
 
-  it.skip("Should show a link to add a pet", () => {
-
+  it("Should show a link to add a pet", () => {
+    //Link wraps around the Add Pet card
+    cy.get("a").eq(4).within(() => {
+      cy.get(".css-zg5e0d-MuiPaper-root-MuiCard-root").eq(0)
+      cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Add Pet")
+    })
   });
 
-  it.skip("Should show a link to manage account", () => {
-
+  it("Should show a link to manage account", () => {
+    cy.get("a").eq(5).within(() => {
+      cy.get(".css-zg5e0d-MuiPaper-root-MuiCard-root")
+      cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Manage Account")
+    })
   });
 })
