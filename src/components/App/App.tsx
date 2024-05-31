@@ -65,7 +65,7 @@ function App() {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     // console.log(user);
-    // getUserPets(user.data.id);
+    getUserPets();
     navigate(`/user/${user.data.id}/dashboard`);
     setTimeout(() => {
       handleSignOut();
@@ -92,6 +92,7 @@ function App() {
     console.log(PetsStorage)
     setPets(PetsStorage) //Set pets to the Pets array //hardcoded for now
   };
+  // localStorage.removeItem("PETS")
 
   const setTargetPetFunc = (pet: any): void => {
     setTargetPet(pet)

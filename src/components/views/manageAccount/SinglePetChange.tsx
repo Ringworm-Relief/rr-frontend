@@ -27,6 +27,7 @@ interface Props {
 }
 
 export const SinglePetChange = ({ user, pet }: Props) => {
+    console.table(pet)
     const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
     const [medications, setMedications] = useState<Medication[]>([
       {
@@ -232,7 +233,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     onChange={(e) =>
                       setPetObject({ ...petObject, name: e.target.value })
                     }
-                    id="name-field"
+                    // id="name-field"
                     inputProps={{ placeholder: "Enter pet name" }}
                   />
                 </FormControl>
@@ -247,19 +248,19 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   </InputLabel>
                   <Select
                     value={petObject.pet_type}
-                    defaultValue={pet.pet_type === "cat" ? "cat" : "dog"} //Can't properly use value here
+                    defaultValue={pet.pet_type === "Cat" ? "Cat" : "Dog"} //Can't properly use value here
                     onChange={(e) =>
                       setPetObject({ ...petObject, pet_type: e.target.value })
                     }
-                    id="type-field"
+                    // id="type-field"
                     input={<BootstrapInput />}
                     sx={{ width: "100%" }}
                   >
                     <MenuItem value="" disabled>
                       Select Pet
                     </MenuItem>
-                    <MenuItem value="dog">Dog</MenuItem>
-                    <MenuItem value="cat">Cat</MenuItem>
+                    <MenuItem value="Dog">Dog</MenuItem>
+                    <MenuItem value="Cat">Cat</MenuItem>
                   </Select>
                 </FormControl>
   
@@ -285,7 +286,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     onChange={(e) =>
                       setPetObject({ ...petObject, birthday: e.target.value })
                     }
-                    id="birthday-field"
+                    // id="birthday-field"
                     type="date"
                   />
                 </FormControl>
@@ -312,7 +313,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     onChange={(e) =>
                       setPetObject({ ...petObject, breed: e.target.value })
                     }
-                    id="breed-field"
+                    // id="breed-field"
                     inputProps={{ placeholder: "Enter breed" }}
                   />
                 </FormControl>
@@ -342,7 +343,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                         diagnosis_date: e.target.value,
                       })
                     }
-                    id="diagnosis-date-field"
+                    // id="diagnosis-date-field"
                     type="date"
                   />
                 </FormControl>
@@ -356,7 +357,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     Ringworm strain
                   </InputLabel>
                   <BootstrapInput
-                    id="strain-field"
+                    // id="strain-field"
                     value={ringwormObject.ringworm_type}
                     onChange={(e) =>
                       setRingwormObject({
@@ -391,7 +392,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                       const array = e.target.value.split(",");
                       setPetObject({ ...petObject, symptoms: array });
                     }}
-                    id="symptoms-field"
+                    // id="symptoms-field"
                     inputProps={{ placeholder: "Enter symptoms" }}
                   />
                 </FormControl>
@@ -443,7 +444,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 >
                   <Box sx={style}>
                     <Typography
-                      id="modal-modal-title"
+                    //   id="modal-modal-title"
                       variant="h6"
                       component="h2"
                     >
