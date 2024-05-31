@@ -47,6 +47,8 @@ After cloning and installing packages
 - Run the following on the command line to open Cypress: `npm run cypress` or `npx cypress open`
 - Click `E2E Testing`, then `Start E2E Testing` in the desired browser
 - Select `a test suite` to run all tests related to that suite
+- **Replace line 110 in Calendar.tsx with `const currentToken = JSON.parse(sessionStorage.getItem("token") || "null");`**
+- **Comment lines 113-115 Calendar.tsx**
 ## Future Features/Improvements
 
 ## Context:
