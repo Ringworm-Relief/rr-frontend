@@ -99,17 +99,7 @@ export interface Attributes {
     password: string;
 }
 
-export type Pet = {
-    user_id: number,
-    name: string,
-    pet_type: string,
-    breed: string,
-    birthday: string,
-    symptoms: string[],
-}
-      
 export type Medication = {
-    pet_id: string,
     name: string,
     medication_type: string,
     dosage: string,
@@ -117,9 +107,19 @@ export type Medication = {
 }
 
 export type Ringworm = {
-    pet_id: string,
     ringworm_type: string,
     diagnosis_date: string,
+}
+
+export type Pet = {
+    user_id: number,
+    name: string,
+    pet_type: string,
+    breed: string,
+    birthday: string,
+    symptoms: string[],
+    medications: Medication[],
+    ringworm: Ringworm
 }
 
 export const Pets = [

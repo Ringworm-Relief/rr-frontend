@@ -33,13 +33,16 @@ export default function AllPetsManagement({ pets, setPets, user }: Props) {
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
   const [medications, setMedications] = useState<Medication[]>([
     {
-      pet_id: '',
       name: "",
       medication_type: "",
       dosage: "",
       frequency: "",
     },
   ]);
+  const [ringwormObject, setRingwormObject] = useState<Ringworm>({
+    ringworm_type: "",
+    diagnosis_date: "",
+  });
   const [petObject, setPetObject] = useState<Pet>({
     user_id: user.data.id,
     name: "",
@@ -47,13 +50,10 @@ export default function AllPetsManagement({ pets, setPets, user }: Props) {
     breed: "",
     birthday: "",
     symptoms: [],
+    medications: medications,
+    ringworm: ringwormObject
   });
 
-  const [ringwormObject, setRingwormObject] = useState<Ringworm>({
-    pet_id: '',
-    ringworm_type: "",
-    diagnosis_date: "",
-  });
 
   const handleClose = () => {
     setHasSubmitted(false);
@@ -362,7 +362,6 @@ export default function AllPetsManagement({ pets, setPets, user }: Props) {
             setMedications([
               ...medications,
               {
-                pet_id: '',
                 name: "",
                 medication_type: "",
                 dosage: "",
