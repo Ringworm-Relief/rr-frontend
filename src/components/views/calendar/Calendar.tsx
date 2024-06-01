@@ -93,12 +93,11 @@ export default function Calendar({ user, pet, pets }: Props) {
   const [singleResourceData, setSingleResourceData] = useState<any>(); 
   const [resourceData, setResourceData] = useState<any[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const currentToken = sessionStorage.getItem("token");
-  // const currentToken = JSON.parse(sessionStorage.getItem("token") || "null");
+  const currentToken = sessionStorage.getItem("token") || "null";
   const windowLocation = window.location.pathname;
 
   if (!currentToken) {
-    throw new Error("Token is null.");
+    throw new Error("Token is null");
   }
 
   useEffect(() => {

@@ -5,8 +5,6 @@ import EducationArtCard from "../../subComps/educationArtCard/EducationArtCard";
 import { useNavigate } from "react-router-dom";
 import { Typography, Box, Grid, Container, Button } from "@mui/material";
 
-
-
 const SavedArticles: React.FC<SavedArticlesProps> = ({ savedArticles, handleSaves }) => {
     const navigate = useNavigate();
     const [allArticles, setAllArticles] = useState<EducationArticle[]>([])

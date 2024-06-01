@@ -99,17 +99,7 @@ export interface Attributes {
     password: string;
 }
 
-export type Pet = {
-    user_id: number,
-    name: string,
-    pet_type: string,
-    breed: string,
-    birthday: string,
-    symptoms: string[],
-}
-      
 export type Medication = {
-    pet_id: string,
     name: string,
     medication_type: string,
     dosage: string,
@@ -117,12 +107,22 @@ export type Medication = {
 }
 
 export type Ringworm = {
-    pet_id: string,
     ringworm_type: string,
     diagnosis_date: string,
 }
 
-export const Pets = 
+export type Pet = {
+    user_id: number,
+    name: string,
+    pet_type: string,
+    breed: string,
+    birthday: string,
+    symptoms: string[],
+    medications: Medication[],
+    ringworm: Ringworm
+}
+
+export const Pets =
     {
         "data": {
             "user_id": 153,
@@ -173,8 +173,6 @@ export const Pets =
             },
     
         }
-
-
 
 
 export const user: NewUser[] = [
@@ -237,64 +235,8 @@ export interface User {
     // password: string;
 }
 
-const random = 
-{
-    "data": {
-        "user_id": 153,
-        "pets": [
-                {
-                "id": 1,
-                "name": "keoki",
-                "type": "dog",
-                "breed": "labradoodle",
-                "birthday": "01/08/2021",
-                "symptoms": [
-                    "itchy skin",
-                    "excessive licking"
-                ],
-                "medications":{
-                    "type": "topical",
-                    "name": "ringworm cream",
-                    "dosage": "10 mg",
-                    "frequency": "daily"
-                    },
-                "ringworm":{
-                    "type": "Trichophyton mentagrophytes",
-                    "diagnosis_date": "05/10/2024"
-                    }
-                },
-                {
-                    "id": 2,
-                    "name": "keoki",
-                    "type": "dog",
-                    "breed": "labradoodle",
-                    "birthday": "01/08/2021",
-                    "symptoms": [
-                        "itchy skin",
-                        "excessive licking"
-                    ],
-                    "medications":{
-                        "type": "topical",
-                        "name": "ringworm cream",
-                        "dosage": "10 mg",
-                        "frequency": "daily"
-                        },
-                    "ringworm":{
-                        "type": "Trichophyton mentagrophytes",
-                        "diagnosis_date": "05/10/2024"
-                        }
-                    },
-            ]
-        },
+export function formatDate(bday: string) {
+    let array = bday.split("/")
+    return `${array[2]}-${array[0]}-${array[1]}`
+}
 
-    }
-
-const arr = [
-    {
-
-    },
-    {
-
-    },
-
-]

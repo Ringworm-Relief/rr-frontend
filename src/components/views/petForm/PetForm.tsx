@@ -17,8 +17,8 @@ import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
-import { postPet, postMedication, postRingworm } from "../../../apiCalls/petApiCalls";
-import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
+import { postPet } from "../../../apiCalls/petApiCalls";
+import { Pet, Medication, Ringworm, formatDate } from "../../../utils/interfaces";
 import { Navigate, useNavigate } from "react-router-dom"
 
 const style = {
@@ -81,20 +81,19 @@ interface Props {
 
 function PetForm({ user }: Props) {
   const navigate = useNavigate()
-  const [petSubmitted, setPetSubmitted] = useState<boolean>(false);
-  const [ringSubmitted, setRingSubmitted] = useState<boolean>(false);
-  const [medSubmitted, setMedSubmitted] = useState<boolean>(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
-  const [petID, setPetID] = useState<string>("");
   const [medications, setMedications] = useState<Medication[]>([
     {
-      pet_id: petID,
       name: "",
       medication_type: "",
       dosage: "",
       frequency: "",
     },
   ]);
+  const [ringwormObject, setRingwormObject] = useState<Ringworm>({
+    ringworm_type: "",
+    diagnosis_date: "",
+  });
 
   const [petObject, setPetObject] = useState<Pet>({
     user_id: user.data.id,
@@ -103,12 +102,8 @@ function PetForm({ user }: Props) {
     breed: "",
     birthday: "",
     symptoms: [],
-  });
-
-  const [ringwormObject, setRingwormObject] = useState<Ringworm>({
-    pet_id: petID,
-    ringworm_type: "",
-    diagnosis_date: "",
+    medications: medications,
+    ringworm: ringwormObject
   });
 
   const handleClose = () => {
@@ -117,24 +112,40 @@ function PetForm({ user }: Props) {
 
   const addAnotherPet = () => {
     setHasSubmitted(false)
-    setPetID("")
   }
 
   const handleSubmit = () => {
-    console.log("pet Object", petObject)
-    console.log("ring Object", ringwormObject)
-    console.log("med Objects", medications)
-    postPet(petObject).then(data => {
-      console.log(data.data)
-      setPetID(data.data.id)
-      setPetSubmitted(true);
-      console.log(petID)
-      postRingworm(ringwormObject).then(data => setRingSubmitted(true));
-      Promise.all(medications.map(med => postMedication(med))).then(data => setMedSubmitted(true));
-    });
-
-    if (petSubmitted && ringSubmitted && medSubmitted) {
+    const updatedRingwormObject = {
+      ...ringwormObject,
+      diagnosis_date: formatDate(ringwormObject.diagnosis_date)
+    }
+    const updatedPetObject = {
+      ...petObject,
+      birthday: formatDate(petObject.birthday),
+      ringworm: updatedRingwormObject,
+      medications: medications,
+    };
+    postPet(updatedPetObject).then(data => {
+      console.log("POSTED DATA:", data.data)
       setHasSubmitted(true);
+   
+    }).catch(err => setHasSubmitted(false));
+
+    if (hasSubmitted) {
+    
+      setRingwormObject({
+        ringworm_type: "",
+        diagnosis_date: "",
+      });
+      
+      setMedications([
+        {
+          name: "",
+          medication_type: "",
+          dosage: "",
+          frequency: "",
+        },
+      ]);
 
       setPetObject({
         user_id: user.data.id,
@@ -143,31 +154,12 @@ function PetForm({ user }: Props) {
         breed: "",
         birthday: "",
         symptoms: [],
+        medications: medications,
+        ringworm: ringwormObject
       });
 
-      setRingwormObject({
-        pet_id: "",
-        ringworm_type: "",
-        diagnosis_date: "",
-      });
-      
-      setMedications([
-        {
-          pet_id: "",
-          name: "",
-          medication_type: "",
-          dosage: "",
-          frequency: "",
-        },
-      ]);
     }
   };
-
-  // "pet_id": 1,
-  // "medication_type": "oral",
-  // "name": "anti-inflammatory",
-  // "dosage": "4 g",
-  // "frequency":
 
   const handleMedChange = (index: number, field: keyof Medication, value: string) => {
     const updatedMedications = medications.map((med, i) => 
@@ -242,8 +234,8 @@ function PetForm({ user }: Props) {
             <MenuItem value="" disabled>
               Select Pet
             </MenuItem>
-            <MenuItem value="dog">Dog</MenuItem>
-            <MenuItem value="cat">Cat</MenuItem>
+            <MenuItem value="Dog">Dog</MenuItem>
+            <MenuItem value="Cat">Cat</MenuItem>
           </Select>
         </FormControl>
 
@@ -377,7 +369,6 @@ function PetForm({ user }: Props) {
           onClick={() => setMedications([
             ...medications,
             {
-              pet_id: petID,
               name: "",
               medication_type: "",
               dosage: "",

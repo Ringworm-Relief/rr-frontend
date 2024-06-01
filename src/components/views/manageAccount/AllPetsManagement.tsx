@@ -30,6 +30,7 @@ interface Props {
 }
 
 export default function AllPetsManagement({ pets, setPets, user }: Props) {
+
   const petCard = pets.map((pet) => {
     return <SinglePetChange pet={pet} user={user} key={pet.Id} />;
   });
