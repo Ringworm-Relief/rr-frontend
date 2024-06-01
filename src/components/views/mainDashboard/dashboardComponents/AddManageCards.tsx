@@ -28,11 +28,6 @@ function NewPetCard({ user }: Props) {
   };
   return (
     <Stack direction="row">
-      <Link to={`/user/${user.data.id}/addpet`}>
-        <Card sx={style}>
-          <CardHeader title="Add Pet" />
-        </Card>
-      </Link>
       <Link to={`/user/${user.data.id}/manageaccount`}>
       <Card sx={style}>
         <CardHeader title="Manage Account" />

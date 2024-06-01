@@ -16,6 +16,7 @@ import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
 
 import { User } from "../../utils/interfaces";
+import { Pets } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
@@ -29,10 +30,12 @@ function App() {
   const savedArts: string[] = JSON.parse(
     localStorage.getItem("SAVED_ARTS") || "[]"
   );
+  const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]")
 
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
-  const [pets, setPets] = useState<any[]>([]);
+  const [pets, setPets] = useState<any[]>(PetsStorage);
+  const [targetPet, setTargetPet] = useState<any>(null)
 
   const navigate = useNavigate();
 
@@ -64,6 +67,9 @@ function App() {
     // console.log(user);
     getUserPets(user.data.id);
     navigate(`/user/${user.data.id}/dashboard`);
+    setTimeout(() => {
+      handleSignOut();
+    }, 3600000);
   };
 
   const handleSignOut = () => {
@@ -73,16 +79,25 @@ function App() {
     navigate("/");
   };
 
-  const getUserPets = (id: string) => {
-    fetchPets(id).then((data) => {
-      //Will need to update with user token
-      if (data) {
-        setPets(data);
-        console.log(data);
-      }
-    });
+  const getUserPets = () => {
+    // fetchPets(user.data.id).then((data) => {
+    //   //Will need to update with user token
+    //   if (data) {
+    //     setPets(data);
+    //     console.log(data);
+    //   }
+    // });
+    localStorage.removeItem("PETS")
+    localStorage.setItem("PETS", JSON.stringify(Pets.data.pets)) //Set pets to the Pets array //hardcoded for now
+    const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]")
+    console.log(PetsStorage)
+    setPets(PetsStorage) //Set pets to the Pets array //hardcoded for now
   };
 
+  const setTargetPetFunc = (pet: any): void => {
+    setTargetPet(pet)
+    navigate(`/user/${user.data.id}/${pet.name}`)
+  }
   // handleSignOut()
 
   return (
@@ -170,12 +185,12 @@ function App() {
           }
         />
         <Route path="/education/:category/:article" element={<Article />} />
-        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user}/>} />
+        <Route path="/user/:user_id/dashboard" element={<MainDashboard handleSaves={handleSaves} savedArticles={savedArticles} user={user} pets={pets} setTargetPetFunc={setTargetPetFunc} pet={targetPet}/>} />
         <Route
           path="/user/:user_id/calendar"
-          element={<Calendar user={user} />}
+          element={<Calendar user={user} pet={targetPet} pets={pets}/>}
         />
-        <Route path="/user/:user_id/:pet_name" element={<PetDashboard />}/>
+        <Route path="/user/:user_id/:pet_name" element={<PetDashboard pet={targetPet} user={user} pets={pets}/>}/>
         <Route
           path="/user/:user_id/manageaccount"
           element={<ManageAccount pets={pets} setPets={setPets} user={user}/>}

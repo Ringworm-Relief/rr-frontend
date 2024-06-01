@@ -146,8 +146,8 @@ import { Medication } from "../../../utils/interfaces";
             <MenuItem value="Weekly">Weekly</MenuItem>
             <MenuItem value="Bi-weekly">Bi-weekly</MenuItem>
             <MenuItem value="Daily">Daily</MenuItem>
-            <MenuItem value="Every-12-hours">Every 12 hours</MenuItem>
-            <MenuItem value="Every-8-hours">Every 8 hours</MenuItem>
+            <MenuItem value="Every 12 hours">Every 12 hours</MenuItem>
+            <MenuItem value="Every 8 hours">Every 8 hours</MenuItem>
           </Select>
         </FormControl>
       </Box>
