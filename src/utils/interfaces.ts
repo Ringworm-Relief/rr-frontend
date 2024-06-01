@@ -122,54 +122,58 @@ export type Ringworm = {
     diagnosis_date: string,
 }
 
-export const Pets = [
+export const Pets = 
     {
-        user_id: 1,
-        Id: 452568,
-        name: 'Alfred',
-        pet_type:'Dog',
-        breed: 'Golden Retriever',
-        birthday: '05/05/2015',
-        symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication_type: 'Oral',
-        medication_name: 'Griseofulvin',
-        medication_dosage: '250mg',
-        medication_frequency: 'Daily',
-        ringworm_type: 'M. Canis',
-        ringworm_diagnosis_date: '05/05/2021'
-    },
-    {
-        user_id: 1,
-        Id: 4586,
-        name: 'Bella',
-        pet_type:'Cat',
-        breed: 'Siamese',
-        birthday: '05/05/2015',
-        symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication_type: 'Oral',
-        medication_name: 'Griseofulvin',
-        medication_dosage: '250mg',
-        medication_frequency: 'Daily',
-        ringworm_type: 'M. Canis',
-        ringworm_diagnosis_date: '05/05/2021'
-    },
-    {
-        user_id: 1,
-        Id: 1285,
-        name: 'Charlie',
-        pet_type:'Dog',
-        breed: 'Thoroughbred',
-        birthday: '05/05/2015',
-        symptoms: ['Itching', 'Hair loss', 'Redness'],
-        medication_type: 'Oral',
-        medication_name: 'Griseofulvin',
-        medication_dosage: '250mg',
-        medication_frequency: 'Daily',
-        ringworm_type: 'M. Canis',
-        ringworm_diagnosis_date: '05/05/2021'
+        "data": {
+            "user_id": 153,
+            "pets": [
+                    {
+                    "id": 1,
+                    "name": "keoki",
+                    "type": "Dog",
+                    "breed": "labradoodle",
+                    "birthday": "2015-05-05",
+                    "medications":{
+                        "type": "Topical",
+                        "name": "ringworm cream",
+                        "dosage": "10 mg",
+                        "frequency": "Daily"
+                        },
+                    "ringworm":{
+                        "ringworm_type": "Trichophyton mentagrophytes",
+                        "diagnosis_date": "2015-05-05",
+                        "symptoms": [
+                            "itchy skin",
+                            "excessive licking"
+                        ],
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "name": "keoki",
+                        "type": "Dog",
+                        "breed": "labradoodle",
+                        "birthday": "2015-05-05",
+                        "medications": [{
+                            "type": "Topical",
+                            "name": "ringworm cream",
+                            "dosage": "10 mg",
+                            "frequency": "Daily"
+                            }],
+                        "ringworm":{
+                            "ringworm_type": "Trichophyton mentagrophytes",
+                            "diagnosis_date": "2015-05-05",
+                            "symptoms": [
+                                "itchy skin",
+                                "excessive licking"
+                            ],
+                            }
+                        },
+                ]
+            },
     
-    }
-]
+        }
+
 
 
 
@@ -233,3 +237,64 @@ export interface User {
     // password: string;
 }
 
+const random = 
+{
+    "data": {
+        "user_id": 153,
+        "pets": [
+                {
+                "id": 1,
+                "name": "keoki",
+                "type": "dog",
+                "breed": "labradoodle",
+                "birthday": "01/08/2021",
+                "symptoms": [
+                    "itchy skin",
+                    "excessive licking"
+                ],
+                "medications":{
+                    "type": "topical",
+                    "name": "ringworm cream",
+                    "dosage": "10 mg",
+                    "frequency": "daily"
+                    },
+                "ringworm":{
+                    "type": "Trichophyton mentagrophytes",
+                    "diagnosis_date": "05/10/2024"
+                    }
+                },
+                {
+                    "id": 2,
+                    "name": "keoki",
+                    "type": "dog",
+                    "breed": "labradoodle",
+                    "birthday": "01/08/2021",
+                    "symptoms": [
+                        "itchy skin",
+                        "excessive licking"
+                    ],
+                    "medications":{
+                        "type": "topical",
+                        "name": "ringworm cream",
+                        "dosage": "10 mg",
+                        "frequency": "daily"
+                        },
+                    "ringworm":{
+                        "type": "Trichophyton mentagrophytes",
+                        "diagnosis_date": "05/10/2024"
+                        }
+                    },
+            ]
+        },
+
+    }
+
+const arr = [
+    {
+
+    },
+    {
+
+    },
+
+]

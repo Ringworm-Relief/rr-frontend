@@ -28,6 +28,8 @@ import { Pets } from "../../../utils/interfaces";
 import NewPetCard from "../mainDashboard/dashboardComponents/AddManageCards";
 interface Props {
   user: any;
+  pet: any;
+  pets: any[];
 }
 
 interface ScheduleEvent {
@@ -54,24 +56,6 @@ interface ApiEvent {
   };
 }
 
-const colors: string[] = [
-  "#cb6bb2",
-  "#56ca85",
-  "#df5286",
-  "#f7b84b",
-  "#198675",
-  "#b7d7e8",
-  "#e0a7a7",
-  "#8e8cd8",
-  "#f57f17",
-];
-
-const resourceDataSource = Pets.reduce((acc: any[], pet) => {
-  //Change to fetch data from API
-  let index = Pets.indexOf(pet);
-  acc.push({ Name: pet.name, Id: pet.Id, Color: colors[index] }); // change value to pet ID
-  return acc;
-}, []);
 
 const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   return {
@@ -103,16 +87,19 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   };
 };
 
-export default function Calendar({ user }: Props) {
+export default function Calendar({ user, pet, pets }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
+  const [singleResourceData, setSingleResourceData] = useState<any>(); 
+  const [resourceData, setResourceData] = useState<any[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const currentToken = JSON.parse(sessionStorage.getItem("token") || "null");
+  const currentToken = sessionStorage.getItem("token");
+  // const currentToken = JSON.parse(sessionStorage.getItem("token") || "null");
   const windowLocation = window.location.pathname;
 
-  // if (!currentToken) {
-  //   throw new Error("Token is nu");
-  // }
+  if (!currentToken) {
+    throw new Error("Token is null.");
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,9 +114,47 @@ export default function Calendar({ user }: Props) {
         console.error("Error fetching events:", error);
       }
     };
+  //   const colors: string[] = [
+  //     "#cb6bb2",
+  //     "#56ca85",
+  //     "#df5286",
+  //     "#f7b84b",
+  //     "#198675",
+  //     "#b7d7e8",
+  //     "#e0a7a7",
+  //     "#8e8cd8",
+  //     "#f57f17",
+  //   ];
 
+  // if(pet) {
+  //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
+  //   setResourceData(singleResourceData);
+  // }
     fetchData();
   }, []);
+
+  const colors: string[] = [
+    "#cb6bb2",
+    "#56ca85",
+    "#df5286",
+    "#f7b84b",
+    "#198675",
+    "#b7d7e8",
+    "#e0a7a7",
+    "#8e8cd8",
+    "#f57f17",
+  ];
+
+  const resourceDataSource = pets.reduce((acc: any[], pet) => {
+    let index = pets.indexOf(pet);
+    acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
+    return acc;
+  }, []);
+
+  // if(pet) {
+  //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
+  // }
+  
 
   const dataManager = new DataManager({
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
@@ -196,21 +221,6 @@ export default function Calendar({ user }: Props) {
     }
   }
 
-  // const destroyEvent = (
-  //   args: PopupOpenEventArgs | DragEventArgs | any
-  // ): void => {
-  //   if (args.type === "DeleteAlert") {
-  //     destroyCalendarEvent(
-  //       user.data.id,
-  //       args.data?.Id.toString(),
-  //       currentToken
-  //     );
-  //   } else if (args.navigation) {
-  //     destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
-  //     console.log(args.navigation);
-  //   }
-  // };
-
   return (
     <>
       {user.data.id ? (
@@ -225,12 +235,11 @@ export default function Calendar({ user }: Props) {
               dragStop={dragStopEvent}
               dragStart={destroyDragEvent}
               popupOpen={destroyEvent}
-              // group={{resources: ['Pets']}}
             >
               <ResourcesDirective>
                 <ResourceDirective
                   field="ResourceId"
-                  title="Pet"
+                  title="Pets"
                   name="Pets"
                   textField="Name"
                   idField="Id"
@@ -264,7 +273,6 @@ export default function Calendar({ user }: Props) {
                   flexDirection: "column",
                   alignItems: "center",
                   color: "#9A352F",
-                  // paddingBottom: 15,
                 }}
               >
                 <ScheduleComponent
@@ -278,13 +286,14 @@ export default function Calendar({ user }: Props) {
                   dragStop={dragStopEvent}
                   dragStart={destroyDragEvent}
                   popupOpen={destroyEvent}
+                  group={{resources: ['Pets']}}
                   width="100%"
                   height="100%"
                 >
                   <ResourcesDirective>
                     <ResourceDirective
                       field="ResourceId"
-                      title="Pet"
+                      title="Pets"
                       name="Pets"
                       textField="Name"
                       idField="Id"

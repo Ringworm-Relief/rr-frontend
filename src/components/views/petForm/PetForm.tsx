@@ -76,6 +76,9 @@ interface Props {
   user: any
 }
 
+// Menu Items need to be capitalized
+// Date needs to be posted in yyyy-mm-dd format (Right now it is yyyy/mm/dd)
+
 function PetForm({ user }: Props) {
   const navigate = useNavigate()
   const [petSubmitted, setPetSubmitted] = useState<boolean>(false);

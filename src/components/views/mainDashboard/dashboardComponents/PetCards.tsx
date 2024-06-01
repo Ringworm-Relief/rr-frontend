@@ -1,33 +1,46 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import { Pets } from "../../../../utils/interfaces";
+import { Card, CardActions, CardContent, CardHeader, CardMedia, Grid, SvgIcon, Typography } from "@mui/material";
+// import { Pets } from "../../../../utils/interfaces";
 import Pupper from "../../../../assets/Pupper-profile.svg";
 import Kitty from "../../../../assets/Kitty-profile.svg";
 import { Link } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
 
-function PetCards() {
+interface Props {
+  user: any;
+  pets: any[];
+  setTargetPetFunc: (pet: any) => void
+}
+
+function PetCards({pets, user, setTargetPetFunc}: Props) {
+
+  const style = {
+    mr: 1,
+    mt: 2,
+    borderRadius: 3,
+    boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
+    // boxShadow: "none",
+    // border: "1px solid #252525",
+    position: "relative",
+    minWidth: 200,
+    maxHeight: 200,
+    //   overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    //   paddingBottom: 15,
+    "&:hover": {
+      boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
+      cursor: "pointer",
+    }
+  }
   return (
-    // <Link>
     <Grid container spacing={2} columns={3}>
-      {Pets.map((pet) => {
+      {pets.map((pet) => {
         return (
+        <CardActions onClick={() => setTargetPetFunc(pet)}>
           <Grid item>
             <Card
-              sx={{
-                mr: 1,
-                mt: 2,
-                borderRadius: 3,
-                boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
-                // boxShadow: "none",
-                // border: "1px solid #252525",
-                position: "relative",
-                minWidth: 200,
-                maxHeight: 200,
-                //   overflowY: "auto",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                //   paddingBottom: 15,
-              }}
+              sx={style}
             >
               <CardMedia
                 image={pet.pet_type === "Dog" ? Pupper : Kitty}
@@ -74,10 +87,17 @@ function PetCards() {
               </CardContent> */}
             </Card>
           </Grid>
+          </CardActions>
         );
       })}
+      <Grid item>
+      <Link to={`/user/${user.data.id}/addpet`}>
+        <Card sx={style}>
+          <CardHeader title="Add Pet" />
+        </Card>
+      </Link>
+      </Grid>
     </Grid>
-    // </Link>
   );
 }
 
