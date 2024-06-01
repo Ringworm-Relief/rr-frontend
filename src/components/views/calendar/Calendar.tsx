@@ -107,12 +107,12 @@ export default function Calendar({ user }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
-  const currentToken = sessionStorage.getItem("token");
+  const currentToken = JSON.parse(sessionStorage.getItem("token") || "null");
   const windowLocation = window.location.pathname;
 
-  if (!currentToken) {
-    throw new Error("Token is null");
-  }
+  // if (!currentToken) {
+  //   throw new Error("Token is nu");
+  // }
 
   useEffect(() => {
     const fetchData = async () => {

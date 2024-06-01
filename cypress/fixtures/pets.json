@@ -1,0 +1,37 @@
+{
+    "data": {
+        "user_id": 1,
+        "pets": [ {
+            "type": "pet",
+            "attributes": {
+                "user_id": 1,
+                "name": "keoki",
+                "type": "dog",
+                "breed": "labradoodle",
+                "birthday": "01/08/2021",
+                "symptoms": [
+                    "itchy skin",
+                    "excessive licking"
+                ]
+                },
+                "medications":{
+                    "id": "1",
+                    "pet_id": 1,
+                    "type": "topical",
+                    "name": "ringworm cream",
+                    "dosage": "10 mg",
+                    "frequency": "daily"
+                },
+                "ringworms":{
+                    "id": "1",
+                    "pet_id": 1,
+                    "type": "Trichophyton mentagrophytes",
+                    "diagnosis_date": "05/10/2024"
+                }
+            
+            }
+        
+        ]
+        
+    }
+}
