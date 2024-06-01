@@ -45,6 +45,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
       frequency: "",
     },
   ]);
+
   const [petObject, setPetObject] = useState<any>({
     user_id: user.data.id,
     name: "",

@@ -123,52 +123,6 @@ export type Ringworm = {
 }
 
 export const Pets = 
-    // {
-    //     user_id: 1,
-    //     Id: 452568,
-    //     name: 'Alfred',
-    //     pet_type:'Dog',
-    //     breed: 'Golden Retriever',
-    //     birthday: '2015-05-05',
-    //     symptoms: ['Itching', 'Hair loss', 'Redness'],
-    //     medication_type: 'Oral',
-    //     medication_name: 'Griseofulvin',
-    //     medication_dosage: '250mg',
-    //     medication_frequency: 'Daily',
-    //     ringworm_type: 'M. Canis',
-    //     ringworm_diagnosis_date: '2015-05-05'
-    // },
-    // {
-    //     user_id: 1,
-    //     Id: 4586,
-    //     name: 'Bella',
-    //     pet_type:'Cat',
-    //     breed: 'Siamese',
-    //     birthday: '2015-05-05',
-    //     symptoms: ['Itching', 'Hair loss', 'Redness'],
-    //     medication_type: 'Oral',
-    //     medication_name: 'Griseofulvin',
-    //     medication_dosage: '250mg',
-    //     medication_frequency: 'Daily',
-    //     ringworm_type: 'M. Canis',
-    //     ringworm_diagnosis_date: '2015-05-05'
-    // },
-    // {
-    //     user_id: 1,
-    //     Id: 1285,
-    //     name: 'Charlie',
-    //     pet_type:'Dog',
-    //     breed: 'Thoroughbred',
-    //     birthday: '2015-05-05',
-    //     symptoms: ['Itching', 'Hair loss', 'Redness'],
-    //     medication_type: 'Oral',
-    //     medication_name: 'Griseofulvin',
-    //     medication_dosage: '250mg',
-    //     medication_frequency: 'Every 8 hours',
-    //     ringworm_type: 'M. Canis',
-    //     ringworm_diagnosis_date: '2015-05-05'
-    
-    // }
     {
         "data": {
             "user_id": 153,
