@@ -112,10 +112,17 @@ function PetForm({ user }: Props) {
   }
 
   const handleSubmit = () => {
-    console.log("pet Object", petObject)
-    console.log("ring Object", ringwormObject)
-    console.log("med Objects", medications)
-    postPet(petObject).then(data => {
+    const updatedRingwormObject = {
+      ...ringwormObject,
+      diagnosis_date: formatDate(ringwormObject.diagnosis_date)
+    }
+    const updatedPetObject = {
+      ...petObject,
+      birthday: formatDate(petObject.birthday),
+      ringworm: updatedRingwormObject,
+      medications: medications,
+    };
+    postPet(updatedPetObject).then(data => {
       console.log("POSTED DATA:", data.data)
       setHasSubmitted(true);
    
@@ -245,7 +252,7 @@ function PetForm({ user }: Props) {
           <BootstrapInput
             value={petObject.birthday}
             onChange={(e) =>
-              setPetObject({ ...petObject, birthday: formatDate(e.target.value) })
+              setPetObject({ ...petObject, birthday: e.target.value })
             }
             id="birthday-field"
             type="date"
@@ -294,7 +301,7 @@ function PetForm({ user }: Props) {
             onChange={(e) =>
               setRingwormObject({
                 ...ringwormObject,
-                diagnosis_date: formatDate(e.target.value),
+                diagnosis_date: e.target.value,
               })
             }
             id="diagnosis-date-field"
