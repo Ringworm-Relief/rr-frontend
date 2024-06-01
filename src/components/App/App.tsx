@@ -65,7 +65,7 @@ function App() {
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     // console.log(user);
-    getUserPets();
+    getUserPets(user.data.id);
     navigate(`/user/${user.data.id}/dashboard`);
     setTimeout(() => {
       handleSignOut();
