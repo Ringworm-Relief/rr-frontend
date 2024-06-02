@@ -22,6 +22,7 @@ import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import PetDashboard from "../views/petDashboard/PetDashboard";
+import AllPetsManagement from "../views/managePets/AllPetsManagement";
 // localStorage.clear()
 function App() {
   const activeUser = JSON.parse(
@@ -142,11 +143,19 @@ function App() {
         </nav>
         </div>
         <div className="App_nav_block_right">
-        {user && ( //If user is logged in, show sign out button
+        {user ? ( //If user is logged in, show sign out button
           <div className="App_nav_links">
             <Button variant="outlined" onClick={handleSignOut}>
               Sign Out
             </Button>
+          </div>
+        ) : (
+          <div className="App_nav_links">
+            <Link className="App_link" to="/account/signin">
+            <Button variant="outlined">
+              Sign In
+            </Button>
+            </Link>
           </div>
         )}
         <div className="App_nav_links" id="drawer">
@@ -211,8 +220,12 @@ function App() {
           element={<PetDashboard pet={targetPet} user={user} pets={pets} />}
         />
         <Route
-          path="/user/:user_id/manageaccount"
-          element={<ManageAccount pets={pets} setPets={setPets} user={user} />}
+          path="/user/:user_id/management/account"
+          element={<ManageAccount user={user} />}
+        ></Route>
+         <Route
+          path="/user/:user_id/management/pets"
+          element={<AllPetsManagement pets={pets} setPets={setPets} user={user} />}
         ></Route>
         <Route path="*" element={<Landing />} />
       </Routes>

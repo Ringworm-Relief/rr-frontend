@@ -42,6 +42,12 @@ function MuiDrawer({ user }: Props) {
       case "Add Pet":
         navigate(user ? `/user/${user.data.id}/addpet` : "/account/signin");
       break;
+      case "Manage Account":
+        navigate(user ? `/user/${user.data.id}/management/account` : "/account/signin");
+      break;
+      case "Manage Pets":
+        navigate(user ? `/user/${user.data.id}/management/pets` : "/account/signin");
+      break;
     }
   }
 
@@ -59,6 +65,16 @@ function MuiDrawer({ user }: Props) {
       <Divider />
       <List>
         {["Calendar", "Saved Articles", "Add Pet"].map((item) => (
+          <ListItem key={item} disablePadding>
+            <ListItemButton onClick={navigateTo(item)}>
+              <ListItemText primary={item} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["Manage Account", "Manage Pets"].map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton onClick={navigateTo(item)}>
               <ListItemText primary={item} />
