@@ -4,6 +4,7 @@ import Pupper from "../../../../assets/Pupper-profile.svg";
 import Kitty from "../../../../assets/Kitty-profile.svg";
 import { Link } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
+import { Pets } from "../../../../utils/interfaces"
 
 interface Props {
   user: any;
@@ -35,7 +36,7 @@ function PetCards({pets, user, setTargetPetFunc}: Props) {
   }
   return (
     <Grid container spacing={2} columns={3}>
-      {pets.map((pet) => {
+      {Pets.data.pets.map((pet: any) => { //change this to actual data
         return (
         <CardActions onClick={() => setTargetPetFunc(pet)}>
           <Grid item>
@@ -43,7 +44,7 @@ function PetCards({pets, user, setTargetPetFunc}: Props) {
               sx={style}
             >
               <CardMedia
-                image={pet.pet_type === "Dog" ? Pupper : Kitty}
+                image={pet.type === "Dog" ? Pupper : Kitty}
                 sx={{
                   width: "30%",
                   marginLeft: 0.6,
