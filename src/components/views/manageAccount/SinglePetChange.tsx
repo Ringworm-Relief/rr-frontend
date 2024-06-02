@@ -33,42 +33,44 @@ interface Props {
 }
 
 export const SinglePetChange = ({ user, pet }: Props) => {
-  console.table(pet);
+  console.table("pet", pet);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
-  const [alertOpen, setAlertOpen] = useState<boolean>(true);
-  const [medications, setMedications] = useState<Medication[]>([
-    {
-      pet_id: "",
-      name: "",
-      medication_type: "",
-      dosage: "",
-      frequency: "",
-    },
-  ]);
+  const [alertOpen, setAlertOpen] = useState<boolean | undefined>(undefined);
+  const [medications, setMedications] = useState<Medication[]>(pet.medications);
+
+  // const [petObject, setPetObject] = useState<any>({
+  //   user_id: user.data.id,
+  //   name: "",
+  //   pet_type: "",
+  //   breed: "",
+  //   birthday: "",
+  //   medications: [ { medication_type: "", name: "", dosage: "", frequency: "" } ],
+  //   ringworm: { ringworm_type: "", diagnosis_date: "", symptoms: []},
+  // });
 
   const [petObject, setPetObject] = useState<any>({
     user_id: user.data.id,
-    name: "",
-    pet_type: "",
-    breed: "",
-    birthday: "",
-    medications: [ { medication_type: "", name: "", dosage: "", frequency: "" } ],
-    ringworm: { ringworm_type: "", diagnosis_date: "", symptoms: []},
+    name: pet.name,
+    pet_type: pet.type,
+    breed: pet.breed,
+    birthday: pet.birthday,
+    medications: pet.medications,
+    ringworm: pet.ringworm,
   });
 
 
-  useEffect(() => {
-    // setHasSubmitted(true);                // Uncomment to see alert
-    setPetObject({
-      user_id: user.data.id,
-      name: pet.name,
-      pet_type: pet.type,
-      breed: pet.breed,
-      birthday: pet.birthday,
-      medications: pet.medications,
-      ringworm: pet.ringworm,
-    });
-  }, []);
+  // useEffect(() => {
+  //   // setHasSubmitted(true);                // Uncomment to see alert
+  //   setPetObject({
+  //     user_id: user.data.id,
+  //     name: pet.name,
+  //     pet_type: pet.type,
+  //     breed: pet.breed,
+  //     birthday: pet.birthday,
+  //     medications: pet.medications,
+  //     ringworm: pet.ringworm,
+  //   });
+  // }, []);
 
   // const handleSubmit = async () => {
   //   const petResponse = await patchPet(petObject);
@@ -164,6 +166,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
       number={index + 1}
     />
   ));
+
   return (
     <>
       <Grid item>
@@ -413,7 +416,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
               >
                 Submit Changes
               </Button>
-              {!hasSubmitted ? (
+              {!hasSubmitted ? ( 
                 <Collapse in={alertOpen}>
                   <Alert
                     severity="error"

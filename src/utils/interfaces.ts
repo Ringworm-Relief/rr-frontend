@@ -133,12 +133,18 @@ export const Pets =
                     "type": "Dog",
                     "breed": "labradoodle",
                     "birthday": "2015-05-05",
-                    "medications":{
-                        "type": "Topical",
+                    "medications": [{
+                        "medication_type": "Topical",
                         "name": "ringworm cream",
                         "dosage": "10 mg",
                         "frequency": "Daily"
                         },
+                        {
+                            "medication_type": "Topical",
+                            "name": "ringworm cream",
+                            "dosage": "10 mg",
+                            "frequency": "Daily"
+                        }],
                     "ringworm":{
                         "ringworm_type": "Trichophyton mentagrophytes",
                         "diagnosis_date": "2015-05-05",
@@ -155,7 +161,7 @@ export const Pets =
                         "breed": "labradoodle",
                         "birthday": "2015-05-05",
                         "medications": [{
-                            "type": "Topical",
+                            "medication_type": "Topical",
                             "name": "ringworm cream",
                             "dosage": "10 mg",
                             "frequency": "Daily"
@@ -169,6 +175,27 @@ export const Pets =
                             ],
                             }
                         },
+                        {
+                            "id": 3,
+                            "name": "obsidian",
+                            "type": "Dog",
+                            "breed": "labradoodle",
+                            "birthday": "2015-05-05",
+                            "medications": [{
+                                "medication_type": "Topical",
+                                "name": "ringworm cream",
+                                "dosage": "10 mg",
+                                "frequency": "Daily"
+                                }],
+                            "ringworm":{
+                                "ringworm_type": "Trichophyton mentagrophytes",
+                                "diagnosis_date": "2015-05-05",
+                                "symptoms": [
+                                    "itchy skin",
+                                    "excessive licking"
+                                ],
+                                }
+                            },
                 ]
             },
     
