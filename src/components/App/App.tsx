@@ -145,7 +145,7 @@ function App() {
         <div className="App_nav_block_right">
         {user ? ( //If user is logged in, show sign out button
           <div className="App_nav_links">
-            <Button variant="outlined" onClick={handleSignOut}>
+            <Button variant="contained" onClick={handleSignOut}>
               Sign Out
             </Button>
           </div>
