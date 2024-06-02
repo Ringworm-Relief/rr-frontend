@@ -30,17 +30,17 @@ function MuiDrawer({ user }: Props) {
         navigate("/account/signin");
         break;
       case "Dashboard":
-        navigate(user.data.id ? `/user/${user.data.id}/dashboard` : "/account/signin");
+        navigate(user ? `/user/${user.data.id}/dashboard` : "/account/signin");
         break;
       case "Calendar":
-        navigate(user.data.id ? `/user/${user.data.id}/calendar` : "/account/signin");
+        navigate(user ? `/user/${user.data.id}/calendar` : "/account/signin");
         break;
       case "Saved Articles":
         navigate("/savedarticles");
         //Change to /user/1/savedArticles
         break;
       case "Add Pet":
-        navigate("/user/1/addpet");
+        navigate(user ? `/user/${user.data.id}/addpet` : "/account/signin");
       break;
     }
   }

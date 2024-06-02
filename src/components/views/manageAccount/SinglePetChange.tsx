@@ -36,15 +36,6 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   console.table(pet);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
-  const [medications, setMedications] = useState<Medication[]>([
-    {
-      pet_id: "",
-      name: "",
-      medication_type: "",
-      dosage: "",
-      frequency: "",
-    },
-  ]);
 
   const [petObject, setPetObject] = useState<any>({
     user_id: user.data.id,
@@ -107,16 +98,16 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   //   }
   // };
 
-  const handleMedChange = (
-    index: number,
-    field: keyof Medication,
-    value: string
-  ) => {
-    const updatedMedications = medications.map((med, i) =>
-      i === index ? { ...med, [field]: value } : med
-    );
-    setMedications(updatedMedications);
-  };
+//   const handleMedChange = (
+//     index: number,
+//     field: keyof Medication,
+//     value: string
+//   ) => {
+//     const updatedMedications = medications.map((med, i) =>
+//       i === index ? { ...med, [field]: value } : med
+//     );
+//     setMedications(updatedMedications);
+//   };
 
   const BootstrapInput = styled(InputBase)(({ theme }) => ({
     "label + &": {
@@ -156,14 +147,14 @@ export const SinglePetChange = ({ user, pet }: Props) => {
     },
   }));
 
-  const medCards = medications.map((med, index) => (
-    <MedicationsCard
-      key={index}
-      medObject={med}
-      setMedObject={(field, value) => handleMedChange(index, field, value)}
-      number={index + 1}
-    />
-  ));
+//   const medCards = medications.map((med, index) => (
+//     <MedicationsCard
+//       key={index}
+//       medObject={med}
+//       setMedObject={(field, value) => handleMedChange(index, field, value)}
+//       number={index + 1}
+//     />
+//   ));
   return (
     <>
       <Grid item>
@@ -388,21 +379,21 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 Medication
                 <img id="pill-svg" src={pill} alt="pill" />
               </Typography>
-              <div>{medCards}</div>
+              {/* <div>{medCards}</div> */}
               <Button
                 variant="outlined"
                 sx={{ marginTop: "20px" }}
-                onClick={() =>
-                  setMedications([
-                    ...petObject.medications,
-                    {
-                      name: "",
-                      medication_type: "",
-                      dosage: "",
-                      frequency: "",
-                    },
-                  ])
-                }
+                // onClick={() =>
+                //   setMedications([
+                //     ...petObject.medications,
+                //     {
+                //       name: "",
+                //       medication_type: "",
+                //       dosage: "",
+                //       frequency: "",
+                //     },
+                //   ])
+                // }
               >
                 Add medication
               </Button>
