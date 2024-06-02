@@ -36,6 +36,7 @@ function App() {
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
   const [pets, setPets] = useState<any[]>(PetsStorage);
   const [targetPet, setTargetPet] = useState<any>(null);
+  const [pageRender, setPageRender] = useState<number>(0);
 
   const navigate = useNavigate();
 
@@ -44,7 +45,7 @@ function App() {
       localStorage.getItem("SAVED_ARTS") || "[]"
     );
     setSavedArticles(savedArts);
-    user ? navigate(`/user/${user.data.id}/dashboard`) : navigate("/");
+    !pageRender ?? navigate(`/user/${user.data.id}/dashboard`);
   }, []);
 
   useEffect(() => {
@@ -62,6 +63,7 @@ function App() {
   };
 
   const setLoggedInUser = (user: any) => {
+    setPageRender(pageRender + 1);
     sessionStorage.setItem("currentUser", JSON.stringify(user));
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     // console.log(user);
