@@ -51,9 +51,14 @@ describe('template spec', () => {
     cy.get('input[name="email"]').type('JohnDoe@email.com').should('have.value', 'JohnDoe@email.com')
     cy.get('input[name="password"]').type('password').should('have.value', 'password')
     cy.get('input[name="confirmPassword"]').type('password').should('have.value', 'password')
+
+    cy.get('.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root').should('have.attr', 'aria-label', 'toggle password visibility')
   });
 
-  it.skip('Shows password visibility button, sign up, and login buttons', () => {
-    cy.get('input').should('have.length', 4)
+  it('Shows password visibility button, sign up, and login buttons', () => {
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').should('have.text', 'Create Account')
+    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').within(() => {
+      cy.get('a').should('have.text', 'Click Here To Sign In')
+    })
   })
 });

@@ -19,6 +19,15 @@ describe('template spec', () => {
       }
     ).as("NewUser");
 
+    cy.intercept(
+      "POST",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+      {
+        statusCode: 409,
+        fixture: "newUser",
+      }
+    ).as("ExistingUser");
+
     // Intercept the pets request and mock the response
     cy.intercept(
       "GET",
@@ -57,7 +66,9 @@ describe('template spec', () => {
   });
 
 
-  it.skip('passes', () => {
-    
+  it('Shows message if account already exists', () => {
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
+    cy.wait("@ExistingUser");
+    cy.get(".css-1j7ga0i-MuiTypography-root").should("have.text", "You already have an account, please sign in")
   })
 })
