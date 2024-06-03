@@ -129,13 +129,32 @@ describe("Landing Page", () => {
     cy.url().should("include", "/savedarticles"); //Change to /user/1/savedArticles
   });
 
-  // it("Should navigate to Article", () => {
-  //   //Add tests after landing articles have been updated
-  // });
+  it("Should navigate to Add pet from Drawer", () => {
+    //Add tests after saved articles is created
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(4).click();
+    });
+    cy.url().should("include", "/addpet"); //Change to /user/1/savedArticles
+  });
 
 
-  // it("Should navigate to Article", () => {
-  //   //Add tests after landing articles have been updated
+  it("Should navigate to Account Management from Drawer", () => {
+    //Add tests after saved articles is created
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(5).click();
+    });
+    cy.url().should("include", "/management/account"); //Change to /user/1/savedArticles
+  });
 
-  // });
+  it("Should navigate to Pet Management from Drawer", () => {
+    //Add tests after saved articles is created
+    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".MuiDrawer-paper").within(() => {
+      cy.get(".MuiListItemButton-root").eq(6).click();
+    });
+    cy.url().should("include", "/management/pets"); //Change to /user/1/savedArticles
+  });
+
 });

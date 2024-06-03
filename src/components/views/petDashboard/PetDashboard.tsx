@@ -62,18 +62,6 @@ export default function PetDashboard({ pet, user, pets }: Props) {
           <Card sx={style}>
             <CardHeader title="Medication" />
             <CardContent>
-              {/* {pet.medications.filter((med: any) => med.type).map((med: any) => {
-                  return (
-                    <>
-                    <Typography key={med.type}>
-                      {med.type}
-                    </Typography>
-                    <Typography key={med.name}>
-                      {med.name}: {med.dosage}
-                    </Typography>
-                    </>
-                  )
-                })} */}
               <Typography variant="h6">Oral:</Typography>
               {oralMeds.map((med: any) => {
                 return (

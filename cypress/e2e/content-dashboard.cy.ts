@@ -51,21 +51,20 @@ describe('template spec', () => {
 
   it("Should include three pet cards", () => {
     //Pet cards should be visible
-    cy.get(".css-ecl1eb-MuiPaper-root-MuiCard-root").should("have.length", 3);
+    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").should("have.length", 3);
 
-    cy.get(".css-ecl1eb-MuiPaper-root-MuiCard-root").eq(0).within(() => {
+    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").eq(0).within(() => {
       cy.get(".css-jyhipo-MuiCardMedia-root").should("have.attr", "style").should("include", 'background-image: url("/static/media/Pupper-profile.622f163b4e11a88c738ddd6ad62ca432.svg')
-      cy.get("h5").should("have.text", "Alfred")
+      cy.get("h5").should("have.text", "keoki")
     })
 
-    cy.get(".css-ecl1eb-MuiPaper-root-MuiCard-root").eq(1).within(() => {
+    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").eq(1).within(() => {
       cy.get(".css-jyhipo-MuiCardMedia-root").should("have.attr", "style").should("include", 'background-image: url("/static/media/Kitty-profile.12d55bfd7fa95ad9ec585798bbb66f9f.svg')
-      cy.get("h5").should("have.text", "Bella")
+      cy.get("h5").should("have.text", "koki")
     })
 
-    cy.get(".css-ecl1eb-MuiPaper-root-MuiCard-root").eq(2).within(() => {
-      cy.get(".css-jyhipo-MuiCardMedia-root").should("have.attr", "style").should("include", 'background-image: url("/static/media/Pupper-profile.622f163b4e11a88c738ddd6ad62ca432.svg')
-      cy.get("h5").should("have.text", "Charlie")
+    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").eq(2).within(() => {
+      cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Add Pet")
     })
   });
 
@@ -98,18 +97,17 @@ describe('template spec', () => {
     })
   });
 
-  it("Should show a link to add a pet", () => {
-    //Link wraps around the Add Pet card
-    cy.get("a").eq(4).within(() => {
-      cy.get(".css-zg5e0d-MuiPaper-root-MuiCard-root").eq(0)
-      cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Add Pet")
-    })
-  });
-
   it("Should show a link to manage account", () => {
     cy.get("a").eq(5).within(() => {
       cy.get(".css-zg5e0d-MuiPaper-root-MuiCard-root")
       cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Manage Account")
+    })
+  });
+
+  it("Should show a link to manage pets", () => {
+    cy.get("a").eq(6).within(() => {
+      cy.get(".css-zg5e0d-MuiPaper-root-MuiCard-root")
+      cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Manage Pets")
     })
   });
 })

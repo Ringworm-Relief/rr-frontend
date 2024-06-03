@@ -154,8 +154,8 @@ export const Pets = {
       },
       {
         id: 2,
-        name: "keoki",
-        type: "Dog",
+        name: "koki",
+        type: "Cat",
         breed: "labradoodle",
         birthday: "2015-05-05",
         medications: [
