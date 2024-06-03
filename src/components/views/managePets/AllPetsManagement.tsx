@@ -5,6 +5,7 @@ import {
 import React from "react";
 //   import { postPet, postMedication, postRingworm, patchPet, patchRingworm, patchMedication } from "../../../apiCalls/petApiCalls";
 import { SinglePetChange } from "./SinglePetChange";
+import {Pets, Pet} from "../../../utils/interfaces"
 
 interface Props {
   pets: any[];
@@ -14,7 +15,7 @@ interface Props {
 
 export default function AllPetsManagement({ pets, user }: Props) {
 
-  const petCard = pets.map((pet) => {
+  const petCard = Pets.data.pets.map((pet: any) => {
     return <SinglePetChange pet={pet} user={user} key={pet.Id} />;
   });
 

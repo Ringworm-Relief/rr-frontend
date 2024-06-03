@@ -48,7 +48,6 @@ function MainDashboard({ user, savedArticles, handleSaves, pets, setTargetPetFun
             <PetCards user={user} pets={pets} setTargetPetFunc={setTargetPetFunc}/>
               <Calendar user={user} pet={pet} pets={pets}/>
             <SavedArticlesCard savedArticles={savedArticles} handleSaves={handleSaves}/>
-            <div>HIIIII</div>
           </Grid>
         </Box>
       ) : (

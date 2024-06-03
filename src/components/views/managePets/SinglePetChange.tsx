@@ -34,32 +34,42 @@ interface Props {
 
 export const SinglePetChange = ({ user, pet }: Props) => {
   console.table(pet);
-  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(undefined);
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
 
-  const [petObject, setPetObject] = useState<any>({
+  // const [petObject, setPetObject] = useState<any>({
+  //   user_id: user.data.id,
+  //   name: "",
+  //   pet_type: "",
+  //   breed: "",
+  //   birthday: "",
+  //   medications: [ { medication_type: "", name: "", dosage: "", frequency: "" } ],
+  //   ringworm: { ringworm_type: "", diagnosis_date: "", symptoms: []},
+  // });
+
+   const [petObject, setPetObject] = useState<any>({
     user_id: user.data.id,
-    name: "",
-    pet_type: "",
-    breed: "",
-    birthday: "",
-    medications: [ { medication_type: "", name: "", dosage: "", frequency: "" } ],
-    ringworm: { ringworm_type: "", diagnosis_date: "", symptoms: []},
+    name: pet.name,
+    pet_type: pet.type,
+    breed: pet.breed,
+    birthday: pet.birthday,
+    medications: pet.medications,
+    ringworm: pet.ringworm,
   });
 
 
-  useEffect(() => {
-    // setHasSubmitted(true);                // Uncomment to see alert
-    setPetObject({
-      user_id: user.data.id,
-      name: pet.name,
-      pet_type: pet.type,
-      breed: pet.breed,
-      birthday: pet.birthday,
-      medications: pet.medications,
-      ringworm: pet.ringworm,
-    });
-  }, []);
+  // useEffect(() => {
+  //   // setHasSubmitted(true);                // Uncomment to see alert
+  //   setPetObject({
+  //     user_id: user.data.id,
+  //     name: pet.name,
+  //     pet_type: pet.type,
+  //     breed: pet.breed,
+  //     birthday: pet.birthday,
+  //     medications: pet.medications,
+  //     ringworm: pet.ringworm,
+  //   });
+  // }, []);
 
   // const handleSubmit = async () => {
   //   const petResponse = await patchPet(petObject);
