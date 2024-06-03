@@ -228,6 +228,7 @@ function App() {
           element={<AllPetsManagement pets={pets} setPets={setPets} user={user} />}
         ></Route>
         <Route path="*" element={<Landing />} />
+
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">

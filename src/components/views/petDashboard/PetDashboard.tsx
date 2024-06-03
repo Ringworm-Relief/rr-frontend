@@ -47,48 +47,71 @@ export default function PetDashboard({ pet, user, pets }: Props) {
       <Box
         padding={10}
         sx={{
-          backgroundImage:
-            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+          backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
           "&:after": {
             opacity: 0.5,
           },
-          // 16
         }}
       >
+        <Box sx={{display: "flex"}}> 
         <h1>{pet.name}</h1>
+              <img  alt={"dog"} src={pet.type === "Dog" ? Pupper : Kitty} />
+              </Box>
         <Grid container spacing={2} columns={2} zIndex={20}>
           {/* <Calendar user={user} pet={pet} pets={pets}/> */}
           {/* <Stack direction="row"> */}
           <Card sx={style}>
             <CardHeader title="Medication" />
             <CardContent>
-              <Typography variant="h6">Oral:</Typography>
-              {oralMeds.map((med: any) => {
-                return (
-                  <Typography variant="body1" key={med.name}>
-                    {med.name}: {med.dosage}
-                  </Typography>
-                );
-              })}
-              <Typography variant="h6">Topical:</Typography>
-              {topicalMeds.map((med: any) => {
-                return (
-                  <Typography variant="body2" key={med.name}>
-                    {med.name}: {med.dosage}
-                  </Typography>
-                );
-              })}
+             
+            </CardContent>
+          </Card>
+          {/* </Stack> */}
+          <Card sx={style}>
+            <CardHeader title={`About ${pet.name}`} />
+            <CardContent>
+              <Typography>Breed: {pet.breed}</Typography>
+              <Typography>Birthday: {pet.birthday}</Typography>
             </CardContent>
           </Card>
           <Card sx={style}>
-            <CardHeader title="Symptoms" />
+            <CardHeader title="Diagnosis" />
+            <CardContent>
+              <Typography>Ringworm Type: {pet.ringworm?.ringworm_type || "N/A"}</Typography>
+              <Typography>Diagnosis Date: {pet.ringworm?.diagnosis_date || "N/A"}</Typography>
+            </CardContent>
           </Card>
           <Card sx={style}>
-            <CardHeader title="Diagnosis" />
+            <CardHeader title="Medications" />
+            <CardContent>
+              {/* {pet.medications.length ? ( */}
+               <Typography variant="h6">Oral:</Typography>
+                 {oralMeds.map((med: any) => {
+                 return (
+                   <Typography variant="body1" key={med.name}>
+                     {med.name}: {med.dosage}
+                   </Typography>
+                 );
+               })}
+               <Typography variant="h6">Topical:</Typography>
+               {topicalMeds.map((med: any) => {
+                 return (
+                   <Typography variant="body2" key={med.name}>
+                     {med.name}: {med.dosage}
+                   </Typography>
+                 );
+               })}
+              {/* ) : (
+                <Typography>No medications listed.</Typography>
+              )} */}
+            </CardContent>
           </Card>
-          {/* </Stack> */}
         </Grid>
       </Box>
     </div>
   );
 }
+
+
+
+

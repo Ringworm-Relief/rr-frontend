@@ -9,6 +9,8 @@ import {
   Button,
   FormHelperText,
   Modal,
+  Alert,
+  Collapse,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -18,8 +20,13 @@ import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
 import { postPet } from "../../../apiCalls/petApiCalls";
-import { Pet, Medication, Ringworm, formatDate } from "../../../utils/interfaces";
-import { Navigate, useNavigate } from "react-router-dom"
+import {
+  Pet,
+  Medication,
+  Ringworm,
+  formatDate,
+} from "../../../utils/interfaces";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -73,15 +80,16 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 interface Props {
-  user: any
+  user: any;
 }
 
 // Menu Items need to be capitalized
 // Date needs to be posted in yyyy-mm-dd format (Right now it is yyyy/mm/dd)
 
 function PetForm({ user }: Props) {
-  const navigate = useNavigate()
-  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(undefined);
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [medications, setMedications] = useState<Medication[]>([
     {
       name: "",
@@ -103,41 +111,41 @@ function PetForm({ user }: Props) {
     birthday: "",
     symptoms: [],
     medications: medications,
-    ringworm: ringwormObject
+    ringworm: ringwormObject,
   });
 
   const handleClose = () => {
-    setHasSubmitted(false);
+    setAlertOpen(false);
   };
 
   const addAnotherPet = () => {
-    setHasSubmitted(false)
-  }
+    setHasSubmitted(false);
+  };
 
   const handleSubmit = () => {
     const updatedRingwormObject = {
       ...ringwormObject,
-      diagnosis_date: formatDate(ringwormObject.diagnosis_date)
-    }
+      diagnosis_date: formatDate(ringwormObject.diagnosis_date),
+    };
     const updatedPetObject = {
       ...petObject,
       birthday: formatDate(petObject.birthday),
       ringworm: updatedRingwormObject,
       medications: medications,
     };
-    postPet(updatedPetObject).then(data => {
-      console.log("POSTED DATA:", data.data)
-      setHasSubmitted(true);
-   
-    }).catch(err => setHasSubmitted(false));
+    postPet(updatedPetObject)
+      .then((data) => {
+        console.log("POSTED DATA:", data.data);
+        setHasSubmitted(true);
+      })
+      .catch((err) => setHasSubmitted(false));
 
     if (hasSubmitted) {
-    
       setRingwormObject({
         ringworm_type: "",
         diagnosis_date: "",
       });
-      
+
       setMedications([
         {
           name: "",
@@ -155,14 +163,17 @@ function PetForm({ user }: Props) {
         birthday: "",
         symptoms: [],
         medications: medications,
-        ringworm: ringwormObject
+        ringworm: ringwormObject,
       });
-
     }
   };
 
-  const handleMedChange = (index: number, field: keyof Medication, value: string) => {
-    const updatedMedications = medications.map((med, i) => 
+  const handleMedChange = (
+    index: number,
+    field: keyof Medication,
+    value: string
+  ) => {
+    const updatedMedications = medications.map((med, i) =>
       i === index ? { ...med, [field]: value } : med
     );
     setMedications(updatedMedications);
@@ -286,7 +297,7 @@ function PetForm({ user }: Props) {
         </FormControl>
 
         <div className="divider"></div>
-        
+
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Ringworm <img id="fungi-svg" src={bacteria} alt="bacteria" />
         </Typography>
@@ -324,7 +335,10 @@ function PetForm({ user }: Props) {
             id="strain-field"
             value={ringwormObject.ringworm_type}
             onChange={(e) =>
-              setRingwormObject({ ...ringwormObject, ringworm_type: e.target.value })
+              setRingwormObject({
+                ...ringwormObject,
+                ringworm_type: e.target.value,
+              })
             }
             inputProps={{ placeholder: "Enter strain" }}
           />
@@ -355,7 +369,7 @@ function PetForm({ user }: Props) {
         </FormControl>
 
         <div className="divider"></div>
-      
+
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
           Medication
           <img id="pill-svg" src={pill} alt="pill" />
@@ -366,15 +380,17 @@ function PetForm({ user }: Props) {
         <Button
           variant="outlined"
           sx={{ marginTop: "20px" }}
-          onClick={() => setMedications([
-            ...medications,
-            {
-              name: "",
-              medication_type: "",
-              dosage: "",
-              frequency: "",
-            }
-          ])}
+          onClick={() =>
+            setMedications([
+              ...medications,
+              {
+                name: "",
+                medication_type: "",
+                dosage: "",
+                frequency: "",
+              },
+            ])
+          }
         >
           Add medication
         </Button>
@@ -387,7 +403,7 @@ function PetForm({ user }: Props) {
           Submit Form
         </Button>
 
-        <Modal
+        {/* <Modal
           open={hasSubmitted}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -401,25 +417,48 @@ function PetForm({ user }: Props) {
               The form has been submitted.
             </Typography>
             <Button
-          variant="outlined"
-          sx={{ marginTop: "20px" }}
-          onClick={addAnotherPet}
-        >
-          Add another pet
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{ marginTop: "20px" }}
-          onClick={() => navigate(`/user/${user.data.id}/dashboard`)}
-        >
-          View Dashboard
-        </Button>
+              variant="outlined"
+              sx={{ marginTop: "20px" }}
+              onClick={addAnotherPet}
+            >
+              Add another pet
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{ marginTop: "20px" }}
+              onClick={() => navigate(`/user/${user.data.id}/dashboard`)}
+            >
+              View Dashboard
+            </Button>
           </Box>
-        </Modal>
+        </Modal> */}
+        {hasSubmitted === false && (
+          <Collapse in={alertOpen}>
+            <Alert
+              severity="error"
+              sx={{ marginTop: "20px" }}
+              onClose={() => setAlertOpen(false)}
+              hidden={alertOpen}
+            >
+              Information did not update.
+            </Alert>
+          </Collapse>
+        ) }
+        {hasSubmitted && (
+          <Collapse in={alertOpen}>
+            <Alert
+              severity="success"
+              sx={{ marginTop: "20px" }}
+              onClose={() => setAlertOpen(false)}
+              hidden={alertOpen}
+            >
+              Information updated.
+            </Alert>
+          </Collapse>
+        )}
       </Box>
     </Container>
   );
 }
 
 export default PetForm;
-
