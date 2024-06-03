@@ -14,15 +14,6 @@ describe('template spec', () => {
       "POST",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
-        statusCode: 201,
-        fixture: "newUser",
-      }
-    ).as("NewUser");
-
-    cy.intercept(
-      "POST",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
-      {
         statusCode: 409,
         fixture: "existingUser",
       }
@@ -65,10 +56,24 @@ describe('template spec', () => {
     cy.get('.css-1wc848c-MuiFormHelperText-root').eq(1).should('have.text', 'Passwords do not match')
   });
 
-
   it('Shows message if account already exists', () => {
     cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
     cy.wait("@ExistingUser");
     cy.get(".css-1j7ga0i-MuiTypography-root").should("have.text", "You already have an account, please log in")
+  })
+
+
+  it('Routes to sign in page on successful account creation', () => {
+    cy.intercept(
+      "POST",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+      {
+        statusCode: 201,
+        fixture: "newUser",
+      }
+    ).as("NewUser");
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
+    cy.wait("@NewUser");
+    cy.url().should("include", "account/signin");
   })
 })
