@@ -39,7 +39,7 @@ describe('template spec', () => {
     ).as("GetCalendar");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/account/signin");
+    cy.visit("https://rr-as.vercel.app/account/signin");
     sessionStorage.setItem("token", "mocked_token");
 
   });

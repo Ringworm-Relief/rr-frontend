@@ -10,11 +10,6 @@ export const postNewUser = (newUser: NewUser) => {
       referrer: "https://rr-as.vercel.app/",
       headers: {
         'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Origin': 'https://rr-as.vercel.app/',
-        'Access-Control-Expose-Headers': 'Authorization',
-        'Access-Control-Allow-Headers': 'Authorization',
-        'Vary': 'Origin'
       },
       body: JSON.stringify(newUser),
     }

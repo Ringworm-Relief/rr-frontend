@@ -39,7 +39,7 @@ describe('template spec', () => {
     ).as("GetCalendar");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/account/signin");
+    cy.visit("https://rr-as.vercel.app/account/signin");
     sessionStorage.setItem("token", "mocked_token");
 
   });
@@ -53,11 +53,11 @@ describe('template spec', () => {
   it('Displays an error helper text if login is incorrect/401', () => {
     cy.get('#handle-signin-btn').click()
     cy.wait('@BadLoginUser')
-    cy.get('.css-1kivl2a-MuiTypography-root').should('have.text', 'Email or Password is incorrect. Please try again.')
+    cy.get('.css-sqgx1g').should('have.text', 'Email or Password is incorrect. Please try again.')
   })
 
   it('Routes to the create account page if button is clicked', () => {
-    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').click()
+    cy.get('.css-1ujsas3').click()
     cy.url().should('include', '/account/new')
   })
 })

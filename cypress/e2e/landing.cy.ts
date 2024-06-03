@@ -5,7 +5,7 @@ describe('Landing Page', () => {
       fixture: 'user'
     }).as('GetUser')
 
-    .visit('http://localhost:3000')
+    .visit('https://rr-as.vercel.app')
   })
 
   it('should display the landing page', () => {
