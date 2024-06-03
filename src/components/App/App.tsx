@@ -22,6 +22,7 @@ import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import PetDashboard from "../views/petDashboard/PetDashboard";
+
 // localStorage.clear()
 function App() {
   const activeUser = JSON.parse(
@@ -196,6 +197,7 @@ function App() {
           element={<ManageAccount pets={pets} setPets={setPets} user={user}/>}
         ></Route>
         <Route path="*" element={<Landing />} />
+
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">

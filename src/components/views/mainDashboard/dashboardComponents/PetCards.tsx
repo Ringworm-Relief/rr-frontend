@@ -23,7 +23,7 @@ function PetCards({pets, user, setTargetPetFunc}: Props) {
     // border: "1px solid #252525",
     position: "relative",
     minWidth: 200,
-    maxHeight: 200,
+    maxHeight: 1000,
     //   overflowY: "auto",
     display: "flex",
     flexDirection: "column",
