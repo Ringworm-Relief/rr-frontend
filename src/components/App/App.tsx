@@ -23,7 +23,7 @@ import ManageAccount from "../views/manageAccount/ManageAccount";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import PetDashboard from "../views/petDashboard/PetDashboard";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
-// localStorage.clear()
+
 function App() {
   const activeUser = JSON.parse(
     sessionStorage.getItem("currentUser") || "false"

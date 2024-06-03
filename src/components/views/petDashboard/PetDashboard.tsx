@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import Calendar from "../calendar/Calendar";
+import Kitty from "../../../assets/Kitty-profile.svg"
+import Pupper from "../../../assets/Pupper-profile.svg"
 
 interface Props {
   pet: any;
