@@ -45,7 +45,7 @@ describe('template spec', () => {
   });
 
   it.skip('Routes to the dashboard on successful login', () => {
-    cy.get("#handle-signin-btn").click();
+    cy.get("#handle-signin-btn").click()
     cy.wait("@LoginUser");
     cy.url().should("include", "dashboard");
   })
@@ -57,6 +57,7 @@ describe('template spec', () => {
   })
 
   it('Routes to the create account page if button is clicked', () => {
-    
+    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').click()
+    cy.url().should('include', '/account/new')
   })
 })

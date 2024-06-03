@@ -44,16 +44,20 @@ describe('template spec', () => {
 
   });
 
-  it('Shows all inputs and their values', () => {
-    cy.get('input').should('have.length', 5)
+  it('Shows error helper text if passwords dont match', () => {
     cy.get('input[name="firstName"]').type('John').should('have.value', 'John')
     cy.get('input[name="lastName"]').type('Doe').should('have.value', 'Doe')
     cy.get('input[name="email"]').type('JohnDoe@email.com').should('have.value', 'JohnDoe@email.com')
     cy.get('input[name="password"]').type('password').should('have.value', 'password')
-    cy.get('input[name="confirmPassword"]').type('password').should('have.value', 'password')
+    cy.get('input[name="confirmPassword"]').type('pasdword').should('have.value', 'pasdword')
+
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click()
+    cy.get('.css-1wc848c-MuiFormHelperText-root').eq(0).should('have.text', 'Passwords do not match')
+    cy.get('.css-1wc848c-MuiFormHelperText-root').eq(1).should('have.text', 'Passwords do not match')
   });
 
-  it.skip('Shows password visibility button, sign up, and login buttons', () => {
-    cy.get('input').should('have.length', 4)
+
+  it.skip('passes', () => {
+    
   })
-});
+})
