@@ -7,11 +7,11 @@ export const postNewUser = (newUser: NewUser) => {
       method: "POST",
       mode: "cors",
       credentials: "omit",
-      referrer: "http://localhost:3000/",
+      referrer: "https://rr-as.vercel.app/",
       headers: {
         'Content-Type': 'application/json',
         // 'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Origin': 'http://localhost:3000/',
+        'Access-Control-Allow-Origin': 'https://rr-as.vercel.app/',
         'Access-Control-Expose-Headers': 'Authorization',
         'Access-Control-Allow-Headers': 'Authorization',
         'Vary': 'Origin'
