@@ -39,7 +39,7 @@ describe('template spec', () => {
     ).as("GetCalendar");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/account/new");
+    cy.visit("https://rr-as.vercel.app/account/new");
     sessionStorage.setItem("token", "mocked_token");
 
   });
@@ -51,15 +51,15 @@ describe('template spec', () => {
     cy.get('input[name="password"]').type('password').should('have.value', 'password')
     cy.get('input[name="confirmPassword"]').type('pasdword').should('have.value', 'pasdword')
 
-    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click()
-    cy.get('.css-1wc848c-MuiFormHelperText-root').eq(0).should('have.text', 'Passwords do not match')
-    cy.get('.css-1wc848c-MuiFormHelperText-root').eq(1).should('have.text', 'Passwords do not match')
+    cy.get('.css-zajg55').click() //create account button
+    cy.get('.css-v7esy').eq(0).should('have.text', 'Passwords do not match') //Password helper text
+    cy.get('.css-v7esy').eq(1).should('have.text', 'Passwords do not match') //Password helper text
   });
 
   it('Shows message if account already exists', () => {
-    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
+    cy.get('.css-zajg55').click() // create account button
     cy.wait("@ExistingUser");
-    cy.get(".css-1j7ga0i-MuiTypography-root").should("have.text", "You already have an account, please log in")
+    cy.get(".css-nkgkfs").should("have.text", "You already have an account, please log in")
   })
 
 
@@ -72,7 +72,7 @@ describe('template spec', () => {
         fixture: "newUser",
       }
     ).as("NewUser");
-    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
+    cy.get('.css-zajg55').click() //create account button 
     cy.wait("@NewUser");
     cy.url().should("include", "account/signin");
   })

@@ -39,7 +39,7 @@ describe('template spec', () => {
     ).as("GetCalendar");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/account/new");
+    cy.visit("https://rr-as.vercel.app/account/new");
     sessionStorage.setItem("token", "mocked_token");
 
   });
@@ -52,12 +52,12 @@ describe('template spec', () => {
     cy.get('input[name="password"]').type('password').should('have.value', 'password')
     cy.get('input[name="confirmPassword"]').type('password').should('have.value', 'password')
 
-    cy.get('.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root').should('have.attr', 'aria-label', 'toggle password visibility')
+    cy.get('.css-slyssw').should('have.attr', 'aria-label', 'toggle password visibility')
   });
 
   it('Shows password visibility button, sign up, and login buttons', () => {
-    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').should('have.text', 'Create Account')
-    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').within(() => {
+    cy.get('.css-zajg55').should('have.text', 'Create Account')
+    cy.get('.css-1ujsas3').within(() => {
       cy.get('a').should('have.text', 'Click Here To Sign In')
     })
   })
