@@ -24,7 +24,7 @@ describe('template spec', () => {
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
         statusCode: 409,
-        fixture: "newUser",
+        fixture: "existingUser",
       }
     ).as("ExistingUser");
 
@@ -69,6 +69,6 @@ describe('template spec', () => {
   it('Shows message if account already exists', () => {
     cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
     cy.wait("@ExistingUser");
-    cy.get(".css-1j7ga0i-MuiTypography-root").should("have.text", "You already have an account, please sign in")
+    cy.get(".css-1j7ga0i-MuiTypography-root").should("have.text", "You already have an account, please log in")
   })
 })
