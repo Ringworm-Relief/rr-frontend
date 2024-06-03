@@ -81,22 +81,22 @@ describe("Landing Page", () => {
     cy.get("a").eq(3).click();
     cy.url().should("include", "/education");
 
-    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(0).click();
+    cy.get(".css-1g5t0ys").eq(0).click();
     cy.url().should("include", "/education/cleaning");
 
     cy.get("a").eq(3).click();
-    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(1).click();
+    cy.get(".css-1g5t0ys").eq(1).click();
     cy.url().should("include", "/education/medical");
 
     cy.get("a").eq(3).click();
-    cy.get(".css-1uirrzm-MuiPaper-root-MuiCard-root").eq(2).click();
+    cy.get(".css-1g5t0ys").eq(2).click();
     cy.url().should("include", "/education/general");
   });
 
   it("Should navigate to Sign In from Drawer", () => {
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(0).click();
+      cy.get(".css-1uwabd6").eq(0).click();
     });
     cy.url().should("include", "/signin");
   });
@@ -105,51 +105,51 @@ describe("Landing Page", () => {
     cy.get(".App_link_cat").click();
     cy.url().should("include", "/");
 
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(1).click();
+      cy.get(".css-1uwabd6").eq(1).click();
     });
     cy.url().should("include", "/user/1/dashboard");
   });
 
   it("Should navigate to Calendar In from Drawer", () => {
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(2).click();
+      cy.get(".css-1uwabd6").eq(2).click();
     });
     cy.url().should("include", "/user/1/calendar");
   });
 
   it("Should navigate to Saved Articles from Drawer", () => {
     //Add tests after saved articles is created
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(3).click();
+      cy.get(".css-1uwabd6").eq(3).click();
     });
     cy.url().should("include", "/savedarticles"); //Change to /user/1/savedArticles
   });
 
   it("Should navigate to Add pet from Drawer", () => {
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(4).click();
+      cy.get(".css-1uwabd6").eq(4).click();
     });
     cy.url().should("include", "/addpet");
   });
 
 
   it("Should navigate to Account Management from Drawer", () => {
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(5).click();
+      cy.get(".css-1uwabd6").eq(5).click();
     });
     cy.url().should("include", "/management/account");
   });
 
   it("Should navigate to Pet Management from Drawer", () => {
-    cy.get(".css-zylse7-MuiButtonBase-root-MuiIconButton-root").click();
+    cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").eq(6).click();
+      cy.get(".css-1uwabd6").eq(6).click();
     });
     cy.url().should("include", "/management/pets"); 
   });
