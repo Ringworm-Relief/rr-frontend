@@ -53,9 +53,9 @@ describe('template spec', () => {
   })
 
   it('Shows password toggle button, sign in, and create account button', () => {
-    cy.get('.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root').should('have.attr', 'aria-label', 'toggle password visibility')
-    cy.get('#handle-signin-btn').should('exist').should('have.text', 'Sign In')
-    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').within(() => {
+    cy.get('.css-slyssw').should('have.attr', 'aria-label', 'toggle password visibility') //Password toggle button
+    cy.get('#handle-signin-btn').should('exist').should('have.text', 'Sign In') //Sign in button
+    cy.get('.css-1ujsas3').within(() => { //Create account button
       cy.get('a').should('have.text', 'Create Account')
     })
   })
