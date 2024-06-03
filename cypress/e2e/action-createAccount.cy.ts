@@ -14,10 +14,10 @@ describe('template spec', () => {
       "POST",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
-        statusCode: 201,
-        fixture: "newUser",
+        statusCode: 409,
+        fixture: "existingUser",
       }
-    ).as("NewUser");
+    ).as("ExistingUser");
 
     // Intercept the pets request and mock the response
     cy.intercept(
@@ -44,21 +44,36 @@ describe('template spec', () => {
 
   });
 
-  it('Shows all inputs and their values', () => {
-    cy.get('input').should('have.length', 5)
+  it('Shows error helper text if passwords dont match', () => {
     cy.get('input[name="firstName"]').type('John').should('have.value', 'John')
     cy.get('input[name="lastName"]').type('Doe').should('have.value', 'Doe')
     cy.get('input[name="email"]').type('JohnDoe@email.com').should('have.value', 'JohnDoe@email.com')
     cy.get('input[name="password"]').type('password').should('have.value', 'password')
-    cy.get('input[name="confirmPassword"]').type('password').should('have.value', 'password')
+    cy.get('input[name="confirmPassword"]').type('pasdword').should('have.value', 'pasdword')
 
-    cy.get('.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root').should('have.attr', 'aria-label', 'toggle password visibility')
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click()
+    cy.get('.css-1wc848c-MuiFormHelperText-root').eq(0).should('have.text', 'Passwords do not match')
+    cy.get('.css-1wc848c-MuiFormHelperText-root').eq(1).should('have.text', 'Passwords do not match')
   });
 
-  it('Shows password visibility button, sign up, and login buttons', () => {
-    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').should('have.text', 'Create Account')
-    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').within(() => {
-      cy.get('a').should('have.text', 'Click Here To Sign In')
-    })
+  it('Shows message if account already exists', () => {
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
+    cy.wait("@ExistingUser");
+    cy.get(".css-1j7ga0i-MuiTypography-root").should("have.text", "You already have an account, please log in")
   })
-});
+
+
+  it('Routes to sign in page on successful account creation', () => {
+    cy.intercept(
+      "POST",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+      {
+        statusCode: 201,
+        fixture: "newUser",
+      }
+    ).as("NewUser");
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() // Stubbed is showing 409 response but still navigating -- In production the message shows
+    cy.wait("@NewUser");
+    cy.url().should("include", "account/signin");
+  })
+})

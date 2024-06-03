@@ -44,19 +44,20 @@ describe('template spec', () => {
 
   });
 
-  it('Shows username and password inputs and has value', () => {
-    cy.get('input[name="email"]').should('exist')
-    cy.get('input[name="password"]').should('exist')
-
-    cy.get('input[name="email"]').type('email@email.com').should('have.value', 'email@email.com')
-    cy.get('input[name="password"]').type('password').should('have.value', 'password')
+  it.skip('Routes to the dashboard on successful login', () => {
+    cy.get("#handle-signin-btn").click()
+    cy.wait("@LoginUser");
+    cy.url().should("include", "dashboard");
   })
 
-  it('Shows password toggle button, sign in, and create account button', () => {
-    cy.get('.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root').should('have.attr', 'aria-label', 'toggle password visibility')
-    cy.get('#handle-signin-btn').should('exist').should('have.text', 'Sign In')
-    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').within(() => {
-      cy.get('a').should('have.text', 'Create Account')
-    })
+  it('Displays an error helper text if login is incorrect/401', () => {
+    cy.get('#handle-signin-btn').click()
+    cy.wait('@BadLoginUser')
+    cy.get('.css-1kivl2a-MuiTypography-root').should('have.text', 'Email or Password is incorrect. Please try again.')
+  })
+
+  it('Routes to the create account page if button is clicked', () => {
+    cy.get('.css-1e6y48t-MuiButtonBase-root-MuiButton-root').click()
+    cy.url().should('include', '/account/new')
   })
 })

@@ -51,19 +51,19 @@ describe('template spec', () => {
 
   it("Should include three pet cards", () => {
     //Pet cards should be visible
-    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").should("have.length", 3);
+    cy.get(".css-1v55mgz-MuiPaper-root-MuiCard-root").should("have.length", 3);
 
-    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").eq(0).within(() => {
+    cy.get(".css-1v55mgz-MuiPaper-root-MuiCard-root").eq(0).within(() => {
       cy.get(".css-jyhipo-MuiCardMedia-root").should("have.attr", "style").should("include", 'background-image: url("/static/media/Pupper-profile.622f163b4e11a88c738ddd6ad62ca432.svg')
       cy.get("h5").should("have.text", "keoki")
     })
 
-    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").eq(1).within(() => {
+    cy.get(".css-1v55mgz-MuiPaper-root-MuiCard-root").eq(1).within(() => {
       cy.get(".css-jyhipo-MuiCardMedia-root").should("have.attr", "style").should("include", 'background-image: url("/static/media/Kitty-profile.12d55bfd7fa95ad9ec585798bbb66f9f.svg')
       cy.get("h5").should("have.text", "koki")
     })
 
-    cy.get(".css-m2olh1-MuiPaper-root-MuiCard-root").eq(2).within(() => {
+    cy.get(".css-1v55mgz-MuiPaper-root-MuiCard-root").eq(2).within(() => {
       cy.get(".css-1qvr50w-MuiTypography-root").should("have.text", "Add Pet")
     })
   });

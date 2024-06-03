@@ -1,4 +1,4 @@
-import { Pet, Ringworm, Medication } from "../utils/interfaces";
+import { Pet } from "../utils/interfaces";
 
 function postPet(pet: Pet) {
     return fetch("https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets", {

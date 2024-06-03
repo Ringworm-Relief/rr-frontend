@@ -79,8 +79,9 @@ function CreateAccount() {
           <InputLabel htmlFor="firstName">First Name</InputLabel>
           <OutlinedInput
             type="firstName"
-            value={firstName}
             label="First Name"
+            name="firstName"
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
@@ -90,6 +91,7 @@ function CreateAccount() {
           <OutlinedInput
             type="lastName"
             label="Last Name"
+            name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
@@ -101,6 +103,7 @@ function CreateAccount() {
             <OutlinedInput
               type="email"
               label="Email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -109,10 +112,11 @@ function CreateAccount() {
           <FormControl  error={passwordError} sx={{ mt: 5 }}>
           <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
-            
               id="password"
               type={showPassword ? "text" : "password"}
+              name="password"
               value={password}
+              label="Password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
@@ -129,7 +133,6 @@ function CreateAccount() {
                   </IconButton>
                 </InputAdornment>
               }
-              label="Password"
             />
             <FormHelperText>{passwordError ? 'Passwords do not match' : 'Must be at least 6 characters long'}</FormHelperText>
           </FormControl>
@@ -139,6 +142,8 @@ function CreateAccount() {
               
               id="confirm-password"
               type={showPassword ? "text" : "password"}
+              label="Confirm Password"
+              name="confirmPassword"
               value={confirmPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setConfirmPassword(e.target.value)
@@ -156,7 +161,6 @@ function CreateAccount() {
                   </IconButton>
                 </InputAdornment>
               }
-              label="Confirm Password"
             />
             {passwordError && <FormHelperText>Passwords do not match</FormHelperText>}
           </FormControl>

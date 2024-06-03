@@ -14,16 +14,14 @@ import MainDashboard from "../views/mainDashboard/MainDashboard";
 import Article from "../article/Article";
 import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
-
-import { User } from "../../utils/interfaces";
 import { Pets } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
-import { fetchPets } from "../../apiCalls/petApiCalls";
+// import { fetchPets } from "../../apiCalls/petApiCalls";
 import PetDashboard from "../views/petDashboard/PetDashboard";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
-// localStorage.clear()
+
 function App() {
   const activeUser = JSON.parse(
     sessionStorage.getItem("currentUser") || "false"
