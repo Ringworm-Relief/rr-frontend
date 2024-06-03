@@ -252,3 +252,13 @@ export function formatDate(bday: string) {
   let array = bday.split("/");
   return `${array[2]}-${array[0]}-${array[1]}`;
 }
+
+export function formateDate2(date: string) {
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+    let array = date.split("-")
+
+    return `${monthNames[parseInt(array[1]) + 1]} ${array[2]}, ${array[0]}`
+}

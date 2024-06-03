@@ -12,7 +12,7 @@ import {
   Alert,
   Collapse,
 } from "@mui/material";
-import { createSvgIcon } from '@mui/material/utils';
+import { createSvgIcon } from "@mui/material/utils";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import React, { useState } from "react";
@@ -88,9 +88,13 @@ const PlusIcon = createSvgIcon(
     strokeWidth={3}
     stroke="currentColor"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 4.5v15m7.5-7.5h-15"
+    />
   </svg>,
-  'Plus',
+  "Plus"
 );
 
 interface Props {
@@ -102,7 +106,9 @@ interface Props {
 
 function PetForm({ user }: Props) {
   const navigate = useNavigate();
-  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(undefined);
+  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
+    undefined
+  );
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [medications, setMedications] = useState<Medication[]>([
     {
@@ -406,7 +412,7 @@ function PetForm({ user }: Props) {
             ])
           }
         >
-          Add medication   <PlusIcon />
+          Add medication <PlusIcon />
         </Button>
 
         <Button
@@ -427,7 +433,7 @@ function PetForm({ user }: Props) {
               Information did not update.
             </Alert>
           </Collapse>
-        ) }
+        )}
         {hasSubmitted && (
           <Collapse in={alertOpen}>
             <Alert
@@ -446,5 +452,3 @@ function PetForm({ user }: Props) {
 }
 
 export default PetForm;
-
-
