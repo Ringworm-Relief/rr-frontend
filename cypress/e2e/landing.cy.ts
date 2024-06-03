@@ -25,31 +25,31 @@ describe('Landing Page', () => {
 
   it('Should show services cards', () => {
     cy.get('.outline-card').within(() => {
-      cy.get('.css-13i4rnv-MuiGrid-root').first().within(() => {
-        cy.get( '.MuiCardMedia-root').should('have.text', 'Education')
+      cy.get('.css-1g5t0ys').first().within(() => {
+        cy.get( '.css-168deq9').should('have.text', 'Education')
       })
       
-      cy.get('.css-13i4rnv-MuiGrid-root').eq(1).within(() => {
-        cy.get( '.MuiCardMedia-root').should('have.text', 'Treatment tracking')
+      cy.get('.css-1g5t0ys').eq(1).within(() => {
+        cy.get( '.css-168deq9').should('have.text', 'Treatment tracking')
       })
   
-      cy.get('.css-13i4rnv-MuiGrid-root').last().within(() => {
-        cy.get( '.MuiCardMedia-root').should('have.text', 'Support')
+      cy.get('.css-1g5t0ys').last().within(() => {
+        cy.get( '.css-168deq9').should('have.text', 'Support')
       })
     })
   })
 
   it('Should show article cards', () => {
     cy.get('.article-card').within(() => {
-      cy.get('.css-46bh2p-MuiCardContent-root').first().within(() => {
+      cy.get('.css-1qw96cp').first().within(() => {
         cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Dogs')
       })
       
-      cy.get('.css-46bh2p-MuiCardContent-root').eq(1).within(() => {
+      cy.get('.css-1qw96cp').eq(1).within(() => {
         cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Cats')
       })
   
-      cy.get('.css-46bh2p-MuiCardContent-root').last().within(() => {
+      cy.get('.css-1qw96cp').last().within(() => {
         cy.get( '.MuiTypography-h2').should('have.text', 'Ringworm in Horses')
       })
     })
@@ -57,7 +57,7 @@ describe('Landing Page', () => {
 
   it('Should show a drawer on hamburger click', () => {
     // cy.get('.css-1160xiw-MuiPaper-root-MuiDrawer-paper').should('be.hidden') 
-    cy.get('.css-zylse7-MuiButtonBase-root-MuiIconButton-root').click()
+    cy.get('.css-1deacqj').click()
     cy.get('.MuiDrawer-paper').within(() => {
       cy.get('.MuiListItemButton-root').should('have.length', 7)
       cy.get('.MuiListItemButton-root').eq(0).should('have.text', 'Sign In')
