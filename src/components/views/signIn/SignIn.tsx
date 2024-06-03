@@ -65,6 +65,7 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
               type="email"
+              name="email"
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
@@ -77,6 +78,7 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               id="password"
+              name="password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
