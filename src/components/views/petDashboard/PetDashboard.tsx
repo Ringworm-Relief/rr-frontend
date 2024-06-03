@@ -1,25 +1,13 @@
-import { Box, Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
-import { Medication } from "../../../utils/interfaces";
-import Pupper from "../../../assets/Pupper-profile.svg";
-import Kitty from "../../../assets/Kitty-profile.svg";
-
-const style = {
-  mr: 1,
-  mt: 2,
-  borderRadius: 3,
-  boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
-  bottom: 100,
-  left: -100,
-  padding: 3,
-  width: 272,
-  height: 287,
-  marginLeft: 0,
-  overflow: "scroll",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  color: "#9A352F",
-};
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
+import Calendar from "../calendar/Calendar";
 
 interface Props {
   pet: any;
@@ -28,11 +16,31 @@ interface Props {
 }
 
 export default function PetDashboard({ pet, user, pets }: Props) {
-  if (!pet) {
-    return <div>Loading...</div>;
-  }
+  const style = {
+    mr: 1,
+    mt: 2,
+    borderRadius: 3,
+    boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
+    // position: "sticky",
+    bottom: 100,
+    left: -100,
+    padding: 3,
+    width: 272,
+    height: 287,
+    marginLeft: 0,
+    overflow: "scroll",
+    // background: "rgba(255, 146, 98, 0.03)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    color: "#9A352F",
+    // paddingBottom: 15,
+  };
 
-  console.log("PET:", pet);
+  const oralMeds = pet.medications.filter((med: any) => med.type === "Oral");
+  const topicalMeds = pet.medications.filter(
+    (med: any) => med.type === "Topical"
+  );
 
   return (
     <div className="pet-dashboard">
@@ -47,9 +55,18 @@ export default function PetDashboard({ pet, user, pets }: Props) {
       >
         <Box sx={{display: "flex"}}> 
         <h1>{pet.name}</h1>
-              <img  src={pet.type === "Dog" ? Pupper : Kitty} />
+              <img  alt={"dog"} src={pet.type === "Dog" ? Pupper : Kitty} />
               </Box>
         <Grid container spacing={2} columns={2} zIndex={20}>
+          {/* <Calendar user={user} pet={pet} pets={pets}/> */}
+          {/* <Stack direction="row"> */}
+          <Card sx={style}>
+            <CardHeader title="Medication" />
+            <CardContent>
+             
+            </CardContent>
+          </Card>
+          {/* </Stack> */}
           <Card sx={style}>
             <CardHeader title={`About ${pet.name}`} />
             <CardContent>
@@ -67,20 +84,26 @@ export default function PetDashboard({ pet, user, pets }: Props) {
           <Card sx={style}>
             <CardHeader title="Medications" />
             <CardContent>
-              {pet.medications && pet.medications.length > 0 ? (
-                pet.medications.map((med: Medication, index: number) => (
-                  <Card key={index} sx={{ marginBottom: 2 }}>
-                    <CardContent>
-                      <Typography variant="h5">{med.name}</Typography>
-                      <Typography variant="body1">{med.medication_type}</Typography>
-                      <Typography variant="body1">{med.dosage}</Typography>
-                      <Typography variant="body1">{med.frequency}</Typography>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
+              {/* {pet.medications.length ? ( */}
+               <Typography variant="h6">Oral:</Typography>
+                 {oralMeds.map((med: any) => {
+                 return (
+                   <Typography variant="body1" key={med.name}>
+                     {med.name}: {med.dosage}
+                   </Typography>
+                 );
+               })}
+               <Typography variant="h6">Topical:</Typography>
+               {topicalMeds.map((med: any) => {
+                 return (
+                   <Typography variant="body2" key={med.name}>
+                     {med.name}: {med.dosage}
+                   </Typography>
+                 );
+               })}
+              {/* ) : (
                 <Typography>No medications listed.</Typography>
-              )}
+              )} */}
             </CardContent>
           </Card>
         </Grid>

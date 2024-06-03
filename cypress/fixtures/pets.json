@@ -1,37 +1,58 @@
 {
     "data": {
         "user_id": 1,
-        "pets": [ {
-            "type": "pet",
-            "attributes": {
-                "user_id": 1,
-                "name": "keoki",
-                "type": "dog",
-                "breed": "labradoodle",
-                "birthday": "01/08/2021",
-                "symptoms": [
-                    "itchy skin",
-                    "excessive licking"
-                ]
+       "pets": [
+            {
+             "id": 1,
+              "name": "keoki",
+              "type": "Dog",
+              "breed": "labradoodle",
+              "birthday": "2015-05-05",
+              "medications": [{
+                "type": "Topical",
+                "name": "ringworm cream1",
+                "dosage": "10 mg",
+                "frequency": "Daily"
+              }],
+              "ringworm": {
+                "ringworm_type": "Trichophyton mentagrophytes",
+                "diagnosis_date": "2015-05-05",
+                "symptoms": ["itchy skin", "excessive licking"]
+              }
+            },
+            {
+              "id": 2,
+              "name": "koki",
+              "type": "Cat",
+              "breed": "labradoodle",
+              "birthday": "2015-05-05",
+              "medications": [
+                {
+                  "type": "Topical",
+                  "name": "ringworm cream2",
+                  "dosage": "10 mg",
+                  "frequency": "Daily"
                 },
-                "medications":{
-                    "id": "1",
-                    "pet_id": 1,
-                    "type": "topical",
-                    "name": "ringworm cream",
-                    "dosage": "10 mg",
-                    "frequency": "daily"
+                {
+                  "type": "Topical",
+                  "name": "ringworm cream2",
+                  "dosage": "10 mg",
+                  "frequency": "Daily"
                 },
-                "ringworms":{
-                    "id": "1",
-                    "pet_id": 1,
-                    "type": "Trichophyton mentagrophytes",
-                    "diagnosis_date": "05/10/2024"
+                {
+                  "type": "Oral",
+                  "name": "ringworm oral2",
+                  "dosage": "10 mg",
+                  "frequency": "Daily"
                 }
-            
+              ],
+              "ringworm": {
+                "ringworm_type": "Trichophyton mentagrophytes",
+                "diagnosis_date": "2015-05-05",
+                "symptoms": ["itchy skin", "excessive licking"]
+              }
             }
-        
-        ]
+          ]
         
     }
 }
