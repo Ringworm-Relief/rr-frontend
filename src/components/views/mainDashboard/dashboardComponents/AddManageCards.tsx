@@ -5,7 +5,7 @@ interface Props {
   user: any;
 }
 
-function NewPetCard({ user }: Props) {
+function DashboardManageAccount({ user }: Props) {
   const style = {
     mr: 1,
     mt: 2,
@@ -28,13 +28,18 @@ function NewPetCard({ user }: Props) {
   };
   return (
     <Stack direction="row">
-      <Link to={`/user/${user.data.id}/manageaccount`}>
+      <Link to={`/user/${user.data.id}/management/account`}>
       <Card sx={style}>
         <CardHeader title="Manage Account" />
+      </Card>
+      </Link>
+      <Link to={`/user/${user.data.id}/management/pets`}>
+      <Card sx={style}>
+        <CardHeader title="Manage Pets" />
       </Card>
       </Link>
     </Stack>
   );
 }
 
-export default NewPetCard;
+export default DashboardManageAccount;

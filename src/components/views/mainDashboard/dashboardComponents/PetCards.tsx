@@ -43,7 +43,7 @@ function PetCards({pets, user, setTargetPetFunc}: Props) {
               sx={style}
             >
               <CardMedia
-                image={pet.pet_type === "Dog" ? Pupper : Kitty}
+                image={pet.type === "Dog" ? Pupper : Kitty}
                 sx={{
                   width: "30%",
                   marginLeft: 0.6,

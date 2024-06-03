@@ -8,20 +8,28 @@
   /* .App {
     height: 100%;
   } */
-
   .App_header {
     background-color: #ffffff;
-    max-height: 10vh;
+    min-height: 10vh;
     display: flex;
     width: 100%;
-    /* flex-direction: row; */
-    /* align-items: center; */
     justify-content: space-between;
-    /* align-items: center; */
     font-size: calc(10px + 1vmin);
     border-bottom: 2px solid #c5c5c54e;
   }
 
+  .App_nav_block_left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .App_nav_block_right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
   .App_nav {
     margin-top: 20px;
     display: flex;
@@ -40,11 +48,6 @@
       text-decoration: underline;
     }
   }
-/* 
-  .App_link_cat {
-    height: auto;
-    margin-top: 30px;
-  } */
 
   #cool-cat {
     margin-top: 2px;

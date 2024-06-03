@@ -1,17 +1,15 @@
 // import PetForm from "../petForm/PetForm"
 import CreateAccount from "../createAccount/CreateAccount"
-import AllPetsManagement from "./AllPetsManagement";
+// import AllPetsManagement from "../managePets/AllPetsManagement";
 
 interface Props {
-    setPets: React.Dispatch<any>;
-    pets: any[];
     user: any;
 }
 
-export default function ManageAccount({pets, setPets, user}: Props) {
+export default function ManageAccount({ user}: Props) {
     return (
         <>
-            <AllPetsManagement pets={pets} setPets={setPets} user={user} />
+            {/* <AllPetsManagement pets={pets} setPets={setPets} user={user} /> */}
             <CreateAccount />
         </>
     )

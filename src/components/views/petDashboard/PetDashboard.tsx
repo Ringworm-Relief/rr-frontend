@@ -1,4 +1,12 @@
-import { Box, Card, CardContent, CardHeader, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Calendar from "../calendar/Calendar";
 
 interface Props {
@@ -28,35 +36,56 @@ export default function PetDashboard({ pet, user, pets }: Props) {
     color: "#9A352F",
     // paddingBottom: 15,
   };
+
+  const oralMeds = pet.medications.filter((med: any) => med.type === "Oral");
+  const topicalMeds = pet.medications.filter(
+    (med: any) => med.type === "Topical"
+  );
+
   return (
     <div className="pet-dashboard">
       <Box
         padding={10}
         sx={{
           backgroundImage:
-          "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
           "&:after": {
             opacity: 0.5,
           },
           // 16
         }}
-        >
+      >
         <h1>{pet.name}</h1>
         <Grid container spacing={2} columns={2} zIndex={20}>
           {/* <Calendar user={user} pet={pet} pets={pets}/> */}
           {/* <Stack direction="row"> */}
-            <Card sx={style}>
-              <CardHeader title="Medication" />
-              <CardContent>
-                <Typography></Typography>
-              </CardContent>
-            </Card>
-            <Card sx={style}>
-              <CardHeader title="Symptoms" />
-            </Card>
-            <Card sx={style}>
-              <CardHeader title="Diagnosis" />
-            </Card>
+          <Card sx={style}>
+            <CardHeader title="Medication" />
+            <CardContent>
+              <Typography variant="h6">Oral:</Typography>
+              {oralMeds.map((med: any) => {
+                return (
+                  <Typography variant="body1" key={med.name}>
+                    {med.name}: {med.dosage}
+                  </Typography>
+                );
+              })}
+              <Typography variant="h6">Topical:</Typography>
+              {topicalMeds.map((med: any) => {
+                return (
+                  <Typography variant="body2" key={med.name}>
+                    {med.name}: {med.dosage}
+                  </Typography>
+                );
+              })}
+            </CardContent>
+          </Card>
+          <Card sx={style}>
+            <CardHeader title="Symptoms" />
+          </Card>
+          <Card sx={style}>
+            <CardHeader title="Diagnosis" />
+          </Card>
           {/* </Stack> */}
         </Grid>
       </Box>

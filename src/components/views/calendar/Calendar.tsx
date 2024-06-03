@@ -25,7 +25,7 @@ import {
 } from "../../../apiCalls/calendarApiCalls";
 import { Card, Stack } from "@mui/material";
 import { Pets } from "../../../utils/interfaces";
-import NewPetCard from "../mainDashboard/dashboardComponents/AddManageCards";
+import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
 interface Props {
   user: any;
   pet: any;
@@ -96,9 +96,9 @@ export default function Calendar({ user, pet, pets }: Props) {
   const currentToken = sessionStorage.getItem("token") || "null";
   const windowLocation = window.location.pathname;
 
-  if (!currentToken) {
-    throw new Error("Token is null");
-  }
+  // if (!currentToken) {
+  //   throw new Error("Token is null");
+  // }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -307,7 +307,7 @@ export default function Calendar({ user, pet, pets }: Props) {
                   <Inject services={[Day, Agenda]} />
                 </ScheduleComponent>
               </Card>
-              <NewPetCard user={user} />
+              <DashboardManageAccount user={user} />
             </Stack>
           )}
         </>
