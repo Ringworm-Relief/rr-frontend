@@ -1,6 +1,3 @@
-// import PetForm from "../petForm/PetForm"
-// import CreateAccount from "../createAccount/CreateAccount";
-// import AllPetsManagement from "../managePets/AllPetsManagement";
 import { useEffect, useState } from "react";
 import { updateUser } from "../../../apiCalls/userApiCalls";
 import {
@@ -25,7 +22,6 @@ import Modal from "@mui/material/Modal";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   user: any;
@@ -33,11 +29,6 @@ interface Props {
 }
 
 export default function ManageAccount({ user, setUser }: Props) {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
@@ -54,7 +45,6 @@ export default function ManageAccount({ user, setUser }: Props) {
   });
 
   useEffect(() => {
-    // console.log(user.data.attributes);
     setUserInfo(user.data.attributes);
   }, [user.data.attributes]);
 
@@ -78,7 +68,7 @@ export default function ManageAccount({ user, setUser }: Props) {
           setError(true);
         } else {
           setSuccess(true);
-          console.log(data)
+          console.log(data);
           sessionStorage.removeItem("currentUser");
           sessionStorage.setItem("currentUser", JSON.stringify(data));
           setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
@@ -118,7 +108,8 @@ export default function ManageAccount({ user, setUser }: Props) {
             onClose={() => setAlertOpen(false)}
             hidden={alertOpen}
           >
-            Information did not update. Please ensure your current password is correct.
+            Information did not update. Please ensure your current password is
+            correct.
           </Alert>
         </Collapse>
       )}
@@ -156,8 +147,6 @@ export default function ManageAccount({ user, setUser }: Props) {
               <InputLabel htmlFor="firstName">First Name</InputLabel>
               <Input
                 type="firstName"
-                // label="Required"
-                // variant="standard"
                 name="firstName"
                 value={userInfo.first_name}
                 onChange={(e) =>
@@ -170,7 +159,6 @@ export default function ManageAccount({ user, setUser }: Props) {
               <InputLabel htmlFor="lastName">Last Name</InputLabel>
               <Input
                 type="lastName"
-                // label="Last Name"
                 name="lastName"
                 value={userInfo.last_name}
                 onChange={(e) =>
@@ -195,7 +183,6 @@ export default function ManageAccount({ user, setUser }: Props) {
                 <InputLabel htmlFor="email">Email</InputLabel>
                 <Input
                   type="email"
-                  // label="Email"
                   name="email"
                   value={userInfo.email}
                   onChange={(e) =>
