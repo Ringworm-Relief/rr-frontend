@@ -15,11 +15,11 @@ import {
   InputAdornment,
   IconButton,
   FormHelperText,
-  Divider,
-  Card,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Collapse,
+  Alert,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Visibility from "@mui/icons-material/Visibility";
@@ -29,9 +29,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   user: any;
+  setUser: React.Dispatch<any>;
 }
 
-export default function ManageAccount({ user }: Props) {
+export default function ManageAccount({ user, setUser }: Props) {
   // const [firstName, setFirstName] = useState("");
   // const [lastName, setLastName] = useState("");
   // const [email, setEmail] = useState("");
@@ -39,8 +40,10 @@ export default function ManageAccount({ user }: Props) {
   // const [confirmPassword, setConfirmPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [userInfo, setUserInfo] = useState<any>({
     first_name: "",
     last_name: "",
@@ -53,7 +56,7 @@ export default function ManageAccount({ user }: Props) {
   useEffect(() => {
     // console.log(user.data.attributes);
     setUserInfo(user.data.attributes);
-  }, []);
+  }, [user.data.attributes]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -70,13 +73,18 @@ export default function ManageAccount({ user }: Props) {
   const handleUserUpdate = () => {
     setIsOpen(false);
     if (userInfo.password === userInfo.confirm_password) {
-      updateUser(user, userInfo)
-      .then(data => {
-        if (!data.ok) {
-          setError(data.errors[0].detail);
+      updateUser(user, userInfo).then((data) => {
+        if (data.errors) {
+          setError(true);
+        } else {
+          setSuccess(true);
+          console.log(data)
+          sessionStorage.removeItem("currentUser");
+          sessionStorage.setItem("currentUser", JSON.stringify(data));
+          setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
         }
-      })
-      console.log(userInfo);
+      });
+      // console.log(userInfo);
     } else {
       setPasswordError(true);
     }
@@ -102,6 +110,30 @@ export default function ManageAccount({ user }: Props) {
       <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
         Adjust personal information like name, email, and password.
       </Typography>
+      {error && (
+        <Collapse in={alertOpen}>
+          <Alert
+            severity="error"
+            sx={{ marginTop: "20px" }}
+            onClose={() => setAlertOpen(false)}
+            hidden={alertOpen}
+          >
+            Information did not update.
+          </Alert>
+        </Collapse>
+      )}
+      {success && (
+        <Collapse in={alertOpen}>
+          <Alert
+            severity="success"
+            sx={{ marginTop: "20px" }}
+            onClose={() => setAlertOpen(false)}
+            hidden={alertOpen}
+          >
+            Information updated.
+          </Alert>
+        </Collapse>
+      )}
       <Container maxWidth="xs">
         <Box component="form" sx={{ mt: 10 }} onSubmit={handleUserUpdate}>
           {error && (
@@ -109,7 +141,9 @@ export default function ManageAccount({ user }: Props) {
               {error}
             </Typography>
           )}
-        <Typography sx={{textAlign: "center", color: "grey"}}>Basics</Typography>
+          <Typography sx={{ textAlign: "center", color: "grey" }}>
+            Basics
+          </Typography>
           <Box
             sx={{
               border: "2px solid #b9b7b7",
@@ -146,7 +180,9 @@ export default function ManageAccount({ user }: Props) {
               />
             </FormControl>
           </Box>
-          <Typography sx={{textAlign: "center", color: "grey"}}>Not so basics</Typography>
+          <Typography sx={{ textAlign: "center", color: "grey" }}>
+            Not so basics
+          </Typography>
           <Box
             sx={{
               border: "2px solid #b9b7b7",
