@@ -131,7 +131,7 @@ export default function ManageAccount({ user, setUser }: Props) {
           </Alert>
         </Collapse>
       )}
-      <Container maxWidth="xs">
+      <Container maxWidth="sm">
         <Box component="form" sx={{ mt: 10 }} onSubmit={handleUserUpdate}>
           {error && (
             <Typography variant="h5" sx={{ color: "#ef8e64" }}>
@@ -147,9 +147,10 @@ export default function ManageAccount({ user, setUser }: Props) {
               borderRadius: "10px",
               padding: "20px",
               mb: 5,
+              
             }}
           >
-            <FormControl sx={{ mt: 5 }}>
+            <FormControl sx={{ mt: 5, width:"100%",}}>
               <InputLabel htmlFor="firstName">First Name</InputLabel>
               <Input
                 type="firstName"
@@ -161,7 +162,7 @@ export default function ManageAccount({ user, setUser }: Props) {
                 required
               />
             </FormControl>
-            <FormControl sx={{ mt: 5 }}>
+            <FormControl sx={{ mt: 5, width: "100%"}}>
               <InputLabel htmlFor="lastName">Last Name</InputLabel>
               <Input
                 type="lastName"
