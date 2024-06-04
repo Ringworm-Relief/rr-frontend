@@ -79,7 +79,7 @@ export default function ManageAccount({ user, setUser }: Props) {
             ...userInfo,
             password_confirmation: "",
             password: "",
-          })
+          });
         }
       });
     } else {
@@ -115,7 +115,9 @@ export default function ManageAccount({ user, setUser }: Props) {
             onClose={() => setAlertOpen(false)}
             hidden={alertOpen}
           >
-            {errorStatus !== "409" ? 'Information did not update. Please ensure your current password is correct.' : 'An account with this email already exists.'}
+            {errorStatus !== "409"
+              ? "Information did not update. Please ensure your current password is correct."
+              : "An account with this email already exists."}
           </Alert>
         </Collapse>
       )}
@@ -147,10 +149,9 @@ export default function ManageAccount({ user, setUser }: Props) {
               borderRadius: "10px",
               padding: "20px",
               mb: 5,
-              
             }}
           >
-            <FormControl sx={{ mt: 5, width:"100%",}}>
+            <FormControl sx={{ mt: 5, width: "100%" }}>
               <InputLabel htmlFor="firstName">First Name</InputLabel>
               <Input
                 type="firstName"
@@ -162,7 +163,7 @@ export default function ManageAccount({ user, setUser }: Props) {
                 required
               />
             </FormControl>
-            <FormControl sx={{ mt: 5, width: "100%"}}>
+            <FormControl sx={{ mt: 5, width: "100%" }}>
               <InputLabel htmlFor="lastName">Last Name</InputLabel>
               <Input
                 type="lastName"
@@ -297,38 +298,45 @@ export default function ManageAccount({ user, setUser }: Props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Please Enter Your Current Password
+            Please confirm your current password
           </Typography>
-          <FormControl error={passwordError} sx={{ mt: 5 }}>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={userInfo.current_password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setUserInfo({
-                  ...userInfo,
-                  current_password: e.target.value,
-                })
-              }
-              required
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            <FormHelperText>Must be at least 6 characters long</FormHelperText>
-          </FormControl>
-          <Button onClick={handleUserUpdate}>Submit Changes</Button>
+          <Stack>
+            <FormControl error={passwordError} sx={{ mt: 5 }}>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={userInfo.current_password}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUserInfo({
+                    ...userInfo,
+                    current_password: e.target.value,
+                  })
+                }
+                required
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              <FormHelperText>
+                Must be at least 6 characters long
+              </FormHelperText>
+            </FormControl>
+            <Stack direction="row">
+              <Button onClick={handleUserUpdate}>Confirm</Button>
+              <Button onClick={handleModal}>Go back</Button>
+            </Stack>
+          </Stack>
         </Box>
       </Modal>
     </>

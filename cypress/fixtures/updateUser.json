@@ -1,0 +1,13 @@
+{
+    "data": {
+        "type": "user",
+        "attributes": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "JohnDoe@gmail.com",
+            "password": "",
+            "password_confirmation": "",
+            "current_password": "password"
+        }
+    }
+}
