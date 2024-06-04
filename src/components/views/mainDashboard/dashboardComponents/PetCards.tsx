@@ -1,19 +1,29 @@
-import { Card, CardActions, CardContent, CardHeader, CardMedia, Grid, SvgIcon, Typography } from "@mui/material";
-// import { Pets } from "../../../../utils/interfaces";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Grid,
+  SvgIcon,
+  Typography,
+} from "@mui/material";
+import { Pet } from "../../../../utils/interfaces";
 import Pupper from "../../../../assets/Pupper-profile.svg";
 import Kitty from "../../../../assets/Kitty-profile.svg";
 import { Link } from "react-router-dom";
-import AddIcon from '@mui/icons-material/Add';
-import { Pets } from "../../../../utils/interfaces"
+import AddIcon from "@mui/icons-material/Add";
+import { Pets } from "../../../../utils/interfaces";
+import { useState, useEffect } from "react"
+import { fetchPets } from "../../../../apiCalls/petApiCalls";
 
 interface Props {
   user: any;
-  pets: any[];
-  setTargetPetFunc: (pet: any) => void
+  setTargetPetFunc: (pet: any) => void;
 }
 
-function PetCards({pets, user, setTargetPetFunc}: Props) {
-
+function PetCards({ user, setTargetPetFunc }: Props) {
+  console.log("USER:", user)
   const style = {
     mr: 1,
     mt: 2,
@@ -23,62 +33,96 @@ function PetCards({pets, user, setTargetPetFunc}: Props) {
     // border: "1px solid #252525",
     position: "relative",
     minWidth: 200,
-    maxHeight: 1000,
+    height: 80,
+    width: 90,
+    padding: 2,
     //   overflowY: "auto",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "bottom",
+    color: "#900066",
+    backgroundImage:
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "&:after": {
+
+              opacity: 0.5,
+            },
     //   paddingBottom: 15,
     "&:hover": {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",
-    }
+    },
+  };
+
+  const [pets, setPets] = useState<Pet[]>([])
+
+  const displayPets = () => {
+    fetchPets(user.data.id)
+    .then((data: any) => {
+      setPets(data.data.pets)
+    })
   }
+
+  useEffect(() => {
+    displayPets()
+    console.log("pets", pets)
+  }, [])
+
+
+  const cardMediaStyle = {
+    width: "100%",
+    height: 140, // Adjust height as necessary
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  };
+
+  
+
   return (
     <Grid container spacing={2} columns={3}>
-      {Pets.data.pets.map((pet: any) => { //change this to actual data
+      {pets.length > 0 && pets.map((pet: any) => {
         return (
-        <CardActions onClick={() => setTargetPetFunc(pet)}>
-          <Grid item>
-            <Card
-              sx={style}
-            >
-              <CardMedia
-                image={pet.type === "Dog" ? Pupper : Kitty}
-                sx={{
-                  width: "30%",
-                  marginLeft: 0.6,
-                  marginRight: "auto",
-                  marginTop: 0.6,
-                  height: 0,
-                  paddingBottom: "34%",
-                  textAlign: "center",
-                  backgroundImage:
-                    "linear-gradient(147deg, #fe8a39 0%, #fd3838 95%)",
-                  opacity: 0.9,
-                  // color: "#252525",
-                  // "&:after": {
-                  //   content: '" "',
-                  //   position: "absolute",
-                  //   top: 0,
-                  //   left: 0,
-                  //   width: "100%",
-                  //   height: "100%",
-                  //   borderRadius: 10,
-                  //   opacity: 0.1,
-                  // },
-                }}
-              >
-                <Typography
-                  textAlign="center"
-                  variant="h5"
-                  fontWeight="bold"
-                  sx={{ mt: "20%", marginRight: -25 }}
+          <CardActions onClick={() => setTargetPetFunc(pet)}>
+            <Grid item>
+              <Card key={pet.id} sx={style}>
+                <CardMedia
+                  image={pet.pet_type === "Dog" || pet.pet_type === "dog" ? Pupper : Kitty}
+                  sx={{
+                    width: "40%",
+                    marginLeft: 0.6,
+                    marginRight: "auto",
+                    marginTop: 0.6,
+                    height: 0,
+                    paddingBottom: "34%",
+                    textAlign: "center",
+                    backgroundImage:
+                      "linear-gradient(147deg, #fe8a39 0%, #fd3838 95%)",
+                    opacity: 0.9,
+                    // color: "#252525",
+                    // "&:after": {
+                    //   content: '" "',
+                    //   position: "absolute",
+                    //   top: 0,
+                    //   left: 0,
+                    //   width: "100%",
+                    //   height: "100%",
+                    //   borderRadius: 10,
+                    //   opacity: 0.1,
+                    // },
+                  }}
                 >
-                  {pet.name}
-                </Typography>
-              </CardMedia>
-              {/* <CardContent>
+                  <Typography
+                    textAlign="center"
+                    variant="h5"
+                    fontWeight="bold"
+                    color="#900066"
+                    sx={{ mt: "20%", marginRight: -25 }}
+                  >
+                    {pet.name}
+                  </Typography>
+                </CardMedia>
+                {/* <CardContent>
                 <Typography textAlign="center" variant="body1" sx={{ mt: 1 }}>
                   {pet.medication_name}
                 </Typography>
@@ -86,17 +130,28 @@ function PetCards({pets, user, setTargetPetFunc}: Props) {
                   {pet.medication_dosage + " " + pet.medication_frequency}
                 </Typography>
               </CardContent> */}
-            </Card>
-          </Grid>
+              </Card>
+            </Grid>
           </CardActions>
         );
       })}
-      <Grid item>
-      <Link to={`/user/${user.data.id}/addpet`}>
-        <Card sx={style}>
-          <CardHeader title="Add Pet" />
-        </Card>
-      </Link>
+      <Grid item >
+        <Link
+          id="add-pet-link"
+          className="dash-links"
+          to={`/user/${user.data.id}/addpet`}
+        >
+          <Card sx={style}>
+            <CardHeader
+              title="Add Pet +"
+              titleTypographyProps={{
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+              }}
+              // sx={{ padding: 0 }}
+            />
+          </Card>
+        </Link>
       </Grid>
     </Grid>
   );

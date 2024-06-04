@@ -1,5 +1,3 @@
-
-
 // import {
 //   Box,
 //   Card,
@@ -95,14 +93,14 @@
 //               <CardHeader titleTypographyProps={{ fontSize: "1.8rem", fontWeight: "bold" }} title="Diagnosis" />
 //               <CardContent>
 //                 <Typography>
-//                   <strong>Ringworm Type</strong> 
+//                   <strong>Ringworm Type</strong>
 //                 </Typography>
 //                 <Typography>
 //                 {pet.ringworm?.ringworm_type || "N/A"}
 //                 </Typography>
 //                 <Divider sx={{ my: 2 }} />
 //                 <Typography>
-//                 <strong>Diagnosis Date</strong> 
+//                 <strong>Diagnosis Date</strong>
 //                 </Typography>
 //                 <Typography>
 //                 {formateDate2(pet.ringworm?.diagnosis_date) || "N/A"}
@@ -149,7 +147,7 @@ import {
   CardHeader,
   Grid,
   Typography,
-  Divider
+  Divider,
 } from "@mui/material";
 import Calendar from "../calendar/Calendar";
 import Kitty from "../../../assets/Kitty-profile.svg";
@@ -163,7 +161,7 @@ interface Props {
 }
 
 export default function PetDashboard({ pet, user, pets }: Props) {
-
+  console.log("pet dash pet", pet)
   const style = {
     mr: 1,
     mt: 2,
@@ -179,20 +177,21 @@ export default function PetDashboard({ pet, user, pets }: Props) {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    color: "#9A352F",
-    textAlign: "center"
+    color: "#900066",
+    textAlign: "center",
   };
 
-  const oralMeds = pet.medications.filter((med: any) => med.type === "Oral");
+  const oralMeds = pet.medications.filter((med: any) => med.medication_type === "Oral");
   const topicalMeds = pet.medications.filter(
-    (med: any) => med.type === "Topical"
+    (med: any) => med.medication_type === "Topical"
   );
 
   return (
     <div className="pet-dashboard">
       <Box
         sx={{
-          backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+          backgroundImage:
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
           "&:after": { opacity: 0.5 },
         }}
         height="100vh"
@@ -204,51 +203,47 @@ export default function PetDashboard({ pet, user, pets }: Props) {
             display: "flex",
             alignItems: "center",
             marginBottom: 2,
-            backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            backgroundImage:
+              "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
             "&:after": { opacity: 0.5 },
           }}
         >
-          <Typography variant="h1" sx={{ fontSize: '60px', color: "#9A352F" }}>{pet.name}'s dashboard</Typography>
+          <Typography variant="h1" sx={{ fontSize: "50px", color: "#900066" }}>
+            {pet.name}'s dashboard
+          </Typography>
         </Box>
-        <Grid px={10} container spacing={2} justifyContent="center" alignItems="center">
+        <Grid
+          px={10}
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+        >
           <Grid item xs={12} sm={6} md={4}>
             <Card sx={style}>
               <CardHeader
-                titleTypographyProps={{ fontSize: "1.8rem", fontWeight: "bold" }}
+                titleTypographyProps={{
+                  fontSize: "1.8rem",
+                  fontWeight: "bold",
+                }}
                 title={`About ${pet.name}`}
-                sx={{ padding: "0 16px", marginBottom: 0 }} 
+                sx={{ padding: "0 16px", marginBottom: 0 }}
               />
-              <CardContent sx={{ paddingTop: "20px" }}> 
+              <CardContent sx={{ paddingTop: "20px" }}>
                 <img
-            className="pet-img"
-            alt={pet.type === "Dog" ? "dog" : "cat"}
-            src={pet.type === "Dog" ? Pupper : Kitty}
-          />
-                <Typography>Koki is a <strong>{pet.breed},</strong></Typography>
-                <Typography>born on <strong>{formateDate2(pet.birthday)}.</strong></Typography>
-                <Typography sx={{ paddingTop: "15px" }}>{pet.name} has ringworm, but we're going to <strong>fix that!</strong></Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card sx={style}>
-              <CardHeader
-                titleTypographyProps={{ fontSize: "1.8rem", fontWeight: "bold" }}
-                title="Diagnosis"
-                sx={{ padding: "0 16px", marginBottom: 0 }} 
-              />
-              <CardContent sx={{ paddingTop: "20px" }}> 
-                <Typography><strong>Ringworm Type</strong></Typography>
-                <Typography>{pet.ringworm?.ringworm_type || "N/A"}</Typography>
-                <Divider sx={{ my: 2 }} />
-                <Typography><strong>Diagnosis Date</strong></Typography>
-                <Typography>{formateDate2(pet.ringworm?.diagnosis_date) || "N/A"}</Typography>
-                <Divider sx={{ my: 2 }} />
+                  className="pet-img"
+                  alt={pet.pet_type === "Dog" || pet.pet_type === "dog" ? "dog" : "cat"}
+                  src={pet.pet_type === "Dog" || pet.pet_type === "dog" ? Pupper : Kitty}
+                />
                 <Typography>
-                  <strong>Symptoms</strong>
-                  {pet.ringworm.symptoms.map((symp: string) => (
-                    <Typography variant="body2" key={symp}>• {symp}</Typography>
-                  )) || "N/A"}
+                  {pet.name} is a <strong>{pet.breed},</strong>
+                </Typography>
+                <Typography>
+                  born on <strong>{formateDate2(pet.birthday)}.</strong>
+                </Typography>
+                <Typography sx={{ paddingTop: "15px" }}>
+                  {pet.name} has ringworm, but we're going to{" "}
+                  <strong>fix that!</strong>
                 </Typography>
               </CardContent>
             </Card>
@@ -256,20 +251,69 @@ export default function PetDashboard({ pet, user, pets }: Props) {
           <Grid item xs={12} sm={6} md={4}>
             <Card sx={style}>
               <CardHeader
-                titleTypographyProps={{ fontSize: "1.8rem", fontWeight: "bold" }}
-                title="Medications"
-                sx={{ padding: "0 16px", marginBottom: 0 }} 
+                titleTypographyProps={{
+                  fontSize: "1.8rem",
+                  fontWeight: "bold",
+                }}
+                title="Diagnosis"
+                sx={{ padding: "0 16px", marginBottom: 0 }}
               />
-              <CardContent sx={{ paddingTop: "20px" }}> 
-                <Typography variant="h6" marginBottom="5px">Oral</Typography>
-                {oralMeds.length ? oralMeds.map((med: any) => (
-                  <Typography variant="body1" key={med.name}>• {med.name}: {med.dosage}, {med.frequency}</Typography>
-                )) : "No oral meds listed."}
+              <CardContent sx={{ paddingTop: "20px" }}>
+                <Typography>
+                  <strong>Ringworm Type</strong>
+                </Typography>
+                <Typography>{pet.ringworm?.ringworm_type || "N/A"}</Typography>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="h6" marginBottom="5px">Topical</Typography>
-                {topicalMeds.length ? topicalMeds.map((med: any) => (
-                  <Typography variant="body1" key={med.name}>• {med.name}: {med.dosage}, {med.frequency}</Typography>
-                )) : "No topical meds listed."}
+                <Typography>
+                  <strong>Diagnosis Date</strong>
+                </Typography>
+                <Typography>
+                  {formateDate2(pet.ringworm?.diagnosis_date) || "N/A"}
+                </Typography>
+                <Divider sx={{ my: 2 }} />
+                <Typography>
+                  <strong>Symptoms</strong>
+                  {pet.ringworm.symptoms ? pet.ringworm.symptoms.map((symp: string) => (
+                    <Typography variant="body2" key={symp}>
+                      • {symp}
+                    </Typography>
+                  )) : <Typography>No symptoms listed.</Typography>}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Card sx={style}>
+              <CardHeader
+                titleTypographyProps={{
+                  fontSize: "1.8rem",
+                  fontWeight: "bold",
+                }}
+                title="Medications"
+                sx={{ padding: "0 16px", marginBottom: 0 }}
+              />
+              <CardContent sx={{ paddingTop: "20px" }}>
+                <Typography variant="h6" marginBottom="5px">
+                  Oral
+                </Typography>
+                {oralMeds.length
+                  ? oralMeds.map((med: any) => (
+                      <Typography variant="body1" key={med.name}>
+                        • {med.name}: {med.dosage}, {med.frequency}
+                      </Typography>
+                    ))
+                  : "No oral meds listed."}
+                <Divider sx={{ my: 2 }} />
+                <Typography variant="h6" marginBottom="5px">
+                  Topical
+                </Typography>
+                {topicalMeds.length
+                  ? topicalMeds.map((med: any) => (
+                      <Typography variant="body1" key={med.name}>
+                        • {med.name}: {med.dosage}, {med.frequency}
+                      </Typography>
+                    ))
+                  : "No topical meds listed."}
               </CardContent>
             </Card>
           </Grid>
@@ -278,4 +322,3 @@ export default function PetDashboard({ pet, user, pets }: Props) {
     </div>
   );
 }
-

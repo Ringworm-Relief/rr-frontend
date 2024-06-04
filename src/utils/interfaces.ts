@@ -117,6 +117,7 @@ export type Medication = {
 export type Ringworm = {
   ringworm_type: string;
   diagnosis_date: string;
+  symptoms: string[];
 };
 
 export type Pet = {
@@ -125,7 +126,6 @@ export type Pet = {
   pet_type: string;
   breed: string;
   birthday: string;
-  symptoms: string[];
   medications: Medication[];
   ringworm: Ringworm;
 };
@@ -141,7 +141,7 @@ export const Pets = {
         breed: "labradoodle",
         birthday: "2015-05-05",
         medications: [{
-          type: "Topical",
+          medication_type: "Topical",
           name: "ringworm cream1",
           dosage: "10 mg",
           frequency: "Daily",
@@ -160,19 +160,19 @@ export const Pets = {
         birthday: "2015-05-05",
         medications: [
           {
-            type: "Topical",
+            medication_type: "Topical",
             name: "ringworm cream2",
             dosage: "10 mg",
             frequency: "Daily",
           },
           {
-            type: "Topical",
+            medication_type: "Topical",
             name: "ringworm cream2",
             dosage: "10 mg",
             frequency: "Daily",
           },
           {
-            type: "Oral",
+            medication_type: "Oral",
             name: "ringworm oral2",
             dosage: "10 mg",
             frequency: "Daily",
@@ -260,5 +260,5 @@ export function formateDate2(date: string) {
       ];
     let array = date.split("-")
 
-    return `${monthNames[parseInt(array[1]) + 1]} ${array[2]}, ${array[0]}`
+    return `${monthNames[parseInt(array[2]) + 1]} ${array[3]}, ${array[1]}`
 }

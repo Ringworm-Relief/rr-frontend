@@ -113,3 +113,25 @@
 .pet-img {
   height: 100px;
 }
+
+#add-pet-link {
+  text-decoration: none;
+}
+
+.dash-links {
+  text-decoration: bold;
+  text-align: center;
+}
+
+.saved-articles-header .MuiCardHeader-title {
+  font-weight: 800 !important;
+}
+
+.manage-account .MuiCardContent {
+  text-decoration: none;
+
+}
+
+.no-underline {
+  text-decoration: none;
+}

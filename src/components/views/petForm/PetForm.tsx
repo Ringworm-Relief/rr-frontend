@@ -121,6 +121,7 @@ function PetForm({ user }: Props) {
   const [ringwormObject, setRingwormObject] = useState<Ringworm>({
     ringworm_type: "",
     diagnosis_date: "",
+    symptoms: []
   });
 
   const [petObject, setPetObject] = useState<Pet>({
@@ -129,7 +130,6 @@ function PetForm({ user }: Props) {
     pet_type: "",
     breed: "",
     birthday: "",
-    symptoms: [],
     medications: medications,
     ringworm: ringwormObject,
   });
@@ -155,7 +155,6 @@ function PetForm({ user }: Props) {
     };
     postPet(updatedPetObject)
       .then((data) => {
-        console.log("POSTED DATA:", data.data);
         setHasSubmitted(true);
       })
       .catch((err) => setHasSubmitted(false));
@@ -164,6 +163,7 @@ function PetForm({ user }: Props) {
       setRingwormObject({
         ringworm_type: "",
         diagnosis_date: "",
+        symptoms: []
       });
 
       setMedications([
@@ -181,7 +181,6 @@ function PetForm({ user }: Props) {
         pet_type: "",
         breed: "",
         birthday: "",
-        symptoms: [],
         medications: medications,
         ringworm: ringwormObject,
       });
@@ -378,10 +377,10 @@ function PetForm({ user }: Props) {
             Separate symptoms with commas
           </FormHelperText>
           <BootstrapInput
-            value={petObject.symptoms.join(",")}
+            value={ringwormObject.symptoms.join(",")}
             onChange={(e) => {
               const array = e.target.value.split(",");
-              setPetObject({ ...petObject, symptoms: array });
+              setRingwormObject({...ringwormObject, symptoms: array });
             }}
             id="symptoms-field"
             inputProps={{ placeholder: "Enter symptoms" }}
