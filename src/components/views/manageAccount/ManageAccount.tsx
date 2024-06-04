@@ -32,6 +32,7 @@ export default function ManageAccount({ user, setUser }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
+  const [errorStatus, setErrorStatus] = useState<string>("");
   const [success, setSuccess] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
@@ -66,6 +67,7 @@ export default function ManageAccount({ user, setUser }: Props) {
       updateUser(user, userInfo).then((data) => {
         if (data.errors) {
           setError(true);
+          setErrorStatus(data.errors[0].status);
         } else {
           setSuccess(true);
           console.log(data);
@@ -108,8 +110,7 @@ export default function ManageAccount({ user, setUser }: Props) {
             onClose={() => setAlertOpen(false)}
             hidden={alertOpen}
           >
-            Information did not update. Please ensure your current password is
-            correct.
+            {errorStatus !== "409" ? 'Information did not update. Please ensure your current password is correct.' : 'An account with this email already exists.'}
           </Alert>
         </Collapse>
       )}
