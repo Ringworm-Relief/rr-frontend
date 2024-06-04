@@ -63,7 +63,9 @@ export default function ManageAccount({ user, setUser }: Props) {
 
   const handleUserUpdate = () => {
     setIsOpen(false);
-    if (userInfo.password === userInfo.confirm_password) {
+    console.log(userInfo.password)
+    console.log(userInfo.password_confirmation)
+    if (userInfo.password === userInfo.password_confirmation) {
       updateUser(user, userInfo).then((data) => {
         if (data.errors) {
           setError(true);
@@ -74,9 +76,14 @@ export default function ManageAccount({ user, setUser }: Props) {
           sessionStorage.removeItem("currentUser");
           sessionStorage.setItem("currentUser", JSON.stringify(data));
           setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
+          setUserInfo({
+            ...userInfo,
+            password_confirmation: "",
+            password: "",
+          })
         }
       });
-      // console.log(userInfo);
+      console.log(userInfo);
     } else {
       setPasswordError(true);
     }
@@ -249,11 +256,11 @@ export default function ManageAccount({ user, setUser }: Props) {
                       id="confirm-password"
                       type={showPassword ? "text" : "password"}
                       name="confirmPassword"
-                      value={userInfo.confirm_password}
+                      value={userInfo.password_confirmation}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setUserInfo({
                           ...userInfo,
-                          confirm_password: e.target.value,
+                          password_confirmation: e.target.value,
                         })
                       }
                       required
