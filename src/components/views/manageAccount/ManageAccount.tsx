@@ -118,7 +118,7 @@ export default function ManageAccount({ user, setUser }: Props) {
             onClose={() => setAlertOpen(false)}
             hidden={alertOpen}
           >
-            Information did not update.
+            Information did not update. Please ensure your current password is correct.
           </Alert>
         </Collapse>
       )}
