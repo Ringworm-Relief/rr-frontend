@@ -61,7 +61,7 @@ export const destroyToken = () => {
 
 export const updateUser = (user: any, body: any) => {
   return fetch(
-    "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/logout",
+    "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
     {
       method: "PUT",
       headers: {
@@ -70,14 +70,22 @@ export const updateUser = (user: any, body: any) => {
       },
       body: JSON.stringify({
         data: {
-          id: user.data.id,
+          id: Number(user.data.id),
           type: "user",
-          attributes: body
+          attributes: {
+            first_name: body.first_name,
+            last_name: body.last_name,
+            email: body.email,
+            password: body.password || "",
+            password_confirmation: body.password_confirmation || "",
+            current_password: body.current_password
+          }
         }
       })
     }
   ).then((response) => {
-    sessionStorage.removeItem('token')
-    return response.json();
+    // sessionStorage.removeItem('token')
+    // return response.json();
+    console.log(response)
   });
 }
