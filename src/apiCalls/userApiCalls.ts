@@ -1,13 +1,10 @@
 import { NewUser } from "../utils/interfaces";
 
-export const postNewUser = (newUser: NewUser) => {
+export const postNewUser = (newUser: NewUser): Promise<any> => {
   return fetch(
     "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
     {
       method: "POST",
-      mode: "cors",
-      credentials: "omit",
-      referrer: "https://rr-as.vercel.app/",
       headers: {
         'Content-Type': 'application/json',
       },
@@ -18,7 +15,7 @@ export const postNewUser = (newUser: NewUser) => {
   });
 };
 
-export const fetchUser = (email: string, password: string, setError: React.Dispatch<React.SetStateAction<string>>) => {
+export const fetchUser = (email: string, password: string, setError: React.Dispatch<React.SetStateAction<string>>): Promise<any> => {
   return fetch(
     "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/login",
     {
@@ -43,7 +40,7 @@ export const fetchUser = (email: string, password: string, setError: React.Dispa
   });
 };
 
-export const destroyToken = () => {
+export const destroyToken = (): Promise<any> => {
   return fetch(
     "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/logout",
     {
@@ -59,7 +56,7 @@ export const destroyToken = () => {
   });
 }
 
-export const updateUser = (user: any, body: any) => {
+export const updateUser = (user: any, body: any): Promise<any> => {
   return fetch(
     "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
     {
@@ -85,7 +82,7 @@ export const updateUser = (user: any, body: any) => {
     }
   ).then((response) => {
     // sessionStorage.removeItem('token')
-    // return response.json();
-    console.log(response)
+    return response.json();
+    // console.log(response)
   });
 }

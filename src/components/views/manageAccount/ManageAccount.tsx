@@ -70,7 +70,12 @@ export default function ManageAccount({ user }: Props) {
   const handleUserUpdate = () => {
     setIsOpen(false);
     if (userInfo.password === userInfo.confirm_password) {
-      updateUser(user, userInfo);
+      updateUser(user, userInfo)
+      .then(data => {
+        if (!data.ok) {
+          setError(data.errors[0].detail);
+        }
+      })
       console.log(userInfo);
     } else {
       setPasswordError(true);
