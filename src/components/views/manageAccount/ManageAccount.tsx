@@ -29,13 +29,14 @@ interface Props {
 }
 
 export default function ManageAccount({ user, setUser }: Props) {
+  //Would like to refactor to use one error state and pass in error type with optional message
   const [isOpen, setIsOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
   const [errorStatus, setErrorStatus] = useState<string>("");
-  const [success, setSuccess] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [alertOpen, setAlertOpen] = useState<boolean>(true);
+  const [success, setSuccess] = useState(false);
   const [userInfo, setUserInfo] = useState<any>({
     first_name: "",
     last_name: "",
@@ -63,8 +64,6 @@ export default function ManageAccount({ user, setUser }: Props) {
 
   const handleUserUpdate = () => {
     setIsOpen(false);
-    console.log(userInfo.password)
-    console.log(userInfo.password_confirmation)
     if (userInfo.password === userInfo.password_confirmation) {
       updateUser(user, userInfo).then((data) => {
         if (data.errors) {
@@ -83,7 +82,6 @@ export default function ManageAccount({ user, setUser }: Props) {
           })
         }
       });
-      console.log(userInfo);
     } else {
       setPasswordError(true);
     }
