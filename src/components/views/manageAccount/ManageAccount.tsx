@@ -19,6 +19,7 @@ import {
   Card,
   Accordion,
   AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Visibility from "@mui/icons-material/Visibility";
@@ -90,6 +91,12 @@ export default function ManageAccount({ user }: Props) {
 
   return (
     <>
+      <Typography variant="h4" sx={{ textAlign: "center", mt: 6 }}>
+        Manage Account Information
+      </Typography>
+      <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
+        Adjust personal information like name, email, and password.
+      </Typography>
       <Container maxWidth="xs">
         <Box component="form" sx={{ mt: 10 }} onSubmit={handleUserUpdate}>
           {error && (
@@ -97,10 +104,10 @@ export default function ManageAccount({ user }: Props) {
               {error}
             </Typography>
           )}
-
+        <Typography sx={{textAlign: "center", color: "grey"}}>Basics</Typography>
           <Box
             sx={{
-              border: "2px solid grey",
+              border: "2px solid #b9b7b7",
               borderRadius: "10px",
               padding: "20px",
               mb: 5,
@@ -134,9 +141,10 @@ export default function ManageAccount({ user }: Props) {
               />
             </FormControl>
           </Box>
+          <Typography sx={{textAlign: "center", color: "grey"}}>Not so basics</Typography>
           <Box
             sx={{
-              border: "2px solid grey",
+              border: "2px solid #b9b7b7",
               borderRadius: "10px",
               padding: "20px",
             }}
@@ -156,78 +164,88 @@ export default function ManageAccount({ user }: Props) {
                 />
               </FormControl>
               <Accordion>
-              <AccordionSummary
-            expandIcon={<ArrowDropDownIcon />}
-            aria-controls={`password-form-content`}
-            id={`password-form-header`}
-          >
-            <Typography sx={{ color: "text.secondary" }}>
-              Change password
-            </Typography>
-          </AccordionSummary>
-              <FormControl error={passwordError} sx={{ mt: 5, justifyContent: "center" }}>
-                <InputLabel htmlFor="password">New Password</InputLabel>
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={userInfo.password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setUserInfo({ ...userInfo, password: e.target.value })
-                  }
-                  required
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                <FormHelperText>
-                  {passwordError
-                    ? "Passwords do not match"
-                    : "Must be at least 6 characters long"}
-                </FormHelperText>
-              </FormControl>
-              <FormControl error={passwordError} sx={{ mt: 5 }}>
-                <InputLabel htmlFor="confirm_password">
-                  Confirm Password
-                </InputLabel>
-                <Input
-                  id="confirm-password"
-                  type={showPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  value={userInfo.confirm_password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setUserInfo({
-                      ...userInfo,
-                      confirm_password: e.target.value,
-                    })
-                  }
-                  required
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                {passwordError && (
-                  <FormHelperText>Passwords do not match</FormHelperText>
-                )}
-              </FormControl>
+                <AccordionSummary
+                  expandIcon={<ArrowDropDownIcon />}
+                  aria-controls={`password-form-content`}
+                  id={`password-form-header`}
+                >
+                  <Typography sx={{ color: "text.secondary" }}>
+                    Change password
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <FormControl
+                    fullWidth={true}
+                    error={passwordError}
+                    sx={{ mt: 5, justifyContent: "center" }}
+                  >
+                    <InputLabel htmlFor="password">New Password</InputLabel>
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={userInfo.password}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setUserInfo({ ...userInfo, password: e.target.value })
+                      }
+                      required
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                    <FormHelperText>
+                      {passwordError
+                        ? "Passwords do not match"
+                        : "Must be at least 6 characters long"}
+                    </FormHelperText>
+                  </FormControl>
+                  <FormControl
+                    fullWidth={true}
+                    error={passwordError}
+                    sx={{ mt: 5 }}
+                  >
+                    <InputLabel htmlFor="confirm_password">
+                      Confirm Password
+                    </InputLabel>
+                    <Input
+                      id="confirm-password"
+                      type={showPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={userInfo.confirm_password}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setUserInfo({
+                          ...userInfo,
+                          confirm_password: e.target.value,
+                        })
+                      }
+                      required
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                    {passwordError && (
+                      <FormHelperText>Passwords do not match</FormHelperText>
+                    )}
+                  </FormControl>
+                </AccordionDetails>
               </Accordion>
               <Button variant="contained" onClick={handleModal} sx={{ mt: 2 }}>
                 Submit Changes
