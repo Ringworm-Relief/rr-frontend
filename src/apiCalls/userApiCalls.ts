@@ -58,3 +58,26 @@ export const destroyToken = () => {
     return response.json();
   });
 }
+
+export const updateUser = (user: any, body: any) => {
+  return fetch(
+    "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/logout",
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": sessionStorage.getItem('token') ?? ''
+      },
+      body: JSON.stringify({
+        data: {
+          id: user.data.id,
+          type: "user",
+          attributes: body
+        }
+      })
+    }
+  ).then((response) => {
+    sessionStorage.removeItem('token')
+    return response.json();
+  });
+}
