@@ -167,7 +167,7 @@ function App() {
         {user && (
           <Route
             path="/user/:user_id/addpet"
-            element={<PetForm user={user} />}
+            element={<PetForm user={user} getUserPets={getUserPets}/>}
           />
         )}
         <Route path="account/new" element={<CreateAccount />} />

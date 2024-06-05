@@ -161,7 +161,7 @@ interface Props {
 }
 
 export default function PetDashboard({ pet, user, pets }: Props) {
-  console.log("pet dash pet", pet)
+  // console.log("pet dash pet", pet)
   const style = {
     mr: 1,
     mt: 2,
