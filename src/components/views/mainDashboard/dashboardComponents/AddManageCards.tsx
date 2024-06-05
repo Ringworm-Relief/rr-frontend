@@ -10,6 +10,19 @@ interface Props {
 
 function DashboardManageAccount({ user }: Props) {
   const [userAtt, setUserAtt] = useState<any>(user.data.attributes);
+  const innerWidthCheck = () => {
+    if(window.innerWidth <= 915 && window.innerWidth >= 770) {
+      return 450
+    } else if(window.innerWidth <= 770 && window.innerWidth >= 560) {
+      return 400
+    } else if(window.innerWidth <= 560 && window.innerWidth >= 430) {
+      return 300
+    }  else if(window.innerWidth <= 430 && window.innerWidth >= 310) {
+      return 190
+    } else {
+      return 372
+    } 
+  }
 
   const style = {
     mr: 1,
@@ -19,7 +32,7 @@ function DashboardManageAccount({ user }: Props) {
     bottom: 100,
     left: -100,
     padding: 3,
-    width: 372,
+    width: innerWidthCheck(),
     height: 220,
     marginLeft: 0,
     overflow: "scroll",
@@ -39,7 +52,7 @@ function DashboardManageAccount({ user }: Props) {
   };
 
   return (
-    <Stack direction="row">
+    <Stack direction={window.innerWidth >= 915 ? "row" : "column"}>
       <Link to={`/user/${user.data.id}/management/account`} className="no-underline">
         <Card sx={style}>
           <CardHeader className="saved-articles-header" title="Manage Account" />

@@ -14,11 +14,9 @@ import MainDashboard from "../views/mainDashboard/MainDashboard";
 import Article from "../article/Article";
 import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
-// import { Pets } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
-// import { fetchPets } from "../../apiCalls/petApiCalls";
 import PetDashboard from "../views/petDashboard/PetDashboard";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
 import { fetchPets } from "../../apiCalls/petApiCalls";
@@ -34,8 +32,8 @@ function App() {
 
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
-  const [pets, setPets] = useState<any[]>(PetsStorage);
-  const [targetPet, setTargetPet] = useState<any>(null);
+  const [pets, setPets] = useState<any[]>(PetsStorage); //Holds the current user's pets
+  const [targetPet, setTargetPet] = useState<any>(null); //Holds the pet that is currently being viewed
   const [pageRender, setPageRender] = useState<number>(0);
 
   const navigate = useNavigate();
@@ -80,9 +78,8 @@ function App() {
     setUser(false);
     navigate("/");
   };
-// handleSignOut();
-  const getUserPets = () => {
 
+  const getUserPets = () => {
     if(user.data.id) {
       fetchPets(user.data.id)
       .then((data: any) => {
@@ -96,14 +93,8 @@ function App() {
           setPets([]);
         }
       })
-
     }
-    // console.log(PetsStorage);
   };
-
-  // useEffect(() => {
-  //   getUserPets()
-  // }, [])
 
   const setTargetPetFunc = (pet: any): void => {
     setTargetPet(pet);

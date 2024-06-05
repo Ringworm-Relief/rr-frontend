@@ -5,12 +5,12 @@ import { Stack } from "@mui/material";
 
 function Landing() {
   return (
-    <div>
+    <>
       <Stack spacing={25}>
       <WelcomeCard/>
       <LandingCards/>
       </Stack>
-    </div>
+    </>
   );
 }
 

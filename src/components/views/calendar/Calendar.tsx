@@ -113,6 +113,7 @@ export default function Calendar({ user, pet, pets }: Props) {
         console.error("Error fetching events:", error);
       }
     };
+    console.log(window.innerWidth)
   //   const colors: string[] = [
   //     "#cb6bb2",
   //     "#56ca85",
@@ -155,6 +156,29 @@ export default function Calendar({ user, pet, pets }: Props) {
   //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
   // }
   
+  const innerWidthCheck = () => {
+    if(window.innerWidth <= 915 && window.innerWidth >= 770) {
+      return 450
+    } else if(window.innerWidth <= 770 && window.innerWidth >= 560) {
+      return 400
+    } else if(window.innerWidth <= 560 && window.innerWidth >= 430) {
+      return 300
+    } else if(window.innerWidth <= 430 && window.innerWidth >= 310) {
+      return 190
+    } else {
+      return 800
+    } 
+  }
+
+  const innerHeightCheck = () => {
+    if(window.innerWidth <= 770 && window.innerWidth >= 560) {
+      return 300
+    } else if(window.innerWidth <= 560) {
+      return 500
+    } else {
+      return 300
+    } 
+  }
 
   const dataManager = new DataManager({
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
@@ -265,8 +289,8 @@ export default function Calendar({ user, pet, pets }: Props) {
                   boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                   position: "relative",
                   padding: 3,
-                  width: 800,
-                  height: 300,
+                  width: innerWidthCheck(),
+                  height: innerHeightCheck(),
                   marginLeft: 0,
                   overflow: "scroll",
                   display: "flex",
