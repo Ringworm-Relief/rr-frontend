@@ -79,7 +79,7 @@ function App() {
     setUser(false);
     navigate("/");
   };
-
+// handleSignOut();
   const getUserPets = () => {
     // fetchPets(user.data.id).then((data) => {
     //   //Will need to update with user token
@@ -219,7 +219,7 @@ function App() {
         />
         <Route
           path="/user/:user_id/management/account"
-          element={<ManageAccount user={user} />}
+          element={<ManageAccount user={user} setUser={setUser}/>}
         ></Route>
          <Route
           path="/user/:user_id/management/pets"

@@ -1,0 +1,8 @@
+{
+    "errors": [
+        {
+            "status": "409",
+            "detail": "You already have an account, please log in"
+        }
+    ]
+}
