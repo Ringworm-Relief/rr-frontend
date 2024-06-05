@@ -23,7 +23,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
       if(window.innerWidth <= 582 && window.innerWidth >= 477) {
         return 400
       } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
-        return 300
+        return 315
       } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
         return 270
       }else {
