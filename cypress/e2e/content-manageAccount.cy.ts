@@ -48,7 +48,7 @@ describe('template spec', () => {
     ).as("UpdateUser");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/");
+    cy.visit("https://rr-as.vercel.app/");
     sessionStorage.setItem("token", "mocked_token");
     
  // Click on the sign-in link

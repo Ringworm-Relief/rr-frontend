@@ -22,7 +22,7 @@ describe("template spec", () => {
     // Intercept the pets request and mock the response
     cy.intercept(
       "GET",
-      "https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pets/1",
+      "https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=1",
       {
         statusCode: 200,
         fixture: "pets", // Assuming you have a fixture file named 'pets.json'
@@ -48,7 +48,7 @@ describe("template spec", () => {
     ).as("UpdateUser");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/");
+    cy.visit("https://rr-as.vercel.app/");
     sessionStorage.setItem("token", "mocked_token");
 
     // Click on the sign-in link
@@ -63,7 +63,7 @@ describe("template spec", () => {
     // Wait for the login request to complete
     cy.wait("@LoginUser");
 
-    cy.visit("http://localhost:3000/user/1/management/account");
+    cy.visit("https://rr-as.vercel.app/user/1/management/account");
   });
 
   it("Displays a success message after PUT", () => {
@@ -187,7 +187,7 @@ describe("template spec", () => {
     //Navigate away and back to check if changes persisted
 
     cy.get("nav").children().eq(1).click(); //Navigate to dashboard
-    cy.visit("http://localhost:3000/user/1/management/account"); //Navigate back to account management
+    cy.visit("https://rr-as.vercel.app/user/1/management/account"); //Navigate back to account management
 
     cy.get('input[name="firstName"]').should("have.value", "New");
     cy.get('input[name="lastName"]').should("have.value", "Name");
@@ -211,7 +211,7 @@ describe("template spec", () => {
 
     //Navigate away and back to check if changes persisted
     cy.get("nav").children().eq(1).click(); //Navigate to dashboard
-    cy.visit("http://localhost:3000/user/1/management/account"); //Navigate back to account management
+    cy.visit("https://rr-as.vercel.app/user/1/management/account"); //Navigate back to account management
 
     cy.get('input[name="firstName"]').should("have.value", "New");
     cy.get('input[name="email"]').should("have.value", "newEmail@email.com");
