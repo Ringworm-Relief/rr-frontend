@@ -73,15 +73,13 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
         position: "relative",
         width: 400,
         height: 633,
-        marginLeft: 2,
+        // marginLeft: 2,
         overflow: "scroll",
-        // background: "rgba(255, 146, 98, 0.03)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         color: "#900066",
         textAlign: "center",
-        // paddingBottom: 15,
         backgroundImage:
             "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
             "&:after": {

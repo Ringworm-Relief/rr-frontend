@@ -9,7 +9,7 @@
     background-color: #ffffff;
     min-height: 10vh;
     display: flex;
-    width: 100%;
+    width: 100vw;
     justify-content: space-between;
     font-size: calc(10px + 1vmin);
     border-bottom: 2px solid #c5c5c54e;
@@ -135,4 +135,10 @@
 
 .no-underline {
   text-decoration: none;
+}
+
+@media screen and (max-width: 560px){
+  .App_nav {
+    display: none;
+  }
 }

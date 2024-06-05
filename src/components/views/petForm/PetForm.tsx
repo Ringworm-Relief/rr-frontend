@@ -99,12 +99,13 @@ const PlusIcon = createSvgIcon(
 
 interface Props {
   user: any;
+  getUserPets: () => void;
 }
 
 // Menu Items need to be capitalized
 // Date needs to be posted in yyyy-mm-dd format (Right now it is yyyy/mm/dd)
 
-function PetForm({ user }: Props) {
+function PetForm({ user, getUserPets }: Props) {
   const navigate = useNavigate();
   const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
     undefined
@@ -180,6 +181,7 @@ function PetForm({ user }: Props) {
           medications: medications,
           ringworm: ringwormObject,
         });
+        getUserPets();
       })
       .catch((err) => setHasSubmitted(false));
 

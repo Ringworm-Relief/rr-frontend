@@ -1,42 +1,45 @@
 import {
   Card,
   CardActions,
-  CardContent,
   CardHeader,
   CardMedia,
   Grid,
-  SvgIcon,
   Typography,
 } from "@mui/material";
-import { Pet } from "../../../../utils/interfaces";
 import Pupper from "../../../../assets/Pupper-profile.svg";
 import Kitty from "../../../../assets/Kitty-profile.svg";
 import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
-import { Pets } from "../../../../utils/interfaces";
-import { useState, useEffect } from "react"
-import { fetchPets } from "../../../../apiCalls/petApiCalls";
 
 interface Props {
   user: any;
   setTargetPetFunc: (pet: any) => void;
+  pets: any[];
 }
 
-function PetCards({ user, setTargetPetFunc }: Props) {
+function PetCards({ user, setTargetPetFunc, pets }: Props) {
   console.log("USER:", user)
+  
+    const innerWidthCheck = () => {
+      if(window.innerWidth <= 582 && window.innerWidth >= 477) {
+        return 400
+      } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
+        return 300
+      } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
+        return 270
+      }else {
+        return 200
+      } 
+    }
   const style = {
     mr: 1,
     mt: 2,
     borderRadius: 3,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
-    // boxShadow: "none",
-    // border: "1px solid #252525",
     position: "relative",
-    minWidth: 200,
+    minWidth: innerWidthCheck(),
     height: 80,
     width: 90,
     padding: 2,
-    //   overflowY: "auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "bottom",
@@ -47,43 +50,11 @@ function PetCards({ user, setTargetPetFunc }: Props) {
 
               opacity: 0.5,
             },
-    //   paddingBottom: 15,
     "&:hover": {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",
     },
   };
-
-  const [pets, setPets] = useState<Pet[] | undefined>([])
-
-  // const displayPets = () => {
-  //   fetchPets(user.data.id)
-  //   .then((data: any) => {
-  //     if (data.data.pets) {
-  //     setPets(data.data.pets)
-  //     }
-  //   })
-  // }
-
-  const displayPets = () => {
-    fetchPets(user.data.id)
-      .then((data: any) => {
-        if (data && data.data && data.data.pets) {
-          setPets(data.data.pets);
-        } else {
-          setPets([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching pets:", error);
-        setPets([]);
-      });
-  };
-
-  useEffect(() => {
-    displayPets()
-  }, [user.data.id])
-
 
   const cardMediaStyle = {
     width: "100%",
@@ -92,8 +63,6 @@ function PetCards({ user, setTargetPetFunc }: Props) {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
   };
-
-  
 
   return (
     <Grid container spacing={2} columns={3}>
@@ -115,17 +84,6 @@ function PetCards({ user, setTargetPetFunc }: Props) {
                     backgroundImage:
                       "linear-gradient(147deg, #fe8a39 0%, #fd3838 95%)",
                     opacity: 0.9,
-                    // color: "#252525",
-                    // "&:after": {
-                    //   content: '" "',
-                    //   position: "absolute",
-                    //   top: 0,
-                    //   left: 0,
-                    //   width: "100%",
-                    //   height: "100%",
-                    //   borderRadius: 10,
-                    //   opacity: 0.1,
-                    // },
                   }}
                 >
                   <Typography
@@ -138,14 +96,6 @@ function PetCards({ user, setTargetPetFunc }: Props) {
                     {pet.name}
                   </Typography>
                 </CardMedia>
-                {/* <CardContent>
-                <Typography textAlign="center" variant="body1" sx={{ mt: 1 }}>
-                  {pet.medication_name}
-                </Typography>
-                <Typography textAlign="center" variant="body1">
-                  {pet.medication_dosage + " " + pet.medication_frequency}
-                </Typography>
-              </CardContent> */}
               </Card>
             </Grid>
           </CardActions>
@@ -164,7 +114,6 @@ function PetCards({ user, setTargetPetFunc }: Props) {
                 fontSize: "1.5rem",
                 fontWeight: "bold",
               }}
-              // sx={{ padding: 0 }}
             />
           </Card>
         </Link>

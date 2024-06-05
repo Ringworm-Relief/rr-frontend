@@ -61,55 +61,19 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   });
 
 
-  // useEffect(() => {
-  //   // setHasSubmitted(true);                // Uncomment to see alert
-  //   setPetObject({
-  //     user_id: user.data.id,
-  //     name: pet.name,
-  //     pet_type: pet.type,
-  //     breed: pet.breed,
-  //     birthday: pet.birthday,
-  //     medications: pet.medications,
-  //     ringworm: pet.ringworm,
-  //   });
-  // }, []);
+  useEffect(() => {
+    // setHasSubmitted(true);                // Uncomment to see alert
+    setPetObject({
+      user_id: user.data.id,
+      name: pet.name,
+      pet_type: pet.type,
+      breed: pet.breed,
+      birthday: pet.birthday,
+      medications: pet.medications,
+      ringworm: pet.ringworm,
+    });
+  }, []);
 
-  // const handleSubmit = async () => {
-  //   const petResponse = await patchPet(petObject);
-  //   const ringResponse = await patchRingworm(ringwormObject);
-  //   const medResponses = await Promise.all(medications.map(med => patchMedication(med)));
-
-  //   if (petResponse && ringResponse && medResponses.every(res => res)) {
-  //     setPetSubmitted(true);
-  //     setRingSubmitted(true);
-  //     setMedSubmitted(true);
-  //     setHasSubmitted(true);
-
-  //     // Reset form
-  //     setPetObject({
-  //       user_id: 1,
-  //       name: "",
-  //       pet_type: "",
-  //       breed: "",
-  //       birthday: "",
-  //       symptoms: [],
-  //     });
-  //     setRingwormObject({
-  //       pet_id: 1,
-  //       ringworm_type: "",
-  //       diagnosis_date: "",
-  //     });
-  //     setMedications([
-  //       {
-  //         pet_id: 1,
-  //         name: "",
-  //         medication_type: "",
-  //         dosage: "",
-  //         frequency: "",
-  //       },
-  //     ]);
-  //   }
-  // };
 
   const handleMedChange = (
     index: number,
