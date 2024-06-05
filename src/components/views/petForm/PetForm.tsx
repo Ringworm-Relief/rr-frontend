@@ -12,6 +12,7 @@ import {
   Alert,
   Collapse,
 } from "@mui/material";
+import { createSvgIcon } from "@mui/material/utils";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import React, { useState } from "react";
@@ -79,6 +80,23 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const PlusIcon = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 28 28"
+    strokeWidth={3}
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 4.5v15m7.5-7.5h-15"
+    />
+  </svg>,
+  "Plus"
+);
+
 interface Props {
   user: any;
 }
@@ -88,7 +106,9 @@ interface Props {
 
 function PetForm({ user }: Props) {
   const navigate = useNavigate();
-  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(undefined);
+  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
+    undefined
+  );
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [medications, setMedications] = useState<Medication[]>([
     {
@@ -101,6 +121,7 @@ function PetForm({ user }: Props) {
   const [ringwormObject, setRingwormObject] = useState<Ringworm>({
     ringworm_type: "",
     diagnosis_date: "",
+    symptoms: []
   });
 
   const [petObject, setPetObject] = useState<Pet>({
@@ -109,7 +130,6 @@ function PetForm({ user }: Props) {
     pet_type: "",
     breed: "",
     birthday: "",
-    symptoms: [],
     medications: medications,
     ringworm: ringwormObject,
   });
@@ -135,37 +155,60 @@ function PetForm({ user }: Props) {
     };
     postPet(updatedPetObject)
       .then((data) => {
-        console.log("POSTED DATA:", data.data);
         setHasSubmitted(true);
+        setRingwormObject({
+          ringworm_type: "",
+          diagnosis_date: "",
+          symptoms: []
+        });
+  
+        setMedications([
+          {
+            name: "",
+            medication_type: "",
+            dosage: "",
+            frequency: "",
+          },
+        ]);
+  
+        setPetObject({
+          user_id: user.data.id,
+          name: "",
+          pet_type: "",
+          breed: "",
+          birthday: "",
+          medications: medications,
+          ringworm: ringwormObject,
+        });
       })
       .catch((err) => setHasSubmitted(false));
 
-    if (hasSubmitted) {
-      setRingwormObject({
-        ringworm_type: "",
-        diagnosis_date: "",
-      });
+    // if (hasSubmitted) {
+    //   setRingwormObject({
+    //     ringworm_type: "",
+    //     diagnosis_date: "",
+    //     symptoms: []
+    //   });
 
-      setMedications([
-        {
-          name: "",
-          medication_type: "",
-          dosage: "",
-          frequency: "",
-        },
-      ]);
+    //   setMedications([
+    //     {
+    //       name: "",
+    //       medication_type: "",
+    //       dosage: "",
+    //       frequency: "",
+    //     },
+    //   ]);
 
-      setPetObject({
-        user_id: user.data.id,
-        name: "",
-        pet_type: "",
-        breed: "",
-        birthday: "",
-        symptoms: [],
-        medications: medications,
-        ringworm: ringwormObject,
-      });
-    }
+    //   setPetObject({
+    //     user_id: user.data.id,
+    //     name: "",
+    //     pet_type: "",
+    //     breed: "",
+    //     birthday: "",
+    //     medications: medications,
+    //     ringworm: ringwormObject,
+    //   });
+    // }
   };
 
   const handleMedChange = (
@@ -200,7 +243,7 @@ function PetForm({ user }: Props) {
           marginBottom: "30px",
         }}
       >
-        <Typography variant="h2" sx={{ fontSize: "30px" }}>
+        <Typography variant="h2" sx={{ fontSize: "30px", marginTop: "30px" }}>
           Pet intake form
         </Typography>
         <Typography variant="h3" sx={{ fontSize: "20px", marginTop: "20px" }}>
@@ -358,10 +401,10 @@ function PetForm({ user }: Props) {
             Separate symptoms with commas
           </FormHelperText>
           <BootstrapInput
-            value={petObject.symptoms.join(",")}
+            value={ringwormObject.symptoms.join(",")}
             onChange={(e) => {
               const array = e.target.value.split(",");
-              setPetObject({ ...petObject, symptoms: array });
+              setRingwormObject({...ringwormObject, symptoms: array });
             }}
             id="symptoms-field"
             inputProps={{ placeholder: "Enter symptoms" }}
@@ -378,8 +421,8 @@ function PetForm({ user }: Props) {
         <div>{medCards}</div>
 
         <Button
-          variant="outlined"
-          sx={{ marginTop: "20px" }}
+          variant="text"
+          sx={{ marginTop: "0px" }}
           onClick={() =>
             setMedications([
               ...medications,
@@ -392,7 +435,7 @@ function PetForm({ user }: Props) {
             ])
           }
         >
-          Add medication
+          Add medication <PlusIcon />
         </Button>
 
         <Button
@@ -402,36 +445,6 @@ function PetForm({ user }: Props) {
         >
           Submit Form
         </Button>
-
-        {/* <Modal
-          open={hasSubmitted}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Success!
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              The form has been submitted.
-            </Typography>
-            <Button
-              variant="outlined"
-              sx={{ marginTop: "20px" }}
-              onClick={addAnotherPet}
-            >
-              Add another pet
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{ marginTop: "20px" }}
-              onClick={() => navigate(`/user/${user.data.id}/dashboard`)}
-            >
-              View Dashboard
-            </Button>
-          </Box>
-        </Modal> */}
         {hasSubmitted === false && (
           <Collapse in={alertOpen}>
             <Alert
@@ -443,7 +456,7 @@ function PetForm({ user }: Props) {
               Information did not update.
             </Alert>
           </Collapse>
-        ) }
+        )}
         {hasSubmitted && (
           <Collapse in={alertOpen}>
             <Alert

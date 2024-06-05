@@ -5,9 +5,6 @@
     color: #292E30;
   }
 
-  /* .App {
-    height: 100%;
-  } */
   .App_header {
     background-color: #ffffff;
     min-height: 10vh;
@@ -112,4 +109,30 @@
 #pill-svg {
     height: 23px;
     transform: rotate(45deg);
+}
+
+.pet-img {
+  height: 100px;
+}
+
+#add-pet-link {
+  text-decoration: none;
+}
+
+.dash-links {
+  text-decoration: bold;
+  text-align: center;
+}
+
+.saved-articles-header .MuiCardHeader-title {
+  font-weight: 800 !important;
+}
+
+.manage-account .MuiCardContent {
+  text-decoration: none;
+
+}
+
+.no-underline {
+  text-decoration: none;
 }

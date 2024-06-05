@@ -33,7 +33,7 @@ function App() {
 
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
-  const [pets, setPets] = useState<any[]>(PetsStorage);
+  const [pets, setPets] = useState<any[]>([]);
   const [targetPet, setTargetPet] = useState<any>(null);
   const [pageRender, setPageRender] = useState<number>(0);
 
@@ -81,19 +81,25 @@ function App() {
   };
 // handleSignOut();
   const getUserPets = () => {
+    // if (user.data.id) {
     // fetchPets(user.data.id).then((data) => {
     //   //Will need to update with user token
     //   if (data) {
-    //     setPets(data);
+    //     setPets(data.data.pets);
     //     console.log(data);
     //   }
-    // });
+    
+    // })};
     localStorage.removeItem("PETS");
     localStorage.setItem("PETS", JSON.stringify(Pets.data.pets)); //Set pets to the Pets array //hardcoded for now
     const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
     console.log(PetsStorage);
-    setPets(PetsStorage); //Set pets to the Pets array //hardcoded for now
+    // setPets(PetsStorage); //Set pets to the Pets array //hardcoded for now
   };
+
+  // useEffect(() => {
+  //   getUserPets()
+  // }, [])
 
   const setTargetPetFunc = (pet: any): void => {
     setTargetPet(pet);
@@ -223,7 +229,7 @@ function App() {
         ></Route>
          <Route
           path="/user/:user_id/management/pets"
-          element={<AllPetsManagement pets={pets} setPets={setPets} user={user} />}
+          element={<AllPetsManagement setPets={setPets} user={user} />}
         ></Route>
         <Route path="*" element={<Landing />} />
 

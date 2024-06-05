@@ -35,18 +35,18 @@ function MainDashboard({ user, savedArticles, handleSaves, pets, setTargetPetFun
         <Box
           padding={10}
           sx={{
-            backgroundImage:
-            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            "&:after": {
+            // backgroundImage:
+            // "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            // "&:after": {
 
-              opacity: 0.5,
-            }
+            //   opacity: 0.5,
+            // }
           // 16
           }}
         >
           <Grid container spacing={2} columns={2} zIndex={20}>
-            <PetCards user={user} pets={pets} setTargetPetFunc={setTargetPetFunc}/>
-              <Calendar user={user} pet={pet} pets={pets}/>
+            <PetCards user={user} setTargetPetFunc={setTargetPetFunc}/>
+              <Calendar user={user} pet={pet} pets={pets}/> 
             <SavedArticlesCard savedArticles={savedArticles} handleSaves={handleSaves}/>
           </Grid>
         </Box>

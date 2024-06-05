@@ -34,16 +34,16 @@ function Article() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        mb: "30px",
+        my: "30px",
       }}
     >
-      <Typography variant="h3" sx={{ my: "10px" }}>
+      <Typography variant="h3" sx={{ my: "6px" }}>
         {singleArticle?.attributes.title}
       </Typography>
-      <Box sx={{ px: 30, py: 10 }}>
+      <Box sx={{ px: 35, mt: 3 }}>
         {singleArticle?.attributes.summary.map((paragraph) => {
           return (
-            <Typography variant="body1" sx={{ my: 5, mt: 2 }}>
+            <Typography variant="body1" sx={{ my: 3 }}>
               {paragraph}
             </Typography>
           );

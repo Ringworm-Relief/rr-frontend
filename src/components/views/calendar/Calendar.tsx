@@ -264,7 +264,7 @@ export default function Calendar({ user, pet, pets }: Props) {
                   boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                   position: "relative",
                   padding: 3,
-                  width: 600,
+                  width: 800,
                   height: 300,
                   marginLeft: 0,
                   overflow: "scroll",
@@ -272,6 +272,12 @@ export default function Calendar({ user, pet, pets }: Props) {
                   flexDirection: "column",
                   alignItems: "center",
                   color: "#9A352F",
+                  backgroundImage:
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "&:after": {
+
+              opacity: 0.5,
+            }
                 }}
               >
                 <ScheduleComponent
