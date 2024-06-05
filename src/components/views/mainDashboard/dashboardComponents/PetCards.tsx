@@ -23,7 +23,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
       if(window.innerWidth <= 582 && window.innerWidth >= 477) {
         return 400
       } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
-        return 300
+        return 315
       } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
         return 270
       }else {
@@ -39,7 +39,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
     position: "relative",
     minWidth: innerWidthCheck(),
     height: 80,
-    width: 90,
     padding: 2,
     display: "flex",
     flexDirection: "column",
@@ -55,14 +54,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",
     },
-  };
-
-  const cardMediaStyle = {
-    width: "100%",
-    height: 140, // Adjust height as necessary
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
   };
 
   return (

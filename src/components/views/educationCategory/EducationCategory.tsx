@@ -64,11 +64,12 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, save
     }
 
     return (
-        <Container sx={{display: 'flex',
+        <Container sx={{
+        display: 'flex',
         flexDirection: 'column', 
-        justifyContent: 'center', 
         alignItems: 'center',
-        mb: "30px" 
+        mb: "30px",
+        height: "100vh"
         }}>
             <Typography sx={{my: "20px"}} variant="h2">{getTitle(category)}</Typography>
             <Box>
