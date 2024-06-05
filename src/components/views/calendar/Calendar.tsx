@@ -90,8 +90,8 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
 export default function Calendar({ user, pet, pets }: Props) {
   const navigate = useNavigate();
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
-  const [singleResourceData, setSingleResourceData] = useState<any>(); 
-  const [resourceData, setResourceData] = useState<any[]>([]);
+  // const [singleResourceData, setSingleResourceData] = useState<any>(); 
+  // const [resourceData, setResourceData] = useState<any[]>([]);
   const scheduleObj = useRef<ScheduleComponent>(null);
   const currentToken = sessionStorage.getItem("token") || "null";
   const windowLocation = window.location.pathname;
@@ -130,6 +130,7 @@ export default function Calendar({ user, pet, pets }: Props) {
   //   setResourceData(singleResourceData);
   // }
     fetchData();
+    console.log(pets)
   }, []);
 
   const colors: string[] = [

@@ -14,13 +14,14 @@ import MainDashboard from "../views/mainDashboard/MainDashboard";
 import Article from "../article/Article";
 import Drawer from "../drawer/MuiDrawer";
 import CoolCat from "../../assets/RR-4.svg";
-import { Pets } from "../../utils/interfaces";
+// import { Pets } from "../../utils/interfaces";
 import { Button } from "@mui/material";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
 // import { fetchPets } from "../../apiCalls/petApiCalls";
 import PetDashboard from "../views/petDashboard/PetDashboard";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
+import { fetchPets } from "../../apiCalls/petApiCalls";
 
 function App() {
   const activeUser = JSON.parse(
@@ -33,7 +34,7 @@ function App() {
 
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
-  const [pets, setPets] = useState<any[]>([]);
+  const [pets, setPets] = useState<any[]>(PetsStorage);
   const [targetPet, setTargetPet] = useState<any>(null);
   const [pageRender, setPageRender] = useState<number>(0);
 
@@ -81,20 +82,23 @@ function App() {
   };
 // handleSignOut();
   const getUserPets = () => {
-    // if (user.data.id) {
-    // fetchPets(user.data.id).then((data) => {
-    //   //Will need to update with user token
-    //   if (data) {
-    //     setPets(data.data.pets);
-    //     console.log(data);
-    //   }
-    
-    // })};
-    localStorage.removeItem("PETS");
-    localStorage.setItem("PETS", JSON.stringify(Pets.data.pets)); //Set pets to the Pets array //hardcoded for now
-    const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
-    console.log(PetsStorage);
-    // setPets(PetsStorage); //Set pets to the Pets array //hardcoded for now
+
+    if(user.data.id) {
+      fetchPets(user.data.id)
+      .then((data: any) => {
+        if (data && data.data && data.data.pets) {
+          // setPets(data.data.pets);
+          localStorage.removeItem("PETS");
+          localStorage.setItem("PETS", JSON.stringify(data.data.pets)); 
+          const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
+          setPets(PetsStorage); 
+        } else {
+          setPets([]);
+        }
+      })
+
+    }
+    // console.log(PetsStorage);
   };
 
   // useEffect(() => {
