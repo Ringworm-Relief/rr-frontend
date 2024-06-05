@@ -29,11 +29,11 @@ function App() {
     localStorage.getItem("SAVED_ARTS") || "[]"
   );
   const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
-
+  const singlePetStorage = JSON.parse(localStorage.getItem("TARGETPET") || "[]");
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
   const [pets, setPets] = useState<any[]>(PetsStorage); //Holds the current user's pets
-  const [targetPet, setTargetPet] = useState<any>(null); //Holds the pet that is currently being viewed
+  const [targetPet, setTargetPet] = useState<any>(singlePetStorage); //Holds the pet that is currently being viewed
   const [pageRender, setPageRender] = useState<number>(0);
 
   const navigate = useNavigate();
@@ -97,7 +97,10 @@ function App() {
   };
 
   const setTargetPetFunc = (pet: any): void => {
-    setTargetPet(pet);
+          localStorage.removeItem("TARGETPET");
+    localStorage.setItem("TARGETPET", JSON.stringify(pet)); 
+    const petStorage = JSON.parse(localStorage.getItem("TARGETPET") || "[]");
+    setTargetPet(petStorage);
     navigate(`/user/${user.data.id}/${pet.name}`);
   };
 
