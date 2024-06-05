@@ -50,6 +50,7 @@ export default function PetDashboard({ pet, user, pets }: Props) {
         sx={{
           backgroundImage:
             "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "paddingBottom": "40px",
           "&:after": { opacity: 0.5 },
         }}
         minHeight="100vh"

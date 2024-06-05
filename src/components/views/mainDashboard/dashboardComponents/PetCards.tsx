@@ -30,6 +30,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
         return 200
       } 
     }
+
   const style = {
     mr: 1,
     mt: 2,
