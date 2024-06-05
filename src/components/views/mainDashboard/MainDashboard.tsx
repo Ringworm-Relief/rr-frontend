@@ -45,7 +45,7 @@ function MainDashboard({ user, savedArticles, handleSaves, pets, setTargetPetFun
           }}
         >
           <Grid container spacing={2} columns={2} zIndex={20}>
-            <PetCards user={user} setTargetPetFunc={setTargetPetFunc}/>
+            <PetCards user={user} pets={pets} setTargetPetFunc={setTargetPetFunc}/>
               <Calendar user={user} pet={pet} pets={pets}/> 
             <SavedArticlesCard savedArticles={savedArticles} handleSaves={handleSaves}/>
           </Grid>
