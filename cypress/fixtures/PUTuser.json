@@ -1,0 +1,11 @@
+{
+    "data": {
+        "id": "1",
+        "type": "user",
+        "attributes": {
+            "first_name": "New",
+            "last_name": "Name",
+            "email": "newEmail@email.com"
+        }
+    }
+}

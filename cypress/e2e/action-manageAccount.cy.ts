@@ -43,25 +43,25 @@ describe('template spec', () => {
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
         statusCode: 200,
-        fixture: "newUser", 
+        fixture: "PUTuser", 
       }
     ).as("UpdateUser");
+    
+    // cy.intercept(
+    //   "PUT",
+    //   "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+    //   {
+    //     statusCode: 401,
+    //   }
+    // ).as("401UpdateUser");
 
-    cy.intercept(
-      "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
-      {
-        statusCode: 401,
-      }
-    ).as("401UpdateUser");
-
-    cy.intercept(
-      "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
-      {
-        statusCode: 409,
-      }
-    ).as("409UpdateUser");
+    // cy.intercept(
+    //   "PUT",
+    //   "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+    //   {
+    //     statusCode: 409,
+    //   }
+    // ).as("409UpdateUser");
 
     // Visit the landing page
     cy.visit("http://localhost:3000/");
@@ -85,7 +85,17 @@ describe('template spec', () => {
 
   
   it.skip('Displays a success message after PUT', () => {
-    
+
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get('.css-1wnsr1i').should('be.visible').within(() => { //Modal
+      cy.get('input[name="currentPassword"]').type('password')
+      cy.get('button').eq(1).click() //Confirm button -> initiates PUT
+    })
+
+    cy.wait('@UpdateUser')
+    cy.get('.MuiAlert-colorSuccess').within(() => { //Success message
+      cy.get('.MuiAlert-message').should('have.text', 'Information updated.')
+    })
   })
 
   it.skip('Displays error messages for 401 and 409 status codes', () => {
@@ -97,14 +107,6 @@ describe('template spec', () => {
   })
 
   it('Can change all information', () => {
-    cy.intercept(
-      "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
-      {
-        statusCode: 200,
-        fixture: "newUser", 
-      }
-    ).as("UpdateUser");
 
     cy.get('input[name="firstName"]').type('New')
     cy.get('input[name="lastName"]').type("Name")
@@ -120,21 +122,18 @@ describe('template spec', () => {
       cy.get('button').eq(1).click() //Confirm button -> initiates PUT
     })
     cy.wait('@UpdateUser')
-    cy.get('.MuiAlert-colorSuccess').within(() => { //Success message
-      cy.get('.MuiAlert-message').should('have.text', 'Information updated.')
-    })
+
+    //Navigate away and back to check if changes persisted
+
+    cy.get('nav').children().eq(1).click() //Navigate to dashboard
+    cy.visit("http://localhost:3000/user/1/management/account") //Navigate back to account management
+
+    cy.get('input[name="firstName"]').should('have.value', 'New')
+    cy.get('input[name="lastName"]').should('have.value', 'Name')
+    cy.get('input[name="email"]').should('have.value', 'newEmail@email.com')
   })
 
   it('Can change some information', () => {
-    cy.intercept(
-      "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
-      {
-        statusCode: 200,
-        fixture: "newUser", 
-      }
-    ).as("UpdateUser");
-
     cy.get('input[name="firstName"]').type('New')
     cy.get('input[name="email"]').type("newEmail@email.com")
 
@@ -145,8 +144,12 @@ describe('template spec', () => {
     })
 
     cy.wait('@UpdateUser')
-    cy.get('.MuiAlert-colorSuccess').within(() => { //Success message
-      cy.get('.MuiAlert-message').should('have.text', 'Information updated.')
-    })
+
+     //Navigate away and back to check if changes persisted
+     cy.get('nav').children().eq(1).click() //Navigate to dashboard
+     cy.visit("http://localhost:3000/user/1/management/account") //Navigate back to account management
+ 
+     cy.get('input[name="firstName"]').should('have.value', 'New')
+     cy.get('input[name="email"]').should('have.value', 'newEmail@email.com')
   })
 })
