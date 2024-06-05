@@ -40,7 +40,7 @@ describe('template spec', () => {
 
     cy.intercept(
       "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/login",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
         statusCode: 200,
         fixture: "newUser", 
@@ -49,46 +49,104 @@ describe('template spec', () => {
 
     cy.intercept(
       "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/login",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
         statusCode: 401,
-        fixture: "newUser",
       }
-    ).as("UpdateUser");
+    ).as("401UpdateUser");
 
     cy.intercept(
       "PUT",
-      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/login",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
       {
         statusCode: 409,
-        fixture: "newUser",
       }
-    ).as("UpdateUser");
+    ).as("409UpdateUser");
 
     // Visit the landing page
     cy.visit("http://localhost:3000/");
     sessionStorage.setItem("token", "mocked_token");
 
+    // Click on the sign-in link
+ cy.get("#sign-in-link").click();
+
+ // Verify that the URL includes 'account/signin'
+ cy.url().should("include", "account/signin");
+
+ // Click on the sign-in button
+ cy.get("#handle-signin-btn").click();
+
+ // Wait for the login request to complete
+ cy.wait("@LoginUser");
+
+ cy.visit("http://localhost:3000/user/1/management/account");
+
   });
 
-  it('Displays error messages for 401 and 409 status codes', () => {
+  
+  it.skip('Displays a success message after PUT', () => {
+    
+  })
+
+  it.skip('Displays error messages for 401 and 409 status codes', () => {
 
   })
 
-  it('Displays a success message after PUT', () => {
-
-  })
-
-  it('Clears password input after successful PUT', () => {
+  it.skip('Clears password input after successful PUT', () => {
 
   })
 
   it('Can change all information', () => {
+    cy.intercept(
+      "PUT",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+      {
+        statusCode: 200,
+        fixture: "newUser", 
+      }
+    ).as("UpdateUser");
 
+    cy.get('input[name="firstName"]').type('New')
+    cy.get('input[name="lastName"]').type("Name")
+    cy.get('input[name="email"]').type("newEmail@email.com")
+
+    cy.get('.css-1086bdv-MuiPaper-root-MuiAccordion-root').click() //Password accordian
+      cy.get('input[name="password"]').type('newPassword')
+      cy.get('input[name="confirmPassword"]').type('newPassword')
+
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get('.css-1wnsr1i').should('be.visible').within(() => { //Modal
+      cy.get('input[name="currentPassword"]').type('password')
+      cy.get('button').eq(1).click() //Confirm button -> initiates PUT
+    })
+    cy.wait('@UpdateUser')
+    cy.get('.MuiAlert-colorSuccess').within(() => { //Success message
+      cy.get('.MuiAlert-message').should('have.text', 'Information updated.')
+    })
   })
 
   it('Can change some information', () => {
+    cy.intercept(
+      "PUT",
+      "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
+      {
+        statusCode: 200,
+        fixture: "newUser", 
+      }
+    ).as("UpdateUser");
 
+    cy.get('input[name="firstName"]').type('New')
+    cy.get('input[name="email"]').type("newEmail@email.com")
+
+    cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get('.css-1wnsr1i').should('be.visible').within(() => { //Modal
+      cy.get('input[name="currentPassword"]').type('password')
+      cy.get('button').eq(1).click() //Confirm button -> initiates PUT
+    })
+
+    cy.wait('@UpdateUser')
+    cy.get('.MuiAlert-colorSuccess').within(() => { //Success message
+      cy.get('.MuiAlert-message').should('have.text', 'Information updated.')
+    })
   })
-
 })

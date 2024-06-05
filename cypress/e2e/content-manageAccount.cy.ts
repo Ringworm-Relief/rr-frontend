@@ -50,6 +50,7 @@ describe('template spec', () => {
     // Visit the landing page
     cy.visit("http://localhost:3000/");
     sessionStorage.setItem("token", "mocked_token");
+    
  // Click on the sign-in link
  cy.get("#sign-in-link").click();
 

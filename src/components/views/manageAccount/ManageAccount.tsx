@@ -302,11 +302,11 @@ export default function ManageAccount({ user, setUser }: Props) {
           </Typography>
           <Stack>
             <FormControl error={passwordError} sx={{ mt: 5 }}>
-              <InputLabel htmlFor="password">Password</InputLabel>
+              <InputLabel htmlFor="current-password">Password</InputLabel>
               <Input
-                id="password"
+                id="currentPassword"
                 type={showPassword ? "text" : "password"}
-                name="password"
+                name="currentPassword"
                 value={userInfo.current_password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUserInfo({
