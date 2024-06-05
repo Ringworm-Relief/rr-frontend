@@ -64,11 +64,20 @@ function postPet(pet: Pet) {
 
 // }
 
+
 function fetchPets(id: string) {
-    return fetch(`https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pets/${id}`)
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=${id}`,
+    {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `${localStorage.getItem('token')}` 
+        }
+    }
+    )
     .then((response) => {
         return response.json();
     })
 }
 
-export { postPet, fetchPets};
+export { postPet, fetchPets };

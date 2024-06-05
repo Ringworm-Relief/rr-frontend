@@ -5,17 +5,32 @@ import {
 import React from "react";
 //   import { postPet, postMedication, postRingworm, patchPet, patchRingworm, patchMedication } from "../../../apiCalls/petApiCalls";
 import { SinglePetChange } from "./SinglePetChange";
+import { Pet } from "../../../utils/interfaces"
+import { useState, useEffect } from "react"
+import { fetchPets } from "../../../apiCalls/petApiCalls";
 
 interface Props {
-  pets: any[];
   setPets: React.Dispatch<any>;
+  // pets: Pet[];
   user: any;
 }
 
-export default function AllPetsManagement({ pets, user }: Props) {
+export default function AllPetsManagement({ user }: Props) {
+  const [pets, setPets] = useState<Pet[]>([])
 
-  const petCard = pets.map((pet) => {
-    return <SinglePetChange pet={pet} user={user} key={pet.Id} />;
+  const displayPets = () => {
+    fetchPets(user.data.id)
+    .then((data: any) => {
+      setPets(data.data.pets)
+    })
+  }
+
+  useEffect(() => {
+    displayPets()
+  }, [])
+
+  const petCard = pets.map((pet: any) => {
+    return <SinglePetChange pet={pet} user={user} key={pet.id} />;
   });
 
   return (

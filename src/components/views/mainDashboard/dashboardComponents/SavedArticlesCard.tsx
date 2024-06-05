@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemText,
   Grid,
+  Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -70,19 +71,31 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
         borderRadius: 3,
         boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
         position: "relative",
-        width: "auto",
-        height: 700,
-        marginLeft: 0,
+        width: 400,
+        height: 633,
+        marginLeft: 2,
         overflow: "scroll",
         // background: "rgba(255, 146, 98, 0.03)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        color: "#9A352F",
+        color: "#900066",
+        textAlign: "center",
         // paddingBottom: 15,
+        backgroundImage:
+            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "&:after": {
+              opacity: 0.5,
+            }
       }}
     >
-      <CardHeader title="Saved Articles" />
+      <CardHeader sx={{
+          fontWeight: 800,
+          textAlign: 'center',
+          mt: 2
+        }}title="Saved Articles" 
+        className="saved-articles-header"
+        />
       <CardContent>
         <Grid
           container
@@ -94,7 +107,7 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
           {savedArts.length ? (
             savedArticleCards
           ) : (
-            <p>You have no articles saved.</p>
+            <Typography sx={{ mt: 5, textAlign: 'center' }}>You have no articles saved.</Typography>
           )}
         </Grid>
       </CardContent>

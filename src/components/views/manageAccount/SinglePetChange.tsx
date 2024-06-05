@@ -1,3 +1,5 @@
+
+
 import {
   Box,
   FormControl,
@@ -15,7 +17,6 @@ import {
   AccordionDetails,
   Alert,
   Collapse,
-  Divider
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { alpha, styled } from "@mui/material/styles";
@@ -24,7 +25,6 @@ import React, { useEffect, useState } from "react";
 import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
-import { createSvgIcon } from "@mui/material/utils";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
 //   import { postPet, postMedication, postRingworm, patchPet, patchRingworm, patchMedication } from "../../../apiCalls/petApiCalls";
 import { Pet, Medication, Ringworm } from "../../../utils/interfaces";
@@ -34,29 +34,23 @@ interface Props {
   pet: any;
 }
 
-const PlusIcon = createSvgIcon(
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 28 28"
-    strokeWidth={3}
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 4.5v15m7.5-7.5h-15"
-    />
-  </svg>,
-  "Plus"
-);
-
 export const SinglePetChange = ({ user, pet }: Props) => {
-  console.table(pet);
-  const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(undefined);
-  const [alertOpen, setAlertOpen] = useState<boolean>(true);
+  console.table("pet", pet);
+  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const [alertOpen, setAlertOpen] = useState<boolean | undefined>(undefined);
+  const [medications, setMedications] = useState<Medication[]>(pet.medications);
 
-   const [petObject, setPetObject] = useState<any>({
+  // const [petObject, setPetObject] = useState<any>({
+  //   user_id: user.data.id,
+  //   name: "",
+  //   pet_type: "",
+  //   breed: "",
+  //   birthday: "",
+  //   medications: [ { medication_type: "", name: "", dosage: "", frequency: "" } ],
+  //   ringworm: { ringworm_type: "", diagnosis_date: "", symptoms: []},
+  // });
+
+  const [petObject, setPetObject] = useState<any>({
     user_id: user.data.id,
     name: pet.name,
     pet_type: pet.type,
@@ -65,7 +59,20 @@ export const SinglePetChange = ({ user, pet }: Props) => {
     medications: pet.medications,
     ringworm: pet.ringworm,
   });
-  const [medications, setMedications] = useState<Medication[]>(pet.medications)
+
+
+  // useEffect(() => {
+  //   // setHasSubmitted(true);                // Uncomment to see alert
+  //   setPetObject({
+  //     user_id: user.data.id,
+  //     name: pet.name,
+  //     pet_type: pet.type,
+  //     breed: pet.breed,
+  //     birthday: pet.birthday,
+  //     medications: pet.medications,
+  //     ringworm: pet.ringworm,
+  //   });
+  // }, []);
 
   // const handleSubmit = async () => {
   //   const petResponse = await patchPet(petObject);
@@ -104,16 +111,16 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   //   }
   // };
 
-//   const handleMedChange = (
-//     index: number,
-//     field: keyof Medication,
-//     value: string
-//   ) => {
-//     const updatedMedications = medications.map((med, i) =>
-//       i === index ? { ...med, [field]: value } : med
-//     );
-//     setMedications(updatedMedications);
-//   };
+  const handleMedChange = (
+    index: number,
+    field: keyof Medication,
+    value: string
+  ) => {
+    const updatedMedications = medications.map((med, i) =>
+      i === index ? { ...med, [field]: value } : med
+    );
+    setMedications(updatedMedications);
+  };
 
   const BootstrapInput = styled(InputBase)(({ theme }) => ({
     "label + &": {
@@ -152,17 +159,6 @@ export const SinglePetChange = ({ user, pet }: Props) => {
       },
     },
   }));
-
-  const handleMedChange = (
-    index: number,
-    field: keyof Medication,
-    value: string
-  ) => {
-    const updatedMedications = medications.map((med, i) =>
-      i === index ? { ...med, [field]: value } : med
-    );
-    setMedications(updatedMedications);
-  };
 
   const medCards = medications.map((med, index) => (
     <MedicationsCard
@@ -229,7 +225,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   onChange={(e) =>
                     setPetObject({ ...petObject, name: e.target.value })
                   }
-                  id="name-field"
+                  // id="name-field"
                   inputProps={{ placeholder: "Enter pet name" }}
                 />
               </FormControl>
@@ -244,6 +240,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 </InputLabel>
                 <Select
                   value={petObject.pet_type}
+                //   defaultValue={pet.type === "Cat" ? "Cat" : "Dog"} //Can't properly use value here
                   onChange={(e) =>
                     setPetObject({ ...petObject, pet_type: e.target.value })
                   }
@@ -308,17 +305,10 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   onChange={(e) =>
                     setPetObject({ ...petObject, breed: e.target.value })
                   }
-                  id="breed-field"
+                  // id="breed-field"
                   inputProps={{ placeholder: "Enter breed" }}
                 />
               </FormControl>
-              <Button
-                variant="outlined"
-                sx={{ my: "20px" }}
-                // onClick={() => handleSubmit()}
-              >
-                Submit Pet Info Changes
-              </Button>
               <div className="divider"></div>
               <Typography
                 variant="h3"
@@ -395,13 +385,6 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   inputProps={{ placeholder: "Enter symptoms" }}
                 />
               </FormControl>
-              <Button
-                variant="outlined"
-                sx={{ my: "20px" }}
-                // onClick={() => handleSubmit()}
-              >
-                Submit Diagnosis Changes
-              </Button>
               <div className="divider"></div>
               <Typography
                 variant="h3"
@@ -412,8 +395,8 @@ export const SinglePetChange = ({ user, pet }: Props) => {
               </Typography>
               <div>{medCards}</div>
               <Button
-                variant="text"
-                sx={{ marginTop: "10px" }}
+                variant="outlined"
+                sx={{ marginTop: "20px" }}
                 onClick={() =>
                   setMedications([
                     ...petObject.medications,
@@ -426,17 +409,16 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   ])
                 }
               >
-                Add medication <PlusIcon />
+                Add medication
               </Button>
-
               <Button
                 variant="outlined"
                 sx={{ marginTop: "20px" }}
                 // onClick={() => handleSubmit()}
               >
-                Submit Med Changes
+                Submit Changes
               </Button>
-              {!hasSubmitted ? (
+              {!hasSubmitted ? ( 
                 <Collapse in={alertOpen}>
                   <Alert
                     severity="error"

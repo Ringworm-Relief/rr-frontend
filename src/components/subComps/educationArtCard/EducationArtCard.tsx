@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -10,50 +9,45 @@ import { EducationArtCardProps } from '../../../utils/interfaces';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
-
-const EducationArtCard: React.FC<EducationArtCardProps> = ({ title, tagline, id, handleClick, handleSaves, savedArticles, isSaved }) => {
-
-    return (
-        <Grid item >
-        <Card
+const EducationArtCard: React.FC<EducationArtCardProps> = ({
+  title,
+  tagline,
+  id,
+  handleClick,
+  handleSaves,
+  savedArticles,
+  isSaved,
+}) => {
+  return (
+    <Grid item>
+      <Card
         variant="outlined"
         sx={{
           width: 320,
-          // to make the card resizable
+          height: 215,
+          display: 'flex',
+          flexDirection: 'column',
+          // justifyContent: 'space-between',
           overflow: 'auto',
           resize: 'horizontal',
         }}
         id={id}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-        </Box>
-        <CardContent>
+        <CardContent sx={{ flexGrow: 1 }}>
           <Typography variant="h6">{title}</Typography>
-          <Typography >
-            {tagline}
-          </Typography>
+          <Typography>{tagline}</Typography>
         </CardContent>
-        <CardActions >
-          <IconButton onClick={() => handleSaves(id)} sx={{ mr: 'auto' }}>
+        <CardActions sx={{ justifyContent: 'space-between' }}>
+          <IconButton onClick={() => handleSaves(id)}>
             {isSaved ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
           </IconButton>
-          {/* <Button variant="outlined" >
-            Save
-          </Button> */}
-          <Button  color="primary" onClick={() => handleClick(id)}>
+          <Button color="primary" onClick={() => handleClick(id)}>
             Read more
           </Button>
         </CardActions>
       </Card>
-      </Grid>
-    )
+    </Grid>
+  );
+};
 
-}
-
-export default EducationArtCard
+export default EducationArtCard;
