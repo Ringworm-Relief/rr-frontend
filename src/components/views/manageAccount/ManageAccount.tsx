@@ -334,8 +334,8 @@ export default function ManageAccount({ user, setUser }: Props) {
               </FormHelperText>
             </FormControl>
             <Stack direction="row">
-              <Button onClick={handleUserUpdate}>Confirm</Button>
               <Button onClick={handleModal}>Go back</Button>
+              <Button onClick={handleUserUpdate}>Confirm</Button>
             </Stack>
           </Stack>
         </Box>
