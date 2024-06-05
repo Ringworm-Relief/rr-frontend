@@ -67,6 +67,7 @@ export default function ManageAccount({ user, setUser }: Props) {
     if (userInfo.password === userInfo.password_confirmation) {
       updateUser(user, userInfo).then((data) => {
         if (data.errors) {
+          console.log(data)
           setError(true);
           setErrorStatus(data.errors[0].status);
         } else {
