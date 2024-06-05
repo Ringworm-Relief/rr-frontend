@@ -156,35 +156,59 @@ function PetForm({ user }: Props) {
     postPet(updatedPetObject)
       .then((data) => {
         setHasSubmitted(true);
+        setRingwormObject({
+          ringworm_type: "",
+          diagnosis_date: "",
+          symptoms: []
+        });
+  
+        setMedications([
+          {
+            name: "",
+            medication_type: "",
+            dosage: "",
+            frequency: "",
+          },
+        ]);
+  
+        setPetObject({
+          user_id: user.data.id,
+          name: "",
+          pet_type: "",
+          breed: "",
+          birthday: "",
+          medications: medications,
+          ringworm: ringwormObject,
+        });
       })
       .catch((err) => setHasSubmitted(false));
 
-    if (hasSubmitted) {
-      setRingwormObject({
-        ringworm_type: "",
-        diagnosis_date: "",
-        symptoms: []
-      });
+    // if (hasSubmitted) {
+    //   setRingwormObject({
+    //     ringworm_type: "",
+    //     diagnosis_date: "",
+    //     symptoms: []
+    //   });
 
-      setMedications([
-        {
-          name: "",
-          medication_type: "",
-          dosage: "",
-          frequency: "",
-        },
-      ]);
+    //   setMedications([
+    //     {
+    //       name: "",
+    //       medication_type: "",
+    //       dosage: "",
+    //       frequency: "",
+    //     },
+    //   ]);
 
-      setPetObject({
-        user_id: user.data.id,
-        name: "",
-        pet_type: "",
-        breed: "",
-        birthday: "",
-        medications: medications,
-        ringworm: ringwormObject,
-      });
-    }
+    //   setPetObject({
+    //     user_id: user.data.id,
+    //     name: "",
+    //     pet_type: "",
+    //     breed: "",
+    //     birthday: "",
+    //     medications: medications,
+    //     ringworm: ringwormObject,
+    //   });
+    // }
   };
 
   const handleMedChange = (

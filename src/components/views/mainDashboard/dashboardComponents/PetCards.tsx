@@ -54,19 +54,35 @@ function PetCards({ user, setTargetPetFunc }: Props) {
     },
   };
 
-  const [pets, setPets] = useState<Pet[]>([])
+  const [pets, setPets] = useState<Pet[] | undefined>([])
+
+  // const displayPets = () => {
+  //   fetchPets(user.data.id)
+  //   .then((data: any) => {
+  //     if (data.data.pets) {
+  //     setPets(data.data.pets)
+  //     }
+  //   })
+  // }
 
   const displayPets = () => {
     fetchPets(user.data.id)
-    .then((data: any) => {
-      setPets(data.data.pets)
-    })
-  }
+      .then((data: any) => {
+        if (data && data.data && data.data.pets) {
+          setPets(data.data.pets);
+        } else {
+          setPets([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching pets:", error);
+        setPets([]);
+      });
+  };
 
   useEffect(() => {
     displayPets()
-    console.log("pets", pets)
-  }, [])
+  }, [user.data.id])
 
 
   const cardMediaStyle = {
@@ -81,7 +97,7 @@ function PetCards({ user, setTargetPetFunc }: Props) {
 
   return (
     <Grid container spacing={2} columns={3}>
-      {pets.length > 0 && pets.map((pet: any) => {
+      {pets && pets?.map((pet: any) => {
         return (
           <CardActions onClick={() => setTargetPetFunc(pet)}>
             <Grid item>
