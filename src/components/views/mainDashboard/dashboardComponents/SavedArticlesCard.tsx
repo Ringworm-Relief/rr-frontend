@@ -20,6 +20,7 @@ interface Props {
 }
 
 function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
+
   const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
   const navigate = useNavigate();
 
@@ -32,20 +33,14 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
     });
   };
 
-  const handleClick = (id: string | void) => {
-    navigate(`/education/category/${id}`);
-  };
-
   useEffect(() => {
     getSavedArts();
   }, []);
 
-  const savedArtsLinks = savedArts.map((art) => {
-    return (
-      <Link to={`/education/category/${art.id}`}>{art.attributes.title}</Link>
-    );
-  });
-
+  const handleClick = (id: string | void) => {
+    navigate(`/education/category/${id}`);
+  };
+  
   const innerWidthCheck = () => {
     if (window.innerWidth <= 915 && window.innerWidth >= 582) {
       return 500;
