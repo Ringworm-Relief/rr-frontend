@@ -18,13 +18,25 @@ interface Props {
 
 function PetCards({ user, setTargetPetFunc, pets }: Props) {
   console.log("USER:", user)
+  
+    const innerWidthCheck = () => {
+      if(window.innerWidth <= 582 && window.innerWidth >= 477) {
+        return 400
+      } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
+        return 300
+      } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
+        return 270
+      }else {
+        return 200
+      } 
+    }
   const style = {
     mr: 1,
     mt: 2,
     borderRadius: 3,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
     position: "relative",
-    minWidth: 200,
+    minWidth: innerWidthCheck(),
     height: 80,
     width: 90,
     padding: 2,
@@ -51,8 +63,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
   };
-
-  
 
   return (
     <Grid container spacing={2} columns={3}>

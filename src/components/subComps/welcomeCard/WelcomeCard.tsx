@@ -11,6 +11,16 @@ import { Link } from "react-router-dom";
 import CoolestCat from "../../../assets/RR-3.svg";
 
 function WelcomeCard() {
+    
+  const innerWidthCheck = () => {
+    if(window.innerWidth <= 915 && window.innerWidth >= 455) {
+      return "100px"
+    } else if(window.innerWidth <= 455 && window.innerWidth >= 310) {
+      return "30px"
+    } else {
+      return "100px"
+    } 
+  }
   return (
     <div className="WelcomeCard_wrapper">
       <Card
@@ -19,7 +29,7 @@ function WelcomeCard() {
           boxShadow: "none",
           maxWidth: 1200,
           height: 600,
-          px: "100px",
+          px: innerWidthCheck(),
           py: "50px",
           // background: "rgba(255, 146, 98, 0.8)",
         }}

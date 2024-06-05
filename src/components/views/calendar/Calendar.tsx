@@ -157,18 +157,20 @@ export default function Calendar({ user, pet, pets }: Props) {
   // }
   
   const innerWidthCheck = () => {
-    if(window.innerWidth <= 915 && window.innerWidth >= 770) {
+    if(window.innerWidth <= 915 && window.innerWidth >= 582) {
       return 450
-    } else if(window.innerWidth <= 770 && window.innerWidth >= 560) {
+    } else if(window.innerWidth <= 582 && window.innerWidth >= 477) {
       return 400
-    } else if(window.innerWidth <= 560 && window.innerWidth >= 430) {
+    } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
       return 300
-    } else if(window.innerWidth <= 430 && window.innerWidth >= 310) {
-      return 190
-    } else {
+    } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
+      return 245
+    }else {
       return 800
     } 
   }
+
+
 
   const innerHeightCheck = () => {
     if(window.innerWidth <= 770 && window.innerWidth >= 560) {
