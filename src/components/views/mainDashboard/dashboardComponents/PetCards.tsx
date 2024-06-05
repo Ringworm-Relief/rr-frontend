@@ -39,7 +39,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
     position: "relative",
     minWidth: innerWidthCheck(),
     height: 80,
-    width: 90,
     padding: 2,
     display: "flex",
     flexDirection: "column",
@@ -55,14 +54,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",
     },
-  };
-
-  const cardMediaStyle = {
-    width: "100%",
-    height: 140, // Adjust height as necessary
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
   };
 
   return (

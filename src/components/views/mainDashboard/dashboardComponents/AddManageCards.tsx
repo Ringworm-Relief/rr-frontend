@@ -10,6 +10,7 @@ interface Props {
 
 function DashboardManageAccount({ user }: Props) {
   const [userAtt, setUserAtt] = useState<any>(user.data.attributes);
+  
   const innerWidthCheck = () => {
     if(window.innerWidth <= 915 && window.innerWidth >= 582) {
       return 450
