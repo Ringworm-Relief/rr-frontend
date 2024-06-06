@@ -16,22 +16,17 @@ import {
   ResourceDirective,
   PopupOpenEventArgs,
 } from "@syncfusion/ej2-react-schedule";
-// import { createElement } from "@syncfusion/ej2-base";
-// import { DropDownList } from "@syncfusion/ej2-dropdowns";
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import {
   destroyCalendarEvent,
   fetchCalendarEvents,
 } from "../../../apiCalls/calendarApiCalls";
-import { Card, Stack } from "@mui/material";
-import { Pets } from "../../../utils/interfaces";
+import { Alert, Card, Collapse, Stack } from "@mui/material";
 import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
 interface Props {
   user: any;
-  pet: any;
   pets: any[];
 }
-
 interface ScheduleEvent {
   PetId: number;
   Id: number;
@@ -41,7 +36,6 @@ interface ScheduleEvent {
   EndTime: Date;
   ResourceId: number;
 }
-
 interface ApiEvent {
   id: string;
   type: string;
@@ -55,7 +49,6 @@ interface ApiEvent {
     resource_id: string;
   };
 }
-
 
 const transformToApiFormat = (event: ScheduleEvent, userId: number) => {
   return {
@@ -87,51 +80,34 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
   };
 };
 
-export default function Calendar({ user, pet, pets }: Props) {
+export default function Calendar({ user, pets }: Props) {
   const navigate = useNavigate();
+
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
-  // const [singleResourceData, setSingleResourceData] = useState<any>(); 
-  // const [resourceData, setResourceData] = useState<any[]>([]);
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const scheduleObj = useRef<ScheduleComponent>(null);
   const currentToken = sessionStorage.getItem("token") || "null";
   const windowLocation = window.location.pathname;
 
-  // if (!currentToken) {
-  //   throw new Error("Token is null");
-  // }
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchCalendarEvents(user.data.id, currentToken);
+    fetchCalendarEvents(user.data.id, currentToken)
+      .then((response) => {
         // Transform API response to ScheduleEvent
-        const newEvents = response.data.map((event: ApiEvent) => {
-          return transformToScheduleEvent(event);
-        });
-        setScheduleData(newEvents);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
-    console.log(window.innerWidth)
-  //   const colors: string[] = [
-  //     "#cb6bb2",
-  //     "#56ca85",
-  //     "#df5286",
-  //     "#f7b84b",
-  //     "#198675",
-  //     "#b7d7e8",
-  //     "#e0a7a7",
-  //     "#8e8cd8",
-  //     "#f57f17",
-  //   ];
-
-  // if(pet) {
-  //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
-  //   setResourceData(singleResourceData);
-  // }
-    fetchData();
-    console.log(pets)
+        if (response.errors) {
+          setError(true);
+          setErrorMessage(response.errors[0].detail);
+        } else {
+          const newEvents = response.data.map((event: ApiEvent) => {
+            return transformToScheduleEvent(event);
+          });
+          setScheduleData(newEvents);
+        }
+      })
+      .catch((error) => {
+        navigate("/error");
+      });
   }, []);
 
   const colors: string[] = [
@@ -152,35 +128,29 @@ export default function Calendar({ user, pet, pets }: Props) {
     return acc;
   }, []);
 
-  // if(pet) {
-  //   const singleResourceData = [{ Name: pet.name, Id: pet.Id, Color: colors[0]}]
-  // }
-  
   const innerWidthCheck = () => {
-    if(window.innerWidth <= 915 && window.innerWidth >= 582) {
-      return 450
-    } else if(window.innerWidth <= 582 && window.innerWidth >= 477) {
-      return 400
-    } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
-      return 300
-    } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
-      return 245
-    }else {
-      return 800
-    } 
-  }
-
-
+    if (window.innerWidth <= 915 && window.innerWidth >= 582) {
+      return 450;
+    } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
+      return 400;
+    } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
+      return 300;
+    } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
+      return 245;
+    } else {
+      return 800;
+    }
+  };
 
   const innerHeightCheck = () => {
-    if(window.innerWidth <= 770 && window.innerWidth >= 560) {
-      return 300
-    } else if(window.innerWidth <= 560) {
-      return 500
+    if (window.innerWidth <= 770 && window.innerWidth >= 560) {
+      return 300;
+    } else if (window.innerWidth <= 560) {
+      return 500;
     } else {
-      return 300
-    } 
-  }
+      return 300;
+    }
+  };
 
   const dataManager = new DataManager({
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
@@ -199,7 +169,7 @@ export default function Calendar({ user, pet, pets }: Props) {
 
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
-      if (target.className === save_icon || target.className === save_button) {
+      if (target.className === save_icon || target.className === save_button || target.className === "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary") {
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
           Id: scheduleData.length + 1,
@@ -211,6 +181,7 @@ export default function Calendar({ user, pet, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
+        // window.location.reload();
       }
     }
   };
@@ -227,15 +198,19 @@ export default function Calendar({ user, pet, pets }: Props) {
     };
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
+    // fetchCalendarEvents(user.data.id, currentToken)
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
-      destroyCalendarEvent(
-        user.data.id,
-        args.data.Id.toString(),
-        currentToken
-      );
-  }
+    destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken)
+    .then(res => {
+          if(res.errors) {
+            setError(true);
+            setErrorMessage(res.errors[0].detail);
+          }
+
+        })
+  };
 
   const destroyEvent = (args: PopupOpenEventArgs): void => {
     if (args.type === "DeleteAlert") {
@@ -243,12 +218,30 @@ export default function Calendar({ user, pet, pets }: Props) {
         user.data.id,
         args.data?.Id.toString(),
         currentToken
-      );
+      )
+      .then(res => {
+        if(res.errors) {
+          setError(true);
+          setErrorMessage(res.errors[0].detail);
+        }
+      })
     }
-  }
+  };
 
   return (
     <>
+      {error && (
+        <Collapse in={alertOpen}>
+          <Alert
+            severity="error"
+            sx={{ marginTop: "20px" }}
+            onClose={() => setAlertOpen(false)}
+            hidden={alertOpen}
+          >
+            {errorMessage}
+          </Alert>
+        </Collapse>
+      )}
       {user.data.id ? (
         <>
           {windowLocation.includes("calendar") ? (
@@ -300,11 +293,10 @@ export default function Calendar({ user, pet, pets }: Props) {
                   alignItems: "center",
                   color: "#9A352F",
                   backgroundImage:
-            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            "&:after": {
-
-              opacity: 0.5,
-            }
+                    "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+                  "&:after": {
+                    opacity: 0.5,
+                  },
                 }}
               >
                 <ScheduleComponent
@@ -318,7 +310,7 @@ export default function Calendar({ user, pet, pets }: Props) {
                   dragStop={dragStopEvent}
                   dragStart={destroyDragEvent}
                   popupOpen={destroyEvent}
-                  group={{resources: ['Pets']}}
+                  group={{ resources: ["Pets"] }}
                   width="100%"
                   height="100%"
                 >

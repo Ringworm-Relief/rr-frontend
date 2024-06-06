@@ -19,6 +19,7 @@ import { destroyToken } from "../../apiCalls/userApiCalls";
 import ManageAccount from "../views/manageAccount/ManageAccount";
 import PetDashboard from "../views/petDashboard/PetDashboard";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
+import Error from "../views/error/Error";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 
 function App() {
@@ -29,13 +30,15 @@ function App() {
     localStorage.getItem("SAVED_ARTS") || "[]"
   );
   const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
-  const singlePetStorage = JSON.parse(localStorage.getItem("TARGETPET") || "[]");
+  const singlePetStorage = JSON.parse(
+    localStorage.getItem("TARGETPET") || "[]"
+  );
+
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
   const [pets, setPets] = useState<any[]>(PetsStorage); //Holds the current user's pets
   const [targetPet, setTargetPet] = useState<any>(singlePetStorage); //Holds the pet that is currently being viewed
   const [pageRender, setPageRender] = useState<number>(0);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,21 +47,12 @@ function App() {
     );
     setSavedArticles(savedArts);
     !pageRender ?? navigate(`/user/${user.data.id}/dashboard`);
+    
   }, []);
 
   useEffect(() => {
     localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
   }, [savedArticles]);
-
-  const handleSaves = (id: string) => {
-    setSavedArticles((prevSavedArticles) => {
-      if (prevSavedArticles.includes(id)) {
-        return prevSavedArticles.filter((articleId) => id !== articleId);
-      } else {
-        return [...prevSavedArticles, id];
-      }
-    });
-  };
 
   const setLoggedInUser = (user: any) => {
     setPageRender(pageRender + 1);
@@ -67,7 +61,8 @@ function App() {
     // console.log(user);
     getUserPets();
     navigate(`/user/${user.data.id}/dashboard`);
-    setTimeout(() => { //Sign out after 1 hour
+    setTimeout(() => {
+      //Sign out after 1 hour
       handleSignOut();
     }, 3600000);
   };
@@ -80,25 +75,34 @@ function App() {
   };
 
   const getUserPets = () => {
-    if(user.data.id) {
-      fetchPets(user.data.id)
-      .then((data: any) => {
+    if (user.data.id) {
+      fetchPets(user.data.id).then((data: any) => {
         if (data && data.data && data.data.pets) {
           // setPets(data.data.pets);
           localStorage.removeItem("PETS");
-          localStorage.setItem("PETS", JSON.stringify(data.data.pets)); 
+          localStorage.setItem("PETS", JSON.stringify(data.data.pets));
           const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
-          setPets(PetsStorage); 
+          setPets(PetsStorage);
         } else {
           setPets([]);
         }
-      })
+      });
     }
   };
 
+  const handleSaves = (id: string) => {
+    setSavedArticles((prevSavedArticles) => {
+      if (prevSavedArticles.includes(id)) {
+        return prevSavedArticles.filter((articleId) => id !== articleId);
+      } else {
+        return [...prevSavedArticles, id];
+      }
+    });
+  };
+
   const setTargetPetFunc = (pet: any): void => {
-          localStorage.removeItem("TARGETPET");
-    localStorage.setItem("TARGETPET", JSON.stringify(pet)); 
+    localStorage.removeItem("TARGETPET");
+    localStorage.setItem("TARGETPET", JSON.stringify(pet));
     const petStorage = JSON.parse(localStorage.getItem("TARGETPET") || "[]");
     setTargetPet(petStorage);
     navigate(`/user/${user.data.id}/${pet.name}`);
@@ -108,61 +112,61 @@ function App() {
     <div className="App">
       <header className="App_header">
         <div className="App_nav_block_left">
-        <div className="App_nav_links">
-          <Link className="App_link_cat" to="/">
-            <img
-              id="cool-cat"
-              src={CoolCat}
-              alt="Cool cat outline wearing sunglasses"
-              height="60px"
-              width="60px"
-            />
-          </Link>
-        </div>
-        <nav className="App_nav">
           <div className="App_nav_links">
-            <Link
-              className="App_link"
-              to={user ? `/user/${user.data.id}/calendar` : "/account/signin"}
-            >
-              Calendar
+            <Link className="App_link_cat" to="/">
+              <img
+                id="cool-cat"
+                src={CoolCat}
+                alt="Cool cat outline wearing sunglasses"
+                height="60px"
+                width="60px"
+              />
             </Link>
           </div>
-          <div className="App_nav_links">
-            <Link
-              id="sign-in-link"
-              className="App_link"
-              to={user ? `/user/${user.data.id}/dashboard` : "/account/signin"}
-            >
-              Dashboard
-            </Link>
-          </div>
-          <div className="App_nav_links">
-            <Link className="App_link" to="/education">
-              Education
-            </Link>
-          </div>
-        </nav>
+          <nav className="App_nav">
+            <div className="App_nav_links">
+              <Link
+                className="App_link"
+                to={user ? `/user/${user.data.id}/calendar` : "/account/signin"}
+              >
+                Calendar
+              </Link>
+            </div>
+            <div className="App_nav_links">
+              <Link
+                id="sign-in-link"
+                className="App_link"
+                to={
+                  user ? `/user/${user.data.id}/dashboard` : "/account/signin"
+                }
+              >
+                Dashboard
+              </Link>
+            </div>
+            <div className="App_nav_links">
+              <Link className="App_link" to="/education">
+                Education
+              </Link>
+            </div>
+          </nav>
         </div>
         <div className="App_nav_block_right">
-        {user ? ( //If user is logged in, show sign out button
-          <div className="App_nav_links">
-            <Button variant="contained" onClick={handleSignOut}>
-              Sign Out
-            </Button>
+          {user ? ( //If user is logged in, show sign out button
+            <div className="App_nav_links">
+              <Button variant="contained" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <div className="App_nav_links">
+              <Link className="App_link" to="/account/signin">
+                <Button variant="outlined">Sign In</Button>
+              </Link>
+            </div>
+          )}
+          <div className="App_nav_links" id="drawer">
+            <Drawer user={user} />
           </div>
-        ) : (
-          <div className="App_nav_links">
-            <Link className="App_link" to="/account/signin">
-            <Button variant="outlined">
-              Sign In
-            </Button>
-            </Link>
-          </div>
-        )}
-        <div className="App_nav_links" id="drawer">
-          <Drawer user={user} />
-        </div>
         </div>
       </header>
       <Routes>
@@ -170,7 +174,7 @@ function App() {
         {user && (
           <Route
             path="/user/:user_id/addpet"
-            element={<PetForm user={user} getUserPets={getUserPets}/>}
+            element={<PetForm user={user} getUserPets={getUserPets} />}
           />
         )}
         <Route path="account/new" element={<CreateAccount />} />
@@ -209,13 +213,12 @@ function App() {
               user={user}
               pets={pets}
               setTargetPetFunc={setTargetPetFunc}
-              pet={targetPet}
             />
           }
         />
         <Route
           path="/user/:user_id/calendar"
-          element={<Calendar user={user} pet={targetPet} pets={pets} />}
+          element={<Calendar user={user} pets={pets} />}
         />
         <Route
           path="/user/:user_id/:pet_name"
@@ -223,14 +226,13 @@ function App() {
         />
         <Route
           path="/user/:user_id/management/account"
-          element={<ManageAccount user={user} setUser={setUser}/>}
+          element={<ManageAccount user={user} setUser={setUser} />}
         ></Route>
-         <Route
+        <Route
           path="/user/:user_id/management/pets"
-          element={<AllPetsManagement setPets={setPets} user={user} />}
+          element={<AllPetsManagement setPets={setPets} pets={pets} user={user} />}
         ></Route>
-        <Route path="*" element={<Landing />} />
-
+        <Route path="*" element={<Error />} />
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">

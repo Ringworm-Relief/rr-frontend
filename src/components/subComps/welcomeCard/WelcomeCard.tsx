@@ -39,7 +39,7 @@ function WelcomeCard() {
             <Typography variant="h2" sx={{ fontWeight: 800 }}>
               Ringworm, Relief,
             </Typography>
-            <Typography variant="h2" sx={{  pb: 4, fontWeight: 800, color: "#FEA1A2" }}>
+            <Typography variant="h2" sx={{  pb: 4, fontWeight: 800, color: "#ff999a" }}>
               Repeat?
             </Typography>
             <Typography

@@ -72,12 +72,14 @@ function CreateAccount() {
     }
   };
   return (
-    <Container maxWidth="xs">
-      <Box component="form" sx={{ mt: 10}} onSubmit={handleCreateAccount}>
+    <Container maxWidth="xs" sx={{height: "80vh"}}>
+      <Typography variant="h3" sx={{mt: 8}}>Create an account</Typography>
+      <Box component="form" sx={{ mt: 5}} onSubmit={handleCreateAccount}>
           {error && <Typography variant="h5" sx={{ color: "#ef8e64" }}>{error}</Typography>}
         <FormControl sx={{ mt: 5 }}>
           <InputLabel htmlFor="firstName">First Name</InputLabel>
           <OutlinedInput
+            id="firstName"
             type="firstName"
             label="First Name"
             name="firstName"
@@ -89,6 +91,7 @@ function CreateAccount() {
         <FormControl sx={{ mt: 5 }}>
           <InputLabel htmlFor="lastName">Last Name</InputLabel>
           <OutlinedInput
+            id="lastName"
             type="lastName"
             label="Last Name"
             name="lastName"
@@ -101,6 +104,7 @@ function CreateAccount() {
           <FormControl sx={{ mt: 5 }}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
+              id="email"
               type="email"
               label="Email"
               name="email"
@@ -137,9 +141,8 @@ function CreateAccount() {
             <FormHelperText>{passwordError ? 'Passwords do not match' : 'Must be at least 6 characters long'}</FormHelperText>
           </FormControl>
           <FormControl error={passwordError} sx={{ mt: 5 }}>
-            <InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
+            <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
             <OutlinedInput
-              
               id="confirm-password"
               type={showPassword ? "text" : "password"}
               label="Confirm Password"

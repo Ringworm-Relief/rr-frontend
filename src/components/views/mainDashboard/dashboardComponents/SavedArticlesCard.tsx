@@ -20,6 +20,7 @@ interface Props {
 }
 
 function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
+
   const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
   const navigate = useNavigate();
 
@@ -29,22 +30,33 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
         savedArticles.includes(art.id)
       );
       setSavedArts(saved);
-    });
-  };
-
-  const handleClick = (id: string | void) => {
-    navigate(`/education/category/${id}`);
+    })
+    .catch(error => {
+      navigate("/error");
+    })
   };
 
   useEffect(() => {
     getSavedArts();
   }, []);
 
-  const savedArtsLinks = savedArts.map((art) => {
-    return (
-      <Link to={`/education/category/${art.id}`}>{art.attributes.title}</Link>
-    );
-  });
+  const handleClick = (id: string | void) => {
+    navigate(`/education/category/${id}`);
+  };
+  
+  const innerWidthCheck = () => {
+    if (window.innerWidth <= 915 && window.innerWidth >= 582) {
+      return 500;
+    } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
+      return 450;
+    } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
+      return 350;
+    } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
+      return 295;
+    } else {
+      return 420;
+    }
+  };
 
   const savedArticleCards = savedArts.map((article: EducationArticle) => {
     if (savedArticles.includes(article.id)) {
@@ -71,7 +83,7 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
         borderRadius: 3,
         boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
         position: "relative",
-        width: 400,
+        minWidth: innerWidthCheck(),
         height: 633,
         // marginLeft: 2,
         overflow: "scroll",
@@ -80,20 +92,21 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
         alignItems: "center",
         color: "#900066",
         textAlign: "center",
-        backgroundImage:
-            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            "&:after": {
-              opacity: 0.5,
-            }
+        backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+        "&:after": {
+          opacity: 0.5,
+        },
       }}
     >
-      <CardHeader sx={{
+      <CardHeader
+        sx={{
           fontWeight: 800,
-          textAlign: 'center',
-          mt: 2
-        }}title="Saved Articles" 
+          textAlign: "center",
+          mt: 2,
+        }}
+        title="Saved Articles"
         className="saved-articles-header"
-        />
+      />
       <CardContent>
         <Grid
           container
@@ -105,7 +118,9 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
           {savedArts.length ? (
             savedArticleCards
           ) : (
-            <Typography sx={{ mt: 5, textAlign: 'center' }}>You have no articles saved.</Typography>
+            <Typography sx={{ mt: 5, textAlign: "center" }}>
+              You have no articles saved.
+            </Typography>
           )}
         </Grid>
       </CardContent>
