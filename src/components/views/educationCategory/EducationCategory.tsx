@@ -17,10 +17,14 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, save
     const filterCategories = () => {
         getArticlesCategory()
         .then(data => {
+            console.log(data)
             let categoryData = data.data.filter((item: EducationArticle) => {
                 return item.category === category
             })
             setArticles(categoryData)
+        })
+        .catch(error => {
+            navigate("/error")
         })
 
     }
