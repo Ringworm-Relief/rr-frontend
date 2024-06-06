@@ -32,7 +32,7 @@ interface Props {
 
 export const SinglePetChange = ({ user, pet }: Props) => {
 
-  const [alertOpen, setAlertOpen] = useState<boolean | undefined>(undefined);
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [medications, setMedications] = useState<Medication[]>(pet.medications);
   const [petObject, setPetObject] = useState<any>({
     // user_id: user.data.id,
@@ -79,10 +79,8 @@ export const SinglePetChange = ({ user, pet }: Props) => {
     const updatedRingworm = {...ringworm, diagnosis_date: formatDate(ringworm.diagnosis_date)}
     putRingworm(updatedRingworm, id)
     .then(data => {
-      console.log("DATA ring", data)
-      console.log("pet in here", pet)
-      console.log("hiiiiiiiii")
       setRingPut(true)
+      console.log("ringPut", ringPut)
     })
     .catch(err => {
       setRingPut(false)
@@ -173,7 +171,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                   />
                 </FormControl>
                 <Button variant="outlined" sx={{mt: 2}} onClick={() => handlePetSubmit(petObject, pet.id)}> Submit Pet Changes</Button>
-                {petPut === false ? (
+                {petPut === false && (
                 <Collapse in={alertOpen}>
                   <Alert
                     severity="error"
@@ -184,7 +182,9 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     Pet information did not update.
                   </Alert>
                 </Collapse>
-              ) : (
+
+              )} 
+         {petPut && (
                 <Collapse in={alertOpen}>
                   <Alert
                     severity="success"
@@ -192,7 +192,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     onClose={() => setAlertOpen(false)}
                     hidden={alertOpen}
                   >
-                    Information updated.
+                    Pet information updated.
                   </Alert>
                 </Collapse>
               )}
@@ -236,7 +236,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     />
                   </FormControl>
                   <Button variant="outlined" onClick={() => handleRingwormSubmit(ringwormObject, pet.id)} sx={{mt: 2}}> Submit Ringworm Changes</Button>
-                  {ringPut === false ? (
+                  {ringPut === false && (
                 <Collapse in={alertOpen}>
                   <Alert
                     severity="error"
@@ -247,7 +247,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                     Pet information did not update.
                   </Alert>
                 </Collapse>
-              ) : (
+              )} {ringPut && (
                 <Collapse in={alertOpen}>
                   <Alert
                     severity="success"

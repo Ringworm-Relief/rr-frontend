@@ -22,32 +22,22 @@ function putPet(pet: any, id: any) {
          },
         body: JSON.stringify(pet)
     })
-    .then(res => res.json());
 }
 
 function putRingworm(ringworm: any, id: any) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/ringworms`, {
         method: 'PUT',
-        headers: { 
-            'Content-Type': 'application/json',
-            "Authorization": `${localStorage.getItem('token')}` 
-         },
+        headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(ringworm)
     })
-    .then(res => res.json());
 }
 
 function putMedications(medication: any, id: any) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
         method: 'PUT',
-        headers: { 
-            'Content-Type': 'application/json',
-            "Authorization": `${localStorage.getItem('token')}` 
-         },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(medication)
     })
-    .then(res => res.json());
-
 }
 
 function fetchPets(id: string) {
