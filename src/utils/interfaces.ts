@@ -260,5 +260,12 @@ export function formateDate2(date: string) {
       ];
     let array = date.split("-")
 
-    return `${monthNames[parseInt(array[2]) + 1]} ${array[3]}, ${array[1]}`
+    return `${monthNames[parseInt(array[2]) - 1]} ${array[3]}, ${array[1]}`
 }
+
+export function formatDateBackwards(bday: string) {
+  let array = bday.split("-")
+  let newArray = array.slice(1, -1);
+  return newArray.join("-");
+}
+

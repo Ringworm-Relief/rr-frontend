@@ -1,5 +1,5 @@
 export const getArticlesCategory = () => {
-    return fetch(`http://localhost:3000/api/v1/educational_articles`)
+    return fetch(`https://rr-educational-articles-efb008e252bf.herokuapp.com/api/v1/educational_articles`)
     .then(response => {
         if (response.ok) {
             return response.json();

@@ -413,7 +413,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
               <div>{medCards}</div>
               <Button
                 variant="text"
-                sx={{ marginTop: "10px" }}
+                sx={{ marginTop: "px" }}
                 onClick={() =>
                   setMedications([
                     ...petObject.medications,
