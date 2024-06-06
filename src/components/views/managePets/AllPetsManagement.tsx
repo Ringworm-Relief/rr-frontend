@@ -3,11 +3,7 @@ import {
   Stack,
 } from "@mui/material";
 import React from "react";
-//   import { postPet, postMedication, postRingworm, patchPet, patchRingworm, patchMedication } from "../../../apiCalls/petApiCalls";
 import { SinglePetChange } from "./SinglePetChange";
-import { Pet } from "../../../utils/interfaces"
-import { useState, useEffect } from "react"
-import { fetchPets } from "../../../apiCalls/petApiCalls";
 
 interface Props {
   setPets: React.Dispatch<any>;
