@@ -38,13 +38,14 @@ function Article() {
         }}
       >
         <Box sx={{ px: window.innerWidth < 800 ? 3 : 20, mt: 3 }}>
-          <Typography variant="h3" sx={{ my: "6px" }}>
+          <Typography variant="h3" sx={{ my: "6px", wordBreak: "break-word" }} >
             <Link
               href={articleUrl}
               target="_blank"
               rel="noopener"
               underline="hover"
               color="#5E6697"
+             
             >
               {singleArticle?.attributes.title}
             </Link>
