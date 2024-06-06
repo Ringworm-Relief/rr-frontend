@@ -11,30 +11,18 @@ import { fetchPets } from "../../../apiCalls/petApiCalls";
 
 interface Props {
   setPets: React.Dispatch<any>;
-  // pets: Pet[];
+  pets: any[];
   user: any;
 }
 
-export default function AllPetsManagement({ user }: Props) {
-  const [pets, setPets] = useState<Pet[]>([])
-
-  const displayPets = () => {
-    fetchPets(user.data.id)
-    .then((data: any) => {
-      setPets(data.data.pets)
-    })
-  }
-
-  useEffect(() => {
-    displayPets()
-  }, [])
+export default function AllPetsManagement({ user, pets }: Props) {
 
   const petCard = pets.map((pet: any) => {
     return <SinglePetChange pet={pet} user={user} key={pet.id} />;
   });
 
   return (
-    <Stack sx={{justifyContent: "center", mt: 20}}>
+    <Stack sx={{ mt: 20, height: "100vh"}}>
       <Grid container spacing={2} columns={3} sx={{justifyContent: "center"}}>
         {petCard}
       </Grid>
