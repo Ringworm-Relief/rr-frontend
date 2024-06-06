@@ -13,7 +13,7 @@ function postPet(pet: Pet) {
 }
 
 
-function putPet(pet: any, id: any) {
+function putPet(pet: any, id: number | string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
         method: 'PUT',
         headers: { 
@@ -24,7 +24,7 @@ function putPet(pet: any, id: any) {
     })
 }
 
-function putRingworm(ringworm: any, id: any) {
+function putRingworm(ringworm: Ringworm, id: number | string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/ringworms`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json'},
@@ -32,7 +32,7 @@ function putRingworm(ringworm: any, id: any) {
     })
 }
 
-function putMedications(medication: any, id: any) {
+function putMedications(medication: any, id: number | string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -55,4 +55,4 @@ function fetchPets(id: string) {
     })
 }
 
-export { postPet, fetchPets, putPet, putRingworm };
+export { postPet, fetchPets, putPet, putRingworm, putMedications };

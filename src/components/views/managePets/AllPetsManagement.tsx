@@ -30,7 +30,7 @@ export default function AllPetsManagement({ user, pets }: Props) {
       <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
         Adjust pet information like name, diagnosis, and medications.
       </Typography>
-    <Stack sx={{justifyContent: "center", mt: 20}}>
+    <Stack sx={{justifyContent: "center", mt: 5, mb: 50}}>
       <Grid container spacing={4} columns={3} sx={{justifyContent: "center"}}>
         {petCard}
       </Grid>
