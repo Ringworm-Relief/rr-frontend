@@ -1,14 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
-  CardActions,
   Typography,
   Box,
   Grid,
-  Stack,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
 import { Article, mockArticles } from "../../../utils/interfaces";
 
 function ArticleCard() {
@@ -28,9 +25,6 @@ const navigate = useNavigate();
           {mockArticles.map((article: Article) => {
             return (
               <Grid item>
-                {/* <CardActions> */}
-                  {/* <Link to={`/education/${article.title}/${article.tagline}`}> */}
-                    {/* Change article.title to article.category -- change article.tagline to titile */}
                 <Card
                   sx={{
                     height: 400,
@@ -63,8 +57,6 @@ const navigate = useNavigate();
                     })}
                   </CardContent>
                 </Card>
-                {/* </Link> */}
-                  {/* </CardActions> */}
               </Grid>
             );
           })}

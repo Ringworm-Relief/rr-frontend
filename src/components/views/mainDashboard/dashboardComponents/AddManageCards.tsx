@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardMedia, Stack } from "@mui/material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardMedia, Stack } from "@mui/material";
 import profile from "../../../../assets/profile.png";
 import veterinary from "../../../../assets/veterinary.png";
-import { useState } from "react";
 
 interface Props {
   user: any;
@@ -10,20 +10,20 @@ interface Props {
 
 function DashboardManageAccount({ user }: Props) {
   const [userAtt, setUserAtt] = useState<any>(user.data.attributes);
-  
+
   const innerWidthCheck = () => {
-    if(window.innerWidth <= 915 && window.innerWidth >= 582) {
-      return 450
-    } else if(window.innerWidth <= 582 && window.innerWidth >= 477) {
-        return 400
-      } else if(window.innerWidth <= 477 && window.innerWidth >= 358) {
-        return 300
-      } else if(window.innerWidth <= 354 && window.innerWidth >= 200) {
-        return 245
-      }else {
-        return 375
-      } 
-  }
+    if (window.innerWidth <= 915 && window.innerWidth >= 582) {
+      return 450;
+    } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
+      return 400;
+    } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
+      return 300;
+    } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
+      return 245;
+    } else {
+      return 375;
+    }
+  };
 
   const style = {
     mr: 1,
@@ -54,9 +54,15 @@ function DashboardManageAccount({ user }: Props) {
 
   return (
     <Stack direction={window.innerWidth >= 915 ? "row" : "column"}>
-      <Link to={`/user/${user.data.id}/management/account`} className="no-underline">
+      <Link
+        to={`/user/${user.data.id}/management/account`}
+        className="no-underline"
+      >
         <Card sx={style}>
-          <CardHeader className="saved-articles-header" title="Manage Account" />
+          <CardHeader
+            className="saved-articles-header"
+            title="Manage Account"
+          />
           <CardMedia
             component="img"
             image={profile}
@@ -70,7 +76,10 @@ function DashboardManageAccount({ user }: Props) {
           <CardContent className="manage-account">{`${userAtt.email} `}</CardContent>
         </Card>
       </Link>
-      <Link to={`/user/${user.data.id}/management/pets`} className="no-underline">
+      <Link
+        to={`/user/${user.data.id}/management/pets`}
+        className="no-underline"
+      >
         <Card sx={style}>
           <CardHeader className="saved-articles-header" title="Manage Pets" />
           <CardMedia

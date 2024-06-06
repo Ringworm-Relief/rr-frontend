@@ -8,7 +8,6 @@ import {
   Typography,
   Button,
   FormHelperText,
-  Modal,
   Alert,
   Collapse,
 } from "@mui/material";
@@ -27,20 +26,7 @@ import {
   Ringworm,
   formatDate,
 } from "../../../utils/interfaces";
-import { Navigate, useNavigate } from "react-router-dom";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 8,
-};
+import { useNavigate } from "react-router-dom";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -102,11 +88,7 @@ interface Props {
   getUserPets: () => void;
 }
 
-// Menu Items need to be capitalized
-// Date needs to be posted in yyyy-mm-dd format (Right now it is yyyy/mm/dd)
-
 function PetForm({ user, getUserPets }: Props) {
-  const navigate = useNavigate();
   const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
     undefined
   );
@@ -122,7 +104,7 @@ function PetForm({ user, getUserPets }: Props) {
   const [ringwormObject, setRingwormObject] = useState<Ringworm>({
     ringworm_type: "",
     diagnosis_date: "",
-    symptoms: []
+    symptoms: [],
   });
 
   const [petObject, setPetObject] = useState<Pet>({
@@ -160,9 +142,9 @@ function PetForm({ user, getUserPets }: Props) {
         setRingwormObject({
           ringworm_type: "",
           diagnosis_date: "",
-          symptoms: []
+          symptoms: [],
         });
-  
+
         setMedications([
           {
             name: "",
@@ -171,7 +153,7 @@ function PetForm({ user, getUserPets }: Props) {
             frequency: "",
           },
         ]);
-  
+
         setPetObject({
           user_id: user.data.id,
           name: "",
@@ -379,7 +361,7 @@ function PetForm({ user, getUserPets }: Props) {
             value={ringwormObject.symptoms.join(",")}
             onChange={(e) => {
               const array = e.target.value.split(",");
-              setRingwormObject({...ringwormObject, symptoms: array });
+              setRingwormObject({ ...ringwormObject, symptoms: array });
             }}
             id="symptoms-field"
             inputProps={{ placeholder: "Enter symptoms" }}

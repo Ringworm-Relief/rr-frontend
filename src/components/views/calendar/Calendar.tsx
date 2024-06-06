@@ -27,6 +27,42 @@ interface Props {
   user: any;
   pets: any[];
 }
+
+const colors: string[] = [
+  "#cb6bb2",
+  "#56ca85",
+  "#df5286",
+  "#f7b84b",
+  "#198675",
+  "#b7d7e8",
+  "#e0a7a7",
+  "#8e8cd8",
+  "#f57f17",
+];
+
+const innerWidthCheck = () => {
+  if (window.innerWidth <= 915 && window.innerWidth >= 582) {
+    return 450;
+  } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
+    return 400;
+  } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
+    return 300;
+  } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
+    return 245;
+  } else {
+    return 800;
+  }
+};
+
+const innerHeightCheck = () => {
+  if (window.innerWidth <= 770 && window.innerWidth >= 560) {
+    return 300;
+  } else if (window.innerWidth <= 560) {
+    return 500;
+  } else {
+    return 300;
+  }
+};
 interface ScheduleEvent {
   PetId: number;
   Id: number;
@@ -110,49 +146,13 @@ export default function Calendar({ user, pets }: Props) {
       });
   }, []);
 
-  const colors: string[] = [
-    "#cb6bb2",
-    "#56ca85",
-    "#df5286",
-    "#f7b84b",
-    "#198675",
-    "#b7d7e8",
-    "#e0a7a7",
-    "#8e8cd8",
-    "#f57f17",
-  ];
-
   const resourceDataSource = pets.reduce((acc: any[], pet) => {
     let index = pets.indexOf(pet);
     acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
     return acc;
   }, []);
 
-  const innerWidthCheck = () => {
-    if (window.innerWidth <= 915 && window.innerWidth >= 582) {
-      return 450;
-    } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
-      return 400;
-    } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
-      return 300;
-    } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
-      return 245;
-    } else {
-      return 800;
-    }
-  };
-
-  const innerHeightCheck = () => {
-    if (window.innerWidth <= 770 && window.innerWidth >= 560) {
-      return 300;
-    } else if (window.innerWidth <= 560) {
-      return 500;
-    } else {
-      return 300;
-    }
-  };
-
-  const dataManager = new DataManager({
+  const dataManager = new DataManager({ // Handling POST requests
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
     adaptor: new WebApiAdaptor(),
     crossDomain: true,
@@ -169,7 +169,12 @@ export default function Calendar({ user, pets }: Props) {
 
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
-      if (target.className === save_icon || target.className === save_button || target.className === "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary") {
+      if (
+        target.className === save_icon ||
+        target.className === save_button ||
+        target.className ===
+          "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary"
+      ) {
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
           Id: scheduleData.length + 1,
@@ -198,18 +203,19 @@ export default function Calendar({ user, pets }: Props) {
     };
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
-    // fetchCalendarEvents(user.data.id, currentToken)
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
-    destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken)
-    .then(res => {
-          if(res.errors) {
-            setError(true);
-            setErrorMessage(res.errors[0].detail);
-          }
-
-        })
+    destroyCalendarEvent(
+      user.data.id,
+      args.data.Id.toString(),
+      currentToken
+    ).then((res) => {
+      if (res.errors) {
+        setError(true);
+        setErrorMessage(res.errors[0].detail);
+      }
+    });
   };
 
   const destroyEvent = (args: PopupOpenEventArgs): void => {
@@ -218,13 +224,12 @@ export default function Calendar({ user, pets }: Props) {
         user.data.id,
         args.data?.Id.toString(),
         currentToken
-      )
-      .then(res => {
-        if(res.errors) {
+      ).then((res) => {
+        if (res.errors) {
           setError(true);
           setErrorMessage(res.errors[0].detail);
         }
-      })
+      });
     }
   };
 

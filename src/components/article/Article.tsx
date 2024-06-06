@@ -1,9 +1,9 @@
-import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 import { useState, useEffect } from "react";
-import { EducationArticle } from "../../utils/interfaces";
 import { useParams, useNavigate } from "react-router-dom";
 import { Typography, Box, Container, Button } from "@mui/material";
+import { EducationArticle } from "../../utils/interfaces";
 import { ArticleParams } from "../../utils/interfaces";
+import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 
 function Article() {
   const [singleArticle, setSingleArticle] = useState<EducationArticle>();

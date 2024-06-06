@@ -1,17 +1,13 @@
+import React from "react";
 import {
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  Typography,
-  Button,
-  FormHelperText,
-  Modal,
   Box
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import React, { useState } from "react";
 import { Medication } from "../../../utils/interfaces";
   
   const BootstrapInput = styled(InputBase)(({ theme }) => ({

@@ -63,7 +63,6 @@ function OutlineCard() {
                           backgroundImage:
                             "linear-gradient(147deg, #fe8a39 0%, #fd3838 74%)",
                           borderRadius: 10,
-                          // 16
                           opacity: 0.5,
                         },
                       }}
