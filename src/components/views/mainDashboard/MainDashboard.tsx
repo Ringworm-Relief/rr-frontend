@@ -17,12 +17,14 @@ import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
 
 import { useNavigate } from "react-router-dom";
 import Calendar from "../calendar/Calendar";
+import { useEffect } from "react";
 
 interface Props {
   user: any;
   savedArticles: string[];
   handleSaves: (id: string) => void;
   pets: any[];
+  getUserPets: () => void;
   setTargetPetFunc: (pet: any) => void;
 }
 
@@ -31,9 +33,13 @@ function MainDashboard({
   savedArticles,
   handleSaves,
   pets,
+  getUserPets,
   setTargetPetFunc,
 }: Props) {
   const navigate = useNavigate();
+  useEffect(() => {
+    getUserPets();
+  }, [])
   return (
     <>
       {user.data.id ? (
