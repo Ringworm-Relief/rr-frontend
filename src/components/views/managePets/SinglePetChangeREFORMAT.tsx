@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Pet, Medication, Ringworm, formatDate, formatDateBackwards } from "../../../utils/interfaces";
-import ManageMedCards from "../manageAccount/manageMedCards";
+import ManageMedCards from "./manageMedCards";
 import { putPet, putRingworm } from "../../../apiCalls/petApiCalls"
 
 interface Props {
@@ -35,7 +35,6 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [medications, setMedications] = useState<Medication[]>(pet.medications);
   const [petObject, setPetObject] = useState<any>({
-    // user_id: user.data.id,
     name: pet.name,
     pet_type: pet.pet_type,
     breed: pet.breed,
@@ -266,7 +265,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 <Stack direction="column">
                   <div>{medCards}</div>
                 </Stack>
-                <Box>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
                 <Button  sx={{mt: 2}}
                 onClick={() =>
                   setMedications([
