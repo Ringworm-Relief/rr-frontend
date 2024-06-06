@@ -17,8 +17,8 @@ import {
   AccordionDetails,
   Collapse,
   Alert,
+  Modal,
 } from "@mui/material";
-import Modal from "@mui/material/Modal";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -67,7 +67,7 @@ export default function ManageAccount({ user, setUser }: Props) {
     if (userInfo.password === userInfo.password_confirmation) {
       updateUser(user, userInfo).then((data) => {
         if (data.errors) {
-          console.log(data)
+          console.log(data);
           setError(true);
           setErrorStatus(data.errors[0].status);
         } else {
@@ -95,7 +95,8 @@ export default function ManageAccount({ user, setUser }: Props) {
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "background.paper",
-    border: "2px solid #000",
+    borderRadius: 3,
+    border: "2px solid gray",
     boxShadow: 24,
     p: 4,
   };

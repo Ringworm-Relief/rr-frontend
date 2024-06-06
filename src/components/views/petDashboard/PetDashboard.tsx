@@ -1,4 +1,3 @@
-
 import {
   Box,
   Card,
@@ -8,19 +7,15 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import Calendar from "../calendar/Calendar";
+import { formateDate2 } from "../../../utils/interfaces";
 import Kitty from "../../../assets/Kitty-profile.svg";
 import Pupper from "../../../assets/Pupper-profile.svg";
-import { formateDate2 } from "../../../utils/interfaces";
 
 interface Props {
   pet: any;
-  user: any;
-  pets: any[];
 }
 
-export default function PetDashboard({ pet, user, pets }: Props) {
-
+export default function PetDashboard({ pet }: Props) {
   const style = {
     mr: 1,
     mt: 4,
@@ -39,7 +34,9 @@ export default function PetDashboard({ pet, user, pets }: Props) {
     textAlign: "center",
   };
 
-  const oralMeds = pet.medications.filter((med: any) => med.medication_type === "Oral");
+  const oralMeds = pet.medications.filter(
+    (med: any) => med.medication_type === "Oral"
+  );
   const topicalMeds = pet.medications.filter(
     (med: any) => med.medication_type === "Topical"
   );
@@ -50,7 +47,7 @@ export default function PetDashboard({ pet, user, pets }: Props) {
         sx={{
           backgroundImage:
             "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            "paddingBottom": "40px",
+          paddingBottom: "40px",
           "&:after": { opacity: 0.5 },
         }}
         minHeight="100vh"
@@ -91,8 +88,16 @@ export default function PetDashboard({ pet, user, pets }: Props) {
               <CardContent sx={{ paddingTop: "20px" }}>
                 <img
                   className="pet-img"
-                  alt={pet.pet_type === "Dog" || pet.pet_type === "dog" ? "dog" : "cat"}
-                  src={pet.pet_type === "Dog" || pet.pet_type === "dog" ? Pupper : Kitty}
+                  alt={
+                    pet.pet_type === "Dog" || pet.pet_type === "dog"
+                      ? "dog"
+                      : "cat"
+                  }
+                  src={
+                    pet.pet_type === "Dog" || pet.pet_type === "dog"
+                      ? Pupper
+                      : Kitty
+                  }
                 />
                 <Typography>
                   {pet.name} is a <strong>{pet.breed},</strong>
@@ -132,11 +137,15 @@ export default function PetDashboard({ pet, user, pets }: Props) {
                 <Divider sx={{ my: 2 }} />
                 <Typography>
                   <strong>Symptoms</strong>
-                  {pet.ringworm.symptoms ? pet.ringworm.symptoms.map((symp: string) => (
-                    <Typography variant="body2" key={symp}>
-                      • {symp}
-                    </Typography>
-                  )) : <Typography>No symptoms listed.</Typography>}
+                  {pet.ringworm.symptoms ? (
+                    pet.ringworm.symptoms.map((symp: string) => (
+                      <Typography variant="body2" key={symp}>
+                        • {symp}
+                      </Typography>
+                    ))
+                  ) : (
+                    <Typography>No symptoms listed.</Typography>
+                  )}
                 </Typography>
               </CardContent>
             </Card>

@@ -1,15 +1,9 @@
-import {
-  Grid,
-} from "@mui/material";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
 import PetCards from "./dashboardComponents/PetCards";
 import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
-// import CalendarMin from "./dashboardComponents/CalendarMin";
-// import NewPetCard from "./dashboardComponents/NewPetCard";
-
-import { useNavigate } from "react-router-dom";
 import Calendar from "../calendar/Calendar";
-import { useEffect } from "react";
-
 interface Props {
   user: any;
   savedArticles: string[];
@@ -30,15 +24,12 @@ function MainDashboard({
   const navigate = useNavigate();
   useEffect(() => {
     getUserPets();
-  }, [])
+  }, []);
+
   return (
     <>
       {user.data.id ? (
-        <Grid
-          padding="10%"
-          // display="flex"
-          // justifyContent="center"
-        >
+        <Grid padding="10%">
           <Grid container spacing={2} columns={2} zIndex={20}>
             <PetCards
               user={user}

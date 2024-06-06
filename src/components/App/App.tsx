@@ -49,7 +49,6 @@ function App() {
     );
     setSavedArticles(savedArts);
     !pageRender ?? navigate(`/user/${user.data.id}/dashboard`);
-    
   }, [pageRender]);
 
   useEffect(() => {
@@ -180,9 +179,7 @@ function App() {
         <Route path="account/new" element={<CreateAccount />} />
         <Route
           path="account/signin"
-          element={
-            <SignIn setLoggedInUser={setLoggedInUser} />
-          }
+          element={<SignIn setLoggedInUser={setLoggedInUser} />}
         />
         <Route path="/education" element={<Education />} />
         <Route
@@ -223,7 +220,7 @@ function App() {
         />
         <Route
           path="/user/:user_id/:pet_name"
-          element={<PetDashboard pet={targetPet} user={user} pets={pets} />}
+          element={<PetDashboard pet={targetPet}/>}
         />
         <Route
           path="/user/:user_id/management/account"
@@ -231,7 +228,7 @@ function App() {
         ></Route>
         <Route
           path="/user/:user_id/management/pets"
-          element={<AllPetsManagement setPets={setPets} pets={pets} user={user} />}
+          element={<AllPetsManagement setPets={setPets} pets={pets} />}
         ></Route>
         <Route path="*" element={<Error />} />
       </Routes>
