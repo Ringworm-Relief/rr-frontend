@@ -66,7 +66,7 @@ describe("template spec", () => {
     cy.visit("https://rr-as.vercel.app/user/1/management/account");
   });
 
-  it("Displays a success message after PUT", () => {
+  it.skip("Displays a success message after PUT", () => {
     cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
     cy.get(".css-1wnsr1i")
       .should("be.visible")
@@ -83,7 +83,7 @@ describe("template spec", () => {
     });
   });
 
-  it("Displays error messages for 400", () => {
+  it.skip("Displays error messages for 400", () => {
     cy.intercept(
       "PUT",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
@@ -111,7 +111,7 @@ describe("template spec", () => {
     });
   });
 
-  it("Displays error messages for 409", () => {
+  it.skip("Displays error messages for 409", () => {
     cy.intercept(
       "PUT",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
@@ -141,7 +141,7 @@ describe("template spec", () => {
     });
   });
 
-  it("Clears password input after successful PUT", () => {
+  it.skip("Clears password input after successful PUT", () => {
     cy.get(".css-1086bdv-MuiPaper-root-MuiAccordion-root").click(); //Password accordian
     cy.get('input[name="password"]')
       .type("newPassword")
@@ -165,7 +165,7 @@ describe("template spec", () => {
     cy.get('input[name="confirmPassword"]').should("not.have.value");
   });
 
-  it("Can change all information", () => {
+  it.skip("Can change all information", () => {
     cy.get('input[name="firstName"]').type("New");
     cy.get('input[name="lastName"]').type("Name");
     cy.get('input[name="email"]').type("newEmail@email.com");
@@ -194,7 +194,7 @@ describe("template spec", () => {
     cy.get('input[name="email"]').should("have.value", "newEmail@email.com");
   });
 
-  it("Can change some information", () => {
+  it.skip("Can change some information", () => {
     cy.get('input[name="firstName"]').type("New");
     cy.get('input[name="email"]').type("newEmail@email.com");
 

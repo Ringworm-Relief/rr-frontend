@@ -1,4 +1,4 @@
-import { Pet } from "../utils/interfaces";
+import { Pet, Ringworm,  } from "../utils/interfaces";
 
 function postPet(pet: Pet) {
     return fetch("https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets", {
@@ -12,58 +12,33 @@ function postPet(pet: Pet) {
     .then(res => res.json());
 }
 
-// function postMedication(medication: Medication) {
-//     return fetch("https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pet_medications", {
-//         method: 'POST',
-//         headers: { 
-//             'Content-Type': 'application/json',
-//             'Authorization': `${localStorage.getItem('token')}`
-//          },
-//         body: JSON.stringify(medication)
-//     })
-//     .then(res => res.json());
-// }
 
-// function postRingworm(ringworm: Ringworm) {
-//     return fetch("https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pet_ringworms", {
-//         method: 'POST',
-//         headers: { 
-//             'Content-Type': 'application/json',
-//             'Authorization': `${localStorage.getItem('token')}`
-//         },
-//         body: JSON.stringify(ringworm)
-//     })
-//     .then(res => res.json());
-// }
+function putPet(pet: any, id: any) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
+        method: 'PUT',
+        headers: { 
+            'Content-Type': 'application/json',
+            "Authorization": `${localStorage.getItem('token')}` 
+         },
+        body: JSON.stringify(pet)
+    })
+}
 
-// function patchPet(pet: Pet) {
-//     return fetch(`https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pets/${pet.id}`, {
-//         method: 'PATCH',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(pet)
-//     })
-//     .then(res => res.json());
-// }
+function putRingworm(ringworm: any, id: any) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/ringworms`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(ringworm)
+    })
+}
 
-// function patchRingworm(ringworm: Ringworm) {
-//     return fetch(`https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pet_ringworms/${ringworm.id}`, {
-//         method: 'PATCH',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(ringworm)
-//     })
-//     .then(res => res.json());
-// }
-
-// function patchMedication(medication: Medication) {
-//     return fetch(`https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pet_medications/${medication.id}`, {
-//         method: 'PATCH',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(medication)
-//     })
-//     .then(res => res.json());
-
-// }
-
+function putMedications(medication: any, id: any) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(medication)
+    })
+}
 
 function fetchPets(id: string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=${id}`,
@@ -80,4 +55,4 @@ function fetchPets(id: string) {
     })
 }
 
-export { postPet, fetchPets };
+export { postPet, fetchPets, putPet, putRingworm };

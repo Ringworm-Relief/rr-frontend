@@ -48,6 +48,9 @@ function MuiDrawer({ user }: Props) {
       case "Manage Pets":
         navigate(user ? `/user/${user.data.id}/management/pets` : "/account/signin");
       break;
+      case "Education":
+        navigate('/education');
+      break;
     }
   }
 
@@ -64,7 +67,7 @@ function MuiDrawer({ user }: Props) {
       </List>
       <Divider />
       <List>
-        {["Calendar", "Saved Articles", "Add Pet"].map((item) => (
+        {["Education", "Calendar", "Saved Articles", "Add Pet"].map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton onClick={navigateTo(item)}>
               <ListItemText primary={item} />

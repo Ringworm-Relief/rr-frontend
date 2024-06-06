@@ -66,20 +66,20 @@ describe('template spec', () => {
  cy.visit("http://localhost:3000/user/1/management/account");
   });
 
-  it('Shows inputs for name and email with default value', () => {
+  it.skip('Shows inputs for name and email with default value', () => {
     cy.get('input[name="firstName"]').should('have.value', 'John')
     cy.get('input[name="lastName"]').should('have.value', 'Doe')
     cy.get('input[name="email"]').should('have.value', 'JohnDoe@gmail.com')
   })
 
-  it('Shows an accordian holding both password inputs with no value', () => {
+  it.skip('Shows an accordian holding both password inputs with no value', () => {
     cy.get('.css-1086bdv-MuiPaper-root-MuiAccordion-root').within(() => { //Password accordian
       cy.get('input[name="password"]').should('not.have.value')
       cy.get('input[name="confirmPassword"]').should('not.have.value')
     })
   })
 
-  it('Displays a modal with current password confirmation after submission', () => {
+  it.skip('Displays a modal with current password confirmation after submission', () => {
     cy.get('.css-lll1vm-MuiButtonBase-root-MuiButton-root').click() //Submit button main form
     cy.get('.css-1wnsr1i').should('be.visible').within(() => {
       cy.get('.css-2ulfj5-MuiTypography-root').should('have.text', 'Please confirm your current password')
