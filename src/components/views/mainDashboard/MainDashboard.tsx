@@ -20,36 +20,41 @@ import Calendar from "../calendar/Calendar";
 
 interface Props {
   user: any;
-  savedArticles: string[]
-  handleSaves: (id: string) => void; 
+  savedArticles: string[];
+  handleSaves: (id: string) => void;
   pets: any[];
   setTargetPetFunc: (pet: any) => void;
-  pet: any;
 }
 
-function MainDashboard({ user, savedArticles, handleSaves, pets, setTargetPetFunc, pet }: Props) {
+function MainDashboard({
+  user,
+  savedArticles,
+  handleSaves,
+  pets,
+  setTargetPetFunc,
+}: Props) {
   const navigate = useNavigate();
   return (
     <>
       {user.data.id ? (
-        <Box
-          padding={10}
-          sx={{
-            // backgroundImage:
-            // "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            // "&:after": {
-
-            //   opacity: 0.5,
-            // }
-          // 16
-          }}
+        <Grid
+          padding="10%"
+          // display="flex"
+          // justifyContent="center"
         >
           <Grid container spacing={2} columns={2} zIndex={20}>
-            <PetCards user={user} setTargetPetFunc={setTargetPetFunc}/>
-              <Calendar user={user} pet={pet} pets={pets}/> 
-            <SavedArticlesCard savedArticles={savedArticles} handleSaves={handleSaves}/>
+            <PetCards
+              user={user}
+              pets={pets}
+              setTargetPetFunc={setTargetPetFunc}
+            />
+            <Calendar user={user} pets={pets} />
+            <SavedArticlesCard
+              savedArticles={savedArticles}
+              handleSaves={handleSaves}
+            />
           </Grid>
-        </Box>
+        </Grid>
       ) : (
         navigate("/account/signin")
       )}

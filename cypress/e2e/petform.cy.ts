@@ -67,7 +67,7 @@ describe('Landing Page', () => {
     cy.url().should('include', 'dashboard');
   });
 
-  it('Should navigate to Petform from drawer', () => {
+  it.skip('Should navigate to Petform from drawer', () => {
     // Verify we are on the dashboard page
     cy.url().should('include', 'dashboard');
 

@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 function Education() {
   return (
-    <Box sx={{ my: "50px" }}>
+    <Box sx={{ my: "50px", height: "100vh" }}>
       <EducationPageCard />
     </Box>
   );

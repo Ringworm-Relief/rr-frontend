@@ -9,7 +9,7 @@
     background-color: #ffffff;
     min-height: 10vh;
     display: flex;
-    width: 100%;
+    width: 100vw;
     justify-content: space-between;
     font-size: calc(10px + 1vmin);
     border-bottom: 2px solid #c5c5c54e;
@@ -52,24 +52,15 @@
     margin-left: 10px;
   }
 
-  #footer_wrapper {
-    position: relative;
-    min-height: 100vh;
-  }
-  
-  #footer_container{
-    padding-bottom: 18vh;    /* Footer height */
-  }
-
   .App_footer {
     background-color: hsla(30, 100%, 64%, 0.089);
     /* min-height: 18vh; */
     display: flex;
     /* flex-direction: row; */
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-around;
     font-size: calc(10px + 1vmin);
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
     height: 18vh;  
@@ -88,7 +79,7 @@
   #char_emphasis {
     color: #ef8e64;
     font-size: larger;
-    /* background-color: #fea2a25a; */
+    /* color: #E06BB9; */
   }
 
   .divider {
@@ -135,4 +126,18 @@
 
 .no-underline {
   text-decoration: none;
+}
+
+.Error_wrapper {
+  background-color: #ef8e64;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 560px){
+  .App_nav {
+    display: none;
+  }
 }

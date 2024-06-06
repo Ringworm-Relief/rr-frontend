@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Pet, Medication, Ringworm, formatDate, formatDateBackwards } from "../../../utils/interfaces";
-import ManageMedCards from "./manageMedCards";
+import ManageMedCards from "../manageAccount/manageMedCards";
 import { putPet, putRingworm } from "../../../apiCalls/petApiCalls"
 
 interface Props {
