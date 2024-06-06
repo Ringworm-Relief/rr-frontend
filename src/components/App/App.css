@@ -79,7 +79,7 @@
   #char_emphasis {
     color: #ef8e64;
     font-size: larger;
-    /* background-color: #fea2a25a; */
+    /* color: #E06BB9; */
   }
 
   .divider {
@@ -126,6 +126,14 @@
 
 .no-underline {
   text-decoration: none;
+}
+
+.Error_wrapper {
+  background-color: #ef8e64;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 560px){

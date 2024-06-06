@@ -47,7 +47,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
     backgroundImage:
             "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
             "&:after": {
-
               opacity: 0.5,
             },
     "&:hover": {

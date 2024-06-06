@@ -58,20 +58,22 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
   };
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" sx={{height: "80vh"}}>
       <Box component="form" onSubmit={handleSignIn}>
         <Stack direction="column">
-          <FormControl sx={{ mt: 10 }}>
+          <FormControl sx={{ mt: 10 }} >
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
+              id="email"
               type="email"
               name="email"
               value={email}
+              // aria-label="email"
+              required
+              label="email"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
-              label="Email"
-              required
             />
           </FormControl>
           <FormControl sx={{ mt: 5 }}>
@@ -81,10 +83,12 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
               name="password"
               type={showPassword ? "text" : "password"}
               value={password}
+              required
+              label="Password"
+              // aria-label="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
-              required
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -97,7 +101,6 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
                   </IconButton>
                 </InputAdornment>
               }
-              label="Password"
             />
           </FormControl>
           {error && <Typography sx={{ color: "red" }}>{error}</Typography>}

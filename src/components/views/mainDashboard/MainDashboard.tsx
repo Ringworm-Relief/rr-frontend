@@ -24,7 +24,6 @@ interface Props {
   handleSaves: (id: string) => void;
   pets: any[];
   setTargetPetFunc: (pet: any) => void;
-  pet: any;
 }
 
 function MainDashboard({
@@ -33,7 +32,6 @@ function MainDashboard({
   handleSaves,
   pets,
   setTargetPetFunc,
-  pet,
 }: Props) {
   const navigate = useNavigate();
   return (
@@ -50,7 +48,7 @@ function MainDashboard({
               pets={pets}
               setTargetPetFunc={setTargetPetFunc}
             />
-            <Calendar user={user} pet={pet} pets={pets} />
+            <Calendar user={user} pets={pets} />
             <SavedArticlesCard
               savedArticles={savedArticles}
               handleSaves={handleSaves}
