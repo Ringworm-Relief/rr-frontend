@@ -11,7 +11,6 @@ import {
   MenuItem,
   Typography,
   Button,
-  FormHelperText,
   Collapse,
   Container,
   Accordion,
@@ -19,11 +18,12 @@ import {
   AccordionDetails,
   Alert,
   Stack,
+  Grid
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Pet, Medication, Ringworm, formatDate, formatDateBackwards } from "../../../utils/interfaces";
 import ManageMedCards from "./manageMedCards";
-import { putPet } from "../../../apiCalls/petApiCalls"
+import { putPet, putRingworm } from "../../../apiCalls/petApiCalls"
 
 interface Props {
   user: any;
@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const SinglePetChange = ({ user, pet }: Props) => {
-  console.log("PETTTTT", pet)
+
   const [alertOpen, setAlertOpen] = useState<boolean | undefined>(undefined);
   const [medications, setMedications] = useState<Medication[]>(pet.medications);
   const [petObject, setPetObject] = useState<any>({
@@ -51,8 +51,8 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   const [error, setError] = useState(false);
   const [errorStatus, setErrorStatus] = useState<string>("");
   const [success, setSuccess] = useState(false);
-  const [expanded, setExpanded] = useState<string | false>(false);
   const [petPut, setPetPut] = useState<boolean | undefined>(undefined)
+  const [ringPut, setRingPut] = useState<boolean | undefined>(undefined)
 
   const handleMedChange = (index: number, field: keyof Medication, value: string) => {
     const updatedMedications = medications.map((med, i) =>
@@ -61,20 +61,31 @@ export const SinglePetChange = ({ user, pet }: Props) => {
     setMedications(updatedMedications);
   };
 
-  const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
-  };
 
   const handlePetSubmit = (pet: Pet, id: any) => {
     const updatedPet = {...pet, birthday: formatDate(pet.birthday)}
     putPet(updatedPet, id)
     .then(data => {
-      console.log("hi")
+      console.log("DATA pet", data)
       console.log("pet in here", pet)
       setPetPut(true)
     })
     .catch(err => {
       setPetPut(false)
+    })
+  }
+
+  const handleRingwormSubmit = (ringworm: any, id: any) => {
+    const updatedRingworm = {...ringworm, diagnosis_date: formatDate(ringworm.diagnosis_date)}
+    putRingworm(updatedRingworm, id)
+    .then(data => {
+      console.log("DATA ring", data)
+      console.log("pet in here", pet)
+      console.log("hiiiiiiiii")
+      setRingPut(true)
+    })
+    .catch(err => {
+      setRingPut(false)
     })
   }
 
@@ -97,29 +108,8 @@ export const SinglePetChange = ({ user, pet }: Props) => {
 
   return (
     <>
-      {/* {error && (
-        <Collapse in={alertOpen}>
-          <Alert
-            severity="error"
-            sx={{ marginTop: "20px" }}
-            onClose={() => setAlertOpen(false)}
-          >
-            {errorStatus && "Information did not update. Please check all fields and try again."}
-          </Alert>
-        </Collapse>
-      )}
-      {success && (
-        <Collapse in={alertOpen}>
-          <Alert
-            severity="success"
-            sx={{ marginTop: "20px" }}
-            onClose={() => setAlertOpen(false)}
-          >
-            Information updated.
-          </Alert>
-        </Collapse>
-      )} */}
-      <Accordion expanded={expanded === pet.name} onChange={handleAccordionChange(pet.name)} sx={{marginRight: 3}}>
+      <Grid item>
+      <Accordion sx={{marginRight: 3}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls={`${pet.name}-content`}
@@ -130,12 +120,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
         </AccordionSummary>
         <AccordionDetails>
           <Container maxWidth="sm">
-            <Box component="form" sx={{ mt: 2 }}>
-              {/* {error && (
-                <Typography variant="h5" sx={{ color: "#ef8e64" }}>
-                  {error}
-                </Typography>
-              )} */}
+            <Box component="form" onSubmit={() => handlePetSubmit(petObject, pet.id)} sx={{ mt: 2 }}>
               <Typography sx={{ textAlign: "center", color: "grey" }}>Basics</Typography>
               <Box sx={{ border: "2px solid #b9b7b7", borderRadius: "10px", padding: "20px", mb: 5 }}>
                 <FormControl variant="standard" sx={{ mt: 5, width: "100%" }}>
@@ -250,7 +235,30 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                       required
                     />
                   </FormControl>
-                  <Button variant="outlined" sx={{mt: 2}}> Submit Diagnosis Changes</Button>
+                  <Button variant="outlined" onClick={() => handleRingwormSubmit(ringwormObject, pet.id)} sx={{mt: 2}}> Submit Ringworm Changes</Button>
+                  {ringPut === false ? (
+                <Collapse in={alertOpen}>
+                  <Alert
+                    severity="error"
+                    sx={{ marginTop: "20px" }}
+                    onClose={() => setAlertOpen(false)}
+                    hidden={alertOpen}
+                  >
+                    Pet information did not update.
+                  </Alert>
+                </Collapse>
+              ) : (
+                <Collapse in={alertOpen}>
+                  <Alert
+                    severity="success"
+                    sx={{ marginTop: "20px" }}
+                    onClose={() => setAlertOpen(false)}
+                    hidden={alertOpen}
+                  >
+                    Information updated.
+                  </Alert>
+                </Collapse>
+              )}
               </Box>
 
               <Typography sx={{ textAlign: "center", color: "grey", mt: 5 }}>Medications</Typography>
@@ -258,6 +266,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
                 <Stack direction="column">
                   <div>{medCards}</div>
                 </Stack>
+                <Box>
                 <Button  sx={{mt: 2}}
                 onClick={() =>
                   setMedications([
@@ -273,11 +282,13 @@ export const SinglePetChange = ({ user, pet }: Props) => {
               >
                 Add Medication</Button>
                 <Button variant="outlined" sx={{mt: 2}}> Submit Medication Changes</Button>
+                </Box>
               </Box>
             </Box>
           </Container>
         </AccordionDetails>
       </Accordion>
+      </Grid>
     </>
   );
 };

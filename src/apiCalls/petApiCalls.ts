@@ -16,14 +16,17 @@ function postPet(pet: Pet) {
 function putPet(pet: any, id: any) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            "Authorization": `${localStorage.getItem('token')}` 
+         },
         body: JSON.stringify(pet)
     })
     .then(res => res.json());
 }
 
-function putRingworm(ringworm: any) {
-    return fetch(`https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pet_ringworms/${ringworm.id}`, {
+function putRingworm(ringworm: any, id: any) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/ringworms`, {
         method: 'PUT',
         headers: { 
             'Content-Type': 'application/json',
@@ -47,7 +50,6 @@ function putMedications(medication: any, id: any) {
 
 }
 
-
 function fetchPets(id: string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=${id}`,
     {
@@ -63,4 +65,4 @@ function fetchPets(id: string) {
     })
 }
 
-export { postPet, fetchPets, putPet };
+export { postPet, fetchPets, putPet, putRingworm };
