@@ -2,23 +2,23 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Typography, Box, Grid, Container, Button } from "@mui/material";
 import {
-    EducationArticle,
-    SavedArticlesProps,
+  EducationArticle,
+  SavedArticlesProps,
 } from "../../../utils/interfaces";
 import EducationArtCard from "../../subComps/educationArtCard/EducationArtCard";
-import { getArticlesCategory } from "../../../apiCalls/articlesApiCalls";
 
 const SavedArticles: React.FC<SavedArticlesProps> = ({
   savedArticles,
   handleSaves,
 }) => {
   const navigate = useNavigate();
-  const [allArticles, setAllArticles] = useState<EducationArticle[]>([]);
+  const [allArticles, setAllArticles] = useState<any[]>([]);
 
   const getSavedArticles = () => {
-    getArticlesCategory().then((data) => {
-      setAllArticles(data.data);
-    });
+    const ALLARTICLES: string[] = JSON.parse(
+      localStorage.getItem("ARTICLES") || "[]"
+    );
+    setAllArticles(ALLARTICLES);
   };
 
   const handleClick = (id: string | void) => {

@@ -134,6 +134,8 @@ export interface ArticleAttributes {
   title: string;
   tagline: string;
   summary: string[];
+  url: string;
+  source: string;
 }
 
 export interface EducationArticle {

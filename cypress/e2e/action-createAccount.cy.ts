@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe("template spec", () => {
   beforeEach(() => {
     // Intercept the login request and mock the response
     cy.intercept(
@@ -41,29 +41,36 @@ describe('template spec', () => {
     // Visit the landing page
     cy.visit("https://rr-as.vercel.app/account/new");
     sessionStorage.setItem("token", "mocked_token");
-
   });
 
-  it('Shows error helper text if passwords dont match', () => {
-    cy.get('input[name="firstName"]').type('John').should('have.value', 'John')
-    cy.get('input[name="lastName"]').type('Doe').should('have.value', 'Doe')
-    cy.get('input[name="email"]').type('JohnDoe@email.com').should('have.value', 'JohnDoe@email.com')
-    cy.get('input[name="password"]').type('password').should('have.value', 'password')
-    cy.get('input[name="confirmPassword"]').type('pasdword').should('have.value', 'pasdword')
+  it("Shows error helper text if passwords dont match", () => {
+    cy.get('input[name="firstName"]').type("John").should("have.value", "John");
+    cy.get('input[name="lastName"]').type("Doe").should("have.value", "Doe");
+    cy.get('input[name="email"]')
+      .type("JohnDoe@email.com")
+      .should("have.value", "JohnDoe@email.com");
+    cy.get('input[name="password"]')
+      .type("password")
+      .should("have.value", "password");
+    cy.get('input[name="confirmPassword"]')
+      .type("pasdword")
+      .should("have.value", "pasdword");
 
-    cy.get('.css-zajg55').click() //create account button
-    cy.get('.css-v7esy').eq(0).should('have.text', 'Passwords do not match') //Password helper text
-    cy.get('.css-v7esy').eq(1).should('have.text', 'Passwords do not match') //Password helper text
+    cy.get(".css-zajg55").click(); //create account button
+    cy.get(".css-v7esy").eq(0).should("have.text", "Passwords do not match"); //Password helper text
+    cy.get(".css-v7esy").eq(1).should("have.text", "Passwords do not match"); //Password helper text
   });
 
-  it('Shows message if account already exists', () => {
-    cy.get('.css-zajg55').click() // create account button
+  it("Shows message if account already exists", () => {
+    cy.get(".css-zajg55").click(); // create account button
     cy.wait("@ExistingUser");
-    cy.get(".css-nkgkfs").should("have.text", "You already have an account, please log in")
-  })
+    cy.get(".css-nkgkfs").should(
+      "have.text",
+      "You already have an account, please log in"
+    );
+  });
 
-
-  it('Routes to sign in page on successful account creation', () => {
+  it("Routes to sign in page on successful account creation", () => {
     cy.intercept(
       "POST",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
@@ -72,8 +79,8 @@ describe('template spec', () => {
         fixture: "newUser",
       }
     ).as("NewUser");
-    cy.get('.css-zajg55').click() //create account button 
+    cy.get(".css-zajg55").click(); //create account button
     cy.wait("@NewUser");
     cy.url().should("include", "account/signin");
-  })
-})
+  });
+});

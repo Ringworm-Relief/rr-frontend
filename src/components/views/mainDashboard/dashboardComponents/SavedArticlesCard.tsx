@@ -1,14 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { EducationArticle } from "../../../../utils/interfaces";
-import { getArticlesCategory } from "../../../../apiCalls/articlesApiCalls";
 import EducationArtCard from "../../../subComps/educationArtCard/EducationArtCard";
 
 interface Props {
@@ -17,20 +10,17 @@ interface Props {
 }
 
 function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
-  const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
+  const [savedArts, setSavedArts] = useState<any[]>([]);
   const navigate = useNavigate();
 
   const getSavedArts = () => {
-    getArticlesCategory()
-      .then((data) => {
-        const saved = data.data.filter((art: EducationArticle) =>
-          savedArticles.includes(art.id)
-        );
-        setSavedArts(saved);
-      })
-      .catch((error) => {
-        navigate("/error");
-      });
+    const ALLARTICLES: string[] = JSON.parse(
+      localStorage.getItem("ARTICLES") || "[]"
+    );
+    const saved = ALLARTICLES.filter((art: any) =>
+      savedArticles.includes(art.id)
+    );
+    setSavedArts(saved);
   };
 
   useEffect(() => {
