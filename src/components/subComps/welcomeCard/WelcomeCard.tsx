@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -7,7 +8,6 @@ import {
   Stack,
   Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import CoolestCat from "../../../assets/RR-3.svg";
 
 function WelcomeCard() {
@@ -31,7 +31,6 @@ function WelcomeCard() {
           height: 600,
           px: innerWidthCheck(),
           py: "50px",
-          // background: "rgba(255, 146, 98, 0.8)",
         }}
       >
         <Stack direction="row">
@@ -53,7 +52,7 @@ function WelcomeCard() {
               <br />
               No more wondering when the last time you treated your pet was,{" "}
               <br />
-              or cluttering your personal calendar with reminders. <br />
+              or cluttering your personal calendar with reminders.<br />
             </Typography>
           </CardContent>
           <CardMedia image={CoolestCat} sx={{ width: "30%", ml: "10%", mt: 2,}}></CardMedia>
@@ -73,7 +72,6 @@ function WelcomeCard() {
               >
                 Sign In
               </Link>
-              {/* Add sign in page */}
             </Button>
           </Stack>
         </CardActions>

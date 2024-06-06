@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -5,7 +6,6 @@ import {
   Box,
   Grid,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { Article, mockArticles } from "../../../utils/interfaces";
 
 function ArticleCard() {

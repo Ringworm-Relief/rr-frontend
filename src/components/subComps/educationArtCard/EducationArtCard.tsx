@@ -1,13 +1,15 @@
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import { EducationArtCardProps } from '../../../utils/interfaces';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  CardActions,
+  Button,
+  IconButton,
+} from "@mui/material";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
+import { EducationArtCardProps } from "../../../utils/interfaces";
 
 const EducationArtCard: React.FC<EducationArtCardProps> = ({
   title,
@@ -15,7 +17,6 @@ const EducationArtCard: React.FC<EducationArtCardProps> = ({
   id,
   handleClick,
   handleSaves,
-  savedArticles,
   isSaved,
 }) => {
   return (
@@ -25,10 +26,10 @@ const EducationArtCard: React.FC<EducationArtCardProps> = ({
         sx={{
           width: 320,
           height: 215,
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'auto',
-          resize: 'horizontal',
+          display: "flex",
+          flexDirection: "column",
+          overflow: "auto",
+          resize: "horizontal",
         }}
         id={id}
       >
@@ -36,7 +37,7 @@ const EducationArtCard: React.FC<EducationArtCardProps> = ({
           <Typography variant="h6">{title}</Typography>
           <Typography>{tagline}</Typography>
         </CardContent>
-        <CardActions sx={{ justifyContent: 'space-between' }}>
+        <CardActions sx={{ justifyContent: "space-between" }}>
           <IconButton onClick={() => handleSaves(id)}>
             {isSaved ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
           </IconButton>
