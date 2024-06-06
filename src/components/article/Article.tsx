@@ -21,7 +21,6 @@ function Article() {
   };
   const articleUrl = singleArticle?.attributes.url
   const articleSource = singleArticle?.attributes.source
-  console.log("url", articleUrl)
 
   useEffect(() => {
     if (article) {
