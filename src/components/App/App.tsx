@@ -47,6 +47,7 @@ function App() {
     );
     setSavedArticles(savedArts);
     !pageRender ?? navigate(`/user/${user.data.id}/dashboard`);
+    
   }, []);
 
   useEffect(() => {

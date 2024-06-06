@@ -3,11 +3,15 @@ import sadCat from "../../../assets/sad-kitty3.svg";
 import water from "../../../assets/water-background.svg";
 
 export default function Error() {
+  localStorage.setItem("SADCAT", JSON.stringify(sadCat));
+  localStorage.setItem("WATER", JSON.stringify(water));
+  const sadCat1 = JSON.parse(localStorage.getItem("SADCAT") || "");
+  const water1 = JSON.parse(localStorage.getItem("WATER") || "");
   return (
-    <Box sx={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", height: "80vh",  backgroundImage:`url(${water})`, backgroundRepeat: "no-repeat"}}>
+    <Box sx={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", height: "80vh",  backgroundImage:`url(${water1})`, backgroundRepeat: "no-repeat"}}>
         <img
           alt="Drawing of a sad cat wearing sunglesses"
-          src={sadCat}
+          src={sadCat1}
           height="400px"
           width="400px"
         ></img>

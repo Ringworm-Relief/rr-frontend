@@ -30,7 +30,10 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
         savedArticles.includes(art.id)
       );
       setSavedArts(saved);
-    });
+    })
+    .catch(error => {
+      navigate("/error", { replace: true });
+    })
   };
 
   useEffect(() => {

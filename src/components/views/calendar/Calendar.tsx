@@ -108,7 +108,6 @@ export default function Calendar({ user, pets }: Props) {
       .catch((error) => {
         navigate("/error");
       });
-    console.log(pets);
   }, []);
 
   const colors: string[] = [
