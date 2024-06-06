@@ -40,7 +40,7 @@ function Article() {
       <Typography variant="h3" sx={{ my: "6px" }}>
         {singleArticle?.attributes.title}
       </Typography>
-      <Box sx={{ px: 35, mt: 3 }}>
+      <Box sx={{ px: 12, mt: 3 }}>
         {singleArticle?.attributes.summary.map((paragraph) => {
           return (
             <Typography variant="body1" sx={{ my: 3 }}>
