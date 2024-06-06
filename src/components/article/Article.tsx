@@ -37,7 +37,7 @@ function Article() {
           my: "30px",
         }}
       >
-        <Box sx={{ px: 20, mt: 3 }}>
+        <Box sx={{ px: window.innerWidth < 800 ? 3 : 20, mt: 3 }}>
           <Typography variant="h3" sx={{ my: "6px" }}>
             <Link
               href={articleUrl}
