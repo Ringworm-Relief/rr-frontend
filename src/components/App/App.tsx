@@ -23,6 +23,7 @@ import Error from "../views/error/Error";
 
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import { fetchPets } from "../../apiCalls/petApiCalls";
+import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 
 function App() {
   const activeUser = JSON.parse(
@@ -49,6 +50,10 @@ function App() {
     );
     setSavedArticles(savedArts);
     !pageRender ?? navigate(`/user/${user.data.id}/dashboard`);
+
+    getArticlesCategory().then((data) => {
+      localStorage.setItem("ARTICLES", JSON.stringify(data.data));
+    });
   }, [pageRender]);
 
   useEffect(() => {
@@ -220,7 +225,7 @@ function App() {
         />
         <Route
           path="/user/:user_id/:pet_name"
-          element={<PetDashboard pet={targetPet}/>}
+          element={<PetDashboard pet={targetPet} />}
         />
         <Route
           path="/user/:user_id/management/account"

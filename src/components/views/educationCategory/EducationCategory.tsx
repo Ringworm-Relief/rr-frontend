@@ -4,7 +4,6 @@ import { Typography, Box, Grid, Container } from "@mui/material";
 import { EducationCategoryProps } from "../../../utils/interfaces";
 import { EducationArticle, RouteParams } from "../../../utils/interfaces";
 import EducationArtCard from "../../subComps/educationArtCard/EducationArtCard";
-import { getArticlesCategory } from "../../../apiCalls/articlesApiCalls";
 
 const EducationCategory: React.FC<EducationCategoryProps> = ({
   handleSaves,
@@ -12,15 +11,22 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({
 }) => {
   let { category } = useParams<RouteParams>();
   const navigate = useNavigate();
-  const [articles, setArticles] = useState<EducationArticle[]>([]);
+
+  const ARTICLES: string[] = JSON.parse(
+    localStorage.getItem(`${category}`) || "[]"
+  );
+  const [articles, setArticles] = useState<any[]>(ARTICLES);
 
   const filterCategories = () => {
-    getArticlesCategory().then((data) => {
-      let categoryData = data.data.filter((item: EducationArticle) => {
-        return item.category === category;
-      });
-      setArticles(categoryData);
+    const ALLARTICLES: string[] = JSON.parse(
+      localStorage.getItem("ARTICLES") || "[]"
+    );
+    console.log(ALLARTICLES);
+    let categoryData = ALLARTICLES.filter((item: any) => {
+      return item.category === category;
     });
+    localStorage.setItem(`${category}`, JSON.stringify(categoryData));
+    setArticles(categoryData);
   };
 
   const handleClick = (id: string | void) => {
@@ -62,29 +68,31 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({
   };
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        mb: "30px",
-      }}
-    >
-      <Typography sx={{ my: "20px" }} variant="h2">
-        {getTitle(category)}
-      </Typography>
-      <Box>
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="center"
-          spacing={5}
-          columns={3}
-        >
-          {articleCards}
-        </Grid>
-      </Box>
-    </Container>
+    <>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          mb: "30px",
+        }}
+      >
+        <Typography sx={{ my: "20px" }} variant="h2">
+          {getTitle(category)}
+        </Typography>
+        <Box>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            spacing={5}
+            columns={3}
+          >
+            {articleCards}
+          </Grid>
+        </Box>
+      </Container>
+    </>
   );
 };
 
