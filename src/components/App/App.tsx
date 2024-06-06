@@ -21,6 +21,7 @@ import PetDashboard from "../views/petDashboard/PetDashboard";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
 import Error from "../views/error/Error";
 import { fetchPets } from "../../apiCalls/petApiCalls";
+import { get } from "http";
 
 function App() {
   const activeUser = JSON.parse(
@@ -212,6 +213,7 @@ function App() {
               savedArticles={savedArticles}
               user={user}
               pets={pets}
+              getUserPets={getUserPets}
               setTargetPetFunc={setTargetPetFunc}
             />
           }
