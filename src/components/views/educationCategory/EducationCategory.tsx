@@ -68,7 +68,7 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, save
         display: 'flex',
         flexDirection: 'column', 
         alignItems: 'center',
-        mb: "30px",
+        mb: 10,
         height: "100vh"
         }}>
             <Typography sx={{my: "20px"}} variant="h2">{getTitle(category)}</Typography>

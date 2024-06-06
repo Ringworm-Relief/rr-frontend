@@ -17,9 +17,9 @@ import {
   Stack,
   Grid,
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import paw from "../../../assets/paw.png"
+import paw from "../../../assets/paw.png";
 import {
   Pet,
   Medication,
@@ -32,6 +32,7 @@ import {
   putMedications,
   putPet,
   putRingworm,
+  postMed,
 } from "../../../apiCalls/petApiCalls";
 
 interface Props {
@@ -101,9 +102,14 @@ export const SinglePetChange = ({ user, pet }: Props) => {
       });
   };
 
-  const handleMedsSubmit = (meds: Medication[], id: number | string) => {
+  const handleMedsSubmit = (meds: any[], id: number | string) => {
+    let newMeds = meds.filter((med) => !med.id);
+    let oldMeds = meds.filter((med) => med.id);
+    let medsToPost = newMeds.map((med) => {
+      return { ...med, pet_id: pet.id };
+    });
     let medObj = {
-      medications: meds,
+      medications: oldMeds,
     };
     putMedications(medObj, id)
       .then((data) => {
@@ -112,6 +118,27 @@ export const SinglePetChange = ({ user, pet }: Props) => {
       .catch((err) => {
         setMedsPut(false);
       });
+
+    if (newMeds.length) {
+      let promises = medsToPost.map((med) => {
+        return postMed(med).then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to post med: ${med.name}`);
+          } else {
+            return response.json();
+          }
+        });
+      });
+
+      Promise.all(promises)
+        .then((results) => {
+          console.log("All posts succeeded:", results);
+        })
+        .catch((error) => {
+          console.error("Error posting data:", error);
+          setMedsPut(false);
+        });
+    }
   };
 
   const medCards = medications.map((med, index) => (
@@ -141,30 +168,28 @@ export const SinglePetChange = ({ user, pet }: Props) => {
             id={`${pet.name}-header`}
           >
             <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-around",
-              width: "100%", 
-              alignItems: "center"
-            }}
-            >
-              <Box
               sx={{
                 display: "flex",
                 justifyContent: "space-around",
-                width: "18%", 
-                alignItems: "center"
+                width: "100%",
+                alignItems: "center",
               }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  width: "18%",
+                  alignItems: "center",
+                }}
               >
-              <img src={paw} id="paw-svg" />
-            <Typography sx={{ flexShrink: 0 }}>
-              {pet.name}
-            </Typography>
-            </Box>
-            <Typography sx={{ color: "text.secondary" }}>
-              Edit pet information
-            </Typography>
-            <Button startIcon={<DeleteIcon />}>Delete Pet</Button>
+                <img src={paw} id="paw-svg" />
+                <Typography sx={{ flexShrink: 0 }}>{pet.name}</Typography>
+              </Box>
+              <Typography sx={{ color: "text.secondary" }}>
+                Edit pet information
+              </Typography>
+              <Button startIcon={<DeleteIcon />}>Delete Pet</Button>
             </Box>
           </AccordionSummary>
           <AccordionDetails>
