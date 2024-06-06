@@ -32,7 +32,7 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
       setSavedArts(saved);
     })
     .catch(error => {
-      navigate("/error", { replace: true });
+      navigate("/error");
     })
   };
 
