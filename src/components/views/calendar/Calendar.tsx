@@ -170,7 +170,7 @@ export default function Calendar({ user, pets }: Props) {
 
     if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
-      if (target.className === save_icon || target.className === save_button) {
+      if (target.className === save_icon || target.className === save_button || target.className === "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary") {
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
           Id: scheduleData.length + 1,
@@ -203,22 +203,14 @@ export default function Calendar({ user, pets }: Props) {
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
-    destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken);
-    // .then(response => {
-    //     return response.json().then(res => {
-    //       if(res.errors) {
-    //         setError(true);
-    //         setErrorMessage(res.errors[0].detail);
-    //       }
+    destroyCalendarEvent(user.data.id, args.data.Id.toString(), currentToken)
+    .then(res => {
+          if(res.errors) {
+            setError(true);
+            setErrorMessage(res.errors[0].detail);
+          }
 
-    //     })
-    // })
-    // .then(data => {
-    //   if(data.errors) {
-    //     setError(true);
-    //     setErrorMessage(data.errors[0].detail);
-    //   }
-    // })
+        })
   };
 
   const destroyEvent = (args: PopupOpenEventArgs): void => {
@@ -227,18 +219,13 @@ export default function Calendar({ user, pets }: Props) {
         user.data.id,
         args.data?.Id.toString(),
         currentToken
-      );
-      // .then(response => {
-      //   if(response) {
-      //     return response.json();
-      //   }
-      // })
-      // .then(data => {
-      //   if(data.errors) {
-      //     setError(true);
-      //     setErrorMessage(data.errors[0].detail);
-      //   }
-      // })
+      )
+      .then(res => {
+        if(res.errors) {
+          setError(true);
+          setErrorMessage(res.errors[0].detail);
+        }
+      })
     }
   };
 
