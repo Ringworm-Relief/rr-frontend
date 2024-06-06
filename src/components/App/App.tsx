@@ -2,7 +2,12 @@ import "./App.css";
 import React from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
+import Drawer from "../drawer/MuiDrawer";
+import CoolCat from "../../assets/RR-4.svg";
+
 import PetForm from "../views/petForm/PetForm";
+import Article from "../article/Article";
 import Landing from "../views/landing/Landing";
 import CreateAccount from "../views/createAccount/CreateAccount";
 import Education from "../views/education/Education";
@@ -11,17 +16,13 @@ import SignIn from "../views/signIn/SignIn";
 import SavedArticles from "../views/savedArticles/SavedArticles";
 import EducationCategory from "../views/educationCategory/EducationCategory";
 import MainDashboard from "../views/mainDashboard/MainDashboard";
-import Article from "../article/Article";
-import Drawer from "../drawer/MuiDrawer";
-import CoolCat from "../../assets/RR-4.svg";
-import { Button } from "@mui/material";
-import { destroyToken } from "../../apiCalls/userApiCalls";
-import ManageAccount from "../views/manageAccount/ManageAccount";
 import PetDashboard from "../views/petDashboard/PetDashboard";
+import ManageAccount from "../views/manageAccount/ManageAccount";
 import AllPetsManagement from "../views/managePets/AllPetsManagement";
 import Error from "../views/error/Error";
+
+import { destroyToken } from "../../apiCalls/userApiCalls";
 import { fetchPets } from "../../apiCalls/petApiCalls";
-import { get } from "http";
 
 function App() {
   const activeUser = JSON.parse(
@@ -49,19 +50,17 @@ function App() {
     setSavedArticles(savedArts);
     !pageRender ?? navigate(`/user/${user.data.id}/dashboard`);
     
-  }, []);
+  }, [pageRender]);
 
   useEffect(() => {
     localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
   }, [savedArticles]);
 
   const setLoggedInUser = (user: any) => {
-    setPageRender(pageRender + 1);
-    sessionStorage.setItem("currentUser", JSON.stringify(user));
+    setPageRender(1);
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
-    // console.log(user);
-    getUserPets();
     navigate(`/user/${user.data.id}/dashboard`);
+    getUserPets();
     setTimeout(() => {
       //Sign out after 1 hour
       handleSignOut();
@@ -182,7 +181,7 @@ function App() {
         <Route
           path="account/signin"
           element={
-            <SignIn setUser={setUser} setLoggedInUser={setLoggedInUser} />
+            <SignIn setLoggedInUser={setLoggedInUser} />
           }
         />
         <Route path="/education" element={<Education />} />

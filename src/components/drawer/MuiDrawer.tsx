@@ -1,15 +1,6 @@
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-// import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
-import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
-import { IconButton } from "@mui/material";
+import { IconButton, ListItem, ListItemButton, ListItemText, List, Drawer, Divider, Box   } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -18,7 +9,7 @@ interface Props {
 
 function MuiDrawer({ user }: Props) {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -41,18 +32,22 @@ function MuiDrawer({ user }: Props) {
         break;
       case "Add Pet":
         navigate(user ? `/user/${user.data.id}/addpet` : "/account/signin");
-      break;
+        break;
       case "Manage Account":
-        navigate(user ? `/user/${user.data.id}/management/account` : "/account/signin");
-      break;
+        navigate(
+          user ? `/user/${user.data.id}/management/account` : "/account/signin"
+        );
+        break;
       case "Manage Pets":
-        navigate(user ? `/user/${user.data.id}/management/pets` : "/account/signin");
-      break;
+        navigate(
+          user ? `/user/${user.data.id}/management/pets` : "/account/signin"
+        );
+        break;
       case "Education":
-        navigate('/education');
-      break;
+        navigate("/education");
+        break;
     }
-  }
+  };
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>

@@ -1,15 +1,6 @@
 import {
-  Box,
   Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-  CardMedia,
-  Stack,
 } from "@mui/material";
-import styled from "@mui/system/styled";
-import { Link } from "react-router-dom";
 import PetCards from "./dashboardComponents/PetCards";
 import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
 // import CalendarMin from "./dashboardComponents/CalendarMin";

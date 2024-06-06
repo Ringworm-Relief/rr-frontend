@@ -27,7 +27,6 @@ const EducationArtCard: React.FC<EducationArtCardProps> = ({
           height: 215,
           display: 'flex',
           flexDirection: 'column',
-          // justifyContent: 'space-between',
           overflow: 'auto',
           resize: 'horizontal',
         }}

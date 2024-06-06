@@ -19,11 +19,10 @@ import { User } from "../../../utils/interfaces";
 import React from "react";
 
 interface Props {
-  setUser: React.Dispatch<any>;
   setLoggedInUser: (user: any) => void;
 }
 
-function SignIn({ setUser, setLoggedInUser }: Props) {
+function SignIn({ setLoggedInUser }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -48,6 +47,7 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
         if (!user) {
           setAuthError("Email or Password is incorrect. Please try again.");
         } else {
+          sessionStorage.setItem("currentUser", JSON.stringify(user));
           setLoggedInUser(user);
           // Navigation and user state handled in App.tsx by setLoggedInUser
         }

@@ -130,77 +130,6 @@ export type Pet = {
   ringworm: Ringworm;
 };
 
-export const Pets = {
-  data: {
-    user_id: 153,
-    pets: [
-      {
-        id: 1,
-        name: "keoki",
-        type: "Dog",
-        breed: "labradoodle",
-        birthday: "2015-05-05",
-        medications: [{
-          medication_type: "Topical",
-          name: "ringworm cream1",
-          dosage: "10 mg",
-          frequency: "Daily",
-        }],
-        ringworm: {
-          ringworm_type: "Trichophyton mentagrophytes",
-          diagnosis_date: "2015-05-05",
-          symptoms: ["itchy skin", "excessive licking"],
-        },
-      },
-      {
-        id: 2,
-        name: "koki",
-        type: "Cat",
-        breed: "labradoodle",
-        birthday: "2015-05-05",
-        medications: [
-          {
-            medication_type: "Topical",
-            name: "ringworm cream2",
-            dosage: "10 mg",
-            frequency: "Daily",
-          },
-          {
-            medication_type: "Topical",
-            name: "ringworm cream2",
-            dosage: "10 mg",
-            frequency: "Daily",
-          },
-          {
-            medication_type: "Oral",
-            name: "ringworm oral2",
-            dosage: "10 mg",
-            frequency: "Daily",
-          },
-        ],
-        ringworm: {
-          ringworm_type: "Trichophyton mentagrophytes",
-          diagnosis_date: "2015-05-05",
-          symptoms: ["itchy skin", "excessive licking"],
-        },
-      },
-    ],
-  },
-};
-
-export const user: NewUser[] = [
-  {
-    data: {
-      type: "users",
-      attributes: {
-        first_name: "John",
-        last_name: "Doe",
-        email: "johndoe@email.com",
-        password: "password",
-      },
-    },
-  },
-];
 export interface ArticleAttributes {
   title: string;
   tagline: string;
@@ -242,10 +171,19 @@ export interface RouteParams {
 }
 
 export interface User {
-  id: string;
-  token: string;
-  email: string;
-  // password: string;
+    data: UserData;
+}
+
+interface UserData {
+  id: string,
+  type: string,
+  attributes: UserAttributes;
+}
+
+interface UserAttributes {
+    first_name: string,
+    last_name: string,
+    email: string
 }
 
 export function formatDate(bday: string) {

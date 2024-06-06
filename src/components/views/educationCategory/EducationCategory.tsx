@@ -69,10 +69,9 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({ handleSaves, save
         flexDirection: 'column', 
         alignItems: 'center',
         mb: "30px",
-        height: "100vh"
         }}>
             <Typography sx={{my: "20px"}} variant="h2">{getTitle(category)}</Typography>
-            <Box>
+            <Box >
             <Grid
               container
               justifyContent="center"
