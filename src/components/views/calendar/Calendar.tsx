@@ -14,7 +14,6 @@ import {
   DragAndDrop,
   ResourcesDirective,
   ResourceDirective,
-  PopupOpenEventArgs,
 } from "@syncfusion/ej2-react-schedule";
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import {
@@ -171,8 +170,8 @@ export default function Calendar({ user, pets }: Props) {
     const save_button =
       "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
     console.log(args.type)
-      if (args.event && args.event.target) {
-      const target = args.event.target as HTMLElement;
+      if (args.type === "QuickInfo" || args.type === "Editor" || args.event?.target) {
+      const target = args.event?.target as HTMLElement;
       if (
         target.className === save_icon ||
         target.className === save_button ||
@@ -190,7 +189,8 @@ export default function Calendar({ user, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
-      } else if(target.className === "e-quick-dialog e-control e-btn e-lib e-quick-alertcancel e-flat e-quick-dialog-cancel") {
+      } else if(args.type === "DeleteAlert" ) {
+       console.log("AHHHH")
         destroyCalendarEvent(
           user.data.id,
           args.data?.Id.toString(),
@@ -220,9 +220,10 @@ export default function Calendar({ user, pets }: Props) {
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
+    console.log(args.data?.Id)
     destroyCalendarEvent(
       user.data.id,
-      args.data.Id.toString(),
+      args.data.Id,
       currentToken
     ).then((res) => {
       if (res.errors) {
