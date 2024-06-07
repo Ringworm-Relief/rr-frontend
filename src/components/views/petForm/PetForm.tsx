@@ -89,6 +89,7 @@ interface Props {
 }
 
 function PetForm({ user, getUserPets }: Props) {
+  const [errorMessage, setErrorMessage] = useState<string | undefined>("");
   const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
     undefined
   );
@@ -137,33 +138,39 @@ function PetForm({ user, getUserPets }: Props) {
       medications: medications,
     };
     postPet(updatedPetObject)
-      .then((data) => {
-        setHasSubmitted(true);
-        setRingwormObject({
-          ringworm_type: "",
-          diagnosis_date: "",
-          symptoms: [],
-        });
-
-        setMedications([
-          {
+    .then((data) => {
+      if(!data || data.errors) {
+          setHasSubmitted(true);
+          setRingwormObject({
+            ringworm_type: "",
+            diagnosis_date: "",
+            symptoms: [],
+          });
+  
+          setMedications([
+            {
+              name: "",
+              medication_type: "",
+              dosage: "",
+              frequency: "",
+            },
+          ]);
+  
+          setPetObject({
+            user_id: user.data.id,
             name: "",
-            medication_type: "",
-            dosage: "",
-            frequency: "",
-          },
-        ]);
-
-        setPetObject({
-          user_id: user.data.id,
-          name: "",
-          pet_type: "",
-          breed: "",
-          birthday: "",
-          medications: medications,
-          ringworm: ringwormObject,
-        });
-        getUserPets();
+            pet_type: "",
+            breed: "",
+            birthday: "",
+            medications: medications,
+            ringworm: ringwormObject,
+          });
+          getUserPets();   
+         }
+         else {
+            setHasSubmitted(false);
+            setErrorMessage(data.error.detail);
+         }
       })
       .catch((err) => setHasSubmitted(false));
   };
@@ -207,7 +214,7 @@ function PetForm({ user, getUserPets }: Props) {
           Basics <img id="paw-svg" src={paw} alt="dog paw" />
         </Typography>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
+        <FormControl required variant="standard" sx={{ marginTop: "20px" }}>
           <InputLabel
             shrink
             htmlFor="name-field"
@@ -225,7 +232,7 @@ function PetForm({ user, getUserPets }: Props) {
           />
         </FormControl>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
+        <FormControl required variant="standard" sx={{ marginTop: "20px" }}>
           <InputLabel
             shrink
             htmlFor="type-field"
@@ -410,7 +417,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-              Information did not update.
+             {errorMessage}
             </Alert>
           </Collapse>
         )}

@@ -186,7 +186,7 @@ export default function Calendar({ user, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
-        // window.location.reload();
+        window.location.reload(); // Hotfix for doubling events + errors deleting
       }
     }
   };

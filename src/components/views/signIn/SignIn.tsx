@@ -59,7 +59,7 @@ function SignIn({ setLoggedInUser }: Props) {
     <Container maxWidth="xs" sx={{ height: "80vh" }}>
       <Box component="form" onSubmit={handleSignIn}>
         <Stack direction="column">
-          <FormControl sx={{ mt: 10 }}>
+          <FormControl required sx={{ mt: 10 }}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
               id="email"
@@ -74,7 +74,7 @@ function SignIn({ setLoggedInUser }: Props) {
               }
             />
           </FormControl>
-          <FormControl sx={{ mt: 5 }}>
+          <FormControl required sx={{ mt: 5 }}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               id="password"
