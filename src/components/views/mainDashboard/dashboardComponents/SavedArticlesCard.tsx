@@ -1,17 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  List,
-  ListItem,
-  ListItemText,
-  Grid,
-  Typography,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { mockArticles, EducationArticle } from "../../../../utils/interfaces";
-import { getArticlesCategory } from "../../../../apiCalls/articlesApiCalls";
+import { EducationArticle } from "../../../../utils/interfaces";
 import EducationArtCard from "../../../subComps/educationArtCard/EducationArtCard";
 
 interface Props {
@@ -20,20 +10,17 @@ interface Props {
 }
 
 function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
-
-  const [savedArts, setSavedArts] = useState<EducationArticle[]>([]);
+  const [savedArts, setSavedArts] = useState<any[]>([]);
   const navigate = useNavigate();
 
   const getSavedArts = () => {
-    getArticlesCategory().then((data) => {
-      const saved = data.data.filter((art: EducationArticle) =>
-        savedArticles.includes(art.id)
-      );
-      setSavedArts(saved);
-    })
-    .catch(error => {
-      navigate("/error");
-    })
+    const ALLARTICLES: string[] = JSON.parse(
+      localStorage.getItem("ARTICLES") || "[]"
+    );
+    const saved = ALLARTICLES.filter((art: any) =>
+      savedArticles.includes(art.id)
+    );
+    setSavedArts(saved);
   };
 
   useEffect(() => {
@@ -43,7 +30,7 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
   const handleClick = (id: string | void) => {
     navigate(`/education/category/${id}`);
   };
-  
+
   const innerWidthCheck = () => {
     if (window.innerWidth <= 915 && window.innerWidth >= 582) {
       return 500;

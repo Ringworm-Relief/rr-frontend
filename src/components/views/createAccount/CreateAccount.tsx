@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { NewUser } from "../../../utils/interfaces";
 import { postNewUser } from "../../../apiCalls/userApiCalls";
 import {
@@ -16,9 +17,6 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Link, useNavigate } from "react-router-dom";
-import { User } from "../../../utils/interfaces";
-
 
 function CreateAccount() {
   const [firstName, setFirstName] = useState("");

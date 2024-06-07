@@ -1,12 +1,15 @@
 import EducationPageCard from "../../subComps/educationPageCard/EducationPageCard";
-
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 
 function Education() {
   return (
-    <Box sx={{ my: "50px", height: "100vh" }}>
+    <Container
+      sx={{
+        my: 14,
+      }}
+    >
       <EducationPageCard />
-    </Box>
+    </Container>
   );
 }
 

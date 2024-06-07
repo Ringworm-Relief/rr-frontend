@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import React from "react";
 import {
   Box,
   Stack,
@@ -12,18 +15,12 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { fetchUser } from "../../../apiCalls/userApiCalls";
-import { User } from "../../../utils/interfaces";
-import React from "react";
-
 interface Props {
-  setUser: React.Dispatch<any>;
   setLoggedInUser: (user: any) => void;
 }
 
-function SignIn({ setUser, setLoggedInUser }: Props) {
+function SignIn({ setLoggedInUser }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -48,6 +45,7 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
         if (!user) {
           setAuthError("Email or Password is incorrect. Please try again.");
         } else {
+          sessionStorage.setItem("currentUser", JSON.stringify(user));
           setLoggedInUser(user);
           // Navigation and user state handled in App.tsx by setLoggedInUser
         }
@@ -58,10 +56,10 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
   };
 
   return (
-    <Container maxWidth="xs" sx={{height: "80vh"}}>
+    <Container maxWidth="xs" sx={{ height: "80vh" }}>
       <Box component="form" onSubmit={handleSignIn}>
         <Stack direction="column">
-          <FormControl sx={{ mt: 10 }} >
+          <FormControl sx={{ mt: 10 }}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
               id="email"
@@ -104,7 +102,12 @@ function SignIn({ setUser, setLoggedInUser }: Props) {
             />
           </FormControl>
           {error && <Typography sx={{ color: "red" }}>{error}</Typography>}
-          <Button id="handle-signin-btn" variant="contained" sx={{ mt: 5 }} onClick={handleSignIn}>
+          <Button
+            id="handle-signin-btn"
+            variant="contained"
+            sx={{ mt: 5 }}
+            onClick={handleSignIn}
+          >
             Sign In
           </Button>
           <Button>
