@@ -156,7 +156,7 @@ export const SinglePetChange = ({ pet }: Props) => {
       window.location.reload()
       let filteredPets = JSON.parse(localStorage.getItem('PETS') || '[]').filter((pet: any) => pet.id !== parseInt(pet.id))
       localStorage.removeItem('PETS')
-      localStorage.setItem('PETS', JSON.stringify(filteredPets))
+      if(filteredPets.length > 0) localStorage.setItem('PETS', JSON.stringify(filteredPets))
     })
     .catch((error) => {
       console.error('Error deleting pet:', error);

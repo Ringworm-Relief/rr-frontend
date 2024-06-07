@@ -22,6 +22,7 @@ import {
 } from "../../../apiCalls/calendarApiCalls";
 import { Alert, Card, Collapse, Stack } from "@mui/material";
 import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
+import { parse } from "path";
 interface Props {
   user: any;
   pets: any[];
@@ -118,7 +119,6 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
 export default function Calendar({ user, pets }: Props) {
   const navigate = useNavigate();
 
-  // const [resourceDataSource, setResourceDataSource] = useState<any[]>([]); // Resource data for the calendar
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -178,9 +178,10 @@ export default function Calendar({ user, pets }: Props) {
         target.className ===
           "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary"
       ) {
+        console.log(scheduleData.length)
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
-          Id: scheduleData.length + 1,
+          Id: args.data?.Id,
           Subject: (args.data as any).Subject,
           Description: (args.data as any).Description,
           StartTime: new Date((args.data as any).StartTime),
@@ -208,15 +209,17 @@ export default function Calendar({ user, pets }: Props) {
   const dragStopEvent = (args: DragEventArgs) => {
     const newEvent: ScheduleEvent = {
       PetId: args.data.ResourceId,
-      Id: scheduleData.length + 1,
+      Id: args.data.Id + 1,
       Subject: args.data.Subject,
       Description: args.data.Description,
       StartTime: new Date(args.data.StartTime),
       EndTime: new Date(args.data.EndTime),
       ResourceId: args.data.ResourceId,
     };
+    console.log(newEvent)
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
+    window.location.reload();
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
@@ -278,6 +281,7 @@ export default function Calendar({ user, pets }: Props) {
               dragStart={destroyDragEvent}
               // popupOpen={destroyEvent}
             >
+              {pets.length && (
               <ResourcesDirective>
                 <ResourceDirective
                   field="ResourceId"
@@ -289,6 +293,7 @@ export default function Calendar({ user, pets }: Props) {
                   dataSource={resourceDataSource}
                 ></ResourceDirective>
               </ResourcesDirective>
+              )}
               <ViewsDirective>
                 <ViewDirective option="Day" />
                 <ViewDirective option="Week" />
