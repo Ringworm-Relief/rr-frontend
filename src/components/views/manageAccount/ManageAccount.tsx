@@ -93,7 +93,7 @@ export default function ManageAccount({ user, setUser }: Props) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: window.innerWidth < 520 ? 280 : 400,
     bgcolor: "background.paper",
     borderRadius: 3,
     border: "2px solid gray",

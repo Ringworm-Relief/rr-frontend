@@ -1,3 +1,62 @@
+// import { Pet, Ringworm,  } from "../utils/interfaces";
+
+// function postPet(pet: Pet) {
+//     return fetch("https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets", {
+//         method: 'POST',
+//         headers: { 
+//             'Content-Type': 'application/json',
+//             'Authorization': `${localStorage.getItem('token')}`
+//          },
+//         body: JSON.stringify(pet)
+//     })
+//     .then(res => res.json());
+// }
+
+
+// function putPet(pet: any, id: any) {
+//     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
+//         method: 'PUT',
+//         headers: { 
+//             'Content-Type': 'application/json',
+//             "Authorization": `${localStorage.getItem('token')}` 
+//          },
+//         body: JSON.stringify(pet)
+//     })
+// }
+
+// function putRingworm(ringworm: any, id: any) {
+//     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/ringworms`, {
+//         method: 'PUT',
+//         headers: { 'Content-Type': 'application/json'},
+//         body: JSON.stringify(ringworm)
+//     })
+// }
+
+// function putMedications(medication: any, id: any) {
+//     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
+//         method: 'PUT',
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify(medication)
+//     })
+// }
+
+// function fetchPets(id: string) {
+//     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=${id}`,
+//     {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": `${localStorage.getItem('token')}` 
+//         }
+//     }
+//     )
+//     .then((response) => {
+//         return response.json();
+//     })
+// }
+
+// export { postPet, fetchPets, putPet, putRingworm };
+
 import { Pet, Ringworm,  } from "../utils/interfaces";
 
 function postPet(pet: Pet) {
@@ -13,7 +72,7 @@ function postPet(pet: Pet) {
 }
 
 
-function putPet(pet: any, id: any) {
+function putPet(pet: any, id: number | string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
         method: 'PUT',
         headers: { 
@@ -24,7 +83,7 @@ function putPet(pet: any, id: any) {
     })
 }
 
-function putRingworm(ringworm: any, id: any) {
+function putRingworm(ringworm: Ringworm, id: number | string) {
     return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/ringworms`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json'},
@@ -32,8 +91,9 @@ function putRingworm(ringworm: any, id: any) {
     })
 }
 
-function putMedications(medication: any, id: any) {
-    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, {
+
+function putMedications(medication: any, id: number | string) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}/medications`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(medication)
@@ -55,4 +115,30 @@ function fetchPets(id: string) {
     })
 }
 
-export { postPet, fetchPets, putPet, putRingworm };
+function postMed(medication: any) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pet_medications`,
+        {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `${localStorage.getItem('token')}` 
+            },
+            body: JSON.stringify(medication)
+        })
+}
+
+function deletePet(id: string | number) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, 
+        {
+            method: "DELETE"
+        })
+    .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+
+}
+
+export { postPet, fetchPets, putPet, putRingworm, putMedications, postMed, deletePet };
