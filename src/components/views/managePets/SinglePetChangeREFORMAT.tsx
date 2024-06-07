@@ -157,7 +157,6 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   };
 
   const handleDelete = () => {
-    console.log("pet id", pet.id)
     deletePet(parseInt(pet.id))
     .then(data => {
       setIsOpen(false)
