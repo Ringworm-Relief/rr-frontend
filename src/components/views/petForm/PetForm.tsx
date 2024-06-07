@@ -216,6 +216,7 @@ function PetForm({ user, getUserPets }: Props) {
             Pet Name
           </InputLabel>
           <BootstrapInput
+            required
             value={petObject.name}
             onChange={(e) =>
               setPetObject({ ...petObject, name: e.target.value })
@@ -234,6 +235,7 @@ function PetForm({ user, getUserPets }: Props) {
             Type
           </InputLabel>
           <Select
+            required
             value={petObject.pet_type}
             onChange={(e) =>
               setPetObject({ ...petObject, pet_type: e.target.value })
