@@ -7,15 +7,6 @@
 ### <p align="center">Contributors</p>
 <div align="center">Asher Spurr: https://github.com/AsherSpurr, Pareesa Kamgar-Dayhoff: https://github.com/pareesakd1118</div>
 
-## Preview:
-<div align="center">
-  
-
-Insert video
-
-
-
-</div>
 <p align="center">Technologies Used</p>
 <div align="center">
 <code><img width="50" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="TypeScript" title="TypeScript"/></code>
