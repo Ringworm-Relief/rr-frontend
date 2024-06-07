@@ -89,6 +89,7 @@ interface Props {
 }
 
 function PetForm({ user, getUserPets }: Props) {
+  const [errorMessage, setErrorMessage] = useState<string | undefined>("");
   const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
     undefined
   );
@@ -137,33 +138,39 @@ function PetForm({ user, getUserPets }: Props) {
       medications: medications,
     };
     postPet(updatedPetObject)
-      .then((data) => {
-        setHasSubmitted(true);
-        setRingwormObject({
-          ringworm_type: "",
-          diagnosis_date: "",
-          symptoms: [],
-        });
-
-        setMedications([
-          {
+    .then((data) => {
+      if(!data || data.errors) {
+          setHasSubmitted(true);
+          setRingwormObject({
+            ringworm_type: "",
+            diagnosis_date: "",
+            symptoms: [],
+          });
+  
+          setMedications([
+            {
+              name: "",
+              medication_type: "",
+              dosage: "",
+              frequency: "",
+            },
+          ]);
+  
+          setPetObject({
+            user_id: user.data.id,
             name: "",
-            medication_type: "",
-            dosage: "",
-            frequency: "",
-          },
-        ]);
-
-        setPetObject({
-          user_id: user.data.id,
-          name: "",
-          pet_type: "",
-          breed: "",
-          birthday: "",
-          medications: medications,
-          ringworm: ringwormObject,
-        });
-        getUserPets();
+            pet_type: "",
+            breed: "",
+            birthday: "",
+            medications: medications,
+            ringworm: ringwormObject,
+          });
+          getUserPets();   
+         }
+         else {
+            setHasSubmitted(false);
+            setErrorMessage(data.error.detail);
+         }
       })
       .catch((err) => setHasSubmitted(false));
   };
@@ -216,7 +223,7 @@ function PetForm({ user, getUserPets }: Props) {
             Pet Name
           </InputLabel>
           <BootstrapInput
-            required
+            required={true}
             value={petObject.name}
             onChange={(e) =>
               setPetObject({ ...petObject, name: e.target.value })
@@ -235,7 +242,7 @@ function PetForm({ user, getUserPets }: Props) {
             Type
           </InputLabel>
           <Select
-            required
+            required={true}
             value={petObject.pet_type}
             onChange={(e) =>
               setPetObject({ ...petObject, pet_type: e.target.value })
@@ -412,7 +419,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-              Information did not update.
+             {errorMessage}
             </Alert>
           </Collapse>
         )}
