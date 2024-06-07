@@ -214,7 +214,7 @@ function PetForm({ user, getUserPets }: Props) {
           Basics <img id="paw-svg" src={paw} alt="dog paw" />
         </Typography>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
+        <FormControl required variant="standard" sx={{ marginTop: "20px" }}>
           <InputLabel
             shrink
             htmlFor="name-field"
@@ -223,7 +223,6 @@ function PetForm({ user, getUserPets }: Props) {
             Pet Name
           </InputLabel>
           <BootstrapInput
-            required={true}
             value={petObject.name}
             onChange={(e) =>
               setPetObject({ ...petObject, name: e.target.value })
@@ -233,7 +232,7 @@ function PetForm({ user, getUserPets }: Props) {
           />
         </FormControl>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
+        <FormControl required variant="standard" sx={{ marginTop: "20px" }}>
           <InputLabel
             shrink
             htmlFor="type-field"
@@ -242,7 +241,6 @@ function PetForm({ user, getUserPets }: Props) {
             Type
           </InputLabel>
           <Select
-            required={true}
             value={petObject.pet_type}
             onChange={(e) =>
               setPetObject({ ...petObject, pet_type: e.target.value })

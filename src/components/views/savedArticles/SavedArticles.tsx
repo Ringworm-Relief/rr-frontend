@@ -54,6 +54,7 @@ const SavedArticles: React.FC<SavedArticlesProps> = ({
         justifyContent: "center",
         alignItems: "center",
         mb: "30px",
+        height: "80vh",
       }}
     >
       <Typography sx={{ my: "20px" }} variant="h2">
