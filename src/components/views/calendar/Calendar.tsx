@@ -119,6 +119,7 @@ const transformToScheduleEvent = (apiEvent: ApiEvent): ScheduleEvent => {
 export default function Calendar({ user, pets }: Props) {
   const navigate = useNavigate();
 
+  // const [resourceDataSource, setResourceDataSource] = useState<any[]>([]); // Resource data for the calendar
   const [scheduleData, setScheduleData] = useState<ScheduleEvent[]>([]);
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -128,29 +129,32 @@ export default function Calendar({ user, pets }: Props) {
   const windowLocation = window.location.pathname;
 
   useEffect(() => {
-    fetchCalendarEvents(user.data.id, currentToken)
-      .then((response) => {
-        // Transform API response to ScheduleEvent
-        if (response.errors) {
-          setError(true);
-          setErrorMessage(response.errors[0].detail);
-        } else {
-          const newEvents = response.data.map((event: ApiEvent) => {
-            return transformToScheduleEvent(event);
-          });
-          setScheduleData(newEvents);
-        }
-      })
-      .catch((error) => {
-        navigate("/error");
-      });
-  }, []);
+    const fetchData = async () => {
+      fetchCalendarEvents(user.data.id, currentToken)
+        .then((response) => {
+          // Transform API response to ScheduleEvent
+          if (response.errors) {
+            setError(true);
+            setErrorMessage(response.errors[0].detail);
+          } else {
+            const newEvents = response.data.map((event: ApiEvent) => {
+              return transformToScheduleEvent(event);
+            });
+            setScheduleData(newEvents);
+          }
+        })
+        .catch((error) => {
+          navigate("/error");
+        });
+      }
+      fetchData();
+    }, []);
 
-  const resourceDataSource = pets.reduce((acc: any[], pet) => {
-    let index = pets.indexOf(pet);
-    acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
-    return acc;
-  }, []);
+    const resourceDataSource = pets.reduce((acc: any[], pet) => {
+        let index = pets.indexOf(pet);
+        acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
+        return acc;
+    }, []);
 
   const dataManager = new DataManager({ // Handling POST requests
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
@@ -166,8 +170,8 @@ export default function Calendar({ user, pets }: Props) {
     const save_icon = "e-save-icon e-icons";
     const save_button =
       "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
-
-    if (args.event && args.event.target) {
+    console.log(args.type)
+      if (args.event && args.event.target) {
       const target = args.event.target as HTMLElement;
       if (
         target.className === save_icon ||
@@ -186,7 +190,17 @@ export default function Calendar({ user, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
-        window.location.reload(); // Hotfix for doubling events + errors deleting
+      } else if(target.className === "e-quick-dialog e-control e-btn e-lib e-quick-alertcancel e-flat e-quick-dialog-cancel") {
+        destroyCalendarEvent(
+          user.data.id,
+          args.data?.Id.toString(),
+          currentToken
+        ).then((res) => {
+          if (res.errors) {
+            setError(true);
+            setErrorMessage(res.errors[0].detail);
+          }
+        });
       }
     }
   };
@@ -217,21 +231,24 @@ export default function Calendar({ user, pets }: Props) {
       }
     });
   };
-
-  const destroyEvent = (args: PopupOpenEventArgs): void => {
-    if (args.type === "DeleteAlert") {
-      destroyCalendarEvent(
-        user.data.id,
-        args.data?.Id.toString(),
-        currentToken
-      ).then((res) => {
-        if (res.errors) {
-          setError(true);
-          setErrorMessage(res.errors[0].detail);
-        }
-      });
-    }
-  };
+//
+  // const destroyEvent = (args: PopupCloseEventArgs): void => {
+  //   // const target = args.target as HTMLElement;
+  //   console.log(args.target)
+  //   if (args.type === "DeleteAlert" ) {
+  //     console.log(args.data?.Id)
+  //     destroyCalendarEvent(
+  //       user.data.id,
+  //       args.data?.Id,
+  //       currentToken
+  //     ).then((res) => {
+  //       if (res.errors) {
+  //         setError(true);
+  //         setErrorMessage(res.errors[0].detail);
+  //       }
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -258,7 +275,7 @@ export default function Calendar({ user, pets }: Props) {
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
               dragStart={destroyDragEvent}
-              popupOpen={destroyEvent}
+              // popupOpen={destroyEvent}
             >
               <ResourcesDirective>
                 <ResourceDirective
@@ -314,7 +331,7 @@ export default function Calendar({ user, pets }: Props) {
                   allowDragAndDrop={true}
                   dragStop={dragStopEvent}
                   dragStart={destroyDragEvent}
-                  popupOpen={destroyEvent}
+                  // popupOpen={destroyEvent}
                   group={{ resources: ["Pets"] }}
                   width="100%"
                   height="100%"
