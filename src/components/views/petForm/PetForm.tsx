@@ -89,7 +89,7 @@ interface Props {
 }
 
 function PetForm({ user, getUserPets }: Props) {
-  const [errorMessage, setErrorMessage] = useState<string | undefined>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
     undefined
   );
@@ -127,6 +127,25 @@ function PetForm({ user, getUserPets }: Props) {
   };
 
   const handleSubmit = () => {
+    if (
+      !petObject.name ||
+      !petObject.pet_type ||
+      !petObject.breed ||
+      !petObject.birthday ||
+      !ringwormObject.diagnosis_date ||
+      !ringwormObject.ringworm_type ||
+      !ringwormObject.symptoms.length ||
+      medications.some(
+        (med) => !med.name || !med.medication_type || !med.dosage || !med.frequency
+      )
+    ) {
+      setAlertOpen(true);
+      setHasSubmitted(false);
+      setErrorMessage("You are missing requuired field(s).")
+      return;
+    }
+
+
     const updatedRingwormObject = {
       ...ringwormObject,
       diagnosis_date: formatDate(ringwormObject.diagnosis_date),
@@ -139,7 +158,7 @@ function PetForm({ user, getUserPets }: Props) {
     };
     postPet(updatedPetObject)
     .then((data) => {
-      if(!data || data.errors) {
+      // if(!data || data.errors) {
           setHasSubmitted(true);
           setRingwormObject({
             ringworm_type: "",
@@ -166,13 +185,10 @@ function PetForm({ user, getUserPets }: Props) {
             ringworm: ringwormObject,
           });
           getUserPets();   
-         }
-         else {
-            setHasSubmitted(false);
-            setErrorMessage(data.error.detail);
-         }
-      })
-      .catch((err) => setHasSubmitted(false));
+         })
+      .catch((err) => {setHasSubmitted(false)
+        setErrorMessage(err.error.detail)
+      });
   };
 
   const handleMedChange = (
@@ -417,7 +433,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-             {errorMessage}
+             {`${errorMessage}`}
             </Alert>
           </Collapse>
         )}
