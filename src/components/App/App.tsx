@@ -233,7 +233,7 @@ function App() {
         ></Route>
         <Route
           path="/user/:user_id/management/pets"
-          element={<AllPetsManagement setPets={setPets} pets={pets} />}
+          element={<AllPetsManagement getUserPets={getUserPets} user={user} pets={pets} />}
         ></Route>
         <Route path="*" element={<Error />} />
       </Routes>
