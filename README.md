@@ -1,5 +1,5 @@
 
-# <p align="center">[Ringworm Relief](https://rr-as.vercel.app/) ~`insert hours to complete`</p>
+# <p align="center">[Ringworm Relief](https://rr-as.vercel.app/) ~`50 hours`</p>
 <p align='center' >👆<b>Click the heading to visit the deploy link</b>👆</p>
 
 <p align="center">A multi-user application providing a hub for pet ringworm support and education. Ringworm treatment in multi-pet households is more often than not, a sentence to be strung out, overworked, and hypervigilant until treatment is over AND no re-infection occurs. But what does treatment even look like? Did you know most animals at shelters who contract ringworm are usually euthanized because of how aggressive and contagious the fungus is? Education sourced from those who foster ringworm animals to prevent these euthanizations is the best knowledge there is. However, I know from experience, that this information is nested in random forums online, or comments in a one-off Facebook post. RR is aimed at providing a hub of education and information tried and tested by those who have experienced it and successfully rid their household of the fungus.</p>
