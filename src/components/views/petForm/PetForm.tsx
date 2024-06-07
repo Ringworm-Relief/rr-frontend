@@ -440,7 +440,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-              Information updated.
+              Success! Pet added.
             </Alert>
           </Collapse>
         )}

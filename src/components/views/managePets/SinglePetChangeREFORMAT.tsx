@@ -16,6 +16,7 @@ import {
   Alert,
   Stack,
   Grid,
+  Modal
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -33,12 +34,25 @@ import {
   putPet,
   putRingworm,
   postMed,
+  deletePet
 } from "../../../apiCalls/petApiCalls";
 
 interface Props {
   user: any;
   pet: any;
 }
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export const SinglePetChange = ({ user, pet }: Props) => {
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
@@ -63,6 +77,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
   const [petPut, setPetPut] = useState<boolean | undefined>(undefined);
   const [ringPut, setRingPut] = useState<boolean | undefined>(undefined);
   const [medsPut, setMedsPut] = useState<boolean | undefined>(undefined);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleMedChange = (
     index: number,
@@ -141,6 +156,14 @@ export const SinglePetChange = ({ user, pet }: Props) => {
     }
   };
 
+  const handleDelete = () => {
+    console.log("pet id", pet.id)
+    deletePet(parseInt(pet.id))
+    .then(data => {
+      setIsOpen(false)
+    })
+  }
+
   const medCards = medications.map((med, index) => (
     <ManageMedCards
       key={index}
@@ -160,6 +183,27 @@ export const SinglePetChange = ({ user, pet }: Props) => {
 
   return (
     <>
+     <Modal
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+           Are you sure you want to delete {pet.name}?
+          </Typography>
+          <Typography sx={{my: 2}} id="modal-modal-title" variant="body1" component="h2">
+           We are hoping this means {pet.name} is ringworm-free! 
+          </Typography>
+          
+            <Stack direction="row" sx={{ mt: 5 }}>
+              <Button variant="outlined"  onClick={() => setIsOpen(false)}>Cancel</Button>
+              <Button  sx={{ color: '#e00000', ml: 23 }} startIcon={<DeleteIcon />} onClick={handleDelete} >Delete Pet</Button>
+      
+          </Stack> 
+        </Box>
+      </Modal>
       <Grid item>
         <Accordion sx={{ marginRight: 3 }}>
           <AccordionSummary
@@ -189,7 +233,7 @@ export const SinglePetChange = ({ user, pet }: Props) => {
               <Typography sx={{ color: "text.secondary" }}>
                 Edit pet information
               </Typography>
-              <Button startIcon={<DeleteIcon />}>Delete Pet</Button>
+              <Button sx={{ color: '#e00000' }} startIcon={<DeleteIcon />} onClick={() => {setIsOpen(true)}}>Delete Pet</Button>
             </Box>
           </AccordionSummary>
           <AccordionDetails>

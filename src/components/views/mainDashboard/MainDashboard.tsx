@@ -40,6 +40,8 @@ function MainDashboard({
   useEffect(() => {
     getUserPets();
   }, [])
+
+  
   return (
     <>
       {user.data.id ? (

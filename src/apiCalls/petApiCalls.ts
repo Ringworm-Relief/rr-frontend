@@ -68,4 +68,18 @@ function postMed(medication: any) {
         })
 }
 
-export { postPet, fetchPets, putPet, putRingworm, putMedications, postMed };
+function deletePet(id: string | number) {
+    return fetch(`https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets/${id}`, 
+        {
+            method: "DELETE"
+        })
+    .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+
+}
+
+export { postPet, fetchPets, putPet, putRingworm, putMedications, postMed, deletePet };
