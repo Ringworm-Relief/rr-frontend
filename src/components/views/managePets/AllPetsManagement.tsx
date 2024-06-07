@@ -60,7 +60,7 @@ export default function AllPetsManagement({ user, pets, getUserPets }: Props) {
 
   useEffect(() => {
     getUserPets()
-  })
+  }, [])
   
   const navigate = useNavigate();
   const petCard = pets.map((pet: any) => {

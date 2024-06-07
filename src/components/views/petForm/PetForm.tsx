@@ -129,19 +129,11 @@ function PetForm({ user, getUserPets }: Props) {
   const handleSubmit = () => {
     if (
       !petObject.name ||
-      !petObject.pet_type ||
-      !petObject.breed ||
-      !petObject.birthday ||
-      !ringwormObject.diagnosis_date ||
-      !ringwormObject.ringworm_type ||
-      !ringwormObject.symptoms.length ||
-      medications.some(
-        (med) => !med.name || !med.medication_type || !med.dosage || !med.frequency
-      )
+      !petObject.pet_type
     ) {
       setAlertOpen(true);
       setHasSubmitted(false);
-      setErrorMessage("You are missing requuired field(s).")
+      setErrorMessage("Pet name and type are required.")
       return;
     }
 
@@ -445,7 +437,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-              Information updated.
+              Success! Pet was added.
             </Alert>
           </Collapse>
         )}
