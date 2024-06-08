@@ -89,6 +89,7 @@ interface Props {
 }
 
 function PetForm({ user, getUserPets }: Props) {
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [hasSubmitted, setHasSubmitted] = useState<boolean | undefined>(
     undefined
   );
@@ -126,6 +127,17 @@ function PetForm({ user, getUserPets }: Props) {
   };
 
   const handleSubmit = () => {
+    if (
+      !petObject.name ||
+      !petObject.pet_type
+    ) {
+      setAlertOpen(true);
+      setHasSubmitted(false);
+      setErrorMessage("Pet name and type are required.")
+      return;
+    }
+
+
     const updatedRingwormObject = {
       ...ringwormObject,
       diagnosis_date: formatDate(ringwormObject.diagnosis_date),
@@ -137,35 +149,38 @@ function PetForm({ user, getUserPets }: Props) {
       medications: medications,
     };
     postPet(updatedPetObject)
-      .then((data) => {
-        setHasSubmitted(true);
-        setRingwormObject({
-          ringworm_type: "",
-          diagnosis_date: "",
-          symptoms: [],
-        });
-
-        setMedications([
-          {
+    .then((data) => {
+      // if(!data || data.errors) {
+          setHasSubmitted(true);
+          setRingwormObject({
+            ringworm_type: "",
+            diagnosis_date: "",
+            symptoms: [],
+          });
+  
+          setMedications([
+            {
+              name: "",
+              medication_type: "",
+              dosage: "",
+              frequency: "",
+            },
+          ]);
+  
+          setPetObject({
+            user_id: user.data.id,
             name: "",
-            medication_type: "",
-            dosage: "",
-            frequency: "",
-          },
-        ]);
-
-        setPetObject({
-          user_id: user.data.id,
-          name: "",
-          pet_type: "",
-          breed: "",
-          birthday: "",
-          medications: medications,
-          ringworm: ringwormObject,
-        });
-        getUserPets();
-      })
-      .catch((err) => setHasSubmitted(false));
+            pet_type: "",
+            breed: "",
+            birthday: "",
+            medications: medications,
+            ringworm: ringwormObject,
+          });
+          getUserPets();   
+         })
+      .catch((err) => {setHasSubmitted(false)
+        setErrorMessage(err.error.detail)
+      });
   };
 
   const handleMedChange = (
@@ -207,7 +222,7 @@ function PetForm({ user, getUserPets }: Props) {
           Basics <img id="paw-svg" src={paw} alt="dog paw" />
         </Typography>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
+        <FormControl required variant="standard" sx={{ marginTop: "20px" }}>
           <InputLabel
             shrink
             htmlFor="name-field"
@@ -225,7 +240,7 @@ function PetForm({ user, getUserPets }: Props) {
           />
         </FormControl>
 
-        <FormControl variant="standard" sx={{ marginTop: "20px" }}>
+        <FormControl required variant="standard" sx={{ marginTop: "20px" }}>
           <InputLabel
             shrink
             htmlFor="type-field"
@@ -410,7 +425,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-              Information did not update.
+             {`${errorMessage}`}
             </Alert>
           </Collapse>
         )}
@@ -422,7 +437,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-              Information updated.
+              Success! Pet was added.
             </Alert>
           </Collapse>
         )}

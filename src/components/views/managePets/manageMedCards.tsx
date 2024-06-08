@@ -1,3 +1,4 @@
+
 import {
   InputLabel,
   Input,
@@ -5,6 +6,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+
 import { Medication } from "../../../utils/interfaces";
 
 interface Props {
@@ -13,14 +15,10 @@ interface Props {
   number: number;
 }
 
-export default function ManageMedCards({
-  medObject,
-  setMedObject,
-  number,
-}: Props) {
+export default function ManageMedCards({ medObject, setMedObject, number }: Props) {
   return (
     <>
-      <FormControl variant="standard" sx={{ mt: 5, width: "100%" }}>
+      <FormControl variant="standard" sx={{ mt: 2,  width: "100%" }}>
         <InputLabel htmlFor="name">{`Med ${number} Name`}</InputLabel>
         <Input
           type="text"

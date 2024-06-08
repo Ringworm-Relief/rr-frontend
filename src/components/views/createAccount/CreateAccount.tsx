@@ -74,7 +74,7 @@ function CreateAccount() {
       <Typography variant="h3" sx={{mt: 8}}>Create an account</Typography>
       <Box component="form" sx={{ mt: 5}} onSubmit={handleCreateAccount}>
           {error && <Typography variant="h5" sx={{ color: "#ef8e64" }}>{error}</Typography>}
-        <FormControl sx={{ mt: 5 }}>
+        <FormControl required sx={{ mt: 5 }}>
           <InputLabel htmlFor="firstName">First Name</InputLabel>
           <OutlinedInput
             id="firstName"
@@ -83,10 +83,9 @@ function CreateAccount() {
             name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            required
           />
         </FormControl>
-        <FormControl sx={{ mt: 5 }}>
+        <FormControl required sx={{ mt: 5 }}>
           <InputLabel htmlFor="lastName">Last Name</InputLabel>
           <OutlinedInput
             id="lastName"
@@ -95,11 +94,10 @@ function CreateAccount() {
             name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            required
           />
         </FormControl>
         <Stack direction="column">
-          <FormControl sx={{ mt: 5 }}>
+          <FormControl required sx={{ mt: 5 }}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
               id="email"
@@ -108,10 +106,9 @@ function CreateAccount() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </FormControl>
-          <FormControl  error={passwordError} sx={{ mt: 5 }}>
+          <FormControl required error={passwordError} sx={{ mt: 5 }}>
           <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -122,7 +119,6 @@ function CreateAccount() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
-              required
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -138,7 +134,7 @@ function CreateAccount() {
             />
             <FormHelperText>{passwordError ? 'Passwords do not match' : 'Must be at least 6 characters long'}</FormHelperText>
           </FormControl>
-          <FormControl error={passwordError} sx={{ mt: 5 }}>
+          <FormControl required error={passwordError} sx={{ mt: 5 }}>
             <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
             <OutlinedInput
               id="confirm-password"
@@ -149,7 +145,6 @@ function CreateAccount() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setConfirmPassword(e.target.value)
               }
-              required
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
