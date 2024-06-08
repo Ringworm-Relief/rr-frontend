@@ -13,7 +13,7 @@ describe('template spec', () => {
     // Intercept the pets request and mock the response
     cy.intercept(
       "GET",
-      "https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pets/1",
+      "https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=1",
       {
         statusCode: 200,
         fixture: "pets", // Assuming you have a fixture file named 'pets.json'
@@ -44,7 +44,7 @@ describe('template spec', () => {
 
   });
 
-  it.skip('Routes to the dashboard on successful login', () => { //BLINKING TEST
+  it.skip('Routes to the dashboard on successful login', () => { //BLINKING TEST -- failing after successful calendar GET
     cy.get("#handle-signin-btn").click()
     cy.wait("@LoginUser");
     cy.url().should("include", "dashboard");
