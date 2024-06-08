@@ -191,7 +191,6 @@ export default function Calendar({ user, pets }: Props) {
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
       } else if(args.type === "DeleteAlert" ) {
-       console.log("AHHHH")
         destroyCalendarEvent(
           user.data.id,
           args.data?.Id.toString(),
@@ -216,14 +215,12 @@ export default function Calendar({ user, pets }: Props) {
       EndTime: new Date(args.data.EndTime),
       ResourceId: args.data.ResourceId,
     };
-    console.log(newEvent)
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
     window.location.reload();
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
-    console.log(args.data?.Id)
     destroyCalendarEvent(
       user.data.id,
       args.data.Id,
@@ -235,24 +232,6 @@ export default function Calendar({ user, pets }: Props) {
       }
     });
   };
-//
-  // const destroyEvent = (args: PopupCloseEventArgs): void => {
-  //   // const target = args.target as HTMLElement;
-  //   console.log(args.target)
-  //   if (args.type === "DeleteAlert" ) {
-  //     console.log(args.data?.Id)
-  //     destroyCalendarEvent(
-  //       user.data.id,
-  //       args.data?.Id,
-  //       currentToken
-  //     ).then((res) => {
-  //       if (res.errors) {
-  //         setError(true);
-  //         setErrorMessage(res.errors[0].detail);
-  //       }
-  //     });
-  //   }
-  // };
 
   return (
     <>
@@ -279,7 +258,6 @@ export default function Calendar({ user, pets }: Props) {
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
               dragStart={destroyDragEvent}
-              // popupOpen={destroyEvent}
             >
               {pets.length && (
               <ResourcesDirective>
