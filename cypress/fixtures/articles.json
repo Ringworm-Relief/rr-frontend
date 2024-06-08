@@ -1,0 +1,396 @@
+{
+    "data": [
+        {
+            "id": "1",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Cleaning 101",
+                "tagline": "Never mix cleaning products. This may cause harmful gases",
+                "summary": [
+                    "Wash your hands with soap and running water after playing with or petting your pet.",
+                    "Wear gloves and long sleeves if you must handle animals with ringworm, and always wash your hands after handling the animal.",
+                    "Vacuum the areas of the home that the infected pet commonly visits. This will help to remove infected fur or flakes of skin.",
+                    "Disinfect areas the pet has spent time in, including surfaces and bedding.",
+                    "The spores of this fungus can be killed with common disinfectants like diluted chlorine bleach (1/4 c per gallon water), benzalkonium chloride, or strong detergents.",
+                    "Never mix cleaning products. This may cause harmful gases.",
+                    "Do not handle animals with ringworm if your immune system is weak in any way (if you have HIV/AIDS, are undergoing cancer treatment, or are taking medications that suppress the immune system, for example)."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "2",
+            "category": "medical",
+            "attributes": {
+                "title": "Treatment for Ringworm",
+                "tagline": "There are many non-prescription products available to treat ringworm.",
+                "summary": [
+                    "The treatment for ringworm depends on its location on the body and how serious the infection is.",
+                    "Some forms of ringworm can be treated with non-prescription (“over-the-counter”) medications,",
+                    "but other forms of ringworm need treatment with prescription antifungal medication."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "3",
+            "category": "general",
+            "attributes": {
+                "title": "About Ringworm",
+                "tagline": "The infection is called “ringworm” because it can cause an itchy, red, circular rash.",
+                "summary": [
+                    "Ringworm is a common infection of the skin and nails that is caused by fungus.",
+                    "The infection is called “ringworm” because it can cause an itchy, red, circular rash.",
+                    "Ringworm is also called “tinea” or “dermatophytosis.”",
+                    "The different types of ringworm are usually named for the location of the infection on the body."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "4",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Alternative Cleaning Solutions",
+                "tagline": "Consider alternatives to bleach for cleaning.",
+                "summary": [
+                    "Alternative to bleach is accelerated hydrogen peroxide.",
+                    "Brand to purchase is Rescue.",
+                    "Accelerated hydrogen peroxide is less corrosive and safer to use than bleach.",
+                    "It is effective against a broad spectrum of pathogens, including viruses, bacteria, and fungi.",
+                    "Rescue is a trusted brand used in veterinary and animal care settings.",
+                    "It breaks down into water and oxygen, making it environmentally friendly.",
+                    "Accelerated hydrogen peroxide requires less contact time than bleach to be effective.",
+                    "Rescue products are available in various forms, including wipes, sprays, and concentrates."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "5",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Cleaning Your Home After a Ringworm Diagnosis",
+                "tagline": "Ensure thorough cleaning to prevent the spread of ringworm.",
+                "summary": [
+                    "Start by vacuuming all carpets, rugs, and upholstered furniture to remove hair and skin flakes.",
+                    "Wash all bedding, including pet bedding, in hot water and use a high-heat dryer setting.",
+                    "Mop hard floors with a disinfectant solution effective against ringworm spores.",
+                    "Wipe down surfaces with a solution of diluted chlorine bleach (1/4 cup per gallon of water) or another effective disinfectant.",
+                    "Pay special attention to areas where pets spend a lot of time, such as their bedding areas and favorite spots.",
+                    "Regularly clean and disinfect pet grooming tools and equipment.",
+                    "Dispose of vacuum bags and cleaning cloths immediately after use to prevent recontamination.",
+                    "If possible, restrict pets to easy-to-clean areas of the home until the infection is fully resolved."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "6",
+            "category": "general",
+            "attributes": {
+                "title": "General Information About Ringworm in Pets",
+                "tagline": "Understanding ringworm in pets can help in early detection and treatment.",
+                "summary": [
+                    "Ringworm is a fungal infection that can affect the skin, hair, and nails of pets.",
+                    "It is highly contagious and can spread through direct contact with an infected animal or contaminated objects.",
+                    "Common symptoms include circular, hairless patches of skin that may appear red and scaly.",
+                    "Kittens, puppies, and animals with weakened immune systems are more susceptible to ringworm.",
+                    "Diagnosis typically involves a physical examination and may include fungal cultures or microscopic examination of hair samples.",
+                    "Treatment options vary but often include antifungal shampoos, creams, and oral medications.",
+                    "Environmental cleaning is crucial to prevent the spread of ringworm in households with infected pets.",
+                    "Owners should handle infected animals with care and practice good hygiene to avoid contracting the infection."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "7",
+            "category": "general",
+            "attributes": {
+                "title": "Understanding Ringworm",
+                "tagline": "Ringworm is a common fungal infection affecting skin, hair, and nails.",
+                "summary": [
+                    "Ringworm is not caused by a worm but by a group of fungi known as dermatophytes.",
+                    "It can affect both humans and animals, spreading through direct contact with infected individuals or contaminated surfaces.",
+                    "Symptoms typically include a red, circular, itchy rash with a clearer center.",
+                    "In pets, ringworm often appears as patches of hair loss with a crusty covering.",
+                    "Diagnosis is usually done through a physical examination and may include fungal culture or microscopic examination.",
+                    "Treatment involves antifungal medications, which can be topical or oral depending on the severity and location of the infection.",
+                    "Preventive measures include maintaining good hygiene, regularly cleaning living environments, and avoiding contact with infected animals or people.",
+                    "Early detection and treatment are crucial to prevent the spread of ringworm to other pets and humans."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "8",
+            "category": "general",
+            "attributes": {
+                "title": "Common Misconceptions About Ringworm",
+                "tagline": "Debunking myths about ringworm to ensure proper understanding and treatment.",
+                "summary": [
+                    "Misconception: Ringworm is caused by a worm. Fact: Ringworm is actually a fungal infection, not caused by a worm.",
+                    "Misconception: Only dirty or unclean environments cause ringworm. Fact: Ringworm can occur in clean environments and affect anyone, regardless of hygiene.",
+                    "Misconception: Ringworm is only contagious when symptoms are visible. Fact: Ringworm can be contagious even before symptoms appear.",
+                    "Misconception: Pets cannot getringworm from humans. Fact: Both humans and pets can transmit ringworm to each other.",
+                    "Misconception: Ringworm always causes a ring-shaped rash. Fact: While the classic ring-shaped rash is common, ringworm can present in various ways, including red, scaly patches.",
+                    "Misconception: Over-the-counter treatments are always effective. Fact: Some cases of ringworm may require prescription medications for proper treatment.",
+                    "Misconception: Once treated, ringworm cannot recur. Fact: Ringworm can recur, especially if preventive measures are not followed."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "9",
+            "category": "general",
+            "attributes": {
+                "title": "Identifying Ringworm: Symptoms and Appearance",
+                "tagline": "Recognizing the signs of ringworm for early detection and treatment.",
+                "summary": [
+                    "Ring-shaped rash: Look for a red, circular rash with clearer skin in the middle, resembling a ring.",
+                    "Itchy skin: Affected areas often become itchy and uncomfortable.",
+                    "Scaly patches: The rash may appear scaly or flaky, especially at the edges.",
+                    "Red and inflamed skin: The rash can be red and swollen, sometimes with raised edges.",
+                    "Blisters: In some cases, small blisters or pustules may form on the rash.",
+                    "Hair loss: On the scalp or body, ringworm can cause patches of hair loss.",
+                    "Nail changes: Ringworm affecting nails may cause them to become thick, discolored, and brittle.",
+                    "Look for these symptoms: If you or your pet exhibit any of these signs, it’s important to seek medical or veterinary advice for proper diagnosis and treatment."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "10",
+            "category": "general",
+            "attributes": {
+                "title": "How Ringworm is Contracted and Who is at Risk",
+                "tagline": "Understanding the transmission of ringworm and identifying those most at risk.",
+                "summary": [
+                    "Direct contact: Ringworm is often contracted through direct skin-to-skin contact with an infected person or animal.",
+                    "Indirect contact: It can also spread via contaminated objects like clothing, towels, and bedding.",
+                    "Environment: Fungal spores can live on surfaces, such as floors and walls, for an extended period, increasing the risk of infection.",
+                    "Humid conditions: Warm and humid environments promote the growth and spread of the fungus.",
+                    "Shared facilities: Places like gyms, locker rooms, and swimming pools are common sites for ringworm transmission.",
+                    "High-risk groups: Children, athletes, and individuals with weakened immune systems are more susceptible to ringworm.",
+                    "Pet owners: People with pets, particularly those who handle animals frequently, are at higher risk.",
+                    "Preventive measures: Maintaining good hygiene, avoiding sharing personal items, and keeping skin dry can help reduce the risk of contracting ringworm."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "11",
+            "category": "medical",
+            "attributes": {
+                "title": "Available Treatment Types for Ringworm",
+                "tagline": "Understanding the different treatment options for managing ringworm.",
+                "summary": [
+                    "Topical antifungal creams: Over-the-counter options such as clotrimazole and miconazole are commonly used for treating mild cases of ringworm.",
+                    "Prescription topical treatments: Stronger antifungal creams, like terbinafine or ketoconazole, may be prescribed for more stubborn infections.",
+                    "Oral antifungal medications: For more severe or widespread infections, doctors may prescribe oral medications such as fluconazole, itraconazole, or griseofulvin.",
+                    "Antifungal shampoos: Medicated shampoos containing ketoconazole or selenium sulfide can help treat ringworm of the scalp.",
+                    "Home remedies: While not a replacement for medical treatment, home remedies like apple cider vinegar or tea tree oil can be used as supplementary treatments.",
+                    "Hygiene practices: Keeping the affected area clean and dry, avoiding sharing personal items, and washing clothes and bedding frequently can help speed up recovery and prevent spread.",
+                    "Duration of treatment: Treatment duration can vary from a few weeks to a couple of months, depending on the severity and location of the infection.",
+                    "Follow-up care: It's important to complete the full course of treatment and follow up with a healthcare provider to ensure the infection is fully resolved."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "12",
+            "category": "medical",
+            "attributes": {
+                "title": "Most Common Topical Treatments for Ringworm",
+                "tagline": "Understanding the topical medications commonly prescribed for ringworm infections.",
+                "summary": [
+                    "Clotrimazole cream: This antifungal medication is available over-the-counter and is often the first line of defense against mild cases of ringworm. It works by inhibiting the growth of fungi.",
+                    "Miconazole cream: Another over-the-counter option, miconazole cream iseffective against various fungal infections, including ringworm. It works by disrupting the fungal cell membrane.",
+                    "Ketoconazole cream: Available by prescription, ketoconazole cream is used to treat ringworm as well as other fungal skin infections. It works by inhibiting the synthesis of ergosterol, a component of fungal cell membranes.",
+                    "Terbinafine cream: This prescription-strength antifungal cream is commonly prescribed for ringworm infections that do not respond to over-the-counter treatments. It works by interfering with the synthesis of ergosterol, leading to fungal cell death.",
+                    "Econazole cream: Another prescription option, econazole cream is effective against a wide range of fungal infections, including ringworm. It works by disrupting fungal cell membranes and inhibiting fungal growth."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "13",
+            "category": "medical",
+            "attributes": {
+                "title": "Most Common Oral Treatments for Ringworm",
+                "tagline": "Exploring the oral medications commonly prescribed for ringworm infections.",
+                "summary": [
+                    "Griseofulvin: This oral antifungal medication is often prescribed for moderate to severe cases of ringworm. It works by inhibiting fungal cell division and growth.",
+                    "Terbinafine tablets: Similar to terbinafine cream, terbinafine tablets are used to treat ringworm infections that are difficult to manage with topical treatments alone. They work by interfering with the synthesis of ergosterol, a key component of fungal cell membranes.",
+                    "Itraconazole capsules: Itraconazole is another oral antifungal medication used to treat ringworm infections. It works by disrupting the synthesis of ergosterol, leading to fungal cell death.",
+                    "Fluconazole tablets: Fluconazole is commonly used to treat various fungal infections, including ringworm. It works by inhibiting fungal cell growth and replication."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "14",
+            "category": "medical",
+            "attributes": {
+                "title": "Choosing the Correct Treatment for Ringworm",
+                "tagline": "Guidance on selecting the appropriate treatment for ringworm infections.",
+                "summary": [
+                    "Consulting a healthcare professional: It's essential to consult a healthcare professional, such as a dermatologist or primary care physician, if you suspect you have ringworm. A healthcare provider can accurately diagnose the infection and recommend the most appropriate treatment based on its severity, location, and other factors.",
+                    "Considering the type and location of the infection: The choice of treatment for ringworm depends on several factors, including the type and location of the infection. Topical antifungal medications are often effective for mild cases of ringworm, while more severe or widespread infections may require oral antifungal medications.",
+                    "Following treatment guidelines: It's crucial to follow the treatment guidelines provided by your healthcare provider carefully. This includes applying topical medications as directed, taking oral medications for the prescribed duration, and following any additional instructions provided by your healthcare provider.",
+                    "Monitoring for improvement: After starting treatment, it's essential to monitor the affected area for signs of improvement. If the symptoms persist or worsen despite treatment, consult your healthcare provider for further evaluation and management.",
+                    "Avoiding self-diagnosis and self-treatment: While over-the-counter antifungal medications may be available, it's essential to avoid self-diagnosis and self-treatment for ringworm. Consulting a healthcare professional ensures an accurate diagnosis and appropriate treatment plan tailored to your individual needs."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "15",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Cleaning Soft Surfaces and Fabrics",
+                "tagline": "Guidance on cleaning soft surfaces and fabrics to prevent the spread of ringworm spores.",
+                "summary": [
+                    "Washing linens and clothing: Launder all linens, clothing, towels, and other washable fabrics that may have come into contact with the infected individual. Use hot water and a high-temperature drying cycle to kill ringworm spores effectively.",
+                    "Cleaning upholstered furniture: Vacuum upholstered furniture, such as sofas, chairs, and mattresses, to remove any loose debris and dirt. Use a steam cleaner with a high-temperature setting to disinfect soft surfaces and kill ringworm spores.",
+                    "Disinfecting carpets and rugs: Steam clean carpets and rugs to remove dirt and debris. Use a carpet cleaner with a disinfectant solution containing benzalkonium chloride or diluted chlorine bleach to kill ringworm spores effectively.",
+                    "Sanitizing pet bedding and toys: Wash pet bedding, blankets, and toys in hot water and dry them on a high-temperature setting. Use pet-safe disinfectants to sanitize these items and prevent the spread of ringworm to other pets or family members.",
+                    "Vacuuming and dusting: Regularly vacuum and dust your home to remove dust, dirt, and pet dander that may harbor ringworm spores. Pay special attention to areas where pets spend time, such as pet beds, scratchingposts, and furniture."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "16",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Frequency of Cleaning",
+                "tagline": "Recommendations on how often to clean your home and belongings to prevent ringworm transmission.",
+                "summary": [
+                    "Regular cleaning schedule: Establish a regular cleaning schedule for your home, focusing on high-traffic areas and surfaces that come into contact with pets or infected individuals. Aim to clean these areas at least once a week or more frequently if needed.",
+                    "Immediate cleaning after exposure: Clean and disinfect surfaces and items immediately after they come into contact with an infected individual or pet. Prompt cleaning can help prevent the spread of ringworm to other household members and pets.",
+                    "Routine maintenance: In addition to regular cleaning, perform routine maintenance tasks such as vacuuming, dusting, and sanitizing to keep your home clean and free of ringworm spores. Consider using pet-safe disinfectants and cleaning products to ensure the safety of your pets.",
+                    "Special attention to personal hygiene items: Clean and disinfect personal hygiene items such as combs, brushes, and hair accessories regularly, especially if they have been used by an infected individual. Replace items that cannot be effectively cleaned or disinfected."
+                ],
+                "url": null,
+                "source": null
+            }
+        },
+        {
+            "id": "17",
+            "category": "general",
+            "attributes": {
+                "title": "Ringworm in Dogs",
+                "tagline": "Know your pet - VCA article about ringworm in dogs",
+                "summary": [
+                    "What is ringworm?",
+                    "Ringworm is the common name given to a fungal infection of the skin, hair, and nails. Ringworm infections can occur in humans and in all domesticated species of animals. The name comes from the classical appearance of the round, red, raised 'ring' marking the boundary of inflammatory lesions in people infected with the disease. The common name of ringworm is somewhat misleading, in that it is not an infection caused by a worm, and the infected areas are not always ring-shaped.",
+                    "How is ringworm transmitted?",
+                    "The fungi responsible for ringworm infections belong to a specialized group known as dermatophytes, so the medical name for this disease is dermatophytosis. There are several distinct species of dermatophytes. Some species of dermatophytes are species-specific with infection, meaning that they will only infect one species, whereas others can be spread between different species of animals or from animals to humans."
+                ],
+                "url": "https://vcahospitals.com/know-your-pet/ringworm-in-dogs",
+                "source": "https://vcahospitals.com"
+            }
+        },
+        {
+            "id": "18",
+            "category": "general",
+            "attributes": {
+                "title": "Ringworm and Pets",
+                "tagline": "California Department of Public Health's take on ringworm and pets",
+                "summary": [
+                    "What is ringworm?",
+                    "Ringworm is a skin infection that is caused by a fungus, not a worm. It's called 'ringworm' because it often appears as a ring-shaped rash on the skin. Both people and animals can get ringworm. This webpage provides information about the form of ringworm that can spread from cats and dogs to people. For information about the other forms of ringworm, visit the U.S. Centers for Disease Control and Prevention (CDC) ringworm webpage.",
+                    "What are the symptoms of ringworm in people?",
+                    "Symptoms of ringworm first appear 4-14 days after having contact with an infected animal, its fur, or a contaminated surface or object, such as pet bedding. The most common symptoms include:\n\n    An itchy, ring-shaped rash on the skin\n\n    Patches of red, scaly, cracked skin\n\n    Hair loss near the rash\n\n    The red, circular ringworm rash can occur anywhere on the body, but is usually found on the face, arms, and legs. The rash might also become crusted over or filled with pus, and hair around the area of the rash might fall out."
+                ],
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Ringworm.aspx",
+                "source": "https://www.cdph.ca.gov"
+            }
+        },
+        {
+            "id": "19",
+            "category": "medical",
+            "attributes": {
+                "title": "Ringworm and Fungal Nail Infections Basics",
+                "tagline": "CDC Information about Ringworm",
+                "summary": [
+                    "What it is",
+                    "Ringworm (tinea) is a common fungal infection of the hair (tinea capitis), skin, or nails (onychomycosis). It gets its name from the ring-shaped, itchy, red rash it causes on skin.",
+                    "Ringworm is more common on certain parts of the body. Ringworm on the feet (tinea pedis) is often referred to as athlete's foot. Ringworm on the groin (tinea cruris) is often called jock itch.",
+                    "Ringworm is a common type of fungal nail infection (onychomycosis). It can cause nails to change colors, become thick, and break easily. Although infections are much more common in toenails, fingernails can get infected. Fungal nail infections can lead to infections on the skin of the foot."
+                ],
+                "url": "https://www.cdc.gov/ringworm/about/?CDC_AAref_Val=https://www.cdc.gov/fungal/diseases/ringworm/index.html",
+                "source": "https://www.cdc.gov"
+            }
+        },
+        {
+            "id": "20",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Ringworm Environmental Decontamination",
+                "tagline": "How to Clean Your Home When Your Pet Has Ringworm",
+                "summary": [
+                    "Dermatophytosis, commonly called ringworm, is a fungal infection of the fur and skin of dogs and cats. When your pet has ringworm, it is really important to clean and disinfect your home to prevent the spread of ringworm to other pets and to people.",
+                    "How to Clean and Disinfect the Home",
+                    "Thoroughly cleaning and disinfecting the home when a pet has ringworm is called environmental decontamination and is a two-step process.",
+                    "STEP 1: Remove pet hair",
+                    "Wipe, sweep, and/or vacuum the surface then thoroughly wash the surface until visibly clean of pet hair. Remove any excess water before Step 2.",
+                    "STEP 2: Disinfect the surface.",
+                    "Apply disinfectant and let sit for 5 min.\n\n    Step 1 is the most important step because many surfaces can be rid of ringworm by removing pet hair. Additionally, many disinfectants do not work in the presence of debris."
+                ],
+                "url": "https://veterinarypartner.vin.com/default.aspx?pid=19239&id=7058488",
+                "source": "https://veterinarypartner.vin.com"
+            }
+        },
+        {
+            "id": "21",
+            "category": "medical",
+            "attributes": {
+                "title": "Ringworm in Dogs and Cats",
+                "tagline": "Article from Vertinary Partner, created by Veterinarians",
+                "summary": [
+                    "What Kind of Infection is it?",
+                    "Many people are surprised to find that ringworm is not caused by a worm at all but by a fungus. The fungi involved are called dermatophytes, and the more scientifically correct name for ringworm is dermatophytosis. The dermatophyte fungi feed upon the dead cells of skin and hair, causing in people a classic round, red lesion with a ring of scale around the edges and normal recovering skin in the center. Because the ring of irritated, itchy skin looked like a worm, the infection was erroneously named.  The characteristic ring appearance is primarily a human phenomenon. In animals, ringworm frequently looks like a dry, grey, scaly patch but can also mimic any other skin lesion and have any appearance.",
+                    "Where Would My Pet Pick Up This Infection?",
+                    "The spores of dermatophyte fungi are extremely hardy in the environment; they can live for years. All it takes is skin contact with a spore to cause infection; however, the skin must be abraded, as the fungus cannot infect healthy, intact skin. This means that freshly shaved, scraped, or scratched skin is especially vulnerable."
+                ],
+                "url": "https://veterinarypartner.vin.com/default.aspx?pid=19239&catId=102899&id=4951439&ind=274&objTypeID=1007",
+                "source": "https://veterinarypartner.vin.com"
+            }
+        },
+        {
+            "id": "22",
+            "category": "cleaning",
+            "attributes": {
+                "title": "Q&A: Cleaning and Disinfecting Foster Homes During a Ringworm Outbreak",
+                "tagline": "A rescue organization asks how foster homes can be disinfected after finding ringworm (Dermatophytosis) in their foster cats",
+                "summary": [
+                    "Question:",
+                    "We have recently had a serious outbreak of ringworm stemming from our local humane society. We were told to have our fosters disinfect their homes with chlorhexidine. I’m hoping that I might be able to get a clarification from your facility if this is a successful method of ridding the environment of ringworm spores. If it is, how effective is it?",
+                    "Answer:",
+                    "I am sorry you are dealing with ringworm. Rest assured there are some options to significantly decrease and even eliminate ringworm in foster homes. Apart from general cleanliness, environmental decontamination of ringworm is critical because it prevents fomite contamination and false positive test results of cats.",
+                    "The first thing to keep in mind is that ringworm does NOT multiply in and throughout the home (like mold can), because ringworm spores require a host and keratin to survive. This also means that ringworm does NOT spontaneously move through the house, although it can be moved by fomites (mostly humans) or free-roaming fosters that are infected. Infected hairs tend to be damaged and these hairs are generally shed into the environment. Accordingly, treating the cats (I am making the assumption of cats, since we do not see ringworm in dogs as often) and properly cleaning the environment will get you on the right path. "
+                ],
+                "url": "https://sheltermedicine.wisc.edu/library/resources/cleaning-and-disinfecting-foster-homes-during-a-ringworm-outbreak",
+                "source": "https://sheltermedicine.wisc.edu"
+            }
+        }
+    ]
+}

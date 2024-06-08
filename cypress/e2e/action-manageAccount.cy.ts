@@ -31,6 +31,15 @@ describe("template spec", () => {
 
     cy.intercept(
       "GET",
+      "https://rr-educational-articles-efb008e252bf.herokuapp.com/api/v1/educational_articles",
+      {
+        statusCode: 200,
+        fixture: "articles", // Assuming you have a fixture file named 'pets.json'
+      }
+    ).as("GetArticles");
+
+    cy.intercept(
+      "GET",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/1/calendar_events",
       {
         statusCode: 200,
@@ -66,14 +75,14 @@ describe("template spec", () => {
     cy.visit("https://rr-as.vercel.app/user/1/management/account");
   });
 
-  it.skip("Displays a success message after PUT", () => {
-    cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
-    cy.get(".css-1wnsr1i")
+  it("Displays a success message after PUT", () => {
+    cy.get(".css-zajg55").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get(".css-16hj3ad")
       .should("be.visible")
       .within(() => {
         //Modal
         cy.get('input[name="currentPassword"]').type("password");
-        cy.get("button").eq(1).click(); //Confirm button -> initiates PUT
+        cy.get("button").eq(2).click(); //Confirm button -> initiates PUT
       });
 
     cy.wait("@UpdateUser");
@@ -93,8 +102,8 @@ describe("template spec", () => {
       }
     ).as("400UpdateUser");
 
-    cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
-    cy.get(".css-1wnsr1i")
+    cy.get(".css-zajg55").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get(".css-16hj3ad")
       .should("be.visible")
       .within(() => {
         //Modal
@@ -121,8 +130,8 @@ describe("template spec", () => {
       }
     ).as("409UpdateUser");
 
-    cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
-    cy.get(".css-1wnsr1i")
+    cy.get(".css-zajg55").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get(".css-16hj3ad")
       .should("be.visible")
       .within(() => {
         //Modal
@@ -150,8 +159,8 @@ describe("template spec", () => {
       .type("newPassword")
       .should("have.value", "newPassword");
 
-    cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
-    cy.get(".css-1wnsr1i")
+    cy.get(".css-zajg55").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get(".css-16hj3ad")
       .should("be.visible")
       .within(() => {
         //Modal
@@ -174,8 +183,8 @@ describe("template spec", () => {
     cy.get('input[name="password"]').type("newPassword");
     cy.get('input[name="confirmPassword"]').type("newPassword");
 
-    cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
-    cy.get(".css-1wnsr1i")
+    cy.get(".css-zajg55").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get(".css-16hj3ad")
       .should("be.visible")
       .within(() => {
         //Modal
@@ -198,8 +207,8 @@ describe("template spec", () => {
     cy.get('input[name="firstName"]').type("New");
     cy.get('input[name="email"]').type("newEmail@email.com");
 
-    cy.get(".css-lll1vm-MuiButtonBase-root-MuiButton-root").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
-    cy.get(".css-1wnsr1i")
+    cy.get(".css-zajg55").click(); //Submit button main form -> opens modal !! PUT request is not initiated yet
+    cy.get(".css-16hj3ad")
       .should("be.visible")
       .within(() => {
         //Modal
