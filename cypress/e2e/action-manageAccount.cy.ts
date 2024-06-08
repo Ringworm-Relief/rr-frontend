@@ -92,7 +92,7 @@ describe("template spec", () => {
     });
   });
 
-  it.skip("Displays error messages for 400", () => {
+  it("Displays error messages for 400", () => {
     cy.intercept(
       "PUT",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
@@ -108,7 +108,7 @@ describe("template spec", () => {
       .within(() => {
         //Modal
         cy.get('input[name="currentPassword"]').type("password");
-        cy.get("button").eq(1).click(); //Confirm button -> initiates PUT
+        cy.get("button").eq(2).click(); //Confirm button -> initiates PUT
       });
     cy.wait("@400UpdateUser");
     cy.get(".MuiAlert-colorError").within(() => {
@@ -120,7 +120,7 @@ describe("template spec", () => {
     });
   });
 
-  it.skip("Displays error messages for 409", () => {
+  it("Displays error messages for 409", () => {
     cy.intercept(
       "PUT",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/signup",
@@ -136,7 +136,7 @@ describe("template spec", () => {
       .within(() => {
         //Modal
         cy.get('input[name="currentPassword"]').type("password");
-        cy.get("button").eq(1).click(); //Confirm button -> initiates PUT
+        cy.get("button").eq(2).click(); //Confirm button -> initiates PUT
       });
 
     cy.wait("@409UpdateUser");
@@ -150,8 +150,8 @@ describe("template spec", () => {
     });
   });
 
-  it.skip("Clears password input after successful PUT", () => {
-    cy.get(".css-1086bdv-MuiPaper-root-MuiAccordion-root").click(); //Password accordian
+  it("Clears password input after successful PUT", () => {
+    cy.get(".css-1aj41gs").click(); //Password accordian
     cy.get('input[name="password"]')
       .type("newPassword")
       .should("have.value", "newPassword");
@@ -165,21 +165,21 @@ describe("template spec", () => {
       .within(() => {
         //Modal
         cy.get('input[name="currentPassword"]').type("password");
-        cy.get("button").eq(1).click(); //Confirm button -> initiates PUT
+        cy.get("button").eq(2).click(); //Confirm button -> initiates PUT
       });
     cy.wait("@UpdateUser");
 
-    cy.get(".css-1086bdv-MuiPaper-root-MuiAccordion-root").click(); //Password accordian
+    cy.get(".css-1aj41gs").click(); //Password accordian
     cy.get('input[name="password"]').should("not.have.value");
     cy.get('input[name="confirmPassword"]').should("not.have.value");
   });
 
-  it.skip("Can change all information", () => {
+  it("Can change all information", () => {
     cy.get('input[name="firstName"]').type("New");
     cy.get('input[name="lastName"]').type("Name");
     cy.get('input[name="email"]').type("newEmail@email.com");
 
-    cy.get(".css-1086bdv-MuiPaper-root-MuiAccordion-root").click(); //Password accordian
+    cy.get(".css-1aj41gs").click(); //Password accordian
     cy.get('input[name="password"]').type("newPassword");
     cy.get('input[name="confirmPassword"]').type("newPassword");
 
@@ -189,7 +189,7 @@ describe("template spec", () => {
       .within(() => {
         //Modal
         cy.get('input[name="currentPassword"]').type("password");
-        cy.get("button").eq(1).click(); //Confirm button -> initiates PUT
+        cy.get("button").eq(2).click(); //Confirm button -> initiates PUT
       });
     cy.wait("@UpdateUser");
 
@@ -203,7 +203,7 @@ describe("template spec", () => {
     cy.get('input[name="email"]').should("have.value", "newEmail@email.com");
   });
 
-  it.skip("Can change some information", () => {
+  it("Can change some information", () => {
     cy.get('input[name="firstName"]').type("New");
     cy.get('input[name="email"]').type("newEmail@email.com");
 
@@ -213,7 +213,7 @@ describe("template spec", () => {
       .within(() => {
         //Modal
         cy.get('input[name="currentPassword"]').type("password");
-        cy.get("button").eq(1).click(); //Confirm button -> initiates PUT
+        cy.get("button").eq(2).click(); //Confirm button -> initiates PUT
       });
 
     cy.wait("@UpdateUser");
