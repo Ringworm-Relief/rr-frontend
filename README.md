@@ -22,8 +22,7 @@
 </div>
 
 ## Installation Instructions:
-- 
-- OR run the following on the command line to clone the repo and run the app locally:
+- Run the following on the command line to clone the repo and run the app locally:
     ```
     git clone git@github.com:Ringworm-Relief/rr-frontend.git
     cd rr-frontend
