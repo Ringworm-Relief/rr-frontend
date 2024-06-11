@@ -54,6 +54,7 @@ function App() {
     getArticlesCategory().then((data) => {
       localStorage.setItem("ARTICLES", JSON.stringify(data.data));
     });
+   
   }, [pageRender]);
 
   useEffect(() => {

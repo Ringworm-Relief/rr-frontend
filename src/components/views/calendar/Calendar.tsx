@@ -14,7 +14,6 @@ import {
   DragAndDrop,
   ResourcesDirective,
   ResourceDirective,
-  PopupOpenEventArgs,
 } from "@syncfusion/ej2-react-schedule";
 import { DataManager, WebApiAdaptor } from "@syncfusion/ej2-data";
 import {
@@ -23,6 +22,7 @@ import {
 } from "../../../apiCalls/calendarApiCalls";
 import { Alert, Card, Collapse, Stack } from "@mui/material";
 import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
+import { parse } from "path";
 interface Props {
   user: any;
   pets: any[];
@@ -128,29 +128,32 @@ export default function Calendar({ user, pets }: Props) {
   const windowLocation = window.location.pathname;
 
   useEffect(() => {
-    fetchCalendarEvents(user.data.id, currentToken)
-      .then((response) => {
-        // Transform API response to ScheduleEvent
-        if (response.errors) {
-          setError(true);
-          setErrorMessage(response.errors[0].detail);
-        } else {
-          const newEvents = response.data.map((event: ApiEvent) => {
-            return transformToScheduleEvent(event);
-          });
-          setScheduleData(newEvents);
-        }
-      })
-      .catch((error) => {
-        navigate("/error");
-      });
-  }, []);
+    const fetchData = async () => {
+      fetchCalendarEvents(user.data.id, currentToken)
+        .then((response) => {
+          // Transform API response to ScheduleEvent
+          if (response.errors) {
+            setError(true);
+            setErrorMessage(response.errors[0].detail);
+          } else {
+            const newEvents = response.data.map((event: ApiEvent) => {
+              return transformToScheduleEvent(event);
+            });
+            setScheduleData(newEvents);
+          }
+        })
+        .catch((error) => {
+          navigate("/error");
+        });
+      }
+      fetchData();
+    }, []);
 
-  const resourceDataSource = pets.reduce((acc: any[], pet) => {
-    let index = pets.indexOf(pet);
-    acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
-    return acc;
-  }, []);
+    const resourceDataSource = pets.reduce((acc: any[], pet) => {
+        let index = pets.indexOf(pet);
+        acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
+        return acc;
+    }, []);
 
   const dataManager = new DataManager({ // Handling POST requests
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
@@ -166,18 +169,19 @@ export default function Calendar({ user, pets }: Props) {
     const save_icon = "e-save-icon e-icons";
     const save_button =
       "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
-
-    if (args.event && args.event.target) {
-      const target = args.event.target as HTMLElement;
+    console.log(args.type)
+      if (args.type === "QuickInfo" || args.type === "Editor" || args.event?.target) {
+      const target = args.event?.target as HTMLElement;
       if (
         target.className === save_icon ||
         target.className === save_button ||
         target.className ===
           "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary"
       ) {
+        console.log(scheduleData.length)
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
-          Id: scheduleData.length + 1,
+          Id: args.data?.Id,
           Subject: (args.data as any).Subject,
           Description: (args.data as any).Description,
           StartTime: new Date((args.data as any).StartTime),
@@ -186,7 +190,17 @@ export default function Calendar({ user, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
-        window.location.reload(); // Hotfix for doubling events + errors deleting
+      } else if(args.type === "DeleteAlert" ) {
+        destroyCalendarEvent(
+          user.data.id,
+          args.data?.Id.toString(),
+          currentToken
+        ).then((res) => {
+          if (res.errors) {
+            setError(true);
+            setErrorMessage(res.errors[0].detail);
+          }
+        });
       }
     }
   };
@@ -194,7 +208,7 @@ export default function Calendar({ user, pets }: Props) {
   const dragStopEvent = (args: DragEventArgs) => {
     const newEvent: ScheduleEvent = {
       PetId: args.data.ResourceId,
-      Id: scheduleData.length + 1,
+      Id: args.data.Id + 1,
       Subject: args.data.Subject,
       Description: args.data.Description,
       StartTime: new Date(args.data.StartTime),
@@ -203,12 +217,13 @@ export default function Calendar({ user, pets }: Props) {
     };
     const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
     dataManager.insert(apiFormattedEvent);
+    window.location.reload();
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
     destroyCalendarEvent(
       user.data.id,
-      args.data.Id.toString(),
+      args.data.Id,
       currentToken
     ).then((res) => {
       if (res.errors) {
@@ -216,21 +231,6 @@ export default function Calendar({ user, pets }: Props) {
         setErrorMessage(res.errors[0].detail);
       }
     });
-  };
-
-  const destroyEvent = (args: PopupOpenEventArgs): void => {
-    if (args.type === "DeleteAlert") {
-      destroyCalendarEvent(
-        user.data.id,
-        args.data?.Id.toString(),
-        currentToken
-      ).then((res) => {
-        if (res.errors) {
-          setError(true);
-          setErrorMessage(res.errors[0].detail);
-        }
-      });
-    }
   };
 
   return (
@@ -258,8 +258,8 @@ export default function Calendar({ user, pets }: Props) {
               allowDragAndDrop={true}
               dragStop={dragStopEvent}
               dragStart={destroyDragEvent}
-              popupOpen={destroyEvent}
             >
+              {pets.length && (
               <ResourcesDirective>
                 <ResourceDirective
                   field="ResourceId"
@@ -271,6 +271,7 @@ export default function Calendar({ user, pets }: Props) {
                   dataSource={resourceDataSource}
                 ></ResourceDirective>
               </ResourcesDirective>
+              )}
               <ViewsDirective>
                 <ViewDirective option="Day" />
                 <ViewDirective option="Week" />
@@ -314,7 +315,7 @@ export default function Calendar({ user, pets }: Props) {
                   allowDragAndDrop={true}
                   dragStop={dragStopEvent}
                   dragStart={destroyDragEvent}
-                  popupOpen={destroyEvent}
+                  // popupOpen={destroyEvent}
                   group={{ resources: ["Pets"] }}
                   width="100%"
                   height="100%"

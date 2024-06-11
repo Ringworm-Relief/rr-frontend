@@ -31,6 +31,15 @@ describe('template spec', () => {
 
     cy.intercept(
       "GET",
+      "https://rr-educational-articles-efb008e252bf.herokuapp.com/api/v1/educational_articles",
+      {
+        statusCode: 200,
+        fixture: "articles", // Assuming you have a fixture file named 'pets.json'
+      }
+    ).as("GetArticles");
+
+    cy.intercept(
+      "GET",
       "https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/1/calendar_events",
       {
         statusCode: 200,
@@ -48,7 +57,7 @@ describe('template spec', () => {
     ).as("UpdateUser");
 
     // Visit the landing page
-    cy.visit("http://localhost:3000/");
+    cy.visit("https://rr-as.vercel.app/");
     sessionStorage.setItem("token", "mocked_token");
     
  // Click on the sign-in link

@@ -13,12 +13,21 @@ describe("Landing Page", () => {
     // Intercept the pets request and mock the response
     cy.intercept(
       "GET",
-      "https://8deefa6e-9aee-47e2-b8ea-a4dd591b3fc3.mock.pstmn.io/api/v1/pets/1",
+      "https://user-pets-service-4a1c97bde8d0.herokuapp.com/api/v1/pets?user_id=1",
       {
         statusCode: 200,
         fixture: "pets", // Assuming you have a fixture file named 'pets.json'
       }
     ).as("GetPets");
+
+    cy.intercept(
+      "GET",
+      "https://rr-educational-articles-efb008e252bf.herokuapp.com/api/v1/educational_articles",
+      {
+        statusCode: 200,
+        fixture: "articles", // Assuming you have a fixture file named 'pets.json'
+      }
+    ).as("GetArticles");
 
     cy.intercept(
       "GET",
