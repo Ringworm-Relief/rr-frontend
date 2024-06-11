@@ -24,6 +24,9 @@ import Error from "../views/error/Error";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
+import Forum from "../views/forum/Forum";
+import ForumCategory from "../views/forum/forumComponents/ForumCategory";
+import ForumPost from "../views/forum/forumComponents/ForumPost";
 
 function App() {
   const activeUser = JSON.parse(
@@ -153,6 +156,11 @@ function App() {
                 Education
               </Link>
             </div>
+            <div className="App_nav_links">
+              <Link className="App_link" to="/forum/general">
+                Support
+              </Link>
+            </div>
           </nav>
         </div>
         <div className="App_nav_block_right">
@@ -236,6 +244,9 @@ function App() {
           path="/user/:user_id/management/pets"
           element={<AllPetsManagement getUserPets={getUserPets} user={user} pets={pets} />}
         ></Route>
+        <Route path="/forum/general" element={<Forum />}></Route>
+        <Route path="/forum/:category" element={<ForumCategory />}></Route>
+        <Route path="/forum/:category/:postID" element={<ForumPost />}></Route>
         <Route path="*" element={<Error />} />
       </Routes>
       <div id="footer_wrapper">
