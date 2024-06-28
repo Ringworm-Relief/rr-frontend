@@ -27,6 +27,7 @@ import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 import Forum from "../views/forum/Forum";
 import ForumCategory from "../views/forum/forumComponents/ForumCategory";
 import ForumPost from "../views/forum/forumComponents/ForumPost";
+import { mockForumData } from "../../utils/interfaces";
 
 function App() {
   const activeUser = JSON.parse(
@@ -40,6 +41,11 @@ function App() {
     localStorage.getItem("TARGETPET") || "[]"
   );
 
+  const forumDataStorage = JSON.parse(localStorage.getItem("FORUM") || "[]");
+
+  const [filter, setFilter] = useState<string>("General");
+  const [mockForumData, setMockForumData] = useState<any[]>(forumDataStorage); //Holds the forum data [posts, comments, etc.
+  const [forumData, setForumData] = useState<any[]>(mockForumData); //Holds the forum data [posts, comments, etc.
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
   const [pets, setPets] = useState<any[]>(PetsStorage); //Holds the current user's pets
@@ -57,12 +63,23 @@ function App() {
     getArticlesCategory().then((data) => {
       localStorage.setItem("ARTICLES", JSON.stringify(data.data));
     });
-   
+
+    localStorage.setItem("FORUM", JSON.stringify(mockForumData));
+    const forumData = JSON.parse(localStorage.getItem("FORUM") || "[]");
+    setMockForumData(forumData)
   }, [pageRender]);
 
   useEffect(() => {
     localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
   }, [savedArticles]);
+
+  useEffect(() => {
+    if(filter === "General") {
+      setForumData(mockForumData.filter((post) => post.category === "General"));
+    } else {
+      setForumData(mockForumData.filter((post) => post.category === filter));
+    }
+  }, [filter])
 
   const setLoggedInUser = (user: any) => {
     setPageRender(1);
@@ -244,7 +261,7 @@ function App() {
           path="/user/:user_id/management/pets"
           element={<AllPetsManagement getUserPets={getUserPets} user={user} pets={pets} />}
         ></Route>
-        <Route path="/forum/general" element={<Forum />}></Route>
+        <Route path="/forum/general" element={<Forum forumData={forumData} filter={filter} setFilter={setFilter}/>}></Route>
         <Route path="/forum/:category" element={<ForumCategory />}></Route>
         <Route path="/forum/:category/:postID" element={<ForumPost />}></Route>
         <Route path="*" element={<Error />} />
