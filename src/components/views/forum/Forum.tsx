@@ -12,7 +12,7 @@ export default function Forum({ forumData, filter, setFilter }: Props) {
     // const forumCat = forumData.filter((post) => post.category === filter);
     return (
         <div>
-        <h1>Forum</h1>
+        <h1>{filter}</h1>
         <Box>
             <RadioGroup>
                {["Cleaning", "Treatment", "General"].map((category) => {
