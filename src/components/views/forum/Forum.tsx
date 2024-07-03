@@ -1,50 +1,68 @@
-import CheckIcon from '@mui/icons-material/Check';
-import {Box, Chip, RadioGroup, Radio } from '@mui/joy'
-import ForumCategory from './forumComponents/ForumCategory';
-interface Props {
-    forumData: any[];
-    filter: string;
-    setFilter: (filter: string) => void;
-}
+import React, { useState, useEffect } from 'react';
+import { Tabs, Tab, Typography, Box, Container } from '@mui/material';
+import { getThreads } from "../../../apiCalls/forumApiCalls"
 
-export default function Forum({ forumData, filter, setFilter }: Props) {
-    // const forumCategories = forumData.map((post) => post.category);
-    // const forumCat = forumData.filter((post) => post.category === filter);
-    return (
-        <div>
-        <h1>{filter}</h1>
-        <Box>
-            <RadioGroup>
-               {["Cleaning", "Treatment", "General"].map((category) => {
-                   const checked = filter === category
-                return (
-                    <Chip
-                    key={category}
-                    variant='plain'
-                    color={checked ? 'primary' : 'neutral'}
-                    startDecorator={
-                      checked && <CheckIcon sx={{ zIndex: 1, pointerEvents: 'none' }} />
-                    }
-                  >
-                    <Radio
-                      variant="outlined"
-                      color={checked ? 'primary' : 'neutral'}
-                      disableIcon
-                      overlay
-                      label={category}
-                      value={category}
-                      checked={checked}
-                      onChange={(e) => {
-                        if(e.target.checked) {
-                          setFilter(category)
-                        }
-                      }}
-                    ></Radio>
-                  </Chip>  
-                )
-               })} 
-            </RadioGroup>
-        </Box>
-        </div>
-    );
-};
+export default function Forum() {
+  const [filter, setFilter] = useState<String>('General');
+  const [threadsGeneral, setThreadsGeneral] = useState<any[]>([])
+  const [threadsCleaning, setThreadsCleaning] = useState<any[]>([])
+  const [threadsTreatment, setThreadsTreatment] = useState<any[]>([])
+  const [threads, setThreads] = useState<any[]>(threadsGeneral)
+
+  // Handle tab changes
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setFilter(newValue);
+    if (newValue === "Cleaning") {
+      setThreads(threadsCleaning)
+    } else if (newValue === "Treatment") {
+      setThreads(threadsTreatment)
+    } else {
+      setThreads(threadsGeneral)
+    }
+  };
+  
+
+  const setThreadsByCategory = () => {
+    Promise.all([
+      getThreads("General"),
+      getThreads("Cleaning"),
+      getThreads("Treatment")
+    ]) .then(responses => Promise.all(responses.map(response => response.json())))
+    .then(([generalData, cleaningData, treatmentData]) => {
+      setThreadsGeneral(generalData);
+      setThreadsCleaning(cleaningData);
+      setThreadsTreatment(treatmentData);
+      setThreads(generalData)
+    })
+    .catch(error => {
+      console.error('Error fetching threads:', error);
+    });
+  }
+
+  useEffect(() => {
+    setThreadsByCategory()
+  }, [])
+ 
+  const displayedThreads = threads.map(thread => {
+    return <Typography>{thread.title}</Typography>
+  })
+
+  return (
+    <Container maxWidth="md" sx={{ textAlign: 'center', my: 4 }}>
+      <Typography sx={{ mb: 2 }} variant="h4">Find Support Here</Typography>
+      <Tabs 
+        value={filter} 
+        onChange={handleChange} 
+        aria-label="forum categories"
+        centered
+      >
+        <Tab value="Cleaning" label="Cleaning" />
+        <Tab value="General" label="General" />
+        <Tab value="Treatment" label="Treatment" />
+      </Tabs>
+      <Box>
+        {displayedThreads}
+      </Box>
+    </Container>
+  );
+}
