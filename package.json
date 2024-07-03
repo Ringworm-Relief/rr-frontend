@@ -10,7 +10,7 @@
     "@fullcalendar/react": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
     "@microsoft/signalr": "^8.0.0",
-    "@mui/icons-material": "^5.15.17",
+    "@mui/icons-material": "^5.15.21",
     "@mui/joy": "^5.0.0-beta.36",
     "@mui/material": "^5.15.19",
     "@syncfusion/ej2-react-buttons": "^25.2.3",
