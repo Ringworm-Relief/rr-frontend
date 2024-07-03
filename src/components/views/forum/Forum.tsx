@@ -63,11 +63,11 @@ export default function Forum({ user }: Props) {
     setFilter(newValue);
     navigate(`/forum/${newValue.toLowerCase()}`);
     if (newValue === "Cleaning") {
-      setThreads(threadsCleaning);
+      setThreads(threadsCleaning.reverse());
     } else if (newValue === "Treatment") {
-      setThreads(threadsTreatment);
+      setThreads(threadsTreatment.reverse());
     } else {
-      setThreads(threadsGeneral);
+      setThreads(threadsGeneral.reverse());
     }
   };
 
@@ -85,7 +85,7 @@ export default function Forum({ user }: Props) {
       })
       .then(updatedThreads => updatedThreads.json())
       .then(data => {
-        setThreads(data);
+        setThreads(data.reverse());
         if (newThread.category === "Cleaning") {
           setThreadsCleaning(data);
         } else if (newThread.category === "General") {
@@ -126,7 +126,7 @@ export default function Forum({ user }: Props) {
         setThreadsGeneral(generalData);
         setThreadsCleaning(cleaningData);
         setThreadsTreatment(treatmentData);
-        setThreads(generalData);
+        setThreads(generalData.reverse());
       })
       .catch((error) => {
         console.error("Error fetching threads:", error);
