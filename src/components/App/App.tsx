@@ -258,7 +258,7 @@ function App() {
           path="/user/:user_id/management/pets"
           element={<AllPetsManagement getUserPets={getUserPets} user={user} pets={pets} />}
         ></Route>
-        <Route path="/forum/:category" element={<Forum />}></Route>
+        <Route path="/forum/:category" element={<Forum user={user}/>}></Route>
         <Route path="/forum/:category" element={<ForumCategory />}></Route>
         <Route path="/forum/:category/:postID" element={<ForumPost />}></Route>
         <Route path="*" element={<Error />} />
