@@ -344,7 +344,7 @@ export default function Forum({ user }: Props) {
                   ></AccountCircleIcon>
                   <Box>
                     <Typography variant="body2">
-                      Member User {thread.user_id}
+                      Member User {thread.first_name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Posted{" "}
