@@ -48,7 +48,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "70%",
-  height: "80%",
+  height: "90%",
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -245,9 +245,8 @@ export default function Forum({ user }: Props) {
                   setNewThread({ ...newThread, title: e.target.value })
                 }
               />
-
               <div className="wrapper">
-                <label className="label">Editor Content</label>
+                <label className="label">Body</label>
                 <QuillEditor
                   className="editor"
                   theme="snow"
@@ -260,7 +259,7 @@ export default function Forum({ user }: Props) {
             </Stack>
             <Box
               sx={{
-                mt: 2,
+                mt: 10,
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -342,7 +341,7 @@ export default function Forum({ user }: Props) {
           {threads.map((thread) => (
             <Card
               sx={{
-                height: 200,
+                height: 250,
                 position: "relative",
                 mb: 5,
               }}
