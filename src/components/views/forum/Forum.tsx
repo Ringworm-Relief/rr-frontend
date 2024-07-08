@@ -376,12 +376,12 @@ export default function Forum({ user }: Props) {
                 >
                   <Box display="flex" flexDirection="row">
                     <ChatOutlinedIcon></ChatOutlinedIcon>
-                    <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
+                    <Typography sx={{ mr: 1 }}>{thread.posts.length}</Typography>
                     <ThumbUpAltIcon sx={{ mx: 0.5 }} />
-                    <Typography sx={{ mr: 1 }}>{thread.down_votes}</Typography>
+                    <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
                     <ThumbDownAltIcon sx={{ ml: 0.5 }} />
                     <Typography sx={{ ml: 0.5 }}>
-                      {thread.posts.length}
+                      {thread.down_votes}
                     </Typography>
                   </Box>
                 </Box>
