@@ -35,7 +35,7 @@ function deleteThread(id: number | null) {
     })
 }
 
-function deletePost(id: number | null) {
+function deletePost(id: string | null) {
     return fetch(`https://ringworm-forum-0c0291e817b7.herokuapp.com/posts/${id}`, {
         method: 'DELETE',
         headers: {

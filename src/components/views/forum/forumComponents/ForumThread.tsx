@@ -15,7 +15,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import { getSingleThread, postPost } from "../../../../apiCalls/forumApiCalls";
+import { getSingleThread, postPost, deletePost } from "../../../../apiCalls/forumApiCalls";
 import { useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -37,7 +37,6 @@ export default function ForumThread({ user }: Props) {
     down_votes: 0,
   });
 
-  console.log("posts", posts)
   const displayThread = () => {
     getSingleThread(category, id)
       .then((response) => {
@@ -55,10 +54,37 @@ export default function ForumThread({ user }: Props) {
       });
   };
 
+  const handleDeletePost = (postId: string) => {
+    deletePost(postId)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Error deleting post")
+        }
+        return response.json()
+    })
+    .then(() => {
+        getSingleThread(category, id)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setThread(data[0]);
+        setPosts(data[0].posts);
+      })
+      .catch((error) => {
+        console.error("Error adding new thread:", error);
+      });
+    })
+  }
+
   useEffect(() => {
     displayThread();
   }, []);
 
+  console.log("possssst", posts)
   const handleSubmitPost = () => {
     postPost(newPost, id)
       .then((response) => {
@@ -126,7 +152,7 @@ export default function ForumThread({ user }: Props) {
       <Divider sx={{ my: 2 }} />
 
       <Typography sx={{ mb: 2 }} variant="h5">
-        Comments
+        Comments ({posts.length})
       </Typography>
 
       {posts.map((post, index) => (
@@ -152,7 +178,7 @@ export default function ForumThread({ user }: Props) {
                 <Typography>{post.down_votes}</Typography>
                 <ThumbDownAltIcon sx={{ ml: 0.5 }} />
               </Box>
-              {post.user_id === user.data.id && <DeleteIcon sx={{ position: "absolute", left: 1000, bottom: 30 }} />}
+              {post.user_id === user.data.id && <DeleteIcon onClick={() => handleDeletePost(post.id)}sx={{ position: "absolute", left: 1000, bottom: 30, cursor: "pointer" }} />}
               <Box
                 sx={{
                   position: "absolute",
