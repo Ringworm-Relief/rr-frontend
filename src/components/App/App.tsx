@@ -249,7 +249,7 @@ function App() {
         />
         <Route 
           path="/threads/:category/:id" 
-          element={<ForumThread user={user}/>}
+          element={<ForumThread user={user} />}
         />
         <Route
           path="/user/:user_id/:pet_name"

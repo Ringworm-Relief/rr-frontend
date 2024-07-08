@@ -69,7 +69,7 @@ export default function Forum({ user }: Props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setThreadsByCategory();
+    setThreadsByCategory()
   }, []);
 
   const setThreadsByCategory = () => {
@@ -243,7 +243,7 @@ export default function Forum({ user }: Props) {
             />
             <TextField
               id="filled-multiline-static"
-              label="Body text (optional)"
+              label="Body text"
               multiline
               required
               rows={4}
@@ -282,80 +282,6 @@ export default function Forum({ user }: Props) {
           </Box>
         </Box>
       </Modal>
-      {/* <Grid
-        sx={{ mb: 5 }}
-        container
-        spacing={5}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {threads.map((thread) => (
-          <Link to={`/threads/${thread.category}/${thread.id}`}>
-          <Grid item key={thread.id}>
-            <Card sx={{ minWidth: 500, minHeight: 200, position: 'relative' }}>
-              <CardContent>
-                <Box display="flex" flexDirection="row">
-                  <AccountCircleIcon
-                    fontSize="large"
-                    color="primary"
-                    sx={{ mr: 1 }}
-                  ></AccountCircleIcon>
-                  <Box>
-                    <Typography variant="body2">
-                      Member User {thread.user_id}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Posted{" "}
-                      {new Date(thread.created_at).toLocaleDateString("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </Typography>
-                  </Box>
-                </Box>
-                <CardActionArea>
-                  <Typography gutterBottom variant="h6" component="div">
-                    {thread.title}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    {thread.root_content}
-                  </Typography>
-                </CardActionArea>
-                <Box display="flex" flexDirection="row" sx={{ mt: 5 }} justifyContent="space-between">
-                <Box display="flex" flexDirection="row" >
-                  <ChatOutlinedIcon></ChatOutlinedIcon>
-                  <Typography sx={{ ml: 0.5 }}>
-                    {thread.posts.length}
-                  </Typography>
-                </Box>
-                <Box display="flex" flexDirection="row" >
-                <Typography>
-                    {thread.up_votes}
-                  </Typography>
-                  <ThumbUpAltIcon sx={{ mx: 0.5 }}/>
-                  <Typography>
-                  {thread.down_votes}
-                  </Typography>
-                  <ThumbDownAltIcon sx={{ ml: 0.5 }}/>
-                </Box>
-                </Box>
-              </CardContent>
-              {user.data.id === thread.user_id && (
-                <Box position="absolute" top={8} right={8}>
-                  <DeleteIcon sx={{ cursor: "pointer" }} onClick={() => {
-                    setThreadToDelete(thread.id);
-                    setDeleteOpen(true);
-                  }} />
-                </Box>
-              )}
-            </Card>
-          </Grid>
-          </Link>
-        ))}
-      </Grid> */}
        <Grid
         sx={{ mb: 5 }}
         container
