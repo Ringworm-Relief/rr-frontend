@@ -77,7 +77,7 @@ export default function ForumThread({ user }: Props) {
   }, []);
 
   const handleSubmitPost = () => {
-    console.log("newPost rught before opost", newPost)
+    console.log("newPost rught before opost", newPost);
     postPost(newPost, id)
       .then((response) => {
         if (!response.ok) {
@@ -106,8 +106,6 @@ export default function ForumThread({ user }: Props) {
         console.error("Error adding new thread:", error);
       });
   };
-
-
 
   return (
     <Container sx={{ mb: 30 }}>
