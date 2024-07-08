@@ -137,6 +137,13 @@ export default function Forum({ user }: Props) {
     setThreadsByCategory();
   }, []);
 
+  const handleThreadClick = (event: React.MouseEventHandler<HTMLButtonElement> | any) => {
+    if (event) {
+      console.log(event.target.id)
+    }
+    console.log(event.target)
+  }
+
   return (
     <>
       <Container maxWidth="md" sx={{ textAlign: "center", my: 4 }}>
@@ -249,8 +256,8 @@ export default function Forum({ user }: Props) {
                     </Typography>
                   </Box>
                 </Box>
-                <CardActionArea>
-                  <Typography gutterBottom variant="h6" component="div">
+                <CardActionArea onClick={handleThreadClick}>
+                  <Typography gutterBottom id={thread.id} variant="h6" component="div">
                     {thread.title}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
