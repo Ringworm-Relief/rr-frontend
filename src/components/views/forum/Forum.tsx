@@ -43,6 +43,7 @@ const style = {
 };
 
 export default function Forum({ user }: Props) {
+  console.log("user", user)
   const [open, setOpen] = useState<boolean>(false)
   const [filter, setFilter] = useState<String>("General");
   const [threadsGeneral, setThreadsGeneral] = useState<any[]>([]);
@@ -53,8 +54,14 @@ export default function Forum({ user }: Props) {
     title: "",
     category: "",
     root_content: "",
-    user_id: user.data.id
+    user_id: user.data.id,
+    first_name: user.data.attributes.first_name,
+    last_name: user.data.attributes.last_name,
+    up_votes: 0,
+    down_votes: 0
   });
+
+  console.log("threads", threads)
 
   const navigate = useNavigate();
 
@@ -100,7 +107,11 @@ export default function Forum({ user }: Props) {
           title: "",
           category: "",
           root_content: "",
-          user_id: user.data.id
+          user_id: user.data.id,
+          first_name: user.data.id,
+          last_name: user.data.id,
+          up_votes: 0,
+          down_votes: 0
         })
       })
       .catch(error => {
@@ -260,9 +271,7 @@ export default function Forum({ user }: Props) {
                 <Box display="flex" flexDirection="row" sx={{ mt: 5 }}>
                   <ChatOutlinedIcon></ChatOutlinedIcon>
                   <Typography>
-                    {thread.posts[0].post_content !== null
-                      ? thread.posts.length
-                      : "0"}
+                  {thread.posts.length ? thread.posts.length : "0"}
                   </Typography>
                 </Box>
               </CardContent>
@@ -273,3 +282,7 @@ export default function Forum({ user }: Props) {
     </>
   );
 }
+
+// {thread.posts[0].post_content !== null
+//   ? thread.posts.length
+//   : "0"}
