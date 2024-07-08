@@ -16,6 +16,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  CardMedia,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
@@ -30,6 +31,8 @@ import { useNavigate, Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 interface Props {
   user: any;
@@ -185,8 +188,8 @@ export default function Forum({ user }: Props) {
   };
 
   return (
-    <Box sx={{ height: "150vh" }}>
-      <Container sx={{ my: 4 }}>
+    <Box sx={{ height: "150vh", backgroundColor: "#eeeeee" }}>
+      <Container>
         <Modal
           open={open}
           onClose={handleClose}
@@ -299,8 +302,8 @@ export default function Forum({ user }: Props) {
           </Box>
         </Modal>
       </Container>
-      <Grid container spacing={2} sx={{ mt: 4, px: 6 }}>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+      <Grid container spacing={2} sx={{ px: 6 }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8} sx={{ mt: 4 }}>
           <Card sx={{ mb: 2, height: 220, p: 2 }}>
             <Typography sx={{ my: 2 }} variant="h4">
               Community Forum
@@ -400,10 +403,19 @@ export default function Forum({ user }: Props) {
             </Card>
           ))}
         </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-          <Button variant="outlined" onClick={() => setOpen(true)}>
-            Start new thread
-          </Button>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4} sx={{ mt: 4 }}>
+          <Card sx={{width: "100%", mb: 5, p: 1}} onClick={() => setOpen(true)}>
+            <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography variant="h6" color="primary" mr={2}>Start new thread</Typography>
+              <AddCircleOutlineIcon color="primary"></AddCircleOutlineIcon>
+            </CardActionArea>
+          </Card>
+          <Card sx={{width: "100%", p: 1}}>
+            <CardActionArea sx={{ display: "flex", flexDirection: "row" }} disabled>
+              <Typography variant="h6" color="#636363" mr={2}>Favorites</Typography>
+              <StarBorderIcon color="disabled"></StarBorderIcon>
+            </CardActionArea>
+          </Card>
         </Grid>
       </Grid>
     </Box>
