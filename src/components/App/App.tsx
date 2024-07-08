@@ -25,7 +25,7 @@ import { destroyToken } from "../../apiCalls/userApiCalls";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 import Forum from "../views/forum/Forum";
-import ForumCategory from "../views/forum/forumComponents/ForumCategory";
+import ForumCategory from "../views/forum/forumComponents/ForumUser";
 import ForumPost from "../views/forum/forumComponents/ForumPost";
 import ForumThread from "../views/forum/forumComponents/ForumThread";
 
@@ -266,6 +266,7 @@ function App() {
         <Route path="/forum/:category" element={<Forum user={user}/>}></Route>
         <Route path="/forum/:category" element={<ForumCategory />}></Route>
         <Route path="/forum/:category/:postID" element={<ForumPost />}></Route>
+        <Route path="/threads/byme/:id"></Route>
         <Route path="*" element={<Error />} />
       </Routes>
       <div id="footer_wrapper">

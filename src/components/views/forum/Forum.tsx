@@ -43,9 +43,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "70%",
+  height: "80%",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
 };
@@ -70,7 +71,6 @@ export default function Forum({ user }: Props) {
     down_votes: 0,
   });
 
-  console.log("threads", threads);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -197,17 +197,14 @@ export default function Forum({ user }: Props) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add to the conversation!
-            </Typography>
-            <Stack>
-              <FormControl variant="filled" sx={{ mt: 2 }}>
-                <InputLabel id="demo-simple-select-filled-label">
-                  Thread category
+            <Stack spacing={4}>
+              <FormControl variant="outlined" required fullWidth>
+                <InputLabel id="select-outlined-label" htmlFor="select-category">
+                  Category
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-filled-label"
-                  id="demo-simple-select-filled"
+                  label="Category"
+                  id="select-category"
                   value={newThread.category}
                   required
                   onChange={(e) =>
@@ -222,13 +219,12 @@ export default function Forum({ user }: Props) {
                   <MenuItem value="Treatment">Treatment</MenuItem>
                 </Select>
               </FormControl>
-
               <TextField
-                id="filled-textarea"
-                label="Thread title"
+                id="title-textarea"
+                label="Title"
                 placeholder="Placeholder"
                 multiline
-                variant="filled"
+                variant="outlined"
                 sx={{ my: 2 }}
                 required
                 value={newThread.title}
@@ -237,16 +233,16 @@ export default function Forum({ user }: Props) {
                 }
               />
               <TextField
-                id="filled-multiline-static"
-                label="Body text"
+                id="outlined-multiline-static"
+                label="Body"
                 multiline
                 required
-                rows={4}
+                rows={20}
                 value={newThread.root_content}
                 onChange={(e) =>
                   setNewThread({ ...newThread, root_content: e.target.value })
                 }
-                variant="filled"
+                variant="outlined"
               />
             </Stack>
             <Box
@@ -410,9 +406,15 @@ export default function Forum({ user }: Props) {
               <AddCircleOutlineIcon color="primary"></AddCircleOutlineIcon>
             </CardActionArea>
           </Card>
-          <Card sx={{width: "100%", p: 1}}>
+          <Card sx={{width: "100%", mb: 5, p: 1}} onClick={() => navigate(`/threads/byme/${user.data.id}`)}>
             <CardActionArea sx={{ display: "flex", flexDirection: "row" }} disabled>
-              <Typography variant="h6" color="#636363" mr={2}>Favorites</Typography>
+              <Typography variant="h6" color="#636363" mr={2}>My Threads</Typography>
+              <StarBorderIcon color="disabled"></StarBorderIcon>
+            </CardActionArea>
+          </Card>
+          <Card sx={{width: "100%", mb: 5, p: 1}}>
+            <CardActionArea sx={{ display: "flex", flexDirection: "row" }} disabled>
+              <Typography variant="h6" color="#636363" mr={2}>My Favorites</Typography>
               <StarBorderIcon color="disabled"></StarBorderIcon>
             </CardActionArea>
           </Card>
