@@ -31,8 +31,12 @@ import { useNavigate, Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import "../../subComps/quill/quillTextEditor.css";
+import QuillEditor from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import DOMPurify from "dompurify";
 
 interface Props {
   user: any;
@@ -187,6 +191,12 @@ export default function Forum({ user }: Props) {
     setThreadToDelete(null);
   };
 
+  const createMarkup = (content: string) => {
+    return {
+      __html: DOMPurify.sanitize(content),
+    };
+  };
+
   return (
     <Box sx={{ height: "150vh", backgroundColor: "#eeeeee" }}>
       <Container>
@@ -199,7 +209,10 @@ export default function Forum({ user }: Props) {
           <Box sx={style}>
             <Stack spacing={4}>
               <FormControl variant="outlined" required fullWidth>
-                <InputLabel id="select-outlined-label" htmlFor="select-category">
+                <InputLabel
+                  id="select-outlined-label"
+                  htmlFor="select-category"
+                >
                   Category
                 </InputLabel>
                 <Select
@@ -232,18 +245,18 @@ export default function Forum({ user }: Props) {
                   setNewThread({ ...newThread, title: e.target.value })
                 }
               />
-              <TextField
-                id="outlined-multiline-static"
-                label="Body"
-                multiline
-                required
-                rows={20}
-                value={newThread.root_content}
-                onChange={(e) =>
-                  setNewThread({ ...newThread, root_content: e.target.value })
-                }
-                variant="outlined"
-              />
+
+              <div className="wrapper">
+                <label className="label">Editor Content</label>
+                <QuillEditor
+                  className="editor"
+                  theme="snow"
+                  value={newThread.root_content}
+                  onChange={(value) =>
+                    setNewThread({ ...newThread, root_content: value })
+                  }
+                />
+              </div>
             </Stack>
             <Box
               sx={{
@@ -363,9 +376,11 @@ export default function Forum({ user }: Props) {
                   <Typography gutterBottom variant="h6" component="div">
                     {thread.title}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    {thread.root_content}
-                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    dangerouslySetInnerHTML={createMarkup(thread.root_content)}
+                  />
                 </CardActionArea>
                 <Box
                   display="flex"
@@ -400,21 +415,39 @@ export default function Forum({ user }: Props) {
           ))}
         </Grid>
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4} sx={{ mt: 4 }}>
-          <Card sx={{width: "100%", mb: 5, p: 1}} onClick={() => setOpen(true)}>
+          <Card
+            sx={{ width: "100%", mb: 5, p: 1 }}
+            onClick={() => setOpen(true)}
+          >
             <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
-              <Typography variant="h6" color="primary" mr={2}>Start new thread</Typography>
+              <Typography variant="h6" color="primary" mr={2}>
+                Start new thread
+              </Typography>
               <AddCircleOutlineIcon color="primary"></AddCircleOutlineIcon>
             </CardActionArea>
           </Card>
-          <Card sx={{width: "100%", mb: 5, p: 1}} onClick={() => navigate(`/threads/byme/${user.data.id}`)}>
-            <CardActionArea sx={{ display: "flex", flexDirection: "row" }} disabled>
-              <Typography variant="h6" color="#636363" mr={2}>My Threads</Typography>
+          <Card
+            sx={{ width: "100%", mb: 5, p: 1 }}
+            onClick={() => navigate(`/threads/byme/${user.data.id}`)}
+          >
+            <CardActionArea
+              sx={{ display: "flex", flexDirection: "row" }}
+              disabled
+            >
+              <Typography variant="h6" color="#636363" mr={2}>
+                My Threads
+              </Typography>
               <StarBorderIcon color="disabled"></StarBorderIcon>
             </CardActionArea>
           </Card>
-          <Card sx={{width: "100%", mb: 5, p: 1}}>
-            <CardActionArea sx={{ display: "flex", flexDirection: "row" }} disabled>
-              <Typography variant="h6" color="#636363" mr={2}>My Favorites</Typography>
+          <Card sx={{ width: "100%", mb: 5, p: 1 }}>
+            <CardActionArea
+              sx={{ display: "flex", flexDirection: "row" }}
+              disabled
+            >
+              <Typography variant="h6" color="#636363" mr={2}>
+                My Favorites
+              </Typography>
               <StarBorderIcon color="disabled"></StarBorderIcon>
             </CardActionArea>
           </Card>
