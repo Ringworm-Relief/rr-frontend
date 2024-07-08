@@ -157,23 +157,22 @@ export default function Forum({ user }: Props) {
 
   return (
     <>
-      <Container maxWidth="md" sx={{ textAlign: "center", my: 4 }}>
+      <Container maxWidth="md" sx={{ textAlign: "center", my: 4, height: "100vh" }}>
         <Typography sx={{ mb: 2 }} variant="h4">
           Find Support Here
         </Typography>
-        <Button onClick={() => setOpen(true)}>Start new thread</Button>
         <Tabs
           value={filter}
           onChange={handleChange}
           aria-label="forum categories"
           centered
+          sx={{ mb: 2 }}
         >
           <Tab value="Cleaning" label="Cleaning" />
           <Tab value="General" label="General" />
           <Tab value="Treatment" label="Treatment" />
         </Tabs>
-        <Box></Box>
-      </Container>
+        <Button onClick={() => setOpen(true)}>Start new thread</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -286,6 +285,7 @@ export default function Forum({ user }: Props) {
           </Grid>
         ))}
       </Grid>
+      </Container>
     </>
   );
 }

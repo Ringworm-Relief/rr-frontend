@@ -14,7 +14,7 @@ const navigate = useNavigate();
 
   return (
     <div className="article-card">
-      <Box>
+      <Box sx={{ mb: 50 }}>
         <Grid
           container
           justifyContent="center"
