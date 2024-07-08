@@ -27,6 +27,7 @@ import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 import Forum from "../views/forum/Forum";
 import ForumCategory from "../views/forum/forumComponents/ForumCategory";
 import ForumPost from "../views/forum/forumComponents/ForumPost";
+import ForumThread from "../views/forum/forumComponents/ForumThread";
 
 
 function App() {
@@ -245,6 +246,10 @@ function App() {
         <Route
           path="/user/:user_id/calendar"
           element={<Calendar user={user} pets={pets} />}
+        />
+        <Route 
+          path="/threads/:category/:id" 
+          element={<ForumThread user={user}/>}
         />
         <Route
           path="/user/:user_id/:pet_name"
