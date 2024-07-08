@@ -293,7 +293,6 @@ export default function Forum({ user }: Props) {
       >
         {threads.map((thread) => (
           <Grid item key={thread.id}>
-            <Link to={`/threads/${thread.category}/${thread.id}`} style={{ textDecoration: 'none', width: '100%' }}>
               <Card sx={{ minWidth: 500, minHeight: 200, position: 'relative' }}>
                 <CardContent>
                   <Box display="flex" flexDirection="row">
@@ -316,7 +315,7 @@ export default function Forum({ user }: Props) {
                       </Typography>
                     </Box>
                   </Box>
-                  <CardActionArea>
+                  <CardActionArea onClick={() => navigate(`/threads/${thread.category}/${thread.id}`)}>
                     <Typography gutterBottom variant="h6" component="div">
                       {thread.title}
                     </Typography>
@@ -352,7 +351,6 @@ export default function Forum({ user }: Props) {
                   </Box>
                 )}
               </Card>
-            </Link>
           </Grid>
         ))}
       </Grid>

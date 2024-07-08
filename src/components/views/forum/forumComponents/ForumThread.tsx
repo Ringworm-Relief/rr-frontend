@@ -47,7 +47,7 @@ export default function ForumThread({ user }: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const { category, id } = useParams();
   const [newPost, setNewPost] = useState<any>({
-    post_content: "",
+    content: "",
     user_id: user.data.id,
     first_name: user.data.attributes.first_name,
     last_name: user.data.attributes.last_name,
@@ -55,7 +55,6 @@ export default function ForumThread({ user }: Props) {
     down_votes: 0,
   });
 
-  console.log("thread", thread);
   const displayThread = () => {
     getSingleThread(category, id)
       .then((response) => {
@@ -78,6 +77,7 @@ export default function ForumThread({ user }: Props) {
   }, []);
 
   const handleSubmitPost = () => {
+    console.log("newPost rught before opost", newPost)
     postPost(newPost, id)
       .then((response) => {
         if (!response.ok) {
@@ -106,6 +106,8 @@ export default function ForumThread({ user }: Props) {
         console.error("Error adding new thread:", error);
       });
   };
+
+
 
   return (
     <Container sx={{ mb: 30 }}>
@@ -171,9 +173,9 @@ export default function ForumThread({ user }: Props) {
               multiline
               required
               rows={4}
-              value={newPost.post_content}
+              value={newPost.content}
               onChange={(e) =>
-                setNewPost({ ...newPost, post_content: e.target.value })
+                setNewPost({ ...newPost, content: e.target.value })
               }
               variant="filled"
             />
