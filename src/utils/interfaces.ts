@@ -52,7 +52,6 @@ export interface Article {
   id: number;
   title: string;
   tagline: string;
-  source: string;
   paragraphs: string[];
 }
 
