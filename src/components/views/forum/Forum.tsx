@@ -28,10 +28,8 @@ import {
 } from "../../../apiCalls/forumApiCalls";
 import { useNavigate, Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownOffAlt";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 interface Props {
   user: any;
@@ -187,15 +185,8 @@ export default function Forum({ user }: Props) {
   };
 
   return (
-    <>
-    <Container
-      // maxWidth="md"
-      sx={{ my: 4 }}
-    >
-     
-        <Typography sx={{ mb: 2 }} variant="h4">
-          Find Support Here
-        </Typography>
+    <Box sx={{ height: "150vh" }}>
+      <Container sx={{ my: 4 }}>
         <Modal
           open={open}
           onClose={handleClose}
@@ -307,14 +298,39 @@ export default function Forum({ user }: Props) {
             </Box>
           </Box>
         </Modal>
-        </Container>
-        <Grid container spacing={2} sx={{ mt: 4, px: 6, height: "80vh" }}>
-        <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+      </Container>
+      <Grid container spacing={2} sx={{ mt: 4, px: 6 }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+          <Card sx={{ mb: 2, height: 220, p: 2 }}>
+            <Typography sx={{ my: 2 }} variant="h4">
+              Community Forum
+            </Typography>
+            <Typography color="#636363">
+              Use this forum to connect with other pet parents going through the
+              same experience. Find answers to your questions about cleaning,
+              treatment, or general information around ringworm. Please be
+              respectful of others and do not share personal information. Be
+              kind, curtious, and considerate, and remember that we are all in
+              this together.
+            </Typography>
+          </Card>
+          <Card sx={{ mb: 5 }}>
+            <Tabs
+              value={filter}
+              onChange={handleChange}
+              aria-label="forum categories"
+              centered
+              sx={{ py: 2 }}
+            >
+              <Tab value="Cleaning" label="Cleaning" />
+              <Tab value="General" label="General" />
+              <Tab value="Treatment" label="Treatment" />
+            </Tabs>
+          </Card>
           {threads.map((thread) => (
             <Card
               sx={{
-                // minWidth: 500,
-                // minHeight: 200,
+                height: 200,
                 position: "relative",
                 mb: 5,
               }}
@@ -360,15 +376,13 @@ export default function Forum({ user }: Props) {
                 >
                   <Box display="flex" flexDirection="row">
                     <ChatOutlinedIcon></ChatOutlinedIcon>
+                    <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
+                    <ThumbUpAltIcon sx={{ mx: 0.5 }} />
+                    <Typography sx={{ mr: 1 }}>{thread.down_votes}</Typography>
+                    <ThumbDownAltIcon sx={{ ml: 0.5 }} />
                     <Typography sx={{ ml: 0.5 }}>
                       {thread.posts.length}
                     </Typography>
-                  </Box>
-                  <Box display="flex" flexDirection="row">
-                    <Typography>{thread.up_votes}</Typography>
-                    <ThumbUpAltIcon sx={{ mx: 0.5 }} />
-                    <Typography>{thread.down_votes}</Typography>
-                    <ThumbDownAltIcon sx={{ ml: 0.5 }} />
                   </Box>
                 </Box>
               </CardContent>
@@ -386,21 +400,12 @@ export default function Forum({ user }: Props) {
             </Card>
           ))}
         </Grid>
-        <Grid item xs={12} md={4} lg={4} xl={4}>
-          <Button onClick={() => setOpen(true)}>Start new thread</Button>
-          <Tabs
-            value={filter}
-            onChange={handleChange}
-            aria-label="forum categories"
-            centered
-            sx={{ mb: 4 }}
-          >
-            <Tab value="Cleaning" label="Cleaning" />
-            <Tab value="General" label="General" />
-            <Tab value="Treatment" label="Treatment" />
-          </Tabs>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+          <Button variant="outlined" onClick={() => setOpen(true)}>
+            Start new thread
+          </Button>
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 }
