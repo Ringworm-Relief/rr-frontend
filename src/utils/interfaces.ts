@@ -59,34 +59,31 @@ export interface Article {
 export const mockArticles: Article[] = [
   {
     id: 1,
-    title: "Ringworm in Dogs",
-    tagline:
-      "Ringworm is a common fungal infection that affects dogs and cats.",
-    source: "https://www.akc.org/expert-advice/health/ringworm-in-dogs/",
+    title: "What is ringworm?",
+    tagline: "",
     paragraphs: [
-      "Ringworm is a common fungal infection that affects dogs and cats. The name is a bit misleading, as the disease is not caused by a worm, but by a fungus. The term “ringworm” refers to the circular, ring-like lesions that form on an animal’s skin.",
-      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people. Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
+      "Ringworm is a common fungal infection that affects the skin, hair, and nails, characterized by red, circular rashes with a clearer center.",
+      "Despite its name, it is not caused by a worm but by dermatophytes, a group of fungi. In pets, it often appears as patches of hair loss with a crusty surface.",
     ],
   },
   {
     id: 2,
-    title: "Ringworm in Cats",
-    tagline:
-      "Ringworm is a common fungal infection that affects dogs and cats.",
-    source: "https://www.akc.org/expert-advice/health/ringworm-in-cats/",
+    title: "Who can get ringworm?",
+    tagline: "",
     paragraphs: [
-      "Ringworm is a common fungal infection that affects dogs and cats. The name is a bit misleading, as the disease is not caused by a worm, but by a fungus. The term “ringworm” refers to the circular, ring-like lesions that form on an animal’s skin.",
-      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people. Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
+      "Ringworm can affect a wide range of animals including dogs, cats, and even humans. Pets are particularly susceptible, especially those with compromised immune systems or young animals.",
+      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people.",
+      "Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort."
     ],
   },
   {
     id: 3,
-    title: "Ringworm in Horses",
-    tagline: "Ringworm is a common fungal infection that affects horses.",
-    source: "https://www.akc.org/expert-advice/health/ringworm-in-horses/",
+    title: "How does ringworm spread?",
+    tagline: "",
     paragraphs: [
-      "Ringworm is a common fungal infection that affects horses. The name is a bit misleading, as the disease is not caused by a worm, but by a fungus. The term “ringworm” refers to the circular, ring-like lesions that form on an animal’s skin.",
-      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people. Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
+      "Ringworm spreads through direct contact with an infected animal or person, or by touching contaminated objects like bedding, grooming tools, or furniture.",
+      "The fungal spores can live on hard non-porous materials for up to 18 months, making it easy for the infection to spread.",
+      "The fungal spores are spread by the hairs on an infected pet when they shed. Good hygiene and regular cleaning can help prevent the spread of ringworm in households with pets.",
     ],
   },
 ];
