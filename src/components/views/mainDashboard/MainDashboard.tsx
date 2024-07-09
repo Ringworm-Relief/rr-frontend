@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import PetCards from "./dashboardComponents/PetCards";
 import SavedArticlesCard from "./dashboardComponents/SavedArticlesCard";
 import Calendar from "../calendar/Calendar";
@@ -30,13 +30,15 @@ function MainDashboard({
     <>
       {user.data.id ? (
         // <Grid padding="5%">
-          <Grid container spacing={2} zIndex={20} p={5} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid container spacing={2} zIndex={20} p={5} sx={{ md: 2 }} >
             <PetCards
               user={user}
               pets={pets}
               setTargetPetFunc={setTargetPetFunc}
             />
-            <Calendar user={user} pets={pets} />
+             <Grid item xs={12} sm={12} md={8} lg={7} xl={7}>
+              <Calendar user={user} pets={pets} />
+            </Grid>
             <SavedArticlesCard
               savedArticles={savedArticles}
               handleSaves={handleSaves}

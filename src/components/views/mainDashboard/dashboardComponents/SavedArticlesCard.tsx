@@ -63,55 +63,46 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
   });
 
   return (
-    <Card
-      sx={{
-        mr: 1,
-        mt: 2,
-        borderRadius: 3,
-        boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
-        position: "relative",
-        minWidth: innerWidthCheck(),
-        height: 633,
-        // marginLeft: 2,
-        overflow: "scroll",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        color: "#900066",
-        textAlign: "center",
-        backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-        "&:after": {
-          opacity: 0.5,
-        },
-      }}
-    >
-      <CardHeader
-        sx={{
-          fontWeight: 800,
-          textAlign: "center",
-          mt: 2,
-        }}
-        title="Saved Articles"
-        className="saved-articles-header"
-      />
-      <CardContent>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={5}
+      <Grid item xs={12} sm={12} md={4} lg={5} xl={5}>
+        <Card
+          sx={{
+            mt: 2,
+            borderRadius: 1,
+            boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
+            height: 640,
+            overflow: "scroll",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            color: "#900066",
+            textAlign: "center",
+            backgroundImage:
+              "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            "&:after": {
+              opacity: 0.5,
+            },
+          }}
         >
-          {savedArts.length ? (
-            savedArticleCards
-          ) : (
-            <Typography sx={{ mt: 5, textAlign: "center" }}>
-              You have no articles saved.
-            </Typography>
-          )}
-        </Grid>
-      </CardContent>
-    </Card>
+          <CardHeader
+            sx={{
+              fontWeight: 800,
+              textAlign: "center",
+              mt: 2,
+            }}
+            title="Saved Articles"
+            className="saved-articles-header"
+          />
+          <CardContent>
+            {savedArts.length ? (
+              savedArticleCards
+            ) : (
+              <Typography sx={{ mt: 5, textAlign: "center" }}>
+                You have no articles saved.
+              </Typography>
+            )}
+          </CardContent>
+        </Card>
+      </Grid>
   );
 }
 

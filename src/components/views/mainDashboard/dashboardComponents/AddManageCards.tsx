@@ -16,33 +16,12 @@ interface Props {
 }
 
 function DashboardManageAccount({ user }: Props) {
-  const [userAtt, setUserAtt] = useState<any>(user.data.attributes);
-
-  const innerWidthCheck = () => {
-    if (window.innerWidth <= 915 && window.innerWidth >= 582) {
-      return 450;
-    } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
-      return 400;
-    } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
-      return 300;
-    } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
-      return 245;
-    } else {
-      return 375;
-    }
-  };
 
   const style = {
     mt: 2,
     borderRadius: 1,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
-    bottom: 100,
-    left: -100,
     padding: 3,
-    // width: innerWidthCheck(),
-    height: 220,
-    marginLeft: 0,
-    overflow: "scroll",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -60,7 +39,7 @@ function DashboardManageAccount({ user }: Props) {
 
   return (
     <Grid container spacing={2} direction={"row"}>
-      <Grid item xs={6} sm={6} md={3}>
+      <Grid item xs={12} sm={12} md={6}>
         <Link
           to={`/user/${user.data.id}/management/account`}
           className="no-underline"
@@ -74,17 +53,12 @@ function DashboardManageAccount({ user }: Props) {
               component="img"
               image={profile}
               alt="Profile"
-              sx={{ width: "25%", height: "auto" }}
+              sx={{ width: "40%", height: "auto" }}
             />
-            <CardContent
-              sx={{ padding: 0, mt: 1, textDecoration: "none" }}
-              className="manage-account"
-            >{`${userAtt.first_name} ${userAtt.last_name}`}</CardContent>
-            <CardContent className="manage-account">{`${userAtt.email} `}</CardContent>
           </Card>
         </Link>
       </Grid>
-      <Grid item xs={6} sm={6} md={3}>
+      <Grid item xs={12} sm={12} md={6}>
         <Link
           to={`/user/${user.data.id}/management/pets`}
           className="no-underline"

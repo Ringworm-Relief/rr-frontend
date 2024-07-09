@@ -39,30 +39,6 @@ const colors: string[] = [
   "#8e8cd8",
   "#f57f17",
 ];
-
-const innerWidthCheck = () => {
-  if (window.innerWidth <= 915 && window.innerWidth >= 582) {
-    return 450;
-  } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
-    return 400;
-  } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
-    return 300;
-  } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
-    return 245;
-  } else {
-    return 800;
-  }
-};
-
-const innerHeightCheck = () => {
-  if (window.innerWidth <= 770 && window.innerWidth >= 560) {
-    return 300;
-  } else if (window.innerWidth <= 560) {
-    return 500;
-  } else {
-    return 300;
-  }
-};
 interface ScheduleEvent {
   PetId: number;
   Id: number;
@@ -282,17 +258,14 @@ export default function Calendar({ user, pets }: Props) {
             </ScheduleComponent>
           ) : (
             <Stack>
-              <Grid item xs={12} sm={8} md={6}>
               <Card
                 sx={{
-                  mr: 1,
                   mt: 2,
-                  borderRadius: 3,
+                  borderRadius: 1,
                   boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                   position: "relative",
                   padding: 3,
-                  // width: innerWidthCheck(),
-                  height: innerHeightCheck(),
+                  height: 340,
                   marginLeft: 0,
                   overflow: "scroll",
                   display: "flex",
@@ -339,7 +312,7 @@ export default function Calendar({ user, pets }: Props) {
                   <Inject services={[Day, Agenda]} />
                 </ScheduleComponent>
               </Card>
-              </Grid>
+        
               <DashboardManageAccount user={user} />
             </Stack>
           )}
