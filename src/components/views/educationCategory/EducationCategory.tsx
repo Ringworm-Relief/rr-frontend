@@ -21,7 +21,6 @@ const EducationCategory: React.FC<EducationCategoryProps> = ({
     const ALLARTICLES: string[] = JSON.parse(
       localStorage.getItem("ARTICLES") || "[]"
     );
-    console.log(ALLARTICLES);
     let categoryData = ALLARTICLES.filter((item: any) => {
       return item.category === category;
     });

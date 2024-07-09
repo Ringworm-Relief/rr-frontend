@@ -29,19 +29,25 @@ function MainDashboard({
   return (
     <>
       {user.data.id ? (
-        <Grid padding="10%">
-          <Grid container spacing={2} columns={2} zIndex={20}>
-            <PetCards
-              user={user}
-              pets={pets}
-              setTargetPetFunc={setTargetPetFunc}
-            />
+        <Grid
+          container
+          spacing={2}
+          zIndex={20}
+          p={5}
+          sx={{ mt: 0.05, backgroundColor: "#ECEDFF" }}
+        >
+          <PetCards
+            user={user}
+            pets={pets}
+            setTargetPetFunc={setTargetPetFunc}
+          />
+          <Grid item xs={12} sm={12} md={8} lg={7} xl={7}>
             <Calendar user={user} pets={pets} />
-            <SavedArticlesCard
-              savedArticles={savedArticles}
-              handleSaves={handleSaves}
-            />
           </Grid>
+          <SavedArticlesCard
+            savedArticles={savedArticles}
+            handleSaves={handleSaves}
+          />
         </Grid>
       ) : (
         navigate("/account/signin")

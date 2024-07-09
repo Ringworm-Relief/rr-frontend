@@ -24,6 +24,12 @@ import Error from "../views/error/Error";
 import { destroyToken } from "../../apiCalls/userApiCalls";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
+import Forum from "../views/forum/Forum";
+import ForumCategory from "../views/forum/forumComponents/ForumUser";
+import ForumThread from "../views/forum/forumComponents/ForumThread";
+import Contact from "../views/contact/Contact";
+import About from "../views/about/About";
+
 
 function App() {
   const activeUser = JSON.parse(
@@ -54,12 +60,13 @@ function App() {
     getArticlesCategory().then((data) => {
       localStorage.setItem("ARTICLES", JSON.stringify(data.data));
     });
-   
+
   }, [pageRender]);
 
   useEffect(() => {
     localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
   }, [savedArticles]);
+
 
   const setLoggedInUser = (user: any) => {
     setPageRender(1);
@@ -153,6 +160,11 @@ function App() {
                 Education
               </Link>
             </div>
+            <div className="App_nav_links">
+              <Link className="App_link" to={user ? "/forum/general" : "/account/signin"}>
+                Support
+              </Link>
+            </div>
           </nav>
         </div>
         <div className="App_nav_block_right">
@@ -224,6 +236,10 @@ function App() {
           path="/user/:user_id/calendar"
           element={<Calendar user={user} pets={pets} />}
         />
+        <Route 
+          path="/threads/:category/:id" 
+          element={<ForumThread user={user} />}
+        />
         <Route
           path="/user/:user_id/:pet_name"
           element={<PetDashboard pet={targetPet} />}
@@ -236,14 +252,19 @@ function App() {
           path="/user/:user_id/management/pets"
           element={<AllPetsManagement getUserPets={getUserPets} user={user} pets={pets} />}
         ></Route>
+        <Route path="/forum/:category" element={<Forum user={user}/>}></Route>
+        <Route path="/forum/:category" element={<ForumCategory />}></Route>
+        <Route path="/threads/byme/:id"></Route>
         <Route path="*" element={<Error />} />
+        <Route path="/contact" element={<Contact/>}></Route>
+        <Route path="/about" element={<About/>}></Route>
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">
           <footer className="App_footer">
             <p>Licensing info Syncfusion</p>
-            <p>Contact us</p>
-            <p>About</p>
+            <Link to="/contact"><p>Contact us</p></Link>
+            <Link to="/about"><p>About</p></Link>
           </footer>
         </div>
       </div>

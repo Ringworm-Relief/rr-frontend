@@ -1,0 +1,11 @@
+
+  .label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: gray;
+  }
+
+  .editor {
+    margin-top: 1rem;
+    height: 500px;
+  }

@@ -17,7 +17,7 @@ export const services: Service[] = [
   {
     name: "Support",
     description:
-      "Message your vet directly with any questions or concerns you may have. Or view your pets latest fungal results.",
+      "Message other pet parents going through the same struggles as you. Find education, support, and tips and tricks.",
   },
 ];
 
@@ -52,41 +52,37 @@ export interface Article {
   id: number;
   title: string;
   tagline: string;
-  source: string;
   paragraphs: string[];
 }
 
 export const mockArticles: Article[] = [
   {
     id: 1,
-    title: "Ringworm in Dogs",
-    tagline:
-      "Ringworm is a common fungal infection that affects dogs and cats.",
-    source: "https://www.akc.org/expert-advice/health/ringworm-in-dogs/",
+    title: "What is ringworm?",
+    tagline: "",
     paragraphs: [
-      "Ringworm is a common fungal infection that affects dogs and cats. The name is a bit misleading, as the disease is not caused by a worm, but by a fungus. The term “ringworm” refers to the circular, ring-like lesions that form on an animal’s skin.",
-      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people. Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
+      "Ringworm is a common fungal infection that affects the skin, hair, and nails, characterized by red, circular rashes with a clearer center.",
+      "Despite its name, it is not caused by a worm but by dermatophytes, a group of fungi. In pets, it often appears as patches of hair loss with a crusty surface.",
     ],
   },
   {
     id: 2,
-    title: "Ringworm in Cats",
-    tagline:
-      "Ringworm is a common fungal infection that affects dogs and cats.",
-    source: "https://www.akc.org/expert-advice/health/ringworm-in-cats/",
+    title: "Who can get ringworm?",
+    tagline: "",
     paragraphs: [
-      "Ringworm is a common fungal infection that affects dogs and cats. The name is a bit misleading, as the disease is not caused by a worm, but by a fungus. The term “ringworm” refers to the circular, ring-like lesions that form on an animal’s skin.",
-      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people. Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
+      "Ringworm can affect a wide range of animals including dogs, cats, and even humans. Pets are particularly susceptible, especially those with compromised immune systems or young animals.",
+      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people.",
+      "Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
     ],
   },
   {
     id: 3,
-    title: "Ringworm in Horses",
-    tagline: "Ringworm is a common fungal infection that affects horses.",
-    source: "https://www.akc.org/expert-advice/health/ringworm-in-horses/",
+    title: "How does ringworm spread?",
+    tagline: "",
     paragraphs: [
-      "Ringworm is a common fungal infection that affects horses. The name is a bit misleading, as the disease is not caused by a worm, but by a fungus. The term “ringworm” refers to the circular, ring-like lesions that form on an animal’s skin.",
-      "Ringworm is highly contagious and can be spread from animals to humans. It is zoonotic, meaning it can be transmitted between animals and people. Ringworm is not life-threatening, but it can be uncomfortable and unsightly. It is important to treat ringworm promptly to prevent its spread and to alleviate the animal’s discomfort.",
+      "Ringworm spreads through direct contact with an infected animal or person, or by touching contaminated objects like bedding, grooming tools, or furniture.",
+      "The fungal spores can live on hard non-porous materials for up to 18 months, making it easy for the infection to spread.",
+      "The fungal spores are spread by the hairs on an infected pet when they shed. Good hygiene and regular cleaning can help prevent the spread of ringworm in households with pets.",
     ],
   },
 ];
@@ -129,7 +125,6 @@ export type Pet = {
   medications: Medication[];
   ringworm: Ringworm;
 };
-
 export interface ArticleAttributes {
   title: string;
   tagline: string;
@@ -137,13 +132,11 @@ export interface ArticleAttributes {
   url: string;
   source: string;
 }
-
 export interface EducationArticle {
   id: string;
   category: string;
   attributes: ArticleAttributes;
 }
-
 export interface EducationArtCardProps {
   title: string;
   tagline: string;
@@ -153,39 +146,51 @@ export interface EducationArtCardProps {
   handleSaves: (id: string) => void;
   handleClick: (id: string) => void;
 }
-
 export interface EducationCategoryProps {
   savedArticles: string[];
   handleSaves: (id: string) => void;
 }
-
 export interface SavedArticlesProps {
   savedArticles: string[];
   handleSaves: (id: string) => void;
 }
-
 export interface ArticleParams {
   [key: string]: string | undefined;
 }
-
 export interface RouteParams {
   [key: string]: string | undefined;
 }
-
 export interface User {
-    data: UserData;
+  data: UserData;
 }
-
 interface UserData {
-  id: string,
-  type: string,
+  id: string;
+  type: string;
   attributes: UserAttributes;
 }
-
 interface UserAttributes {
-    first_name: string,
-    last_name: string,
-    email: string
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+export interface ForumData {
+  id: string;
+  type: string;
+  attributes: ForumAttributes[];
+}
+interface ForumAttributes {
+  title: string;
+  content: string;
+  user_id: string;
+  created_at: string;
+  threads: Thread[];
+}
+
+interface Thread {
+  id: string;
+  content: string;
+  user_id: string;
+  created_at: string;
 }
 
 export function formatDate(bday: string) {
@@ -194,18 +199,27 @@ export function formatDate(bday: string) {
 }
 
 export function formateDate2(date: string) {
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ];
-    let array = date.split("-")
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let array = date.split("-");
 
-    return `${monthNames[parseInt(array[2]) - 1]} ${array[3]}, ${array[1]}`
+  return `${monthNames[parseInt(array[2]) - 1]} ${array[3]}, ${array[1]}`;
 }
 
 export function formatDateBackwards(bday: string) {
-  let array = bday.split("-")
+  let array = bday.split("-");
   let newArray = array.slice(1, -1);
   return newArray.join("-");
 }
-
