@@ -14,7 +14,7 @@ import { Service, services } from "../../../utils/interfaces";
 function OutlineCard() {
   return (
     <div className="outline-card">
-      <Box>
+      <Box sx={{ backgroundColor: "#ecedff4b", padding: 5 }}>
         <Typography
           variant="h3"
           fontSize="5rem"

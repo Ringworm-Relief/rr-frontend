@@ -17,7 +17,7 @@ export const services: Service[] = [
   {
     name: "Support",
     description:
-      "Message your vet directly with any questions or concerns you may have. Or view your pets latest fungal results.",
+      "Message other pet parents going through the same struggles as you. Find education, support, and tips and tricks.",
   },
 ];
 

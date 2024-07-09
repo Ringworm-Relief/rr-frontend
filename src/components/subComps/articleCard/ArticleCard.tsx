@@ -9,8 +9,6 @@ import {
 import { Article, mockArticles } from "../../../utils/interfaces";
 
 function ArticleCard() {
-const navigate = useNavigate();
-//Will need to refactor to set targetArticle so that it's props can be passed to Article.tsx
 
   return (
     <div className="article-card">
@@ -21,6 +19,8 @@ const navigate = useNavigate();
           alignItems="center"
           spacing={5}
           columns={3}
+          mb={25}
+          mt={10}
         >
           {mockArticles.map((article: Article) => {
             return (
@@ -32,12 +32,7 @@ const navigate = useNavigate();
                     boxShadow: "none",
                     overflowY: "auto",
                     transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
-                    "&:hover": {
-                      boxShadow: "0 4px 20px 0 rgba(0,0,0,0.12)",
-                      transform: "scale(1.01)",
-                    },
                   }}
-                  onClick={() => navigate(`/education/${article.title}/${article.tagline}`)} //Change to route internally to article page
                 >
                   <CardContent>
                     <Typography textAlign="left" variant="h2">
