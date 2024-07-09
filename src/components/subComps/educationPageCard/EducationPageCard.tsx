@@ -17,17 +17,14 @@ import {
 function EducationPageCard() {
   return (
     <div className="outline-card">
-      <Box>
+      <Box sx={{ height: "80vh" }}>
         <Grid
           container
-          justifyContent="center"
-          alignItems="center"
           spacing={5}
-          columns={3}
         >
           {educationCategories.map((educationCategory: EducationCategory) => {
             return (
-              <Grid item key={educationCategory.type}>
+              <Grid item key={educationCategory.type} xs={12} sm={6} md={4}>
                 <Stack spacing={2}>
                   <Link
                     className="App_link"
@@ -39,7 +36,6 @@ function EducationPageCard() {
                         borderRadius: 10,
                         boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                         position: "relative",
-                        maxWidth: 400,
                         height: 300,
                         marginLeft: "auto",
                         overflow: "initial",
@@ -78,7 +74,7 @@ function EducationPageCard() {
                       >
                         <Typography
                           textAlign="center"
-                          variant="h2"
+                          variant="h3"
                           sx={{ mt: 5 }}
                         >
                           {educationCategory.category}
