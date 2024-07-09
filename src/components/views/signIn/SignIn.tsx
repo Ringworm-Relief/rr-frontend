@@ -36,7 +36,6 @@ function SignIn({ setLoggedInUser }: Props) {
 
   const setAuthError = (error: string) => {
     setError(error);
-    console.log(error);
   };
 
   const handleSignIn = () => {

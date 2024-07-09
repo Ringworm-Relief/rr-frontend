@@ -1,6 +1,6 @@
-
-
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import {
   Typography,
   Box,
@@ -10,16 +10,20 @@ import {
   CardContent,
   Divider,
   TextField,
-  Stack
+  Stack,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import { getSingleThread, postPost, deletePost } from "../../../../apiCalls/forumApiCalls";
-import { useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import DOMPurify from "dompurify";
+import {
+  getSingleThread,
+  postPost,
+  deletePost,
+} from "../../../../apiCalls/forumApiCalls";
 
 interface Props {
   user: any;
@@ -49,7 +53,6 @@ export default function ForumThread({ user }: Props) {
       .then((data) => {
         setThread(data[0]);
         setPosts(data[0].posts);
-        console.log(data[0].root_content);
       })
       .catch((error) => {
         console.error("Error adding new thread:", error);
@@ -58,35 +61,34 @@ export default function ForumThread({ user }: Props) {
 
   const handleDeletePost = (postId: string) => {
     deletePost(postId)
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Error deleting post")
-        }
-        return response.json()
-    })
-    .then(() => {
-        getSingleThread(category, id)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Error deleting post");
         }
         return response.json();
       })
-      .then((data) => {
-        setThread(data[0]);
-        setPosts(data[0].posts);
-      })
-      .catch((error) => {
-        console.error("Error adding new thread:", error);
+      .then(() => {
+        getSingleThread(category, id)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setThread(data[0]);
+            setPosts(data[0].posts);
+          })
+          .catch((error) => {
+            console.error("Error adding new thread:", error);
+          });
       });
-    })
-  }
+  };
 
   useEffect(() => {
     displayThread();
   }, []);
 
-  console.log("possssst", posts)
   const handleSubmitPost = () => {
     postPost(newPost, id)
       .then((response) => {
@@ -127,10 +129,10 @@ export default function ForumThread({ user }: Props) {
         <CardContent>
           <Typography variant="h4">{thread.title}</Typography>
           <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    dangerouslySetInnerHTML={createMarkup(thread.root_content)}
-                  />
+            variant="body1"
+            color="text.secondary"
+            dangerouslySetInnerHTML={createMarkup(thread.root_content)}
+          />
           <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
             <AccountCircleIcon
               fontSize="large"
@@ -138,7 +140,9 @@ export default function ForumThread({ user }: Props) {
               sx={{ fontSize: 60, mr: 1 }}
             />
             <Box ml={2}>
-              <Typography variant="body2"><strong>{`${thread.first_name} ${thread.last_name}`}</strong></Typography>
+              <Typography variant="body2">
+                <strong>{`${thread.first_name} ${thread.last_name}`}</strong>
+              </Typography>
               <Typography variant="body2" color="text.secondary">
                 Posted{" "}
                 {new Date(thread.created_at).toLocaleDateString("en-US", {
@@ -150,7 +154,11 @@ export default function ForumThread({ user }: Props) {
             </Box>
           </Box>
         </CardContent>
-        <Box display="flex" flexDirection="row" sx={{ position: "absolute", left: 1040, top: 20 }}>
+        <Box
+          display="flex"
+          flexDirection="row"
+          sx={{ position: "absolute", left: 1040, top: 20 }}
+        >
           <Typography>{thread.up_votes}</Typography>
           <ThumbUpAltIcon sx={{ mx: 0.5 }} />
           <Typography>{thread.down_votes}</Typography>
@@ -181,13 +189,27 @@ export default function ForumThread({ user }: Props) {
                 color="primary"
                 sx={{ fontSize: 50 }}
               />
-              <Box display="flex" flexDirection="row" sx={{ position: "absolute", left: 1030, bottom: 30 }}>
+              <Box
+                display="flex"
+                flexDirection="row"
+                sx={{ position: "absolute", left: 1030, bottom: 30 }}
+              >
                 <Typography>{post.up_votes}</Typography>
                 <ThumbUpAltIcon sx={{ mx: 0.5 }} />
                 <Typography>{post.down_votes}</Typography>
                 <ThumbDownAltIcon sx={{ ml: 0.5 }} />
               </Box>
-              {post.user_id === user.data.id && <DeleteIcon onClick={() => handleDeletePost(post.id)}sx={{ position: "absolute", left: 1000, bottom: 30, cursor: "pointer" }} />}
+              {post.user_id === user.data.id && (
+                <DeleteIcon
+                  onClick={() => handleDeletePost(post.id)}
+                  sx={{
+                    position: "absolute",
+                    left: 1000,
+                    bottom: 30,
+                    cursor: "pointer",
+                  }}
+                />
+              )}
               <Box
                 sx={{
                   position: "absolute",
@@ -202,8 +224,9 @@ export default function ForumThread({ user }: Props) {
               />
             </Box>
             <Box>
-            
-              <Typography variant="body2"><strong>{`${post.first_name} ${post.last_name}`}</strong></Typography>
+              <Typography variant="body2">
+                <strong>{`${post.first_name} ${post.last_name}`}</strong>
+              </Typography>
               <Typography variant="body2" color="text.secondary">
                 Posted{" "}
                 {new Date(post.created_at).toLocaleDateString("en-US", {
@@ -215,7 +238,6 @@ export default function ForumThread({ user }: Props) {
               <Typography variant="body1" sx={{ mt: 2 }}>
                 {post.content}
               </Typography>
-             
             </Box>
           </CardContent>
         </Card>
@@ -223,7 +245,7 @@ export default function ForumThread({ user }: Props) {
 
       <Divider sx={{ my: 2 }} />
 
-       <Box
+      <Box
         sx={{
           p: 2,
           pb: 8,
@@ -243,7 +265,9 @@ export default function ForumThread({ user }: Props) {
             rows={4}
             variant="outlined"
             value={newPost.content}
-            onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+            onChange={(e) =>
+              setNewPost({ ...newPost, content: e.target.value })
+            }
           />
         </Box>
         <Button
@@ -258,4 +282,3 @@ export default function ForumThread({ user }: Props) {
     </Container>
   );
 }
-

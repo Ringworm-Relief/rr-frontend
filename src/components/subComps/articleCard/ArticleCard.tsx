@@ -1,15 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Grid,
-} from "@mui/material";
+import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
 import { Article, mockArticles } from "../../../utils/interfaces";
 
 function ArticleCard() {
-
   return (
     <div className="article-card">
       <Box>
@@ -39,16 +31,16 @@ function ArticleCard() {
                       {article.title}
                     </Typography>
                     {article.paragraphs.map((paragraph: string) => {
-                        return (
-                            <Typography
-                                textAlign="left"
-                                variant="body1"
-                                color="text.secondary"
-                                sx={{ mt: 5}}
-                            >
-                                {paragraph}
-                            </Typography>
-                        )
+                      return (
+                        <Typography
+                          textAlign="left"
+                          variant="body1"
+                          color="text.secondary"
+                          sx={{ mt: 5 }}
+                        >
+                          {paragraph}
+                        </Typography>
+                      );
                     })}
                   </CardContent>
                 </Card>

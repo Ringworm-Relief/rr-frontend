@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Card,
-  CardContent,
   CardHeader,
   CardMedia,
   Grid,
-  Stack,
 } from "@mui/material";
 import profile from "../../../../assets/profile.png";
 import veterinary from "../../../../assets/veterinary.png";
@@ -16,7 +13,6 @@ interface Props {
 }
 
 function DashboardManageAccount({ user }: Props) {
-
   const style = {
     mt: 2,
     borderRadius: 1,

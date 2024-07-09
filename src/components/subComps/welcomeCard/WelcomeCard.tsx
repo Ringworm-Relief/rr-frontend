@@ -11,16 +11,15 @@ import {
 import CoolestCat from "../../../assets/RR-3.svg";
 
 function WelcomeCard() {
-    
   const innerWidthCheck = () => {
-    if(window.innerWidth <= 915 && window.innerWidth >= 455) {
-      return "100px"
-    } else if(window.innerWidth <= 455 && window.innerWidth >= 310) {
-      return "30px"
+    if (window.innerWidth <= 915 && window.innerWidth >= 455) {
+      return "100px";
+    } else if (window.innerWidth <= 455 && window.innerWidth >= 310) {
+      return "30px";
     } else {
-      return "100px"
-    } 
-  }
+      return "100px";
+    }
+  };
   return (
     <div className="WelcomeCard_wrapper">
       <Card
@@ -38,7 +37,10 @@ function WelcomeCard() {
             <Typography variant="h2" sx={{ fontWeight: 800 }}>
               Ringworm, Relief,
             </Typography>
-            <Typography variant="h2" sx={{  pb: 4, fontWeight: 800, color: "#ff999a" }}>
+            <Typography
+              variant="h2"
+              sx={{ pb: 4, fontWeight: 800, color: "#ff999a" }}
+            >
               Repeat?
             </Typography>
             <Typography
@@ -52,10 +54,14 @@ function WelcomeCard() {
               <br />
               No more wondering when the last time you treated your pet was,{" "}
               <br />
-              or cluttering your personal calendar with reminders.<br />
+              or cluttering your personal calendar with reminders.
+              <br />
             </Typography>
           </CardContent>
-          <CardMedia image={CoolestCat} sx={{ width: "30%", ml: "10%", mt: 2,}}></CardMedia>
+          <CardMedia
+            image={CoolestCat}
+            sx={{ width: "30%", ml: "10%", mt: 2 }}
+          ></CardMedia>
         </Stack>
         <CardActions sx={{ p: "16px" }}>
           <Stack>

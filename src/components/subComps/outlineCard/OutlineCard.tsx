@@ -36,7 +36,7 @@ function OutlineCard() {
           {services.map((service: Service) => {
             return (
               <motion.div
-                whileInView={{ opacity: 1, scale: .9 }}
+                whileInView={{ opacity: 1, scale: 0.9 }}
                 initial={{ opacity: 0, scale: 0.5 }}
                 transition={{
                   duration: 0.8,

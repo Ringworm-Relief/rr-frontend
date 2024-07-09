@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Tabs,
   Tab,
@@ -16,24 +24,25 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  CardMedia,
+  Collapse,
+  Alert,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  getThreads,
-  postThread,
-  deleteThread,
-} from "../../../apiCalls/forumApiCalls";
-import { useNavigate, Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 import "../../subComps/quill/quillTextEditor.css";
+import {
+  getThreads,
+  postThread,
+  deleteThread,
+} from "../../../apiCalls/forumApiCalls";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import DOMPurify from "dompurify";
@@ -56,6 +65,10 @@ const style = {
 };
 
 export default function Forum({ user }: Props) {
+
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
+  const [error, setError] = useState(false);
+  
   const [open, setOpen] = useState<boolean>(false);
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
   const [threadToDelete, setThreadToDelete] = useState<number | null>(null);
@@ -118,7 +131,7 @@ export default function Forum({ user }: Props) {
     postThread(newThread)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          setError(true);
         }
         return response.json();
       })
@@ -150,7 +163,7 @@ export default function Forum({ user }: Props) {
         });
       })
       .catch((error) => {
-        console.error("Error adding new thread:", error);
+        setError(true);
       });
   };
 
@@ -210,12 +223,10 @@ export default function Forum({ user }: Props) {
         const reader = new FileReader();
         reader.onload = () => {
           const imageUrl = reader.result;
-          console.log(reader)
           if (quill.current) {
             const quillEditor = quill.current.getEditor();
             const range = quillEditor.getSelection(true);
             quillEditor.insertEmbed(range.index, "image", imageUrl);
-            // quillEditor.formatText(0, 1, 'width', '100px'); //to limit the width
           }
         };
         reader.readAsDataURL(file);
@@ -246,11 +257,10 @@ export default function Forum({ user }: Props) {
       clipboard: {
         matchVisual: true,
       },
-
     }),
     [imageHandler]
   );
-  
+
   const formats = [
     "header",
     "bold",
@@ -278,6 +288,18 @@ export default function Forum({ user }: Props) {
         >
           <Box sx={style}>
             <Stack spacing={4}>
+              {error && (
+                <Collapse in={alertOpen}>
+                  <Alert
+                    severity="error"
+                    sx={{ marginTop: "20px" }}
+                    onClose={() => setAlertOpen(false)}
+                    hidden={alertOpen}
+                  >
+                    Thread not created. Please try again.
+                  </Alert>
+                </Collapse>
+              )}
               <FormControl variant="outlined" required fullWidth>
                 <InputLabel
                   id="select-outlined-label"
@@ -441,7 +463,7 @@ export default function Forum({ user }: Props) {
                   </Box>
                 </Box>
                 <CardActionArea
-                sx={{ height: 120, overflow: "hidden" }}
+                  sx={{ height: 120, overflow: "hidden" }}
                   onClick={() =>
                     navigate(`/threads/${thread.category}/${thread.id}`)
                   }
@@ -458,7 +480,7 @@ export default function Forum({ user }: Props) {
                 <Box
                   display="flex"
                   flexDirection="row"
-                  sx={{ mt: 5}}
+                  sx={{ mt: 5 }}
                   justifyContent="space-between"
                   position={"absolute"}
                 >
@@ -467,7 +489,7 @@ export default function Forum({ user }: Props) {
                     <Typography sx={{ mr: 1 }}>
                       {thread.posts.length}
                     </Typography>
-                    <ThumbUpAltIcon sx={{ mx: 0.5}} />
+                    <ThumbUpAltIcon sx={{ mx: 0.5 }} />
                     <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
                     <ThumbDownAltIcon sx={{ ml: 0.5 }} />
                     <Typography sx={{ ml: 0.5 }}>

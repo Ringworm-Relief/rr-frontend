@@ -120,17 +120,18 @@ export default function Calendar({ user, pets }: Props) {
         .catch((error) => {
           navigate("/error");
         });
-      }
-      fetchData();
-    }, []);
+    };
+    fetchData();
+  }, []);
 
-    const resourceDataSource = pets.reduce((acc: any[], pet) => {
-        let index = pets.indexOf(pet);
-        acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
-        return acc;
-    }, []);
+  const resourceDataSource = pets.reduce((acc: any[], pet) => {
+    let index = pets.indexOf(pet);
+    acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
+    return acc;
+  }, []);
 
-  const dataManager = new DataManager({ // Handling POST requests
+  const dataManager = new DataManager({
+    // Handling POST requests
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
     adaptor: new WebApiAdaptor(),
     crossDomain: true,
@@ -144,8 +145,12 @@ export default function Calendar({ user, pets }: Props) {
     const save_icon = "e-save-icon e-icons";
     const save_button =
       "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
-    console.log(args.type)
-      if (args.type === "QuickInfo" || args.type === "Editor" || args.event?.target) {
+    console.log(args.type);
+    if (
+      args.type === "QuickInfo" ||
+      args.type === "Editor" ||
+      args.event?.target
+    ) {
       const target = args.event?.target as HTMLElement;
       if (
         target.className === save_icon ||
@@ -153,7 +158,7 @@ export default function Calendar({ user, pets }: Props) {
         target.className ===
           "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary"
       ) {
-        console.log(scheduleData.length)
+        console.log(scheduleData.length);
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
           Id: args.data?.Id,
@@ -165,7 +170,7 @@ export default function Calendar({ user, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
-      } else if(args.type === "DeleteAlert" ) {
+      } else if (args.type === "DeleteAlert") {
         destroyCalendarEvent(
           user.data.id,
           args.data?.Id.toString(),
@@ -196,16 +201,14 @@ export default function Calendar({ user, pets }: Props) {
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
-    destroyCalendarEvent(
-      user.data.id,
-      args.data.Id,
-      currentToken
-    ).then((res) => {
-      if (res.errors) {
-        setError(true);
-        setErrorMessage(res.errors[0].detail);
+    destroyCalendarEvent(user.data.id, args.data.Id, currentToken).then(
+      (res) => {
+        if (res.errors) {
+          setError(true);
+          setErrorMessage(res.errors[0].detail);
+        }
       }
-    });
+    );
   };
 
   return (
@@ -235,17 +238,17 @@ export default function Calendar({ user, pets }: Props) {
               dragStart={destroyDragEvent}
             >
               {pets.length && (
-              <ResourcesDirective>
-                <ResourceDirective
-                  field="ResourceId"
-                  title="Pets"
-                  name="Pets"
-                  textField="Name"
-                  idField="Id"
-                  colorField="Color"
-                  dataSource={resourceDataSource}
-                ></ResourceDirective>
-              </ResourcesDirective>
+                <ResourcesDirective>
+                  <ResourceDirective
+                    field="ResourceId"
+                    title="Pets"
+                    name="Pets"
+                    textField="Name"
+                    idField="Id"
+                    colorField="Color"
+                    dataSource={resourceDataSource}
+                  ></ResourceDirective>
+                </ResourcesDirective>
               )}
               <ViewsDirective>
                 <ViewDirective option="Day" />
@@ -305,7 +308,7 @@ export default function Calendar({ user, pets }: Props) {
                   <Inject services={[Day, Agenda]} />
                 </ScheduleComponent>
               </Card>
-        
+
               <DashboardManageAccount user={user} />
             </Stack>
           )}

@@ -17,7 +17,6 @@ interface Props {
 }
 
 function PetCards({ user, setTargetPetFunc, pets }: Props) {
-
   const style = {
     borderRadius: 1,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
@@ -26,11 +25,6 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
     flexDirection: "column",
     alignItems: "bottom",
     color: "#4e547d",
-    // backgroundColor: "#FEDBDB",
-    // backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-    // "&:after": {
-    //   opacity: 0.5,
-    // },
     "&:hover": {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",
@@ -80,25 +74,24 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
               </CardActions>
             );
           })}
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3} ml={1} mt={1}>
-          <Link
-            id="add-pet-link"
-            className="dash-links"
-            to={`/user/${user.data.id}/addpet`}
-          >
-            <Card sx={style}>
-              <CardHeader
-                title="Add Pet"
-                titleTypographyProps={{
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                }}
-              />
-            </Card>
-          </Link>
-        </Grid>
-
+      </Grid>
+      <Grid item xs={12} sm={6} md={4} lg={3} ml={1} mt={1}>
+        <Link
+          id="add-pet-link"
+          className="dash-links"
+          to={`/user/${user.data.id}/addpet`}
+        >
+          <Card sx={style}>
+            <CardHeader
+              title="Add Pet"
+              titleTypographyProps={{
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+              }}
+            />
+          </Card>
+        </Link>
+      </Grid>
     </Grid>
   );
 }

@@ -55,7 +55,6 @@ function CreateAccount() {
       postNewUser(newUser)
         .then((data) => {
           if (!data || data.errors) {
-            console.log(data.errors[0].detail);
             setError(data.errors[0].detail);
           } else {
             navigate("/account/signin");

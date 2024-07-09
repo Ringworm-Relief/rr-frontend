@@ -67,12 +67,10 @@ export default function ManageAccount({ user, setUser }: Props) {
     if (userInfo.password === userInfo.password_confirmation) {
       updateUser(user, userInfo).then((data) => {
         if (data.errors) {
-          console.log(data);
           setError(true);
           setErrorStatus(data.errors[0].status);
         } else {
           setSuccess(true);
-          console.log(data);
           sessionStorage.removeItem("currentUser");
           sessionStorage.setItem("currentUser", JSON.stringify(data));
           setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));

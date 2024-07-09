@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Container,
   Box,
@@ -14,11 +15,11 @@ import {
 import { createSvgIcon } from "@mui/material/utils";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import React, { useState } from "react";
 import bacteria from "../../../assets/bacteria.png";
 import pill from "../../../assets/pill.png";
 import paw from "../../../assets/paw.png";
 import MedicationsCard from "../../subComps/medicationsCard/MedicationsCard";
+
 import { postPet } from "../../../apiCalls/petApiCalls";
 import {
   Pet,
@@ -26,7 +27,6 @@ import {
   Ringworm,
   formatDate,
 } from "../../../utils/interfaces";
-import { useNavigate } from "react-router-dom";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -118,25 +118,13 @@ function PetForm({ user, getUserPets }: Props) {
     ringworm: ringwormObject,
   });
 
-  const handleClose = () => {
-    setAlertOpen(false);
-  };
-
-  const addAnotherPet = () => {
-    setHasSubmitted(false);
-  };
-
   const handleSubmit = () => {
-    if (
-      !petObject.name ||
-      !petObject.pet_type
-    ) {
+    if (!petObject.name || !petObject.pet_type) {
       setAlertOpen(true);
       setHasSubmitted(false);
-      setErrorMessage("Pet name and type are required.")
+      setErrorMessage("Pet name and type are required.");
       return;
     }
-
 
     const updatedRingwormObject = {
       ...ringwormObject,
@@ -149,37 +137,37 @@ function PetForm({ user, getUserPets }: Props) {
       medications: medications,
     };
     postPet(updatedPetObject)
-    .then((data) => {
-      // if(!data || data.errors) {
-          setHasSubmitted(true);
-          setRingwormObject({
-            ringworm_type: "",
-            diagnosis_date: "",
-            symptoms: [],
-          });
-  
-          setMedications([
-            {
-              name: "",
-              medication_type: "",
-              dosage: "",
-              frequency: "",
-            },
-          ]);
-  
-          setPetObject({
-            user_id: user.data.id,
+      .then((data) => {
+        setHasSubmitted(true);
+        setRingwormObject({
+          ringworm_type: "",
+          diagnosis_date: "",
+          symptoms: [],
+        });
+
+        setMedications([
+          {
             name: "",
-            pet_type: "",
-            breed: "",
-            birthday: "",
-            medications: medications,
-            ringworm: ringwormObject,
-          });
-          getUserPets();   
-         })
-      .catch((err) => {setHasSubmitted(false)
-        setErrorMessage(err.error.detail)
+            medication_type: "",
+            dosage: "",
+            frequency: "",
+          },
+        ]);
+
+        setPetObject({
+          user_id: user.data.id,
+          name: "",
+          pet_type: "",
+          breed: "",
+          birthday: "",
+          medications: medications,
+          ringworm: ringwormObject,
+        });
+        getUserPets();
+      })
+      .catch((err) => {
+        setHasSubmitted(false);
+        setErrorMessage(err.error.detail);
       });
   };
 
@@ -425,7 +413,7 @@ function PetForm({ user, getUserPets }: Props) {
               onClose={() => setAlertOpen(false)}
               hidden={alertOpen}
             >
-             {`${errorMessage}`}
+              {`${errorMessage}`}
             </Alert>
           </Collapse>
         )}
