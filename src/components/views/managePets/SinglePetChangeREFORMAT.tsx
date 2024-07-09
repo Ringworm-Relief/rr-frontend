@@ -16,7 +16,7 @@ import {
   Alert,
   Stack,
   Grid,
-  Modal
+  Modal,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -34,7 +34,7 @@ import {
   putPet,
   putRingworm,
   postMed,
-  deletePet
+  deletePet,
 } from "../../../apiCalls/petApiCalls";
 
 interface Props {
@@ -151,24 +151,28 @@ export const SinglePetChange = ({ pet }: Props) => {
 
   const handleDelete = () => {
     deletePet(parseInt(pet.id))
-    .then(() => {
-      setIsOpen(false)
-      window.location.reload()
-      let filteredPets = JSON.parse(localStorage.getItem('PETS') || '[]').filter((pet: any) => pet.id !== parseInt(pet.id))
-      localStorage.removeItem('PETS')
-      if(filteredPets.length > 0) localStorage.setItem('PETS', JSON.stringify(filteredPets))
-    })
-    .catch((error) => {
-      console.error('Error deleting pet:', error);
-      // Optionally handle the error, e.g., show a message to the user
-    });
-  }
+      .then(() => {
+        setIsOpen(false);
+        window.location.reload();
+        let filteredPets = JSON.parse(
+          localStorage.getItem("PETS") || "[]"
+        ).filter((pet: any) => pet.id !== parseInt(pet.id));
+        localStorage.removeItem("PETS");
+        if (filteredPets.length > 0)
+          localStorage.setItem("PETS", JSON.stringify(filteredPets));
+      })
+      .catch((error) => {
+        console.error("Error deleting pet:", error);
+      });
+  };
 
   const medCards = medications.map((med, index) => (
     <ManageMedCards
       key={index}
       medObject={med}
-      setMedObject={(field: any, value: string) => handleMedChange(index, field, value)}
+      setMedObject={(field: any, value: string) =>
+        handleMedChange(index, field, value)
+      }
       number={index + 1}
     />
   ));
@@ -183,7 +187,7 @@ export const SinglePetChange = ({ pet }: Props) => {
 
   return (
     <>
-     <Modal
+      <Modal
         open={isOpen}
         onClose={() => setIsOpen(false)}
         aria-labelledby="modal-modal-title"
@@ -191,17 +195,29 @@ export const SinglePetChange = ({ pet }: Props) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-           Are you sure you want to delete {pet.name}?
+            Are you sure you want to delete {pet.name}?
           </Typography>
-          <Typography sx={{my: 2}} id="modal-modal-title" variant="body1" component="h2">
-           We are hoping this means {pet.name} is ringworm-free! 
+          <Typography
+            sx={{ my: 2 }}
+            id="modal-modal-title"
+            variant="body1"
+            component="h2"
+          >
+            We are hoping this means {pet.name} is ringworm-free!
           </Typography>
-          
-            <Stack direction="row" sx={{ mt: 5 }}>
-              <Button variant="outlined"  onClick={() => setIsOpen(false)}>Cancel</Button>
-              <Button  sx={{ color: '#e00000', ml: 23 }} startIcon={<DeleteIcon />} onClick={handleDelete} >Delete Pet</Button>
-      
-          </Stack> 
+
+          <Stack direction="row" sx={{ mt: 5 }}>
+            <Button variant="outlined" onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              sx={{ color: "#e00000", ml: 23 }}
+              startIcon={<DeleteIcon />}
+              onClick={handleDelete}
+            >
+              Delete Pet
+            </Button>
+          </Stack>
         </Box>
       </Modal>
       <Grid item>
@@ -227,13 +243,21 @@ export const SinglePetChange = ({ pet }: Props) => {
                   alignItems: "center",
                 }}
               >
-                <img src={paw} id="paw-svg" alt='Outline of a dog paw'/>
+                <img src={paw} id="paw-svg" alt="Outline of a dog paw" />
                 <Typography sx={{ flexShrink: 0 }}>{pet.name}</Typography>
               </Box>
               <Typography sx={{ color: "text.secondary" }}>
                 Edit pet information
               </Typography>
-              <Button sx={{ color: '#e00000' }} startIcon={<DeleteIcon />} onClick={() => {setIsOpen(true)}}>Delete Pet</Button>
+              <Button
+                sx={{ color: "#e00000" }}
+                startIcon={<DeleteIcon />}
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Delete Pet
+              </Button>
             </Box>
           </AccordionSummary>
           <AccordionDetails>

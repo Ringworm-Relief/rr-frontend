@@ -1,4 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Tabs,
   Tab,
@@ -16,20 +24,28 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Collapse,
+  Alert,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
+import TextField from "@mui/material/TextField";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownOffAlt";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+
+import "../../subComps/quill/quillTextEditor.css";
 import {
   getThreads,
   postThread,
   deleteThread,
 } from "../../../apiCalls/forumApiCalls";
-import { useNavigate, Link } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownOffAlt";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import QuillEditor from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import DOMPurify from "dompurify";
 
 interface Props {
   user: any;
@@ -40,14 +56,19 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "70%",
+  height: "90%",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
 };
 
 export default function Forum({ user }: Props) {
+
+  const [alertOpen, setAlertOpen] = useState<boolean>(true);
+  const [error, setError] = useState(false);
+  
   const [open, setOpen] = useState<boolean>(false);
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
   const [threadToDelete, setThreadToDelete] = useState<number | null>(null);
@@ -67,7 +88,7 @@ export default function Forum({ user }: Props) {
     down_votes: 0,
   });
 
-  console.log("threads", threads);
+  const quill = useRef<QuillEditor | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -87,7 +108,7 @@ export default function Forum({ user }: Props) {
         setThreadsGeneral(generalData);
         setThreadsCleaning(cleaningData);
         setThreadsTreatment(treatmentData);
-        setThreads(generalData.reverse());
+        setThreads(generalData);
       })
       .catch((error) => {
         console.error("Error fetching threads:", error);
@@ -98,11 +119,11 @@ export default function Forum({ user }: Props) {
     setFilter(newValue);
     navigate(`/forum/${newValue.toLowerCase()}`);
     if (newValue === "Cleaning") {
-      setThreads(threadsCleaning.reverse());
+      setThreads(threadsCleaning);
     } else if (newValue === "Treatment") {
-      setThreads(threadsTreatment.reverse());
+      setThreads(threadsTreatment);
     } else {
-      setThreads(threadsGeneral.reverse());
+      setThreads(threadsGeneral);
     }
   };
 
@@ -110,7 +131,7 @@ export default function Forum({ user }: Props) {
     postThread(newThread)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          setError(true);
         }
         return response.json();
       })
@@ -119,7 +140,7 @@ export default function Forum({ user }: Props) {
       })
       .then((updatedThreads) => updatedThreads.json())
       .then((data) => {
-        setThreads(data.reverse());
+        setThreads(data)
         if (newThread.category === "Cleaning") {
           setThreadsCleaning(data);
         } else if (newThread.category === "General") {
@@ -142,7 +163,7 @@ export default function Forum({ user }: Props) {
         });
       })
       .catch((error) => {
-        console.error("Error adding new thread:", error);
+        setError(true);
       });
   };
 
@@ -161,7 +182,7 @@ export default function Forum({ user }: Props) {
       })
       .then((updatedThreads) => updatedThreads.json())
       .then((data) => {
-        setThreads(data.reverse());
+        setThreads(data);
         if (filter === "Cleaning") {
           setThreadsCleaning(data);
         } else if (filter === "General") {
@@ -184,9 +205,81 @@ export default function Forum({ user }: Props) {
     setThreadToDelete(null);
   };
 
+  const createMarkup = (content: string) => {
+    return {
+      __html: DOMPurify.sanitize(content),
+    };
+  };
+
+  const imageHandler = useCallback(() => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = () => {
+      const file = input.files ? input.files[0] : null;
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const imageUrl = reader.result;
+          if (quill.current) {
+            const quillEditor = quill.current.getEditor();
+            const range = quillEditor.getSelection(true);
+            quillEditor.insertEmbed(range.index, "image", imageUrl);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline", "blockquote"],
+          [{ color: [] }],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image"],
+          ["clean"],
+        ],
+        handlers: {
+          image: imageHandler,
+        },
+      },
+      clipboard: {
+        matchVisual: true,
+      },
+    }),
+    [imageHandler]
+  );
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "color",
+    "clean",
+  ];
+
   return (
-    <Box sx={{ height: "150vh" }}>
-      <Container sx={{ my: 4 }}>
+    <Box sx={{ height: "max-content", backgroundColor: "#eeeeee" }}>
+      <Container>
         <Modal
           open={open}
           onClose={handleClose}
@@ -194,17 +287,29 @@ export default function Forum({ user }: Props) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add to the conversation!
-            </Typography>
-            <Stack>
-              <FormControl variant="filled" sx={{ mt: 2 }}>
-                <InputLabel id="demo-simple-select-filled-label">
-                  Thread category
+            <Stack spacing={4}>
+              {error && (
+                <Collapse in={alertOpen}>
+                  <Alert
+                    severity="error"
+                    sx={{ marginTop: "20px" }}
+                    onClose={() => setAlertOpen(false)}
+                    hidden={alertOpen}
+                  >
+                    Thread not created. Please try again.
+                  </Alert>
+                </Collapse>
+              )}
+              <FormControl variant="outlined" required fullWidth>
+                <InputLabel
+                  id="select-outlined-label"
+                  htmlFor="select-category"
+                >
+                  Category
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-filled-label"
-                  id="demo-simple-select-filled"
+                  label="Category"
+                  id="select-category"
                   value={newThread.category}
                   required
                   onChange={(e) =>
@@ -219,13 +324,12 @@ export default function Forum({ user }: Props) {
                   <MenuItem value="Treatment">Treatment</MenuItem>
                 </Select>
               </FormControl>
-
               <TextField
-                id="filled-textarea"
-                label="Thread title"
+                id="title-textarea"
+                label="Title"
                 placeholder="Placeholder"
                 multiline
-                variant="filled"
+                variant="outlined"
                 sx={{ my: 2 }}
                 required
                 value={newThread.title}
@@ -233,22 +337,24 @@ export default function Forum({ user }: Props) {
                   setNewThread({ ...newThread, title: e.target.value })
                 }
               />
-              <TextField
-                id="filled-multiline-static"
-                label="Body text"
-                multiline
-                required
-                rows={4}
-                value={newThread.root_content}
-                onChange={(e) =>
-                  setNewThread({ ...newThread, root_content: e.target.value })
-                }
-                variant="filled"
-              />
+              <div className="wrapper">
+                <label className="label">Body</label>
+                <QuillEditor
+                  ref={(el) => (quill.current = el)}
+                  className="editor"
+                  theme="snow"
+                  formats={formats}
+                  modules={modules}
+                  value={newThread.root_content}
+                  onChange={(value) =>
+                    setNewThread({ ...newThread, root_content: value })
+                  }
+                />
+              </div>
             </Stack>
             <Box
               sx={{
-                mt: 2,
+                mt: 10,
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -299,8 +405,8 @@ export default function Forum({ user }: Props) {
           </Box>
         </Modal>
       </Container>
-      <Grid container spacing={2} sx={{ mt: 4, px: 6 }}>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+      <Grid container spacing={2} sx={{ px: 6 }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8} sx={{ mt: 4 }}>
           <Card sx={{ mb: 2, height: 220, p: 2 }}>
             <Typography sx={{ my: 2 }} variant="h4">
               Community Forum
@@ -330,7 +436,7 @@ export default function Forum({ user }: Props) {
           {threads.map((thread) => (
             <Card
               sx={{
-                height: 200,
+                height: 250,
                 position: "relative",
                 mb: 5,
               }}
@@ -357,6 +463,7 @@ export default function Forum({ user }: Props) {
                   </Box>
                 </Box>
                 <CardActionArea
+                  sx={{ height: 120, overflow: "hidden" }}
                   onClick={() =>
                     navigate(`/threads/${thread.category}/${thread.id}`)
                   }
@@ -364,19 +471,24 @@ export default function Forum({ user }: Props) {
                   <Typography gutterBottom variant="h6" component="div">
                     {thread.title}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    {thread.root_content}
-                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    dangerouslySetInnerHTML={createMarkup(thread.root_content)}
+                  />
                 </CardActionArea>
                 <Box
                   display="flex"
                   flexDirection="row"
                   sx={{ mt: 5 }}
                   justifyContent="space-between"
+                  position={"absolute"}
                 >
                   <Box display="flex" flexDirection="row">
                     <ChatOutlinedIcon></ChatOutlinedIcon>
-                    <Typography sx={{ mr: 1 }}>{thread.posts.length}</Typography>
+                    <Typography sx={{ mr: 1 }}>
+                      {thread.posts.length}
+                    </Typography>
                     <ThumbUpAltIcon sx={{ mx: 0.5 }} />
                     <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
                     <ThumbDownAltIcon sx={{ ml: 0.5 }} />
@@ -400,10 +512,43 @@ export default function Forum({ user }: Props) {
             </Card>
           ))}
         </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-          <Button variant="outlined" onClick={() => setOpen(true)}>
-            Start new thread
-          </Button>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4} sx={{ mt: 4 }}>
+          <Card
+            sx={{ width: "100%", mb: 5, p: 1 }}
+            onClick={() => setOpen(true)}
+          >
+            <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography variant="h6" color="primary" mr={2}>
+                Start new thread
+              </Typography>
+              <AddCircleOutlineIcon color="primary"></AddCircleOutlineIcon>
+            </CardActionArea>
+          </Card>
+          <Card
+            sx={{ width: "100%", mb: 5, p: 1 }}
+            onClick={() => navigate(`/threads/byme/${user.data.id}`)}
+          >
+            <CardActionArea
+              sx={{ display: "flex", flexDirection: "row" }}
+              disabled
+            >
+              <Typography variant="h6" color="#636363" mr={2}>
+                My Threads
+              </Typography>
+              <StarBorderIcon color="disabled"></StarBorderIcon>
+            </CardActionArea>
+          </Card>
+          <Card sx={{ width: "100%", mb: 5, p: 1 }}>
+            <CardActionArea
+              sx={{ display: "flex", flexDirection: "row" }}
+              disabled
+            >
+              <Typography variant="h6" color="#636363" mr={2}>
+                My Favorites
+              </Typography>
+              <StarBorderIcon color="disabled"></StarBorderIcon>
+            </CardActionArea>
+          </Card>
         </Grid>
       </Grid>
     </Box>

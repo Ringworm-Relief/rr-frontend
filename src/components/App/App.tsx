@@ -25,9 +25,10 @@ import { destroyToken } from "../../apiCalls/userApiCalls";
 import { fetchPets } from "../../apiCalls/petApiCalls";
 import { getArticlesCategory } from "../../apiCalls/articlesApiCalls";
 import Forum from "../views/forum/Forum";
-import ForumCategory from "../views/forum/forumComponents/ForumCategory";
-import ForumPost from "../views/forum/forumComponents/ForumPost";
+import ForumCategory from "../views/forum/forumComponents/ForumUser";
 import ForumThread from "../views/forum/forumComponents/ForumThread";
+import Contact from "../views/contact/Contact";
+import About from "../views/about/About";
 
 
 function App() {
@@ -41,8 +42,6 @@ function App() {
   const singlePetStorage = JSON.parse(
     localStorage.getItem("TARGETPET") || "[]"
   );
-
-  const forumDataStorage = JSON.parse(localStorage.getItem("FORUM") || "[]");
 
   const [user, setUser] = useState<any>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
@@ -62,22 +61,12 @@ function App() {
       localStorage.setItem("ARTICLES", JSON.stringify(data.data));
     });
 
-  //   localStorage.setItem("FORUM", JSON.stringify(mockForumData));
-  //   const forumData = JSON.parse(localStorage.getItem("FORUM") || "[]");
-  //   setMockForumData(forumData)
   }, [pageRender]);
 
   useEffect(() => {
     localStorage.setItem("SAVED_ARTS", JSON.stringify(savedArticles));
   }, [savedArticles]);
 
-  // useEffect(() => {
-  //   if(filter === "General") {
-  //     setForumData(mockForumData.filter((post) => post.category === "General"));
-  //   } else {
-  //     setForumData(mockForumData.filter((post) => post.category === filter));
-  //   }
-  // }, [filter])
 
   const setLoggedInUser = (user: any) => {
     setPageRender(1);
@@ -265,15 +254,17 @@ function App() {
         ></Route>
         <Route path="/forum/:category" element={<Forum user={user}/>}></Route>
         <Route path="/forum/:category" element={<ForumCategory />}></Route>
-        <Route path="/forum/:category/:postID" element={<ForumPost />}></Route>
+        <Route path="/threads/byme/:id"></Route>
         <Route path="*" element={<Error />} />
+        <Route path="/contact" element={<Contact/>}></Route>
+        <Route path="/about" element={<About/>}></Route>
       </Routes>
       <div id="footer_wrapper">
         <div id="footer_container">
           <footer className="App_footer">
             <p>Licensing info Syncfusion</p>
-            <p>Contact us</p>
-            <p>About</p>
+            <Link to="/contact"><p>Contact us</p></Link>
+            <Link to="/about"><p>About</p></Link>
           </footer>
         </div>
       </div>

@@ -5,7 +5,7 @@ import LandingCards from "../../subComps/landingArticles/LandingCards";
 function Landing() {
   return (
     <>
-      <Stack spacing={25}>
+      <Stack spacing={15}>
         <WelcomeCard />
         <LandingCards />
       </Stack>

@@ -22,7 +22,6 @@ import {
 } from "../../../apiCalls/calendarApiCalls";
 import { Alert, Card, Collapse, Stack } from "@mui/material";
 import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
-import { parse } from "path";
 interface Props {
   user: any;
   pets: any[];
@@ -39,30 +38,6 @@ const colors: string[] = [
   "#8e8cd8",
   "#f57f17",
 ];
-
-const innerWidthCheck = () => {
-  if (window.innerWidth <= 915 && window.innerWidth >= 582) {
-    return 450;
-  } else if (window.innerWidth <= 582 && window.innerWidth >= 477) {
-    return 400;
-  } else if (window.innerWidth <= 477 && window.innerWidth >= 358) {
-    return 300;
-  } else if (window.innerWidth <= 354 && window.innerWidth >= 200) {
-    return 245;
-  } else {
-    return 800;
-  }
-};
-
-const innerHeightCheck = () => {
-  if (window.innerWidth <= 770 && window.innerWidth >= 560) {
-    return 300;
-  } else if (window.innerWidth <= 560) {
-    return 500;
-  } else {
-    return 300;
-  }
-};
 interface ScheduleEvent {
   PetId: number;
   Id: number;
@@ -145,17 +120,18 @@ export default function Calendar({ user, pets }: Props) {
         .catch((error) => {
           navigate("/error");
         });
-      }
-      fetchData();
-    }, []);
+    };
+    fetchData();
+  }, []);
 
-    const resourceDataSource = pets.reduce((acc: any[], pet) => {
-        let index = pets.indexOf(pet);
-        acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
-        return acc;
-    }, []);
+  const resourceDataSource = pets.reduce((acc: any[], pet) => {
+    let index = pets.indexOf(pet);
+    acc.push({ Name: pet.name, Id: pet.id, Color: colors[index] }); // change value to pet ID
+    return acc;
+  }, []);
 
-  const dataManager = new DataManager({ // Handling POST requests
+  const dataManager = new DataManager({
+    // Handling POST requests
     url: `https://rr-users-calendars-service-3e13398e3ea5.herokuapp.com/api/v1/users/${user.data.id}/calendar_events`,
     adaptor: new WebApiAdaptor(),
     crossDomain: true,
@@ -169,8 +145,12 @@ export default function Calendar({ user, pets }: Props) {
     const save_icon = "e-save-icon e-icons";
     const save_button =
       "e-schedule-dialog e-control e-btn e-lib e-primary e-event-save e-flat";
-    console.log(args.type)
-      if (args.type === "QuickInfo" || args.type === "Editor" || args.event?.target) {
+    console.log(args.type);
+    if (
+      args.type === "QuickInfo" ||
+      args.type === "Editor" ||
+      args.event?.target
+    ) {
       const target = args.event?.target as HTMLElement;
       if (
         target.className === save_icon ||
@@ -178,7 +158,7 @@ export default function Calendar({ user, pets }: Props) {
         target.className ===
           "e-event-create e-text-ellipsis e-control e-btn e-lib e-flat e-primary"
       ) {
-        console.log(scheduleData.length)
+        console.log(scheduleData.length);
         const newEvent: ScheduleEvent = {
           PetId: (args.data as any).ResourceId, // ResourceId is grabbing the pets actual ID
           Id: args.data?.Id,
@@ -190,7 +170,7 @@ export default function Calendar({ user, pets }: Props) {
         };
         const apiFormattedEvent = transformToApiFormat(newEvent, user.data.id);
         dataManager.insert(apiFormattedEvent);
-      } else if(args.type === "DeleteAlert" ) {
+      } else if (args.type === "DeleteAlert") {
         destroyCalendarEvent(
           user.data.id,
           args.data?.Id.toString(),
@@ -221,16 +201,14 @@ export default function Calendar({ user, pets }: Props) {
   };
 
   const destroyDragEvent = (args: DragEventArgs): void => {
-    destroyCalendarEvent(
-      user.data.id,
-      args.data.Id,
-      currentToken
-    ).then((res) => {
-      if (res.errors) {
-        setError(true);
-        setErrorMessage(res.errors[0].detail);
+    destroyCalendarEvent(user.data.id, args.data.Id, currentToken).then(
+      (res) => {
+        if (res.errors) {
+          setError(true);
+          setErrorMessage(res.errors[0].detail);
+        }
       }
-    });
+    );
   };
 
   return (
@@ -260,17 +238,17 @@ export default function Calendar({ user, pets }: Props) {
               dragStart={destroyDragEvent}
             >
               {pets.length && (
-              <ResourcesDirective>
-                <ResourceDirective
-                  field="ResourceId"
-                  title="Pets"
-                  name="Pets"
-                  textField="Name"
-                  idField="Id"
-                  colorField="Color"
-                  dataSource={resourceDataSource}
-                ></ResourceDirective>
-              </ResourcesDirective>
+                <ResourcesDirective>
+                  <ResourceDirective
+                    field="ResourceId"
+                    title="Pets"
+                    name="Pets"
+                    textField="Name"
+                    idField="Id"
+                    colorField="Color"
+                    dataSource={resourceDataSource}
+                  ></ResourceDirective>
+                </ResourcesDirective>
               )}
               <ViewsDirective>
                 <ViewDirective option="Day" />
@@ -284,25 +262,17 @@ export default function Calendar({ user, pets }: Props) {
             <Stack>
               <Card
                 sx={{
-                  mr: 1,
-                  mt: 2,
-                  borderRadius: 3,
+                  borderRadius: 1,
                   boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                   position: "relative",
                   padding: 3,
-                  width: innerWidthCheck(),
-                  height: innerHeightCheck(),
+                  height: 350,
                   marginLeft: 0,
                   overflow: "scroll",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   color: "#9A352F",
-                  backgroundImage:
-                    "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-                  "&:after": {
-                    opacity: 0.5,
-                  },
                 }}
               >
                 <ScheduleComponent
@@ -338,6 +308,7 @@ export default function Calendar({ user, pets }: Props) {
                   <Inject services={[Day, Agenda]} />
                 </ScheduleComponent>
               </Card>
+
               <DashboardManageAccount user={user} />
             </Stack>
           )}

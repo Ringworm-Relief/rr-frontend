@@ -1,6 +1,15 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import { IconButton, ListItem, ListItemButton, ListItemText, List, Drawer, Divider, Box   } from "@mui/material";
+import {
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  List,
+  Drawer,
+  Divider,
+  Box,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -28,7 +37,6 @@ function MuiDrawer({ user }: Props) {
         break;
       case "Saved Articles":
         navigate("/savedarticles");
-        //Change to /user/1/savedArticles
         break;
       case "Add Pet":
         navigate(user ? `/user/${user.data.id}/addpet` : "/account/signin");
@@ -46,13 +54,16 @@ function MuiDrawer({ user }: Props) {
       case "Education":
         navigate("/education");
         break;
+      case "Support":
+        navigate(user ? `/forum/general` : "/account/signin");
+        break;
     }
   };
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {["Sign In", "Dashboard"].map((item) => (
+        {["Sign In", "Dashboard", "Support"].map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton onClick={navigateTo(item)}>
               <ListItemText primary={item} />

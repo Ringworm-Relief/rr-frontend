@@ -14,7 +14,7 @@ import { Service, services } from "../../../utils/interfaces";
 function OutlineCard() {
   return (
     <div className="outline-card">
-      <Box>
+      <Box sx={{ backgroundColor: "#ecedff4b", padding: 5 }}>
         <Typography
           variant="h3"
           fontSize="5rem"
@@ -36,7 +36,7 @@ function OutlineCard() {
           {services.map((service: Service) => {
             return (
               <motion.div
-                whileInView={{ opacity: 1, scale: .9 }}
+                whileInView={{ opacity: 1, scale: 0.9 }}
                 initial={{ opacity: 0, scale: 0.5 }}
                 transition={{
                   duration: 0.8,

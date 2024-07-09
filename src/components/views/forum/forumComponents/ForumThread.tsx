@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import {
   Typography,
   Box,
@@ -20,8 +22,16 @@ import {
   updatePostVotes,
 } from "../../../../apiCalls/forumApiCalls";
 import { useParams } from "react-router-dom";
+
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
+
+import DOMPurify from "dompurify";
+import {
+  getSingleThread,
+  postPost,
+  deletePost,
+} from "../../../../apiCalls/forumApiCalls";
 
 interface Props {
   user: any;
@@ -114,6 +124,11 @@ export default function ForumThread({ user }: Props) {
       .catch((error) => {
         console.error("Error adding new thread:", error);
       });
+  };
+  const createMarkup = (content: string) => {
+    return {
+      __html: DOMPurify.sanitize(content),
+    };
   };
 
   const handleThreadUpVote = () => {
@@ -261,9 +276,11 @@ export default function ForumThread({ user }: Props) {
       <Card sx={{ my: 3, position: "relative" }}>
         <CardContent>
           <Typography variant="h4">{thread.title}</Typography>
-          <Typography variant="h6" color="text.secondary">
-            {thread.root_content}
-          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            dangerouslySetInnerHTML={createMarkup(thread.root_content)}
+          />
           <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
             <AccountCircleIcon
               fontSize="large"
