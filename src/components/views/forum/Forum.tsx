@@ -268,7 +268,7 @@ export default function Forum({ user }: Props) {
   ];
 
   return (
-    <Box sx={{ height: "150vh", backgroundColor: "#eeeeee" }}>
+    <Box sx={{ height: "max-content", backgroundColor: "#eeeeee" }}>
       <Container>
         <Modal
           open={open}
@@ -441,6 +441,7 @@ export default function Forum({ user }: Props) {
                   </Box>
                 </Box>
                 <CardActionArea
+                sx={{ height: 120, overflow: "hidden" }}
                   onClick={() =>
                     navigate(`/threads/${thread.category}/${thread.id}`)
                   }
@@ -457,15 +458,16 @@ export default function Forum({ user }: Props) {
                 <Box
                   display="flex"
                   flexDirection="row"
-                  sx={{ mt: 5 }}
+                  sx={{ mt: 5}}
                   justifyContent="space-between"
+                  position={"absolute"}
                 >
                   <Box display="flex" flexDirection="row">
                     <ChatOutlinedIcon></ChatOutlinedIcon>
                     <Typography sx={{ mr: 1 }}>
                       {thread.posts.length}
                     </Typography>
-                    <ThumbUpAltIcon sx={{ mx: 0.5 }} />
+                    <ThumbUpAltIcon sx={{ mx: 0.5}} />
                     <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
                     <ThumbDownAltIcon sx={{ ml: 0.5 }} />
                     <Typography sx={{ ml: 0.5 }}>
