@@ -53,12 +53,12 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
                           : Kitty
                       }
                       sx={{
-                        width: "40%",
+                        width: "30%",
                         marginLeft: 0.6,
                         marginRight: "auto",
                         marginTop: 0.6,
                         height: 0,
-                        paddingBottom: "34%",
+                        paddingBottom: "24%",
                         textAlign: "center",
                         backgroundImage:
                           "linear-gradient(147deg, #fe8a39 0%, #fd3838 95%)",

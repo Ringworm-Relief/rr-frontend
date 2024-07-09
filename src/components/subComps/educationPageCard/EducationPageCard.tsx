@@ -18,10 +18,7 @@ function EducationPageCard() {
   return (
     <div className="outline-card">
       <Box sx={{ height: "80vh" }}>
-        <Grid
-          container
-          spacing={5}
-        >
+        <Grid container spacing={5}>
           {educationCategories.map((educationCategory: EducationCategory) => {
             return (
               <Grid item key={educationCategory.type} xs={12} sm={6} md={4}>

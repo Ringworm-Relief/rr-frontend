@@ -20,9 +20,8 @@ import {
   destroyCalendarEvent,
   fetchCalendarEvents,
 } from "../../../apiCalls/calendarApiCalls";
-import { Alert, Card, Collapse, Grid, Stack } from "@mui/material";
+import { Alert, Card, Collapse, Stack } from "@mui/material";
 import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
-import { parse } from "path";
 interface Props {
   user: any;
   pets: any[];
@@ -271,11 +270,6 @@ export default function Calendar({ user, pets }: Props) {
                   flexDirection: "column",
                   alignItems: "center",
                   color: "#9A352F",
-                  // backgroundImage:
-                  //   "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-                  // "&:after": {
-                  //   opacity: 0.5,
-                  // },
                 }}
               >
                 <ScheduleComponent

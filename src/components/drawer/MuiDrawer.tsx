@@ -1,6 +1,15 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import { IconButton, ListItem, ListItemButton, ListItemText, List, Drawer, Divider, Box   } from "@mui/material";
+import {
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  List,
+  Drawer,
+  Divider,
+  Box,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -45,11 +54,9 @@ function MuiDrawer({ user }: Props) {
       case "Education":
         navigate("/education");
         break;
-        case "Support":
-          navigate(
-            user ? `/forum/general` : "/account/signin"
-          );
-          break;
+      case "Support":
+        navigate(user ? `/forum/general` : "/account/signin");
+        break;
     }
   };
 
