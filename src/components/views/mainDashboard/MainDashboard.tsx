@@ -29,8 +29,8 @@ function MainDashboard({
   return (
     <>
       {user.data.id ? (
-        <Grid padding="10%">
-          <Grid container spacing={2} columns={2} zIndex={20}>
+        // <Grid padding="5%">
+          <Grid container spacing={2} zIndex={20} p={5} columns={{ xs: 4, sm: 8, md: 12 }}>
             <PetCards
               user={user}
               pets={pets}
@@ -42,7 +42,7 @@ function MainDashboard({
               handleSaves={handleSaves}
             />
           </Grid>
-        </Grid>
+        // </Grid>
       ) : (
         navigate("/account/signin")
       )}

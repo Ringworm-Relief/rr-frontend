@@ -20,7 +20,7 @@ import {
   destroyCalendarEvent,
   fetchCalendarEvents,
 } from "../../../apiCalls/calendarApiCalls";
-import { Alert, Card, Collapse, Stack } from "@mui/material";
+import { Alert, Card, Collapse, Grid, Stack } from "@mui/material";
 import DashboardManageAccount from "../mainDashboard/dashboardComponents/AddManageCards";
 import { parse } from "path";
 interface Props {
@@ -282,6 +282,7 @@ export default function Calendar({ user, pets }: Props) {
             </ScheduleComponent>
           ) : (
             <Stack>
+              <Grid item xs={12} sm={8} md={6}>
               <Card
                 sx={{
                   mr: 1,
@@ -290,7 +291,7 @@ export default function Calendar({ user, pets }: Props) {
                   boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                   position: "relative",
                   padding: 3,
-                  width: innerWidthCheck(),
+                  // width: innerWidthCheck(),
                   height: innerHeightCheck(),
                   marginLeft: 0,
                   overflow: "scroll",
@@ -338,6 +339,7 @@ export default function Calendar({ user, pets }: Props) {
                   <Inject services={[Day, Agenda]} />
                 </ScheduleComponent>
               </Card>
+              </Grid>
               <DashboardManageAccount user={user} />
             </Stack>
           )}

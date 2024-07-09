@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardMedia, Stack } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Grid,
+  Stack,
+} from "@mui/material";
 import profile from "../../../../assets/profile.png";
 import veterinary from "../../../../assets/veterinary.png";
 
@@ -26,14 +33,13 @@ function DashboardManageAccount({ user }: Props) {
   };
 
   const style = {
-    mr: 1,
     mt: 2,
-    borderRadius: 3,
+    borderRadius: 1,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
     bottom: 100,
     left: -100,
     padding: 3,
-    width: innerWidthCheck(),
+    // width: innerWidthCheck(),
     height: 220,
     marginLeft: 0,
     overflow: "scroll",
@@ -53,44 +59,48 @@ function DashboardManageAccount({ user }: Props) {
   };
 
   return (
-    <Stack direction={window.innerWidth >= 915 ? "row" : "column"}>
-      <Link
-        to={`/user/${user.data.id}/management/account`}
-        className="no-underline"
-      >
-        <Card sx={style}>
-          <CardHeader
-            className="saved-articles-header"
-            title="Manage Account"
-          />
-          <CardMedia
-            component="img"
-            image={profile}
-            alt="Profile"
-            sx={{ width: "25%", height: "auto" }}
-          />
-          <CardContent
-            sx={{ padding: 0, mt: 1, textDecoration: "none" }}
-            className="manage-account"
-          >{`${userAtt.first_name} ${userAtt.last_name}`}</CardContent>
-          <CardContent className="manage-account">{`${userAtt.email} `}</CardContent>
-        </Card>
-      </Link>
-      <Link
-        to={`/user/${user.data.id}/management/pets`}
-        className="no-underline"
-      >
-        <Card sx={style}>
-          <CardHeader className="saved-articles-header" title="Manage Pets" />
-          <CardMedia
-            component="img"
-            image={veterinary}
-            alt="paw"
-            sx={{ width: "40%", height: "auto" }}
-          />
-        </Card>
-      </Link>
-    </Stack>
+    <Grid container spacing={2} direction={"row"}>
+      <Grid item xs={6} sm={6} md={3}>
+        <Link
+          to={`/user/${user.data.id}/management/account`}
+          className="no-underline"
+        >
+          <Card sx={style}>
+            <CardHeader
+              className="saved-articles-header"
+              title="Manage Account"
+            />
+            <CardMedia
+              component="img"
+              image={profile}
+              alt="Profile"
+              sx={{ width: "25%", height: "auto" }}
+            />
+            <CardContent
+              sx={{ padding: 0, mt: 1, textDecoration: "none" }}
+              className="manage-account"
+            >{`${userAtt.first_name} ${userAtt.last_name}`}</CardContent>
+            <CardContent className="manage-account">{`${userAtt.email} `}</CardContent>
+          </Card>
+        </Link>
+      </Grid>
+      <Grid item xs={6} sm={6} md={3}>
+        <Link
+          to={`/user/${user.data.id}/management/pets`}
+          className="no-underline"
+        >
+          <Card sx={style}>
+            <CardHeader className="saved-articles-header" title="Manage Pets" />
+            <CardMedia
+              component="img"
+              image={veterinary}
+              alt="paw"
+              sx={{ width: "40%", height: "auto" }}
+            />
+          </Card>
+        </Link>
+      </Grid>
+    </Grid>
   );
 }
 

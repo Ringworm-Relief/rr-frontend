@@ -55,6 +55,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
   };
 
   return (
+    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
     <Grid container spacing={2} columns={3}>
       {pets &&
         pets?.map((pet: any) => {
@@ -113,6 +114,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
           </Card>
         </Link>
       </Grid>
+    </Grid>
     </Grid>
   );
 }
