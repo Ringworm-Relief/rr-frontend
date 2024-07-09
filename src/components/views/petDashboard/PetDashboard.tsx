@@ -19,7 +19,7 @@ export default function PetDashboard({ pet }: Props) {
   const style = {
     mr: 1,
     mt: 4,
-    borderRadius: 3,
+    borderRadius: 1,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
     bottom: 100,
     left: -100,
@@ -30,7 +30,7 @@ export default function PetDashboard({ pet }: Props) {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    color: "#900066",
+    color: "#4e547d",
     textAlign: "center",
   };
 
@@ -45,8 +45,7 @@ export default function PetDashboard({ pet }: Props) {
     <div className="pet-dashboard">
       <Box
         sx={{
-          backgroundImage:
-            "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+          backgroundColor: "#ECEDFF" ,
           paddingBottom: "40px",
           "&:after": { opacity: 0.5 },
         }}
@@ -59,12 +58,13 @@ export default function PetDashboard({ pet }: Props) {
             display: "flex",
             alignItems: "center",
             marginBottom: 2,
-            backgroundImage:
-              "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            "&:after": { opacity: 0.5 },
+            // backgroundColor: "#5E6697",
+            // backgroundImage:
+            //   "linear-gradient(147deg, #ECEDFF 0%, #B48BCC 20%, #ECEDFF 94%)",
+            // "&:after": { opacity: 0.5 },
           }}
         >
-          <Typography variant="h1" sx={{ fontSize: "50px", color: "#900066" }}>
+          <Typography variant="h1" sx={{ fontSize: "50px", color: "#4e547d" }}>
             {pet.name}'s dashboard
           </Typography>
         </Box>
