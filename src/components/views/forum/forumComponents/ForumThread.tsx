@@ -21,17 +21,12 @@ import {
   postThread,
   updatePostVotes,
 } from "../../../../apiCalls/forumApiCalls";
-import { useParams } from "react-router-dom";
 
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import DOMPurify from "dompurify";
-import {
-  getSingleThread,
-  postPost,
-  deletePost,
-} from "../../../../apiCalls/forumApiCalls";
+
 
 interface Props {
   user: any;
