@@ -44,5 +44,12 @@ function deletePost(id: string | null) {
     })
 }
 
+function updatePostVotes(id: string, post: any) {
+    return fetch(`https://ringworm-forum-0c0291e817b7.herokuapp.com/posts/${id}/vote`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(post)
+    })
+}
 
-export { getThreads, postThread, deleteThread, getSingleThread, postPost, deletePost }
+export { getThreads, postThread, deleteThread, getSingleThread, postPost, deletePost, updatePostVotes }

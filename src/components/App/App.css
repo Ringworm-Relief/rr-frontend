@@ -89,6 +89,13 @@
     margin: 0 auto; 
 }
 
+.divider-vertical {
+  height: 100%;
+  background-color: #ccc; 
+  width: 4px; 
+  margin: 0 auto; 
+}
+
 #paw-svg {
     height: 20px;
 }
