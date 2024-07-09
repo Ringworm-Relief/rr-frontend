@@ -47,7 +47,7 @@ describe("Landing Page", () => {
       .get("nav")
       .should("be.visible")
       .get("nav > div")
-      .should("have.length", 3)
+      .should("have.length", 4)
 
       .get(".MuiPaper-root")
       .first()
@@ -96,19 +96,19 @@ describe("Landing Page", () => {
       cy.get(".css-1qw96cp")
         .first()
         .within(() => {
-          cy.get(".MuiTypography-h2").should("have.text", "Ringworm in Dogs");
+          cy.get(".MuiTypography-h2").should("have.text", "What is ringworm?");
         });
 
       cy.get(".css-1qw96cp")
         .eq(1)
         .within(() => {
-          cy.get(".MuiTypography-h2").should("have.text", "Ringworm in Cats");
+          cy.get(".MuiTypography-h2").should("have.text", "Who can get ringworm?");
         });
 
       cy.get(".css-1qw96cp")
         .last()
         .within(() => {
-          cy.get(".MuiTypography-h2").should("have.text", "Ringworm in Horses");
+          cy.get(".MuiTypography-h2").should("have.text", "How does ringworm spread?");
         });
     });
   });
@@ -117,20 +117,21 @@ describe("Landing Page", () => {
     // cy.get('.css-1160xiw-MuiPaper-root-MuiDrawer-paper').should('be.hidden')
     cy.get(".css-1deacqj").click();
     cy.get(".MuiDrawer-paper").within(() => {
-      cy.get(".MuiListItemButton-root").should("have.length", 8);
+      cy.get(".MuiListItemButton-root").should("have.length", 9);
       cy.get(".MuiListItemButton-root").eq(0).should("have.text", "Sign In");
       cy.get(".MuiListItemButton-root").eq(1).should("have.text", "Dashboard");
-      cy.get(".MuiListItemButton-root").eq(2).should("have.text", "Education");
-      cy.get(".MuiListItemButton-root").eq(3).should("have.text", "Calendar");
+      cy.get(".MuiListItemButton-root").eq(2).should("have.text", "Support");
+      cy.get(".MuiListItemButton-root").eq(3).should("have.text", "Education");
+      cy.get(".MuiListItemButton-root").eq(4).should("have.text", "Calendar");
       cy.get(".MuiListItemButton-root")
-        .eq(4)
+        .eq(5)
         .should("have.text", "Saved Articles");
-      cy.get(".MuiListItemButton-root").eq(5).should("have.text", "Add Pet");
-      cy.get(".MuiListItemButton-root")
-        .eq(6)
-        .should("have.text", "Manage Account");
+      cy.get(".MuiListItemButton-root").eq(6).should("have.text", "Add Pet");
       cy.get(".MuiListItemButton-root")
         .eq(7)
+        .should("have.text", "Manage Account");
+      cy.get(".MuiListItemButton-root")
+        .eq(8)
         .should("have.text", "Manage Pets");
     });
   });
