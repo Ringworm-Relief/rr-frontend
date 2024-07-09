@@ -119,11 +119,11 @@ export default function Forum({ user }: Props) {
     setFilter(newValue);
     navigate(`/forum/${newValue.toLowerCase()}`);
     if (newValue === "Cleaning") {
-      setThreads(threadsCleaning.reverse());
+      setThreads(threadsCleaning);
     } else if (newValue === "Treatment") {
-      setThreads(threadsTreatment.reverse());
+      setThreads(threadsTreatment);
     } else {
-      setThreads(threadsGeneral.reverse());
+      setThreads(threadsGeneral);
     }
   };
 
@@ -140,7 +140,7 @@ export default function Forum({ user }: Props) {
       })
       .then((updatedThreads) => updatedThreads.json())
       .then((data) => {
-        setThreads(data.reverse());
+        setThreads(data)
         if (newThread.category === "Cleaning") {
           setThreadsCleaning(data);
         } else if (newThread.category === "General") {
@@ -182,7 +182,7 @@ export default function Forum({ user }: Props) {
       })
       .then((updatedThreads) => updatedThreads.json())
       .then((data) => {
-        setThreads(data.reverse());
+        setThreads(data);
         if (filter === "Cleaning") {
           setThreadsCleaning(data);
         } else if (filter === "General") {
