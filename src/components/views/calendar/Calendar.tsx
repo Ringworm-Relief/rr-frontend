@@ -260,12 +260,11 @@ export default function Calendar({ user, pets }: Props) {
             <Stack>
               <Card
                 sx={{
-                  mt: 2,
                   borderRadius: 1,
                   boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
                   position: "relative",
                   padding: 3,
-                  height: 340,
+                  height: 370,
                   marginLeft: 0,
                   overflow: "scroll",
                   display: "flex",

@@ -66,7 +66,6 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
       <Grid item xs={12} sm={12} md={4} lg={5} xl={5}>
         <Card
           sx={{
-            mt: 2,
             borderRadius: 1,
             boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
             height: 640,

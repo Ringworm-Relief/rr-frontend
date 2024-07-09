@@ -19,8 +19,7 @@ interface Props {
 function PetCards({ user, setTargetPetFunc, pets }: Props) {
 
   const style = {
-    mt: 2,
-    borderRadius: 3,
+    borderRadius: 1,
     boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.1)",
     padding: 2,
     display: "flex",
@@ -38,7 +37,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
   };
 
   return (
-    <Grid container spacing={2} direction={"row"}>
+    <Grid container spacing={1} direction={"row"}>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         {pets &&
           pets?.map((pet: any) => {
