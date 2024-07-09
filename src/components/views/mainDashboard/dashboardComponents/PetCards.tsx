@@ -25,11 +25,12 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
     display: "flex",
     flexDirection: "column",
     alignItems: "bottom",
-    color: "#900066",
-    backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-    "&:after": {
-      opacity: 0.5,
-    },
+    color: "#4e547d",
+    // backgroundColor: "#FEDBDB",
+    // backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+    // "&:after": {
+    //   opacity: 0.5,
+    // },
     "&:hover": {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",
@@ -68,7 +69,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
                         textAlign="center"
                         variant="h5"
                         fontWeight="bold"
-                        color="#900066"
+                        color="#4e547d"
                         sx={{ mt: "20%", marginRight: -25 }}
                       >
                         {pet.name}

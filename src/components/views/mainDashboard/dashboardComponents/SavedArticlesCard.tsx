@@ -73,18 +73,19 @@ function SavedArticlesCard({ savedArticles, handleSaves }: Props) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            color: "#900066",
+            color: "#4e547d",
             textAlign: "center",
-            backgroundImage:
-              "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-            "&:after": {
-              opacity: 0.5,
-            },
+            // backgroundColor: "#F5F4F6",
+            // backgroundImage:
+            //   "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
+            // "&:after": {
+            //   opacity: 0.5,
+            // },
           }}
         >
           <CardHeader
             sx={{
-              fontWeight: 800,
+              fontWeight: 400,
               textAlign: "center",
               mt: 2,
             }}

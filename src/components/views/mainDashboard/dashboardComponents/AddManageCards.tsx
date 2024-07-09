@@ -25,12 +25,9 @@ function DashboardManageAccount({ user }: Props) {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    color: "#900066",
+    color: "#ffffff",
     fontWeight: "bold",
-    backgroundImage: "linear-gradient(147deg, #fea2a25a 0%, #ffc4a44f 74%)",
-    "&:after": {
-      opacity: 0.5,
-    },
+    backgroundColor: "#5E6697",
     "&:hover": {
       boxShadow: "0px 5px 10px rgba(34, 35, 58, 0.2)",
       cursor: "pointer",

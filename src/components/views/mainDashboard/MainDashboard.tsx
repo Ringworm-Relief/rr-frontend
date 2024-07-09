@@ -30,7 +30,8 @@ function MainDashboard({
     <>
       {user.data.id ? (
         // <Grid padding="5%">
-          <Grid container spacing={2} zIndex={20} p={5} sx={{ md: 2 }} >
+          <Grid container spacing={2} zIndex={20} p={5} sx={{ mt: .05, backgroundColor: "#ECEDFF"
+        }} >
             <PetCards
               user={user}
               pets={pets}
