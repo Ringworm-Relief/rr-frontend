@@ -19,6 +19,7 @@ import { getSingleThread, postPost, deletePost } from "../../../../apiCalls/foru
 import { useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DOMPurify from "dompurify";
 
 interface Props {
   user: any;
@@ -48,6 +49,7 @@ export default function ForumThread({ user }: Props) {
       .then((data) => {
         setThread(data[0]);
         setPosts(data[0].posts);
+        console.log(data[0].root_content);
       })
       .catch((error) => {
         console.error("Error adding new thread:", error);
@@ -113,15 +115,22 @@ export default function ForumThread({ user }: Props) {
         console.error("Error adding new thread:", error);
       });
   };
+  const createMarkup = (content: string) => {
+    return {
+      __html: DOMPurify.sanitize(content),
+    };
+  };
 
   return (
     <Container>
       <Card sx={{ my: 3, position: "relative" }}>
         <CardContent>
           <Typography variant="h4">{thread.title}</Typography>
-          <Typography variant="h6" color="text.secondary">
-            {thread.root_content}
-          </Typography>
+          <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    dangerouslySetInnerHTML={createMarkup(thread.root_content)}
+                  />
           <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
             <AccountCircleIcon
               fontSize="large"

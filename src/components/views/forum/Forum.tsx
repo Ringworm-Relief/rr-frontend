@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import {
   Tabs,
   Tab,
@@ -75,6 +75,7 @@ export default function Forum({ user }: Props) {
     down_votes: 0,
   });
 
+  const quill = useRef<QuillEditor | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -197,6 +198,75 @@ export default function Forum({ user }: Props) {
     };
   };
 
+  const imageHandler = useCallback(() => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = () => {
+      const file = input.files ? input.files[0] : null;
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const imageUrl = reader.result;
+          console.log(reader)
+          if (quill.current) {
+            const quillEditor = quill.current.getEditor();
+            const range = quillEditor.getSelection(true);
+            quillEditor.insertEmbed(range.index, "image", imageUrl);
+            // quillEditor.formatText(0, 1, 'width', '100px'); //to limit the width
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline", "blockquote"],
+          [{ color: [] }],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image"],
+          ["clean"],
+        ],
+        handlers: {
+          image: imageHandler,
+        },
+      },
+      clipboard: {
+        matchVisual: true,
+      },
+
+    }),
+    [imageHandler]
+  );
+  
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "color",
+    "clean",
+  ];
+
   return (
     <Box sx={{ height: "150vh", backgroundColor: "#eeeeee" }}>
       <Container>
@@ -248,8 +318,11 @@ export default function Forum({ user }: Props) {
               <div className="wrapper">
                 <label className="label">Body</label>
                 <QuillEditor
+                  ref={(el) => (quill.current = el)}
                   className="editor"
                   theme="snow"
+                  formats={formats}
+                  modules={modules}
                   value={newThread.root_content}
                   onChange={(value) =>
                     setNewThread({ ...newThread, root_content: value })
@@ -389,7 +462,9 @@ export default function Forum({ user }: Props) {
                 >
                   <Box display="flex" flexDirection="row">
                     <ChatOutlinedIcon></ChatOutlinedIcon>
-                    <Typography sx={{ mr: 1 }}>{thread.posts.length}</Typography>
+                    <Typography sx={{ mr: 1 }}>
+                      {thread.posts.length}
+                    </Typography>
                     <ThumbUpAltIcon sx={{ mx: 0.5 }} />
                     <Typography sx={{ mr: 1 }}>{thread.up_votes}</Typography>
                     <ThumbDownAltIcon sx={{ ml: 0.5 }} />
