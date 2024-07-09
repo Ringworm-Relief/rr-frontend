@@ -108,7 +108,7 @@ export default function Forum({ user }: Props) {
         setThreadsGeneral(generalData);
         setThreadsCleaning(cleaningData);
         setThreadsTreatment(treatmentData);
-        setThreads(generalData.reverse());
+        setThreads(generalData);
       })
       .catch((error) => {
         console.error("Error fetching threads:", error);
