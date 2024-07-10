@@ -26,6 +26,7 @@ import {
   InputLabel,
   Collapse,
   Alert,
+  Divider,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
@@ -405,13 +406,13 @@ export default function Forum({ user }: Props) {
           </Box>
         </Modal>
       </Container>
-      <Grid container spacing={2} sx={{ px: 6 }}>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8} sx={{ mt: 4 }}>
-          <Card sx={{ mb: 2, height: 220, p: 2 }}>
+      <Grid container spacing={2} sx={{ px: "5%" }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} xl={8} sx={{ mt: 4 }} className="bottom">
+          <Card sx={{ mb: 1, height: 220, p: 2, overflowY: "scroll" }}>
             <Typography sx={{ my: 2 }} variant="h4">
               Community Forum
             </Typography>
-            <Typography color="#636363">
+            <Typography color="#636363" >
               Use this forum to connect with other pet parents going through the
               same experience. Find answers to your questions about cleaning,
               treatment, or general information around ringworm. Please be
@@ -463,7 +464,7 @@ export default function Forum({ user }: Props) {
                   </Box>
                 </Box>
                 <CardActionArea
-                  sx={{ height: 120, overflow: "hidden" }}
+                  sx={{ height: 110, overflow: "hidden", mt: 1 }}
                   onClick={() =>
                     navigate(`/threads/${thread.category}/${thread.id}`)
                   }
@@ -477,6 +478,7 @@ export default function Forum({ user }: Props) {
                     dangerouslySetInnerHTML={createMarkup(thread.root_content)}
                   />
                 </CardActionArea>
+                <Divider></Divider>
                 <Box
                   display="flex"
                   flexDirection="row"
@@ -512,9 +514,9 @@ export default function Forum({ user }: Props) {
             </Card>
           ))}
         </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4} sx={{ mt: 4 }}>
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4} sx={{ mt: 4 }} className="top">
           <Card
-            sx={{ width: "100%", mb: 5, p: 1 }}
+            sx={{ mb: 5, p: 1 }}
             onClick={() => setOpen(true)}
           >
             <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
@@ -525,7 +527,7 @@ export default function Forum({ user }: Props) {
             </CardActionArea>
           </Card>
           <Card
-            sx={{ width: "100%", mb: 5, p: 1 }}
+            sx={{ mb: 5, p: 1 }}
             onClick={() => navigate(`/threads/byme/${user.data.id}`)}
           >
             <CardActionArea
@@ -538,7 +540,7 @@ export default function Forum({ user }: Props) {
               <StarBorderIcon color="disabled"></StarBorderIcon>
             </CardActionArea>
           </Card>
-          <Card sx={{ width: "100%", mb: 5, p: 1 }}>
+          <Card sx={{ mb: 5, p: 1 }}>
             <CardActionArea
               sx={{ display: "flex", flexDirection: "row" }}
               disabled

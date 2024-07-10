@@ -5,7 +5,8 @@ function Education() {
   return (
     <Container
       sx={{
-        my: 14,
+        mt: 18,
+        mb: 100,
       }}
     >
       <EducationPageCard />

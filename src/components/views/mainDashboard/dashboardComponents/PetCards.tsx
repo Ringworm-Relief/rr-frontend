@@ -33,7 +33,7 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
 
   return (
     <Grid container spacing={1} direction={"row"}>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid item xs={12} sm={6} md={4} lg={3} ml={.5} mr={-.9}>
         {pets &&
           pets?.map((pet: any) => {
             return (
@@ -75,13 +75,13 @@ function PetCards({ user, setTargetPetFunc, pets }: Props) {
             );
           })}
       </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={3} ml={1} mt={1}>
+      <Grid item xs={12} sm={6} md={4} lg={3} ml={1.7} mt={1.5}>
         <Link
           id="add-pet-link"
           className="dash-links"
           to={`/user/${user.data.id}/addpet`}
         >
-          <Card sx={style}>
+          <Card sx={style} >
             <CardHeader
               title="Add Pet"
               titleTypographyProps={{

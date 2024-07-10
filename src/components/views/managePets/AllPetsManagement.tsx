@@ -51,11 +51,11 @@ export default function AllPetsManagement({ user, pets, getUserPets }: Props) {
           </Button>
         </Stack>
       )}
-      <Stack sx={{ justifyContent: "center", mt: 5, mb: 50 }}>
+      <Stack direction="column" sx={{ mt: 5, height: "80vh" }}>
         <Grid
           container
           spacing={4}
-          columns={3}
+          // columns={3}
           sx={{ justifyContent: "center" }}
         >
           {petCard}
