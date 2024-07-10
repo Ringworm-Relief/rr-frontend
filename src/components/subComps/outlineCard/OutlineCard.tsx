@@ -8,12 +8,15 @@ import {
   Box,
   Stack,
 } from "@mui/material";
+import { createTheme, ThemeProvider, responsiveFontSizes, } from '@mui/material/styles';
 import { motion } from "framer-motion";
 import { Service, services } from "../../../utils/interfaces";
 
 function OutlineCard() {
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
+
   return (
-    <div className="outline-card">
       <Box sx={{ backgroundColor: "#ecedff4b", padding: 5 }}>
         <Typography
           variant="h3"
@@ -28,9 +31,6 @@ function OutlineCard() {
         <Grid
           container
           justifyContent="center"
-          alignItems="center"
-          spacing={5}
-          columns={3}
           paddingY={15}
         >
           {services.map((service: Service) => {
@@ -99,13 +99,16 @@ function OutlineCard() {
                           },
                         }}
                       >
+                        <ThemeProvider theme={theme}>
                         <Typography
                           textAlign="center"
                           variant="h2"
+                          fontWeight={500}
                           sx={{ mt: 5 }}
                         >
                           {service.name}
                         </Typography>
+                        </ThemeProvider>
                       </CardMedia>
                       <CardContent>
                         <Typography
@@ -125,7 +128,6 @@ function OutlineCard() {
           })}
         </Grid>
       </Box>
-    </div>
   );
 }
 

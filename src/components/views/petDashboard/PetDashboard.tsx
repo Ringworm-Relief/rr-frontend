@@ -58,10 +58,6 @@ export default function PetDashboard({ pet }: Props) {
             display: "flex",
             alignItems: "center",
             marginBottom: 2,
-            // backgroundColor: "#5E6697",
-            // backgroundImage:
-            //   "linear-gradient(147deg, #ECEDFF 0%, #B48BCC 20%, #ECEDFF 94%)",
-            // "&:after": { opacity: 0.5 },
           }}
         >
           <Typography variant="h1" sx={{ fontSize: "50px", color: "#4e547d" }}>
