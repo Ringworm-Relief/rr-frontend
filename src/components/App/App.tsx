@@ -259,15 +259,11 @@ function App() {
         <Route path="/contact" element={<Contact/>}></Route>
         <Route path="/about" element={<About/>}></Route>
       </Routes>
-      {/* <div id="footer_wrapper">
-        <div id="footer_container"> */}
           <footer className="App_footer">
             <p>Licensing info Syncfusion</p>
             <Link to="/contact"><p>Contact us</p></Link>
             <Link to="/about"><p>About</p></Link>
           </footer>
-        {/* </div>
-      </div> */}
     </div>
   );
 }
