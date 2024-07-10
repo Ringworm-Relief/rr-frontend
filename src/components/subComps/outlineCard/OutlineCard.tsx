@@ -7,8 +7,10 @@ import {
   Grid,
   Box,
   Stack,
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
 } from "@mui/material";
-import { createTheme, ThemeProvider, responsiveFontSizes, } from '@mui/material/styles';
 import { motion } from "framer-motion";
 import { Service, services } from "../../../utils/interfaces";
 

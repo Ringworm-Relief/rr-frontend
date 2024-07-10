@@ -8,6 +8,9 @@ import {
   Grid,
   Box,
   Stack,
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider
 } from "@mui/material";
 import {
   EducationCategory,
@@ -15,10 +18,13 @@ import {
 } from "../../../utils/interfaces";
 
 function EducationPageCard() {
+
+  let h3Theme = createTheme();
+  h3Theme = responsiveFontSizes(h3Theme);
+
   return (
-    <div className="outline-card">
-      <Box sx={{ height: "80vh" }}>
-        <Grid container spacing={5}>
+      <Box sx={{ height: "100vh" }}>
+        <Grid container spacing={5} height={"100vh"}>
           {educationCategories.map((educationCategory: EducationCategory) => {
             return (
               <Grid item key={educationCategory.type} xs={12} sm={6} md={4}>
@@ -64,11 +70,11 @@ function EducationPageCard() {
                             backgroundImage:
                               "linear-gradient(147deg, #fe8a39 0%, #fd3838 74%)",
                             borderRadius: 10,
-                            // 16
                             opacity: 0.5,
                           },
                         }}
                       >
+                        <ThemeProvider theme={h3Theme}>
                         <Typography
                           textAlign="center"
                           variant="h3"
@@ -76,6 +82,7 @@ function EducationPageCard() {
                         >
                           {educationCategory.category}
                         </Typography>
+                        </ThemeProvider>
                       </CardMedia>
                       <CardContent>
                         <Typography
@@ -95,7 +102,6 @@ function EducationPageCard() {
           })}
         </Grid>
       </Box>
-    </div>
   );
 }
 

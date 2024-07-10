@@ -57,7 +57,7 @@
     /* min-height: 18vh; */
     display: flex;
     /* flex-direction: row; */
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-around;
     font-size: calc(10px + 1vmin);
     /* position: absolute; */
