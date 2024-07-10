@@ -528,7 +528,6 @@ export default function Forum({ user }: Props) {
           </Card>
           <Card
             sx={{ mb: 5, p: 1 }}
-            onClick={() => navigate(`/threads/byme/${user.data.id}`)}
           >
             <CardActionArea
               sx={{ display: "flex", flexDirection: "row" }}
