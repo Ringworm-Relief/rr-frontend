@@ -63,38 +63,45 @@ function CreateAccount() {
         .catch((error: any) => {
           console.log(error);
         });
-    }
-    else {
+    } else {
       setPasswordError(true);
     }
   };
   return (
-    <Container maxWidth="xs" sx={{height: "80vh"}}>
-      <Typography variant="h3" sx={{mt: 8}}>Create an account</Typography>
-      <Box component="form" sx={{ mt: 5}} onSubmit={handleCreateAccount}>
-          {error && <Typography variant="h5" sx={{ color: "#ef8e64" }}>{error}</Typography>}
-        <FormControl required sx={{ mt: 5 }}>
-          <InputLabel htmlFor="firstName">First Name</InputLabel>
-          <OutlinedInput
-            id="firstName"
-            type="firstName"
-            label="First Name"
-            name="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </FormControl>
-        <FormControl required sx={{ mt: 5 }}>
-          <InputLabel htmlFor="lastName">Last Name</InputLabel>
-          <OutlinedInput
-            id="lastName"
-            type="lastName"
-            label="Last Name"
-            name="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </FormControl>
+    <Container maxWidth="xs" sx={{ height: "120vh" }}>
+      <Typography variant="h3" sx={{ mt: 8 }}>
+        Create an account
+      </Typography>
+      <Box component="form" sx={{ mt: 5 }} onSubmit={handleCreateAccount}>
+        {error && (
+          <Typography variant="h5" sx={{ color: "#ef8e64" }}>
+            {error}
+          </Typography>
+        )}
+        <Stack direction="column">
+          <FormControl required sx={{ mt: 2 }}>
+            <InputLabel htmlFor="firstName">First Name</InputLabel>
+            <OutlinedInput
+              id="firstName"
+              type="firstName"
+              label="First Name"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </FormControl>
+          <FormControl required sx={{ mt: 5 }}>
+            <InputLabel htmlFor="lastName">Last Name</InputLabel>
+            <OutlinedInput
+              id="lastName"
+              type="lastName"
+              label="Last Name"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </FormControl>
+        </Stack>
         <Stack direction="column">
           <FormControl required sx={{ mt: 5 }}>
             <InputLabel htmlFor="email">Email</InputLabel>
@@ -108,7 +115,7 @@ function CreateAccount() {
             />
           </FormControl>
           <FormControl required error={passwordError} sx={{ mt: 5 }}>
-          <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               id="password"
               type={showPassword ? "text" : "password"}
@@ -131,7 +138,11 @@ function CreateAccount() {
                 </InputAdornment>
               }
             />
-            <FormHelperText>{passwordError ? 'Passwords do not match' : 'Must be at least 6 characters long'}</FormHelperText>
+            <FormHelperText>
+              {passwordError
+                ? "Passwords do not match"
+                : "Must be at least 6 characters long"}
+            </FormHelperText>
           </FormControl>
           <FormControl required error={passwordError} sx={{ mt: 5 }}>
             <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
@@ -157,7 +168,9 @@ function CreateAccount() {
                 </InputAdornment>
               }
             />
-            {passwordError && <FormHelperText>Passwords do not match</FormHelperText>}
+            {passwordError && (
+              <FormHelperText>Passwords do not match</FormHelperText>
+            )}
           </FormControl>
           <Button
             variant="contained"
@@ -166,7 +179,9 @@ function CreateAccount() {
           >
             Create Account
           </Button>
-          <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>Already have an account?</Typography>
+          <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>
+            Already have an account?
+          </Typography>
           <Button>
             <Link to="/account/signin">Click Here To Sign In</Link>
           </Button>
