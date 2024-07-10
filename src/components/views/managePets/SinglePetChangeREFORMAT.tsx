@@ -17,6 +17,9 @@ import {
   Stack,
   Grid,
   Modal,
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -40,6 +43,9 @@ import {
 interface Props {
   pet: any;
 }
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 const style = {
   position: "absolute" as "absolute",
@@ -206,7 +212,7 @@ export const SinglePetChange = ({ pet }: Props) => {
             We are hoping this means {pet.name} is ringworm-free!
           </Typography>
 
-          <Stack direction="row" sx={{ mt: 5 }}>
+          <Stack direction="row" sx={{ mt: 5, height: "100vh", width: "100%" }}>
             <Button variant="outlined" onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
@@ -220,8 +226,8 @@ export const SinglePetChange = ({ pet }: Props) => {
           </Stack>
         </Box>
       </Modal>
-      <Grid item>
-        <Accordion sx={{ marginRight: 3 }}>
+      <Grid item lg={8} sm={8} xs={12}>
+        <Accordion>
           <AccordionSummary
             expandIcon={<ArrowDropDownIcon />}
             aria-controls={`${pet.name}-content`}
@@ -244,13 +250,13 @@ export const SinglePetChange = ({ pet }: Props) => {
                 }}
               >
                 <img src={paw} id="paw-svg" alt="Outline of a dog paw" />
-                <Typography sx={{ flexShrink: 0 }}>{pet.name}</Typography>
+                  <Typography >{pet.name}</Typography>
               </Box>
-              <Typography sx={{ color: "text.secondary" }}>
-                Edit pet information
-              </Typography>
+                <Typography  sx={{ color: "text.secondary", flexShrink: 0 }}>
+                  Click to edit
+                </Typography>
               <Button
-                sx={{ color: "#e00000" }}
+                sx={{ color: "#e00000", flexShrink: 2 }}
                 startIcon={<DeleteIcon />}
                 onClick={() => {
                   setIsOpen(true);
@@ -260,6 +266,7 @@ export const SinglePetChange = ({ pet }: Props) => {
               </Button>
             </Box>
           </AccordionSummary>
+
           <AccordionDetails>
             <Container maxWidth="sm">
               <Box
