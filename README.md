@@ -36,6 +36,7 @@
 - Select `a test suite` to run all tests related to that suite
 ## Future Features/Improvements
 - Google OAuth2.0 for a more secure login
+- Currently integrating DataDog
 - Adding data visualization to the dashboard. Eg: treatment progress based on medication application
 - Allow users to upload a profile picture and add a pet profile picture
 - Auto-create calendar events for medications based off of frequency, including params in the calendar to select what type of medication.
