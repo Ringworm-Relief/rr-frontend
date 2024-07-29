@@ -29,6 +29,7 @@ import ForumCategory from "../views/forum/forumComponents/ForumUser";
 import ForumThread from "../views/forum/forumComponents/ForumThread";
 import Contact from "../views/contact/Contact";
 import About from "../views/about/About";
+import { Pet, PetJSON, User } from "../../utils/interfaces";
 
 
 function App() {
@@ -43,10 +44,10 @@ function App() {
     localStorage.getItem("TARGETPET") || "[]"
   );
 
-  const [user, setUser] = useState<any>(activeUser); //Holds the current user
+  const [user, setUser] = useState<User>(activeUser); //Holds the current user
   const [savedArticles, setSavedArticles] = useState<string[]>(savedArts);
-  const [pets, setPets] = useState<any[]>(PetsStorage); //Holds the current user's pets
-  const [targetPet, setTargetPet] = useState<any>(singlePetStorage); //Holds the pet that is currently being viewed
+  const [pets, setPets] = useState<Pet[]>(PetsStorage); //Holds the current user's pets
+  const [targetPet, setTargetPet] = useState<Pet>(singlePetStorage); //Holds the pet that is currently being viewed
   const [pageRender, setPageRender] = useState<number>(0);
   const navigate = useNavigate();
 
@@ -68,7 +69,7 @@ function App() {
   }, [savedArticles]);
 
 
-  const setLoggedInUser = (user: any) => {
+  const setLoggedInUser = (user: User) => {
     setPageRender(1);
     setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     navigate(`/user/${user.data.id}/dashboard`);
@@ -82,15 +83,17 @@ function App() {
   const handleSignOut = () => {
     sessionStorage.removeItem("currentUser");
     destroyToken();
-    setUser(false);
+    setUser(JSON.parse(sessionStorage.getItem("currentUser") || "false"));
     navigate("/");
   };
 
   const getUserPets = () => {
     if (user.data.id) {
-      fetchPets(user.data.id).then((data: any) => {
+      fetchPets(user.data.id).then((data: PetJSON) => {
         if (data && data.data && data.data.pets) {
           // setPets(data.data.pets);
+          console.log(data)
+          console.log(data.data.pets)
           localStorage.removeItem("PETS");
           localStorage.setItem("PETS", JSON.stringify(data.data.pets));
           const PetsStorage = JSON.parse(localStorage.getItem("PETS") || "[]");
@@ -112,7 +115,7 @@ function App() {
     });
   };
 
-  const setTargetPetFunc = (pet: any): void => {
+  const setTargetPetFunc = (pet: Pet): void => {
     localStorage.removeItem("TARGETPET");
     localStorage.setItem("TARGETPET", JSON.stringify(pet));
     const petStorage = JSON.parse(localStorage.getItem("TARGETPET") || "[]");

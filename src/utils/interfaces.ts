@@ -125,6 +125,13 @@ export type Pet = {
   medications: Medication[];
   ringworm: Ringworm;
 };
+
+export type PetJSON = {
+  data: {
+    pets: Pet[];
+    user_id: number;
+  };
+};
 export interface ArticleAttributes {
   title: string;
   tagline: string;
